@@ -25,9 +25,7 @@
   --ease:cubic-bezier(.18,.78,.18,1);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
   scroll-behavior:smooth;
@@ -43,16 +41,8 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-a{
-  color:inherit;
-}
-
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
+a{color:inherit}
+button,input,textarea,select{font:inherit}
 
 img{
   display:block;
@@ -67,10 +57,7 @@ img{
 }
 
 .wrap{
-  width:min(
-    var(--max),
-    calc(100% - var(--g)*2)
-  );
+  width:min(var(--max),calc(100% - var(--g)*2));
   margin:auto;
 }
 
@@ -81,9 +68,7 @@ img{
   font-weight:700;
 }
 
-.muted{
-  color:var(--muted);
-}
+.muted{color:var(--muted)}
 
 /* HEADER */
 
@@ -109,9 +94,7 @@ header{
   text-decoration:none;
 }
 
-.brand span{
-  font-weight:400;
-}
+.brand span{font-weight:400}
 
 .navlinks{
   display:flex;
@@ -224,10 +207,7 @@ header{
 }
 
 .hero-inner{
-  width:min(
-    var(--max),
-    calc(100% - var(--g)*2)
-  );
+  width:min(var(--max),calc(100% - var(--g)*2));
   min-height:100svh;
   margin:auto;
   position:relative;
@@ -239,12 +219,7 @@ header{
 }
 
 .hero-main{
-  padding-top:
-    clamp(
-      94px,
-      11vw,
-      160px
-    );
+  padding-top:clamp(94px,11vw,160px);
   max-width:980px;
 }
 
@@ -332,9 +307,7 @@ header{
   grid-template-columns:1fr auto;
   gap:40px;
   align-items:end;
-  padding:
-    24px 0
-    max(26px,env(safe-area-inset-bottom));
+  padding:24px 0 max(26px,env(safe-area-inset-bottom));
   border-top:1px solid rgba(255,255,255,.28);
 }
 
@@ -646,7 +619,7 @@ header{
   margin-top:8px;
 }
 
-/* PRODUCT */
+/* PRODUCT MAP */
 
 .product{
   padding:120px 0;
@@ -835,55 +808,303 @@ header{
 /* OFFER */
 
 .offer{
-  padding:120px 0;
-  background:var(--wine);
-  color:#fff;
+  padding:clamp(90px,10vw,150px) 0;
+  background:var(--paper);
+  color:var(--ink);
 }
 
-.offer-head{
+.offer-intro{
   display:grid;
-  grid-template-columns:.65fr 1.35fr;
+  grid-template-columns:.58fr 1.42fr;
   gap:70px;
-  margin-bottom:48px;
+  align-items:start;
+  margin-bottom:64px;
 }
 
-.offer-head h2{
+.offer-intro h2{
+  margin:0;
   font-family:Georgia,"Times New Roman",serif;
   font-size:clamp(54px,7vw,104px);
-  font-weight:400;
   line-height:.9;
   letter-spacing:-.065em;
-  margin:0;
+  font-weight:400;
 }
 
-.offer-row{
+.offer-intro h2 em{
+  color:var(--wine);
+  font-style:italic;
+}
+
+.offer-intro-copy{
+  max-width:600px;
+  margin-top:28px;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.65;
+}
+
+.products-grid{
   display:grid;
-  grid-template-columns:1.2fr .85fr .45fr;
-  gap:24px;
-  align-items:center;
-  padding:30px 0;
-  border-top:1px solid rgba(255,255,255,.22);
+  grid-template-columns:.88fr 1.22fr .95fr;
+  align-items:stretch;
+  gap:14px;
 }
 
-.offer-row:last-child{
-  border-bottom:1px solid rgba(255,255,255,.22);
+.product-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-height:670px;
+  padding:30px;
+  border:1px solid var(--line);
+  background:#fff;
+  overflow:hidden;
 }
 
-.offer-name{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(34px,4.5vw,62px);
+.product-card.dark{
+  background:#161414;
+  color:#fff;
+  border-color:#161414;
 }
 
-.offer-desc{
-  font-size:14px;
-  line-height:1.55;
+.product-card.featured{
+  background:var(--wine);
+  color:#fff;
+  border-color:var(--wine);
+  transform:translateY(-18px);
+  min-height:706px;
+}
+
+.product-card.featured:before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:5px;
+  background:#fff;
+}
+
+.product-top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+  margin-bottom:42px;
+}
+
+.product-label{
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.featured .product-label{
   color:rgba(255,255,255,.64);
 }
 
-.offer-price{
-  font-size:clamp(32px,4vw,56px);
+.dark .product-label{
+  color:rgba(255,255,255,.48);
+}
+
+.product-badge{
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.36);
+  font-size:9px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.product-name{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(34px,3.7vw,56px);
+  line-height:.94;
+  letter-spacing:-.05em;
+  font-weight:400;
+}
+
+.product-price{
+  margin-top:30px;
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+}
+
+.price-main{
+  font-size:clamp(52px,6vw,82px);
+  line-height:.85;
+  letter-spacing:-.07em;
   font-weight:700;
-  text-align:right;
+}
+
+.price-small{
+  font-size:12px;
+  padding-bottom:7px;
+  color:var(--muted);
+}
+
+.featured .price-small,
+.dark .price-small{
+  color:rgba(255,255,255,.56);
+}
+
+.custom-price{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(38px,4vw,56px);
+  line-height:.95;
+  letter-spacing:-.04em;
+  font-weight:400;
+}
+
+.product-description{
+  margin:28px 0 0;
+  font-size:14px;
+  line-height:1.6;
+  color:var(--muted);
+}
+
+.featured .product-description,
+.dark .product-description{
+  color:rgba(255,255,255,.66);
+}
+
+.product-divider{
+  height:1px;
+  width:100%;
+  background:var(--line);
+  margin:30px 0 24px;
+}
+
+.featured .product-divider,
+.dark .product-divider{
+  background:rgba(255,255,255,.20);
+}
+
+.includes-title{
+  margin-bottom:14px;
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+
+.product-includes{
+  display:grid;
+  gap:13px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.product-includes li{
+  position:relative;
+  padding-left:18px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.product-includes li:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.55em;
+  width:6px;
+  height:6px;
+  background:var(--wine);
+}
+
+.featured .product-includes li:before{
+  background:#fff;
+}
+
+.dark .product-includes li:before{
+  background:#b98c98;
+}
+
+.value-strip{
+  margin-top:24px;
+  padding:16px 0;
+  border-top:1px solid rgba(255,255,255,.22);
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+
+.value-strip strong{
+  display:block;
+  font-size:14px;
+}
+
+.value-strip span{
+  display:block;
+  margin-top:5px;
+  font-size:11px;
+  color:rgba(255,255,255,.56);
+}
+
+.guarantee{
+  margin-top:20px;
+  padding:15px;
+  border:1px solid rgba(255,255,255,.28);
+  font-size:12px;
+  line-height:1.5;
+}
+
+.guarantee strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.product-action{
+  margin-top:auto;
+  padding-top:34px;
+}
+
+.product-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:52px;
+  text-decoration:none;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  transition:
+    transform .25s var(--ease),
+    background .25s ease;
+}
+
+.product-button:hover{
+  transform:translateY(-2px);
+}
+
+.featured .product-button{
+  background:#fff;
+  color:var(--wine);
+}
+
+.featured .product-button:hover{
+  background:#eee7e2;
+}
+
+.dark .product-button{
+  background:#fff;
+  color:#111;
+}
+
+.product-footnote{
+  text-align:center;
+  margin-top:11px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.featured .product-footnote,
+.dark .product-footnote{
+  color:rgba(255,255,255,.42);
 }
 
 /* CONTACT */
@@ -1015,6 +1236,8 @@ footer{
   }
 }
 
+/* TABLET */
+
 @media(max-width:980px){
 
   header{
@@ -1044,7 +1267,7 @@ footer{
   .product-head,
   .sheet,
   .ai-grid,
-  .offer-head,
+  .offer-intro,
   .contact-grid{
     grid-template-columns:1fr;
   }
@@ -1054,7 +1277,7 @@ footer{
   .case-grid,
   .product-head,
   .ai-grid,
-  .offer-head,
+  .offer-intro,
   .contact-grid{
     gap:38px;
   }
@@ -1067,7 +1290,23 @@ footer{
   .case-photo{
     height:580px;
   }
+
+  .products-grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .product-card{
+    min-height:auto;
+  }
+
+  .product-card.featured{
+    transform:none;
+    min-height:auto;
+  }
 }
+
+/* MOBILE */
 
 @media(max-width:640px){
 
@@ -1276,12 +1515,46 @@ footer{
     border-bottom:1px solid var(--line);
   }
 
-  .offer-row{
-    grid-template-columns:1fr;
+  .offer-intro{
+    margin-bottom:38px;
   }
 
-  .offer-price{
-    text-align:left;
+  .offer-intro h2{
+    font-size:clamp(46px,13vw,64px);
+  }
+
+  .products-grid{
+    display:flex;
+    overflow-x:auto;
+    gap:12px;
+    width:calc(100% + var(--g));
+    padding-right:var(--g);
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+  }
+
+  .products-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  .product-card{
+    flex:0 0 min(86vw,370px);
+    min-height:650px;
+    scroll-snap-align:start;
+    padding:24px;
+  }
+
+  .product-card.featured{
+    min-height:650px;
+  }
+
+  .product-name{
+    font-size:clamp(38px,11vw,50px);
+  }
+
+  .price-main{
+    font-size:66px;
   }
 
   .form-row{
@@ -1331,7 +1604,6 @@ footer{
 <body>
 
 <header>
-
   <div class="wrap nav">
 
     <a class="brand" href="#top">
@@ -1343,6 +1615,7 @@ footer{
       <a href="#method">Metoda</a>
       <a href="#map">Mapa</a>
       <a href="#ai">AI Check</a>
+      <a href="#oferta">Oferta</a>
       <a href="#contact">Kontakt</a>
     </nav>
 
@@ -1353,7 +1626,6 @@ footer{
     </div>
 
   </div>
-
 </header>
 
 <main id="top">
@@ -1398,17 +1670,11 @@ footer{
 
       <div class="hero-actions">
 
-        <a
-          class="primary"
-          href="#contact"
-        >
+        <a class="primary" href="#contact">
           Zacznij od Mini Mapy
         </a>
 
-        <a
-          class="secondary"
-          href="#method"
-        >
+        <a class="secondary" href="#method">
           Zobacz, jak diagnozujemy
         </a>
 
@@ -1456,10 +1722,7 @@ footer{
 
 <!-- WHY DIGITALMAP -->
 
-<section
-  class="statement"
-  id="about"
->
+<section class="statement" id="about">
 
   <div class="wrap statement-grid">
 
@@ -1473,9 +1736,7 @@ footer{
         Firmy nie potrzebują
         więcej marketingu.
         Potrzebują
-        <em>
-          lepszej decyzji.
-        </em>
+        <em>lepszej decyzji.</em>
       </h2>
 
       <div class="statement-copy">
@@ -1504,7 +1765,7 @@ footer{
 
 </section>
 
-<!-- PHOTO 1 — STAYS UP HERE -->
+<!-- PHOTO 1 -->
 
 <section class="editorial-photo">
 
@@ -1536,19 +1797,13 @@ footer{
 
 <!-- METHOD -->
 
-<section
-  class="method"
-  id="method"
->
+<section class="method" id="method">
 
   <div class="wrap">
 
     <div class="method-head">
 
-      <div
-        class="kicker"
-        style="color:#aaa"
-      >
+      <div class="kicker" style="color:#aaa">
         Metoda
       </div>
 
@@ -1562,89 +1817,33 @@ footer{
     <div class="method-list">
 
       <div class="method-row">
-
-        <div class="no">
-          01
-        </div>
-
-        <h3>
-          Widoczność
-        </h3>
-
-        <p>
-          Czy klient w ogóle
-          do Ciebie trafia?
-        </p>
-
+        <div class="no">01</div>
+        <h3>Widoczność</h3>
+        <p>Czy klient w ogóle do Ciebie trafia?</p>
       </div>
 
       <div class="method-row">
-
-        <div class="no">
-          02
-        </div>
-
-        <h3>
-          Oferta
-        </h3>
-
-        <p>
-          Czy w kilka sekund wiadomo,
-          dlaczego właśnie Ty?
-        </p>
-
+        <div class="no">02</div>
+        <h3>Oferta</h3>
+        <p>Czy w kilka sekund wiadomo, dlaczego właśnie Ty?</p>
       </div>
 
       <div class="method-row">
-
-        <div class="no">
-          03
-        </div>
-
-        <h3>
-          Zaufanie
-        </h3>
-
-        <p>
-          Czy klient znalazł
-          wystarczający powód,
-          żeby Ci zaufać?
-        </p>
-
+        <div class="no">03</div>
+        <h3>Zaufanie</h3>
+        <p>Czy klient znalazł wystarczający powód, żeby Ci zaufać?</p>
       </div>
 
       <div class="method-row">
-
-        <div class="no">
-          04
-        </div>
-
-        <h3>
-          Konwersja
-        </h3>
-
-        <p>
-          Czy klient wie,
-          co ma zrobić dalej?
-        </p>
-
+        <div class="no">04</div>
+        <h3>Konwersja</h3>
+        <p>Czy klient wie, co ma zrobić dalej?</p>
       </div>
 
       <div class="method-row">
-
-        <div class="no">
-          05
-        </div>
-
-        <h3>
-          Sprzedaż
-        </h3>
-
-        <p>
-          Czy marketing faktycznie
-          zamienia się w przychód?
-        </p>
-
+        <div class="no">05</div>
+        <h3>Sprzedaż</h3>
+        <p>Czy marketing faktycznie zamienia się w przychód?</p>
       </div>
 
     </div>
@@ -1687,15 +1886,8 @@ footer{
       >
 
       <div class="case-stat">
-
-        <small>
-          Po zmianie priorytetu
-        </small>
-
-        <strong>
-          +160%
-        </strong>
-
+        <small>Po zmianie priorytetu</small>
+        <strong>+160%</strong>
       </div>
 
     </div>
@@ -1704,7 +1896,7 @@ footer{
 
 </section>
 
-<!-- PHOTO 2 — BEFORE PRODUCT -->
+<!-- PHOTO 2 -->
 
 <section class="editorial-photo dark-single">
 
@@ -1733,12 +1925,9 @@ footer{
 
 </section>
 
-<!-- PRODUCT -->
+<!-- PRODUCT MAP -->
 
-<section
-  class="product"
-  id="map"
->
+<section class="product" id="map">
 
   <div class="wrap">
 
@@ -1756,8 +1945,7 @@ footer{
         </h2>
 
         <p>
-          Mapa skraca drogę
-          od chaosu do decyzji:
+          Mapa skraca drogę od chaosu do decyzji:
           co jest problemem,
           co robimy najpierw,
           czego nie ruszamy
@@ -1773,7 +1961,6 @@ footer{
       <div class="sheet-left">
 
         <div>
-
           <div class="kicker muted">
             Clarity score
           </div>
@@ -1781,7 +1968,6 @@ footer{
           <div class="score">
             62
           </div>
-
         </div>
 
         <p>
@@ -1796,84 +1982,44 @@ footer{
       <div class="sheet-right">
 
         <div class="sheet-top">
-
-          <span>
-            DigitalMap /
-            strategic diagnosis
-          </span>
-
-          <span>
-            Priority view
-          </span>
-
+          <span>DigitalMap / strategic diagnosis</span>
+          <span>Priority view</span>
         </div>
 
         <div class="decision">
-
-          <b>
-            PRIORYTET
-          </b>
-
+          <b>PRIORYTET</b>
           <strong>
             Napraw warstwę zaufania
             przed zwiększeniem ruchu.
           </strong>
-
-          <span>
-            teraz
-          </span>
-
+          <span>teraz</span>
         </div>
 
         <div class="decision">
-
-          <b>
-            NASTĘPNY RUCH
-          </b>
-
+          <b>NASTĘPNY RUCH</b>
           <strong>
             Uprość ofertę
             i główną ścieżkę kontaktu.
           </strong>
-
-          <span>
-            potem
-          </span>
-
+          <span>potem</span>
         </div>
 
         <div class="decision">
-
-          <b>
-            NIE TERAZ
-          </b>
-
+          <b>NIE TERAZ</b>
           <strong>
             Nie zwiększaj
             budżetu reklamowego.
           </strong>
-
-          <span>
-            wstrzymaj
-          </span>
-
+          <span>wstrzymaj</span>
         </div>
 
         <div class="decision">
-
-          <b>
-            POMIAR
-          </b>
-
+          <b>POMIAR</b>
           <strong>
             Śledź jakość zapytań,
             nie tylko ruch.
           </strong>
-
-          <span>
-            success metric
-          </span>
-
+          <span>success metric</span>
         </div>
 
       </div>
@@ -1886,10 +2032,7 @@ footer{
 
 <!-- AI CHECK -->
 
-<section
-  class="ai"
-  id="ai"
->
+<section class="ai" id="ai">
 
   <div class="wrap ai-grid">
 
@@ -1901,9 +2044,7 @@ footer{
 
       <h2>
         Jak
-        <em>
-          AI widzi
-        </em>
+        <em>AI widzi</em>
         Twoją firmę?
       </h2>
 
@@ -1961,62 +2102,332 @@ footer{
 
 <!-- OFFER -->
 
-<section class="offer">
+<section class="offer" id="oferta">
 
   <div class="wrap">
 
-    <div class="offer-head">
+    <div class="offer-intro">
 
-      <div
-        class="kicker"
-        style="color:#d4a9b5"
-      >
+      <div class="kicker muted">
         Oferta
       </div>
 
-      <h2>
-        Dwie Mapy.<br>
-        Jeden cel.
-      </h2>
+      <div>
 
-    </div>
+        <h2>
+          Zacznij od diagnozy.
+          <em>Potem zdecyduj.</em>
+        </h2>
 
-    <div class="offer-row">
+        <p class="offer-intro-copy">
+          Nie musisz od razu kupować SEO,
+          reklam czy nowej strony.
+          Najpierw zobacz,
+          gdzie naprawdę tracisz klientów
+          i co ma sens zrobić jako pierwsze.
+        </p>
 
-      <div class="offer-name">
-        Mapa Start
-      </div>
-
-      <div class="offer-desc">
-        Szybka diagnoza,
-        główny problem,
-        priorytet
-        i konkretny plan działania.
-      </div>
-
-      <div class="offer-price">
-        249 PLN
       </div>
 
     </div>
 
-    <div class="offer-row">
+    <div class="products-grid">
 
-      <div class="offer-name">
-        Mapa Strategiczna
-      </div>
+      <!-- MINI MAPA -->
 
-      <div class="offer-desc">
-        Pełna diagnoza
-        ścieżki klienta,
-        konkurencji,
-        konwersji
-        i decyzji wzrostowych.
-      </div>
+      <article class="product-card">
 
-      <div class="offer-price">
-        499 PLN
-      </div>
+        <div class="product-top">
+
+          <div class="product-label">
+            Punkt startowy
+          </div>
+
+        </div>
+
+        <h3 class="product-name">
+          Mini-Mapa
+          Widoczności
+        </h3>
+
+        <div class="product-price">
+
+          <div class="price-main">
+            0
+          </div>
+
+          <div class="price-small">
+            PLN
+          </div>
+
+        </div>
+
+        <p class="product-description">
+          Szybka pierwsza diagnoza,
+          która pokaże,
+          czy w Twojej obecności online
+          są oczywiste blokady
+          warte dalszej analizy.
+        </p>
+
+        <div class="product-divider"></div>
+
+        <div class="includes-title">
+          Dostajesz
+        </div>
+
+        <ul class="product-includes">
+
+          <li>
+            Szybką diagnozę obecnej widoczności
+          </li>
+
+          <li>
+            Najważniejsze błędy i obserwacje
+          </li>
+
+          <li>
+            Pierwsze rekomendacje,
+            od czego zacząć
+          </li>
+
+          <li>
+            Odpowiedź w ciągu 24 godzin
+          </li>
+
+          <li>
+            Zero zobowiązań
+          </li>
+
+        </ul>
+
+        <div class="product-action">
+
+          <a href="#contact" class="product-button">
+            Sprawdź swoją firmę
+          </a>
+
+          <div class="product-footnote">
+            Bezpłatnie · około 60 sekund formularza
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- MAPA -->
+
+      <article class="product-card featured">
+
+        <div class="product-top">
+
+          <div class="product-label">
+            Pełna diagnoza
+          </div>
+
+          <div class="product-badge">
+            Najczęściej wybierane
+          </div>
+
+        </div>
+
+        <h3 class="product-name">
+          Mapa Widoczności
+          + Plan Wdrożenia
+        </h3>
+
+        <div class="product-price">
+
+          <div class="price-main">
+            299
+          </div>
+
+          <div class="price-small">
+            PLN
+          </div>
+
+        </div>
+
+        <p class="product-description">
+          Pełny obraz tego,
+          gdzie tracisz klientów,
+          co ma największy potencjał
+          i które działania
+          powinny wejść jako pierwsze.
+        </p>
+
+        <div class="product-divider"></div>
+
+        <div class="includes-title">
+          W cenie
+        </div>
+
+        <ul class="product-includes">
+
+          <li>
+            Audyt strony internetowej
+          </li>
+
+          <li>
+            Audyt SEO i widoczności w Google
+          </li>
+
+          <li>
+            Audyt widoczności
+            w ChatGPT, Gemini i Claude
+          </li>
+
+          <li>
+            Audyt Google Moja Firma i opinii
+          </li>
+
+          <li>
+            Analiza social media i reklam
+          </li>
+
+          <li>
+            Lista problemów według priorytetu
+          </li>
+
+          <li>
+            Konkretne rekomendacje i plan działania
+          </li>
+
+          <li>
+            3 wdrożenia wykonane w Twoim imieniu
+          </li>
+
+        </ul>
+
+        <div class="value-strip">
+
+          <strong>
+            3 wdrożenia w cenie
+          </strong>
+
+          <span>
+            wartość do około 500 PLN
+          </span>
+
+        </div>
+
+        <div class="guarantee">
+
+          <strong>
+            Gwarancja konkretu
+          </strong>
+
+          Jeśli nie znajdziemy
+          minimum 10 konkretnych błędów,
+          nie płacisz.
+
+        </div>
+
+        <div class="product-action">
+
+          <a href="#contact" class="product-button">
+            Zamów Mapę i Plan
+          </a>
+
+          <div class="product-footnote">
+            Pełna diagnoza + priorytety + wdrożenie
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- CONTINUOUS -->
+
+      <article class="product-card dark">
+
+        <div class="product-top">
+
+          <div class="product-label">
+            Stała współpraca
+          </div>
+
+        </div>
+
+        <h3 class="product-name">
+          Nawigacja na Żywo
+          i Skalowanie
+        </h3>
+
+        <div class="product-price">
+
+          <div class="custom-price">
+            Wycena indywidualna
+          </div>
+
+        </div>
+
+        <p class="product-description">
+          Dla firm,
+          które nie chcą tylko mapy,
+          ale partnera,
+          który pomaga wybierać
+          i wdrażać kolejne ruchy.
+        </p>
+
+        <div class="product-divider"></div>
+
+        <div class="includes-title">
+          Współpraca obejmuje
+        </div>
+
+        <ul class="product-includes">
+
+          <li>
+            Dedykowane wsparcie w rozwoju firmy
+          </li>
+
+          <li>
+            Pracę nad wszystkimi
+            6 warstwami widoczności
+          </li>
+
+          <li>
+            SEO,
+            konwersję strony,
+            social media,
+            reklamy i AI
+          </li>
+
+          <li>
+            Wspólne ustalanie
+            kolejnych priorytetów
+          </li>
+
+          <li>
+            Elastyczne wdrożenia
+            zależne od sytuacji biznesu
+          </li>
+
+          <li>
+            Bezpośredni kontakt z zespołem
+          </li>
+
+          <li>
+            Budżety reklamowe
+            pozostają pod Twoją kontrolą
+          </li>
+
+        </ul>
+
+        <div class="product-action">
+
+          <a href="#contact" class="product-button">
+            Porozmawiajmy o współpracy
+          </a>
+
+          <div class="product-footnote">
+            Zakres dopasowany do sytuacji firmy
+          </div>
+
+        </div>
+
+      </article>
 
     </div>
 
@@ -2026,19 +2437,13 @@ footer{
 
 <!-- CONTACT -->
 
-<section
-  class="contact"
-  id="contact"
->
+<section class="contact" id="contact">
 
   <div class="wrap contact-grid">
 
     <div>
 
-      <div
-        class="kicker"
-        style="color:#aaa"
-      >
+      <div class="kicker" style="color:#aaa">
         Kontakt
       </div>
 
@@ -2070,28 +2475,13 @@ footer{
       <div class="form-row">
 
         <div class="field">
-
-          <label>
-            Imię
-          </label>
-
-          <input
-            required
-            placeholder="Twoje imię"
-          >
-
+          <label>Imię</label>
+          <input required placeholder="Twoje imię">
         </div>
 
         <div class="field">
-
-          <label>
-            Firma
-          </label>
-
-          <input
-            placeholder="Nazwa firmy"
-          >
-
+          <label>Firma</label>
+          <input placeholder="Nazwa firmy">
         </div>
 
       </div>
@@ -2099,29 +2489,17 @@ footer{
       <div class="form-row">
 
         <div class="field">
-
-          <label>
-            E-mail
-          </label>
-
+          <label>E-mail</label>
           <input
             required
             type="email"
             placeholder="name@firma.pl"
           >
-
         </div>
 
         <div class="field">
-
-          <label>
-            Strona
-          </label>
-
-          <input
-            placeholder="twojafirma.pl"
-          >
-
+          <label>Strona</label>
+          <input placeholder="twojafirma.pl">
         </div>
 
       </div>
@@ -2135,23 +2513,10 @@ footer{
           </label>
 
           <select>
-
-            <option>
-              Wybierz
-            </option>
-
-            <option>
-              Do 5 000 PLN / mies.
-            </option>
-
-            <option>
-              5 000–20 000 PLN / mies.
-            </option>
-
-            <option>
-              20 000+ PLN / mies.
-            </option>
-
+            <option>Wybierz</option>
+            <option>Do 5 000 PLN / mies.</option>
+            <option>5 000–20 000 PLN / mies.</option>
+            <option>20 000+ PLN / mies.</option>
           </select>
 
         </div>
@@ -2209,8 +2574,6 @@ footer{
 
 </main>
 
-<!-- MOBILE BOTTOM CTA -->
-
 <div class="mobile-rail">
 
   <a href="#contact">
@@ -2265,12 +2628,10 @@ footer{
         'r3'
       ].forEach(
         id => {
-
           document
           .getElementById(id)
           .textContent =
           'analizuję…';
-
         }
       );
 
