@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>DigitalMap — Strategic Growth Diagnosis</title>
-<meta name="description" content="DigitalMap diagnozuje, co blokuje wzrost firmy, zanim wydasz więcej na marketing.">
+
+<meta
+  name="description"
+  content="DigitalMap diagnozuje, co blokuje wzrost firmy, zanim wydasz więcej na marketing."
+>
 
 <style>
 :root{
@@ -62,7 +67,10 @@ img{
 }
 
 .wrap{
-  width:min(var(--max),calc(100% - var(--g)*2));
+  width:min(
+    var(--max),
+    calc(100% - var(--g)*2)
+  );
   margin:auto;
 }
 
@@ -84,19 +92,18 @@ img{
 /* HEADER */
 
 header{
-  position:fixed;
+  position:absolute;
   inset:0 0 auto 0;
-  z-index:50;
-  background:rgba(244,240,234,.9);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  z-index:80;
+  color:#fff;
 }
 
 .nav{
-  height:72px;
+  height:78px;
   display:grid;
   grid-template-columns:1fr auto 1fr;
   align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.28);
 }
 
 .brand{
@@ -148,64 +155,158 @@ header{
 /* HERO */
 
 .hero{
-  padding-top:72px;
   min-height:100svh;
-  display:grid;
-  align-items:stretch;
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  background:#171313;
 }
 
-.hero-grid{
-  display:grid;
-  grid-template-columns:1.03fr .97fr;
-  min-height:calc(100svh - 72px);
+/* FULL-BLEED HERO PHOTO, INCLUDING HEADER */
+
+.hero-photo-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
 }
 
-.hero-copy{
-  padding:clamp(70px,8vw,120px) 7vw 48px 0;
+.hero-photo-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+  transform:scale(1.025);
+  filter:
+    saturate(.72)
+    contrast(1.04)
+    brightness(.78);
+  transition:
+    transform 1.2s var(--ease),
+    filter 1.2s var(--ease);
+}
+
+.hero:hover .hero-photo-bg img{
+  transform:scale(1.055);
+  filter:
+    saturate(.8)
+    contrast(1.03)
+    brightness(.82);
+}
+
+/* sophisticated darkening for readable type */
+
+.hero-photo-bg:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16,9,11,.88) 0%,
+      rgba(16,9,11,.76) 34%,
+      rgba(16,9,11,.42) 62%,
+      rgba(16,9,11,.12) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(9,7,7,.38) 0%,
+      rgba(9,7,7,.04) 35%,
+      rgba(9,7,7,.28) 100%
+    );
+}
+
+/* subtle Burgundy tone only at one edge */
+
+.hero-photo-bg:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(107,23,48,.30) 0%,
+      rgba(107,23,48,.08) 32%,
+      transparent 62%
+    );
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+
+.hero-inner{
+  width:min(
+    var(--max),
+    calc(100% - var(--g)*2)
+  );
+  min-height:100svh;
+  margin:auto;
+  position:relative;
+  z-index:3;
+  padding-top:78px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+}
+
+.hero-main{
+  padding-top:
+    clamp(
+      94px,
+      11vw,
+      160px
+    );
+  max-width:980px;
 }
 
 .hero-topline{
   display:flex;
   gap:14px;
   align-items:center;
-  color:var(--muted);
+  color:rgba(255,255,255,.64);
 }
 
 .hero-topline:before{
   content:"";
   width:42px;
   height:1px;
-  background:var(--ink);
+  background:rgba(255,255,255,.78);
 }
 
 .hero h1{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
   font-weight:400;
-  font-size:clamp(62px,8.6vw,138px);
-  line-height:.88;
-  letter-spacing:-.068em;
+  font-size:
+    clamp(
+      64px,
+      9vw,
+      142px
+    );
+  line-height:.87;
+  letter-spacing:-.07em;
   margin:22px 0 0;
+  max-width:980px;
 }
 
 .hero h1 em{
+  display:inline-block;
   font-style:italic;
-  color:var(--wine);
+  color:#fff;
 }
 
 .hero h1 .indent{
   display:block;
-  margin-left:7vw;
+  margin-left:8vw;
 }
 
 .hero-sub{
   max-width:580px;
   font-size:17px;
   line-height:1.6;
-  color:#4f4945;
-  margin-top:28px;
+  color:rgba(255,255,255,.74);
+  margin-top:30px;
 }
 
 .hero-actions{
@@ -219,102 +320,57 @@ header{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:50px;
+  min-height:52px;
   padding:0 22px;
-  background:var(--wine);
-  color:#fff;
+  background:#fff;
+  color:var(--wine);
   text-decoration:none;
   font-size:13px;
   font-weight:700;
-  transition:.25s var(--ease);
+  transition:
+    transform .25s var(--ease),
+    background .25s ease;
 }
 
 .primary:hover{
   transform:translateY(-2px);
-  background:var(--wine-dark);
+  background:#ece6e0;
 }
 
 .secondary{
   text-decoration:none;
-  border-bottom:1px solid var(--ink);
+  border-bottom:
+    1px solid rgba(255,255,255,.75);
   padding-bottom:4px;
   font-size:13px;
+  color:#fff;
 }
 
 .hero-foot{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:34px;
-  padding-top:28px;
-  border-top:1px solid var(--line);
+  grid-template-columns:1fr auto;
+  gap:40px;
+  align-items:end;
+  padding:
+    24px 0
+    max(26px,env(safe-area-inset-bottom));
+  border-top:
+    1px solid rgba(255,255,255,.28);
 }
 
 .hero-foot p{
+  max-width:560px;
   margin:0;
   font-size:13px;
   line-height:1.5;
+  color:rgba(255,255,255,.62);
 }
 
-.hero-foot p:last-child{
-  color:var(--muted);
-}
-
-/* HERO PHOTO */
-
-.hero-photo{
-  position:relative;
-  overflow:hidden;
-  background:#d2cbc3;
-}
-
-.hero-photo img{
-  filter:saturate(.8) contrast(1.03);
-  transform:scale(1.02);
-  transition:transform 1.2s var(--ease);
-}
-
-.hero-photo:hover img{
-  transform:scale(1.05);
-}
-
-.hero-photo:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    180deg,
-    transparent 50%,
-    rgba(20,10,13,.52)
-  );
-}
-
-.hero-photo-copy{
-  position:absolute;
-  z-index:2;
-  left:28px;
-  right:28px;
-  bottom:26px;
-  color:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:20px;
-}
-
-.hero-photo-copy h3{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(32px,3.2vw,50px);
-  font-weight:400;
-  margin:0;
-  letter-spacing:-.04em;
-  max-width:520px;
-}
-
-.hero-photo-copy span{
+.hero-foot span{
   font-size:10px;
   letter-spacing:.16em;
   text-transform:uppercase;
-  color:rgba(255,255,255,.62);
+  color:rgba(255,255,255,.5);
 }
 
 /* TRUST BAR */
@@ -341,7 +397,13 @@ header{
 /* STATEMENT */
 
 .statement{
-  padding:clamp(90px,10vw,150px) 0;
+  padding:
+    clamp(
+      90px,
+      10vw,
+      150px
+    )
+    0;
 }
 
 .statement-grid{
@@ -351,8 +413,16 @@ header{
 }
 
 .statement h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(52px,7vw,104px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      52px,
+      7vw,
+      104px
+    );
   line-height:.9;
   letter-spacing:-.062em;
   font-weight:400;
@@ -395,7 +465,8 @@ header{
 }
 
 .editorial-photo img{
-  transition:transform 1s var(--ease);
+  transition:
+    transform 1s var(--ease);
 }
 
 .editorial-photo>div:hover img{
@@ -403,7 +474,9 @@ header{
 }
 
 .editorial-photo .dark img{
-  filter:brightness(.72) saturate(.82);
+  filter:
+    brightness(.72)
+    saturate(.82);
 }
 
 .overlay{
@@ -419,8 +492,16 @@ header{
 }
 
 .overlay h3{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(34px,4vw,60px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      34px,
+      4vw,
+      60px
+    );
   font-weight:400;
   letter-spacing:-.04em;
   margin:0;
@@ -451,8 +532,16 @@ header{
 }
 
 .method-head h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(52px,7vw,102px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      52px,
+      7vw,
+      102px
+    );
   font-weight:400;
   line-height:.9;
   letter-spacing:-.064em;
@@ -460,15 +549,18 @@ header{
 }
 
 .method-list{
-  border-top:1px solid rgba(255,255,255,.2);
+  border-top:
+    1px solid rgba(255,255,255,.2);
 }
 
 .method-row{
   display:grid;
-  grid-template-columns:80px 1fr .7fr;
+  grid-template-columns:
+    80px 1fr .7fr;
   gap:30px;
   padding:28px 0;
-  border-bottom:1px solid rgba(255,255,255,.16);
+  border-bottom:
+    1px solid rgba(255,255,255,.16);
   align-items:start;
 }
 
@@ -478,8 +570,16 @@ header{
 }
 
 .method-row h3{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(30px,4vw,54px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      30px,
+      4vw,
+      54px
+    );
   font-weight:400;
   margin:0;
   letter-spacing:-.04em;
@@ -505,8 +605,16 @@ header{
 }
 
 .case-copy h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(52px,6.5vw,96px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      52px,
+      6.5vw,
+      96px
+    );
   font-weight:400;
   line-height:.92;
   letter-spacing:-.06em;
@@ -527,8 +635,11 @@ header{
 }
 
 .case-photo img{
-  filter:saturate(.78) contrast(1.04);
-  transition:transform 1s var(--ease);
+  filter:
+    saturate(.78)
+    contrast(1.04);
+  transition:
+    transform 1s var(--ease);
 }
 
 .case-photo:hover img{
@@ -539,11 +650,12 @@ header{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    180deg,
-    transparent 55%,
-    rgba(17,8,11,.52)
-  );
+  background:
+    linear-gradient(
+      180deg,
+      transparent 55%,
+      rgba(17,8,11,.52)
+    );
 }
 
 .case-stat{
@@ -563,8 +675,16 @@ header{
 
 .case-stat strong{
   display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(60px,7vw,108px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      60px,
+      7vw,
+      108px
+    );
   font-weight:400;
   letter-spacing:-.07em;
   margin-top:8px;
@@ -585,8 +705,16 @@ header{
 }
 
 .product-head h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(54px,7vw,104px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      54px,
+      7vw,
+      104px
+    );
   font-weight:400;
   line-height:.9;
   letter-spacing:-.065em;
@@ -616,7 +744,12 @@ header{
 }
 
 .score{
-  font-size:clamp(108px,14vw,200px);
+  font-size:
+    clamp(
+      108px,
+      14vw,
+      200px
+    );
   font-weight:800;
   letter-spacing:-.09em;
   color:var(--wine);
@@ -640,16 +773,19 @@ header{
   font-size:10px;
   letter-spacing:.14em;
   text-transform:uppercase;
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid var(--line);
   padding-bottom:18px;
 }
 
 .decision{
   display:grid;
-  grid-template-columns:110px 1fr auto;
+  grid-template-columns:
+    110px 1fr auto;
   gap:18px;
   padding:24px 0;
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid var(--line);
 }
 
 .decision b{
@@ -658,7 +794,10 @@ header{
 }
 
 .decision strong{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
   font-size:26px;
   font-weight:400;
 }
@@ -682,8 +821,16 @@ header{
 }
 
 .ai h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(50px,6.5vw,94px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      50px,
+      6.5vw,
+      94px
+    );
   font-weight:400;
   line-height:.92;
   letter-spacing:-.06em;
@@ -702,15 +849,18 @@ header{
 }
 
 .ai-box{
-  border-top:2px solid var(--ink);
+  border-top:
+    2px solid var(--ink);
 }
 
 .ai-input{
   display:grid;
-  grid-template-columns:1fr auto;
+  grid-template-columns:
+    1fr auto;
   gap:12px;
   padding:18px 0;
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid var(--line);
 }
 
 .ai-input input{
@@ -731,12 +881,14 @@ header{
 
 .ai-results{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:
+    repeat(3,1fr);
 }
 
 .ai-res{
   padding:20px;
-  border-right:1px solid var(--line);
+  border-right:
+    1px solid var(--line);
 }
 
 .ai-res:last-child{
@@ -772,8 +924,16 @@ header{
 }
 
 .offer-head h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(54px,7vw,104px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      54px,
+      7vw,
+      104px
+    );
   font-weight:400;
   line-height:.9;
   letter-spacing:-.065em;
@@ -782,20 +942,31 @@ header{
 
 .offer-row{
   display:grid;
-  grid-template-columns:1.2fr .85fr .45fr;
+  grid-template-columns:
+    1.2fr .85fr .45fr;
   gap:24px;
   align-items:center;
   padding:30px 0;
-  border-top:1px solid rgba(255,255,255,.22);
+  border-top:
+    1px solid rgba(255,255,255,.22);
 }
 
 .offer-row:last-child{
-  border-bottom:1px solid rgba(255,255,255,.22);
+  border-bottom:
+    1px solid rgba(255,255,255,.22);
 }
 
 .offer-name{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(34px,4.5vw,62px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      34px,
+      4.5vw,
+      62px
+    );
 }
 
 .offer-desc{
@@ -805,7 +976,12 @@ header{
 }
 
 .offer-price{
-  font-size:clamp(32px,4vw,56px);
+  font-size:
+    clamp(
+      32px,
+      4vw,
+      56px
+    );
   font-weight:700;
   text-align:right;
 }
@@ -825,8 +1001,16 @@ header{
 }
 
 .contact h2{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(54px,7vw,102px);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size:
+    clamp(
+      54px,
+      7vw,
+      102px
+    );
   font-weight:400;
   line-height:.9;
   letter-spacing:-.065em;
@@ -840,14 +1024,16 @@ header{
 }
 
 .form{
-  border-top:1px solid rgba(255,255,255,.3);
+  border-top:
+    1px solid rgba(255,255,255,.3);
 }
 
 .form-row{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
-  border-bottom:1px solid rgba(255,255,255,.18);
+  border-bottom:
+    1px solid rgba(255,255,255,.18);
   padding:20px 0;
 }
 
@@ -872,7 +1058,8 @@ header{
 .field select{
   width:100%;
   border:0;
-  border-bottom:1px solid rgba(255,255,255,.28);
+  border-bottom:
+    1px solid rgba(255,255,255,.28);
   background:transparent;
   color:#fff;
   padding:10px 0 12px;
@@ -911,7 +1098,7 @@ header{
   margin-top:12px;
 }
 
-/* MOBILE RAIL */
+/* MOBILE CTA */
 
 .mobile-rail{
   display:none;
@@ -939,23 +1126,31 @@ footer{
   }
 }
 
+/* TABLET */
+
 @media(max-width:980px){
 
+  header{
+    position:absolute;
+  }
+
   .nav{
+    height:66px;
     grid-template-columns:1fr auto;
-    height:64px;
   }
 
   .navlinks{
     display:none;
   }
 
-  .hero{
-    padding-top:64px;
-    min-height:auto;
+  .hero-inner{
+    padding-top:66px;
   }
 
-  .hero-grid,
+  .hero-main{
+    padding-top:74px;
+  }
+
   .statement-grid,
   .editorial-photo,
   .method-head,
@@ -966,18 +1161,6 @@ footer{
   .offer-head,
   .contact-grid{
     grid-template-columns:1fr;
-  }
-
-  .hero-copy{
-    padding:50px 0 34px;
-  }
-
-  .hero-foot{
-    grid-template-columns:1fr;
-  }
-
-  .hero-photo{
-    min-height:520px;
   }
 
   .statement-grid,
@@ -996,13 +1179,16 @@ footer{
 
   .sheet-left{
     border-right:0;
-    border-bottom:1px solid var(--line);
+    border-bottom:
+      1px solid var(--line);
   }
 
   .case-photo{
     height:580px;
   }
 }
+
+/* MOBILE */
 
 @media(max-width:640px){
 
@@ -1015,8 +1201,15 @@ footer{
   }
 
   header{
-    position:sticky;
-    background:rgba(244,240,234,.95);
+    position:absolute;
+    background:transparent;
+    color:#fff;
+  }
+
+  .nav{
+    height:62px;
+    border-bottom:
+      1px solid rgba(255,255,255,.24);
   }
 
   .brand{
@@ -1028,16 +1221,60 @@ footer{
   }
 
   .hero{
-    padding-top:0;
+    min-height:100svh;
   }
 
-  .hero-copy{
-    padding:38px 0 28px;
+  .hero-photo-bg img{
+    object-position:62% center;
+    filter:
+      saturate(.7)
+      contrast(1.03)
+      brightness(.62);
+  }
+
+  .hero-photo-bg:after{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(11,8,9,.42) 0%,
+        rgba(11,8,9,.34) 25%,
+        rgba(11,8,9,.56) 58%,
+        rgba(11,8,9,.91) 100%
+      );
+  }
+
+  .hero-photo-bg:before{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(107,23,48,.05),
+        rgba(107,23,48,.22)
+      );
+  }
+
+  .hero-inner{
+    min-height:100svh;
+    padding-top:62px;
+  }
+
+  .hero-main{
+    margin-top:auto;
+    padding-top:100px;
+    padding-bottom:36px;
+  }
+
+  .hero-topline{
+    color:rgba(255,255,255,.67);
   }
 
   .hero h1{
-    font-size:clamp(52px,15.5vw,74px);
-    line-height:.9;
+    font-size:
+      clamp(
+        54px,
+        16vw,
+        78px
+      );
+    line-height:.89;
   }
 
   .hero h1 .indent{
@@ -1045,7 +1282,9 @@ footer{
   }
 
   .hero-sub{
+    max-width:100%;
     font-size:15px;
+    color:rgba(255,255,255,.72);
   }
 
   .hero-actions{
@@ -1057,17 +1296,17 @@ footer{
     width:100%;
   }
 
-  .hero-photo{
-    min-height:470px;
+  .secondary{
+    width:max-content;
   }
 
-  .hero-photo-copy{
-    display:block;
+  .hero-foot{
+    grid-template-columns:1fr;
+    gap:12px;
   }
 
-  .hero-photo-copy span{
-    display:block;
-    margin-top:12px;
+  .hero-foot span{
+    display:none;
   }
 
   .trustbar-inner{
@@ -1080,7 +1319,12 @@ footer{
   }
 
   .statement h2{
-    font-size:clamp(46px,13vw,62px);
+    font-size:
+      clamp(
+        46px,
+        13vw,
+        62px
+      );
   }
 
   .statement-copy{
@@ -1109,7 +1353,8 @@ footer{
   }
 
   .method-row{
-    grid-template-columns:56px 1fr;
+    grid-template-columns:
+      56px 1fr;
     gap:18px;
   }
 
@@ -1126,7 +1371,8 @@ footer{
   }
 
   .decision{
-    grid-template-columns:78px 1fr;
+    grid-template-columns:
+      78px 1fr;
   }
 
   .decision span{
@@ -1151,7 +1397,8 @@ footer{
 
   .ai-res{
     border-right:0;
-    border-bottom:1px solid var(--line);
+    border-bottom:
+      1px solid var(--line);
   }
 
   .offer-row{
@@ -1179,8 +1426,9 @@ footer{
     left:10px;
     right:10px;
     bottom:10px;
-    z-index:80;
-    background:rgba(17,17,17,.92);
+    z-index:90;
+    background:
+      rgba(17,17,17,.9);
     backdrop-filter:blur(12px);
     padding:8px;
   }
@@ -1200,7 +1448,8 @@ footer{
   }
 
   .mobile-rail a:last-child{
-    border:1px solid rgba(255,255,255,.24);
+    border:
+      1px solid rgba(255,255,255,.24);
   }
 }
 </style>
@@ -1209,111 +1458,140 @@ footer{
 <body>
 
 <header>
+
   <div class="wrap nav">
 
-    <a class="brand" href="#top">
+    <a
+      class="brand"
+      href="#top"
+    >
       Digital<span>Map</span>
     </a>
 
     <nav class="navlinks">
-      <a href="#about">Podejście</a>
-      <a href="#method">Metoda</a>
-      <a href="#map">Mapa</a>
-      <a href="#ai">AI Check</a>
-      <a href="#contact">Kontakt</a>
+
+      <a href="#about">
+        Podejście
+      </a>
+
+      <a href="#method">
+        Metoda
+      </a>
+
+      <a href="#map">
+        Mapa
+      </a>
+
+      <a href="#ai">
+        AI Check
+      </a>
+
+      <a href="#contact">
+        Kontakt
+      </a>
+
     </nav>
 
     <div class="navright">
+
       <a href="#contact">
         Rozpocznij diagnozę
       </a>
+
     </div>
 
   </div>
+
 </header>
 
 <main id="top">
 
+<!-- FULL BLEED HERO -->
+
 <section class="hero">
 
-  <div class="wrap hero-grid">
+  <div class="hero-photo-bg">
 
-    <div class="hero-copy">
+    <img
+      src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=2200"
+      alt="Strategiczne spotkanie biznesowe przy stole"
+    >
 
-      <div>
+  </div>
 
-        <div class="hero-topline kicker">
-          Strategia przed wydatkiem
-        </div>
+  <div class="hero-inner">
 
-        <h1>
-          Widzimy, co<br>
-          <em>blokuje</em>
-          <span class="indent">
-            wzrost.
-          </span>
-        </h1>
+    <div class="hero-main">
 
-        <p class="hero-sub">
-          DigitalMap diagnozuje, gdzie naprawdę zatrzymuje się
-          pozyskiwanie klientów — zanim wydasz więcej na SEO,
-          reklamy, nową stronę albo branding.
-        </p>
-
-        <div class="hero-actions">
-
-          <a class="primary" href="#contact">
-            Zacznij od Mini Mapy
-          </a>
-
-          <a class="secondary" href="#method">
-            Zobacz, jak diagnozujemy
-          </a>
-
-        </div>
-
+      <div class="hero-topline kicker">
+        Strategia przed wydatkiem
       </div>
 
-      <div class="hero-foot">
+      <h1>
 
-        <p>
-          <strong>Nie dokładamy kolejnego kanału.</strong><br>
-          Najpierw sprawdzamy, gdzie naprawdę zatrzymuje się wynik.
-        </p>
+        Widzimy, co<br>
 
-        <p>
-          Widoczność · Oferta · Zaufanie · Konwersja · Sprzedaż
-        </p>
+        <em>
+          blokuje
+        </em>
+
+        <span class="indent">
+          wzrost.
+        </span>
+
+      </h1>
+
+      <p class="hero-sub">
+        DigitalMap diagnozuje,
+        gdzie naprawdę zatrzymuje się
+        pozyskiwanie klientów —
+        zanim wydasz więcej na SEO,
+        reklamy, nową stronę
+        albo branding.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          class="primary"
+          href="#contact"
+        >
+          Zacznij od Mini Mapy
+        </a>
+
+        <a
+          class="secondary"
+          href="#method"
+        >
+          Zobacz, jak diagnozujemy
+        </a>
 
       </div>
 
     </div>
 
-    <div class="hero-photo">
+    <div class="hero-foot">
 
-      <img
-        src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1800"
-        alt="Zespół omawiający strategię biznesową przy stole"
-      >
+      <p>
+        <strong>
+          Nie dokładamy kolejnego kanału.
+        </strong>
+        <br>
+        Najpierw sprawdzamy,
+        gdzie naprawdę zatrzymuje się wynik.
+      </p>
 
-      <div class="hero-photo-copy">
-
-        <h3>
-          Najpierw zrozumieć problem.
-          Potem zdecydować.
-        </h3>
-
-        <span>
-          Strategy / Diagnosis
-        </span>
-
-      </div>
+      <span>
+        Strategy / Diagnosis / Growth
+      </span>
 
     </div>
 
   </div>
 
 </section>
+
+<!-- TRUST -->
 
 <div class="trustbar">
 
@@ -1330,7 +1608,12 @@ footer{
 
 </div>
 
-<section class="statement" id="about">
+<!-- POSITIONING -->
+
+<section
+  class="statement"
+  id="about"
+>
 
   <div class="wrap statement-grid">
 
@@ -1341,20 +1624,28 @@ footer{
     <div>
 
       <h2>
-        Firmy nie potrzebują więcej marketingu.
-        Potrzebują <em>lepszej decyzji.</em>
+        Firmy nie potrzebują
+        więcej marketingu.
+        Potrzebują
+        <em>
+          lepszej decyzji.
+        </em>
       </h2>
 
       <div class="statement-copy">
 
         <p>
-          Więcej ruchu nie pomoże, jeśli oferta jest niejasna.
-          Lepsza strona nie pomoże, jeśli klient Ci nie ufa.
-          Większy budżet nie pomoże, jeśli lead ginie po kontakcie.
+          Więcej ruchu nie pomoże,
+          jeśli oferta jest niejasna.
+          Lepsza strona nie pomoże,
+          jeśli klient Ci nie ufa.
+          Większy budżet nie pomoże,
+          jeśli lead ginie po kontakcie.
         </p>
 
         <p>
-          DigitalMap patrzy na cały system i znajduje miejsce,
+          DigitalMap patrzy na cały system
+          i znajduje miejsce,
           które naprawdę ogranicza wynik.
           Dopiero potem rekomenduje ruch.
         </p>
@@ -1367,13 +1658,15 @@ footer{
 
 </section>
 
+<!-- CONSULTING PHOTOS -->
+
 <section class="editorial-photo">
 
   <div>
 
     <img
       src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1800"
-      alt="Konsultanci analizujący dokumenty i dane przy stole"
+      alt="Konsultanci analizujący dokumenty i dane"
     >
 
     <div class="overlay">
@@ -1384,7 +1677,8 @@ footer{
       </h3>
 
       <p>
-        Dlatego zaczynamy od diagnozy całej ścieżki klienta,
+        Dlatego zaczynamy od diagnozy
+        całej ścieżki klienta,
         nie od pojedynczego kanału.
       </p>
 
@@ -1396,7 +1690,7 @@ footer{
 
     <img
       src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
-      alt="Rozmowa biznesowa i planowanie strategii"
+      alt="Planowanie strategii biznesowej"
     >
 
     <div class="overlay">
@@ -1416,13 +1710,21 @@ footer{
 
 </section>
 
-<section class="method" id="method">
+<!-- METHOD -->
+
+<section
+  class="method"
+  id="method"
+>
 
   <div class="wrap">
 
     <div class="method-head">
 
-      <div class="kicker" style="color:#aaa">
+      <div
+        class="kicker"
+        style="color:#aaa"
+      >
         Metoda
       </div>
 
@@ -1436,33 +1738,88 @@ footer{
     <div class="method-list">
 
       <div class="method-row">
-        <div class="no">01</div>
-        <h3>Widoczność</h3>
-        <p>Czy klient w ogóle do Ciebie trafia?</p>
+
+        <div class="no">
+          01
+        </div>
+
+        <h3>
+          Widoczność
+        </h3>
+
+        <p>
+          Czy klient w ogóle do Ciebie trafia?
+        </p>
+
       </div>
 
       <div class="method-row">
-        <div class="no">02</div>
-        <h3>Oferta</h3>
-        <p>Czy w kilka sekund wiadomo, dlaczego właśnie Ty?</p>
+
+        <div class="no">
+          02
+        </div>
+
+        <h3>
+          Oferta
+        </h3>
+
+        <p>
+          Czy w kilka sekund wiadomo,
+          dlaczego właśnie Ty?
+        </p>
+
       </div>
 
       <div class="method-row">
-        <div class="no">03</div>
-        <h3>Zaufanie</h3>
-        <p>Czy klient znalazł wystarczający powód, żeby Ci zaufać?</p>
+
+        <div class="no">
+          03
+        </div>
+
+        <h3>
+          Zaufanie
+        </h3>
+
+        <p>
+          Czy klient znalazł
+          wystarczający powód,
+          żeby Ci zaufać?
+        </p>
+
       </div>
 
       <div class="method-row">
-        <div class="no">04</div>
-        <h3>Konwersja</h3>
-        <p>Czy klient wie, co ma zrobić dalej?</p>
+
+        <div class="no">
+          04
+        </div>
+
+        <h3>
+          Konwersja
+        </h3>
+
+        <p>
+          Czy klient wie,
+          co ma zrobić dalej?
+        </p>
+
       </div>
 
       <div class="method-row">
-        <div class="no">05</div>
-        <h3>Sprzedaż</h3>
-        <p>Czy marketing faktycznie zamienia się w przychód?</p>
+
+        <div class="no">
+          05
+        </div>
+
+        <h3>
+          Sprzedaż
+        </h3>
+
+        <p>
+          Czy marketing faktycznie
+          zamienia się w przychód?
+        </p>
+
       </div>
 
     </div>
@@ -1470,6 +1827,8 @@ footer{
   </div>
 
 </section>
+
+<!-- CASE -->
 
 <section class="case">
 
@@ -1487,8 +1846,10 @@ footer{
       </h2>
 
       <p>
-        Czasem wzrost nie wymaga większego budżetu —
-        tylko usunięcia jednej kosztownej blokady.
+        Czasem wzrost nie wymaga
+        większego budżetu —
+        tylko usunięcia jednej
+        kosztownej blokady.
       </p>
 
     </div>
@@ -1497,7 +1858,7 @@ footer{
 
       <img
         src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1800"
-        alt="Konsultant omawiający wyniki i strategię z klientem"
+        alt="Konsultant omawiający strategię z klientem"
       >
 
       <div class="case-stat">
@@ -1518,7 +1879,12 @@ footer{
 
 </section>
 
-<section class="product" id="map">
+<!-- PRODUCT -->
+
+<section
+  class="product"
+  id="map"
+>
 
   <div class="wrap">
 
@@ -1536,9 +1902,12 @@ footer{
         </h2>
 
         <p>
-          Mapa skraca drogę od chaosu do decyzji:
-          co jest problemem, co robimy najpierw,
-          czego nie ruszamy i jak mierzymy efekt.
+          Mapa skraca drogę
+          od chaosu do decyzji:
+          co jest problemem,
+          co robimy najpierw,
+          czego nie ruszamy
+          i jak mierzymy efekt.
         </p>
 
       </div>
@@ -1563,7 +1932,8 @@ footer{
 
         <p>
           Przykładowy obraz sytuacji.
-          Wynik jest punktem startu do decyzji,
+          Wynik jest punktem startu
+          do decyzji,
           a nie celem samym w sobie.
         </p>
 
@@ -1572,43 +1942,84 @@ footer{
       <div class="sheet-right">
 
         <div class="sheet-top">
-          <span>DigitalMap / strategic diagnosis</span>
-          <span>Priority view</span>
+
+          <span>
+            DigitalMap /
+            strategic diagnosis
+          </span>
+
+          <span>
+            Priority view
+          </span>
+
         </div>
 
         <div class="decision">
-          <b>PRIORYTET</b>
+
+          <b>
+            PRIORYTET
+          </b>
+
           <strong>
             Napraw warstwę zaufania
             przed zwiększeniem ruchu.
           </strong>
-          <span>teraz</span>
+
+          <span>
+            teraz
+          </span>
+
         </div>
 
         <div class="decision">
-          <b>NASTĘPNY RUCH</b>
+
+          <b>
+            NASTĘPNY RUCH
+          </b>
+
           <strong>
             Uprość ofertę
             i główną ścieżkę kontaktu.
           </strong>
-          <span>potem</span>
+
+          <span>
+            potem
+          </span>
+
         </div>
 
         <div class="decision">
-          <b>NIE TERAZ</b>
+
+          <b>
+            NIE TERAZ
+          </b>
+
           <strong>
-            Nie zwiększaj budżetu reklamowego.
+            Nie zwiększaj
+            budżetu reklamowego.
           </strong>
-          <span>wstrzymaj</span>
+
+          <span>
+            wstrzymaj
+          </span>
+
         </div>
 
         <div class="decision">
-          <b>POMIAR</b>
+
+          <b>
+            POMIAR
+          </b>
+
           <strong>
             Śledź jakość zapytań,
             nie tylko ruch.
           </strong>
-          <span>success metric</span>
+
+          <span>
+            success metric
+          </span>
+
         </div>
 
       </div>
@@ -1619,7 +2030,12 @@ footer{
 
 </section>
 
-<section class="ai" id="ai">
+<!-- AI CHECK -->
+
+<section
+  class="ai"
+  id="ai"
+>
 
   <div class="wrap ai-grid">
 
@@ -1630,14 +2046,21 @@ footer{
       </div>
 
       <h2>
-        Jak <em>AI widzi</em>
+        Jak
+        <em>
+          AI widzi
+        </em>
         Twoją firmę?
       </h2>
 
       <p>
-        Sprawdź, czy ChatGPT, Gemini i Claude
-        rozumieją, czym się zajmujesz,
-        co oferujesz i kiedy warto Cię polecić.
+        Sprawdź,
+        czy ChatGPT,
+        Gemini i Claude
+        rozumieją,
+        czym się zajmujesz,
+        co oferujesz
+        i kiedy warto Cię polecić.
       </p>
 
     </div>
@@ -1660,18 +2083,39 @@ footer{
       <div class="ai-results">
 
         <div class="ai-res">
-          <small>Rozpoznawalność</small>
-          <strong id="r1">—</strong>
+
+          <small>
+            Rozpoznawalność
+          </small>
+
+          <strong id="r1">
+            —
+          </strong>
+
         </div>
 
         <div class="ai-res">
-          <small>Jasność oferty</small>
-          <strong id="r2">—</strong>
+
+          <small>
+            Jasność oferty
+          </small>
+
+          <strong id="r2">
+            —
+          </strong>
+
         </div>
 
         <div class="ai-res">
-          <small>Potencjał polecenia</small>
-          <strong id="r3">—</strong>
+
+          <small>
+            Potencjał polecenia
+          </small>
+
+          <strong id="r3">
+            —
+          </strong>
+
         </div>
 
       </div>
@@ -1682,13 +2126,18 @@ footer{
 
 </section>
 
+<!-- OFFER -->
+
 <section class="offer">
 
   <div class="wrap">
 
     <div class="offer-head">
 
-      <div class="kicker" style="color:#d4a9b5">
+      <div
+        class="kicker"
+        style="color:#d4a9b5"
+      >
         Oferta
       </div>
 
@@ -1706,8 +2155,10 @@ footer{
       </div>
 
       <div class="offer-desc">
-        Szybka diagnoza, główny problem,
-        priorytet i konkretny plan działania.
+        Szybka diagnoza,
+        główny problem,
+        priorytet
+        i konkretny plan działania.
       </div>
 
       <div class="offer-price">
@@ -1723,8 +2174,10 @@ footer{
       </div>
 
       <div class="offer-desc">
-        Pełna diagnoza ścieżki klienta,
-        konkurencji, konwersji
+        Pełna diagnoza
+        ścieżki klienta,
+        konkurencji,
+        konwersji
         i decyzji wzrostowych.
       </div>
 
@@ -1738,13 +2191,21 @@ footer{
 
 </section>
 
-<section class="contact" id="contact">
+<!-- CONTACT -->
+
+<section
+  class="contact"
+  id="contact"
+>
 
   <div class="wrap contact-grid">
 
     <div>
 
-      <div class="kicker" style="color:#aaa">
+      <div
+        class="kicker"
+        style="color:#aaa"
+      >
         Kontakt
       </div>
 
@@ -1754,8 +2215,10 @@ footer{
       </h2>
 
       <p>
-        Opisz krótko firmę i sytuację.
-        Na tej podstawie dobierzemy
+        Opisz krótko firmę
+        i sytuację.
+        Na tej podstawie
+        dobierzemy
         odpowiedni poziom diagnozy
         i kolejny krok.
       </p>
@@ -1774,18 +2237,28 @@ footer{
       <div class="form-row">
 
         <div class="field">
-          <label>Imię</label>
+
+          <label>
+            Imię
+          </label>
+
           <input
             required
             placeholder="Twoje imię"
           >
+
         </div>
 
         <div class="field">
-          <label>Firma</label>
+
+          <label>
+            Firma
+          </label>
+
           <input
             placeholder="Nazwa firmy"
           >
+
         </div>
 
       </div>
@@ -1793,19 +2266,29 @@ footer{
       <div class="form-row">
 
         <div class="field">
-          <label>E-mail</label>
+
+          <label>
+            E-mail
+          </label>
+
           <input
             required
             type="email"
             placeholder="name@firma.pl"
           >
+
         </div>
 
         <div class="field">
-          <label>Strona</label>
+
+          <label>
+            Strona
+          </label>
+
           <input
             placeholder="twojafirma.pl"
           >
+
         </div>
 
       </div>
@@ -1819,10 +2302,23 @@ footer{
           </label>
 
           <select>
-            <option>Wybierz</option>
-            <option>Do 5 000 PLN / mies.</option>
-            <option>5 000–20 000 PLN / mies.</option>
-            <option>20 000+ PLN / mies.</option>
+
+            <option>
+              Wybierz
+            </option>
+
+            <option>
+              Do 5 000 PLN / mies.
+            </option>
+
+            <option>
+              5 000–20 000 PLN / mies.
+            </option>
+
+            <option>
+              20 000+ PLN / mies.
+            </option>
+
           </select>
 
         </div>
@@ -1868,7 +2364,8 @@ footer{
         class="form-note"
         id="status"
       >
-        Formularz demonstracyjny — do podpięcia pod backend.
+        Formularz demonstracyjny —
+        do podpięcia pod backend.
       </div>
 
     </form>
@@ -1878,6 +2375,8 @@ footer{
 </section>
 
 </main>
+
+<!-- MOBILE BOTTOM CTA -->
 
 <div class="mobile-rail">
 
@@ -1910,19 +2409,20 @@ footer{
 <script>
 (function(){
 
-  const b =
+  const aiBtn =
     document.getElementById('aiBtn');
 
-  b.addEventListener(
+  aiBtn.addEventListener(
     'click',
     () => {
 
-      if(
-        !document
+      const domain =
+        document
         .getElementById('domain')
         .value
-        .trim()
-      ){
+        .trim();
+
+      if(!domain){
         return;
       }
 
@@ -1932,9 +2432,12 @@ footer{
         'r3'
       ].forEach(
         id => {
+
           document
           .getElementById(id)
-          .textContent = 'analizuję…';
+          .textContent =
+          'analizuję…';
+
         }
       );
 
@@ -1943,15 +2446,18 @@ footer{
 
           document
           .getElementById('r1')
-          .textContent = 'pierwsze sygnały';
+          .textContent =
+          'pierwsze sygnały';
 
           document
           .getElementById('r2')
-          .textContent = 'do weryfikacji';
+          .textContent =
+          'do weryfikacji';
 
           document
           .getElementById('r3')
-          .textContent = 'potencjał wzrostu';
+          .textContent =
+          'potencjał wzrostu';
 
         },
         650
