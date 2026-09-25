@@ -95,19 +95,48 @@ export const projects = [
 ]
 
 export const team = {
-  founder: {
-    initials: 'K',
-    name: 'Kari',
-    role: 'Founder / Strategy & UX',
-    bio:
-      'Łączy diagnozę biznesową, UX, komunikację i marketing w jedną hierarchię decyzji. Odpowiada za kierunek Mapy i za to, żeby rekomendacja prowadziła do konkretnego ruchu, a nie kolejnej listy zadań.',
-    photo: '',
-  },
-  capabilities: [
-    ['Strategia i diagnoza', 'Problem #1 · priorytety · decyzje'],
-    ['UX i konwersja', 'Oferta · ścieżka klienta · CRO'],
-    ['Widoczność', 'SEO · Google · AI Search · reputacja'],
-    ['Wdrożenie', 'Web · tracking · automatyzacje · kampanie'],
+  members: [
+    {
+      initials: 'A',
+      name: 'Artur',
+      role: 'Founder',
+      bio:
+        'Odpowiada za kierunek DigitalMap, rozwój firmy i spójność między diagnozą, decyzją biznesową a dalszym wdrożeniem.',
+      photo: '',
+      featured: true,
+    },
+    {
+      initials: 'K',
+      name: 'Kari',
+      role: 'Head of Marketing',
+      bio:
+        'Odpowiada za strategię marketingową, komunikację, pozycjonowanie oferty oraz doświadczenie klienta od pierwszego kontaktu do decyzji.',
+      photo: '',
+    },
+    {
+      initials: 'R',
+      name: 'Roman',
+      role: 'Web Development & Technical SEO',
+      bio:
+        'Łączy warstwę techniczną stron z wydajnością, wdrożeniem i fundamentami technicznego SEO.',
+      photo: '',
+    },
+    {
+      initials: 'G',
+      name: 'Gerard',
+      role: 'PPC Specialist',
+      bio:
+        'Odpowiada za płatne kampanie, jakość ruchu i ocenę tego, czy budżet reklamowy prowadzi do realnego wyniku biznesowego.',
+      photo: '',
+    },
+    {
+      initials: 'A',
+      name: 'Anna',
+      role: 'Social Media Manager',
+      bio:
+        'Odpowiada za social media, spójność komunikacji i treści, które budują zaufanie oraz wspierają decyzję klienta.',
+      photo: '',
+    },
   ],
 }
 

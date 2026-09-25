@@ -258,32 +258,34 @@ function Team() {
   return (
     <section className="team" id="team">
       <div className="section-shell">
-        <div className="team-grid">
-          <div className="team-copy">
-            <div className="eyebrow">07 / ZESPÓŁ</div>
-            <h2>Founder-led. <span className="accent-text">Bez przekazywania diagnozy przez pięć warstw.</span></h2>
-            <p>DigitalMap jest małym, odpowiedzialnym zespołem wokół jednej zasady: najpierw trzeba zrozumieć problem. Specjalistów dobieramy do rekomendacji dopiero wtedy, gdy wiadomo, czego firma naprawdę potrzebuje.</p>
-            <div className="team-principle"><span>01</span><strong>Diagnoza i kierunek zostają blisko osoby odpowiedzialnej za decyzję.</strong></div>
-            <div className="team-principle"><span>02</span><strong>Nie budujemy zespołu pod sprzedaż usług. Dobieramy kompetencje pod problem.</strong></div>
-          </div>
-
-          <div className="founder-card">
-            <div className="founder-portrait">
-              {team.founder.photo ? <img src={team.founder.photo} alt={team.founder.name} /> : <span>{team.founder.initials}</span>}
-            </div>
-            <div className="founder-info">
-              <div className="founder-label">FOUNDER / DIGITALMAP</div>
-              <h3>{team.founder.name}</h3>
-              <strong>{team.founder.role}</strong>
-              <p>{team.founder.bio}</p>
-            </div>
+        <div className="team-heading">
+          <div className="eyebrow">07 / ZESPÓŁ</div>
+          <div>
+            <h2>Za DigitalMap stoją <span className="accent-text">konkretni ludzie.</span></h2>
+            <p>Pięć osób, pięć uzupełniających się kompetencji. Strategia, marketing, technologia, płatne pozyskanie i social media spotykają się przy jednym celu: znaleźć właściwy problem i przełożyć go na właściwy ruch.</p>
           </div>
         </div>
 
-        <div className="capability-grid">
-          {team.capabilities.map(([title, detail], index) => (
-            <div className="capability" key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{detail}</p></div>
+        <div className="team-members">
+          {team.members.map((member, index) => (
+            <article className={`team-member ${member.featured ? 'team-member--featured' : ''}`} key={member.name}>
+              <div className="team-member-portrait">
+                {member.photo ? <img src={member.photo} alt={member.name} /> : <span>{member.initials}</span>}
+                <div className="team-member-number">0{index + 1}</div>
+              </div>
+              <div className="team-member-info">
+                <div className="team-member-role">{member.role}</div>
+                <h3>{member.name}</h3>
+                <p>{member.bio}</p>
+              </div>
+            </article>
           ))}
+        </div>
+
+        <div className="team-trustline">
+          <span>Jedna diagnoza.</span>
+          <span>Wspólna odpowiedzialność za kierunek.</span>
+          <span>Bez anonimowego przekazywania projektu między działami.</span>
         </div>
       </div>
     </section>
