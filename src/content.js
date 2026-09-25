@@ -35,33 +35,80 @@ export const symptoms = [
 
 export const diagnosis = {
   problem: 'Oferta i ścieżka kontaktu nie wykorzystują istniejącego ruchu.',
-
   evidence: [
-    [
-      'Problem',
-      'Za mało osób przechodzi od wejścia na stronę do kontaktu.',
-    ],
-    [
-      'Dowody',
-      'Ruch istnieje, ale CTA, oferta i formularz tworzą tarcie.',
-    ],
-    [
-      'Priorytet',
-      'Uprościć komunikację oferty i ścieżkę konwersji.',
-    ],
+    ['Problem', 'Za mało osób przechodzi od wejścia na stronę do kontaktu.'],
+    ['Dowody', 'Ruch istnieje, ale CTA, oferta i formularz tworzą tarcie.'],
+    ['Priorytet', 'Uprościć komunikację oferty i ścieżkę konwersji.'],
   ],
-
   decision:
     'Najpierw poprawić ofertę i ścieżkę kontaktu. Nie zwiększać ruchu, dopóki obecny nie jest lepiej wykorzystywany.',
+  doNow: 'Przenieść główną przewagę i CTA powyżej folda.',
+  notNow: 'Nie zwiększać jeszcze budżetu Google Ads.',
+  measure: 'Współczynnik konwersji + liczba jakościowych zapytań.',
+}
 
-  doNow:
-    'Przenieść główną przewagę i CTA powyżej folda.',
+export const projects = [
+  {
+    index: '01',
+    name: 'CostWarden',
+    type: 'AI SaaS / Product / Web',
+    status: 'PRE-LAUNCH',
+    scope: 'Landing · product strategy · positioning · UX/UI · GTM',
+    description:
+      'Produkt SaaS budowany od pozycjonowania i architektury informacji po doświadczenie strony i komunikację wejścia na rynek.',
+    url: '',
+    image: '',
+  },
+  {
+    index: '02',
+    name: 'GymWrld',
+    type: 'Fitness app / Product UX',
+    status: 'IN DEVELOPMENT',
+    scope: 'Product direction · UX · gamification',
+    description:
+      'Kierunek produktu i doświadczenia aplikacji fitness, z naciskiem na mechaniki zaangażowania i czytelną ścieżkę użytkownika.',
+    url: '',
+    image: '',
+  },
+  {
+    index: '03',
+    name: 'Anna Bagrowska / Psycholog',
+    type: 'Website / UX / SEO',
+    status: 'W REALIZACJI',
+    scope: 'Website V2 · copy · layout · SEO',
+    description:
+      'Przebudowa strony eksperckiej: komunikacja oferty, struktura treści, UX oraz fundament pod widoczność organiczną.',
+    url: '',
+    image: '',
+  },
+  {
+    index: '04',
+    name: 'Do Poznania',
+    type: 'Landing / Lead flow',
+    status: 'PRZED PUBLIKACJĄ',
+    scope: 'Landing · formularz · mailbox · lead flow',
+    description:
+      'Landing z prostą ścieżką kontaktu i obsługą formularza, przygotowany do finalnej weryfikacji przed publikacją.',
+    url: '',
+    image: '',
+  },
+]
 
-  notNow:
-    'Nie zwiększać jeszcze budżetu Google Ads.',
-
-  measure:
-    'Współczynnik konwersji + liczba jakościowych zapytań.',
+export const team = {
+  founder: {
+    initials: 'K',
+    name: 'Kari',
+    role: 'Founder / Strategy & UX',
+    bio:
+      'Łączy diagnozę biznesową, UX, komunikację i marketing w jedną hierarchię decyzji. Odpowiada za kierunek Mapy i za to, żeby rekomendacja prowadziła do konkretnego ruchu, a nie kolejnej listy zadań.',
+    photo: '',
+  },
+  capabilities: [
+    ['Strategia i diagnoza', 'Problem #1 · priorytety · decyzje'],
+    ['UX i konwersja', 'Oferta · ścieżka klienta · CRO'],
+    ['Widoczność', 'SEO · Google · AI Search · reputacja'],
+    ['Wdrożenie', 'Web · tracking · automatyzacje · kampanie'],
+  ],
 }
 
 export const offers = [

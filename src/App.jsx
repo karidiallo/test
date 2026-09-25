@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { LivingMap } from './components/LivingMap.jsx'
 import { TopographicLogo } from './components/TopographicLogo.jsx'
-import { diagnosis, offers, symptoms } from './content.js'
+import { diagnosis, offers, projects, symptoms, team } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,6 +18,8 @@ function Header() {
       <nav aria-label="Główna nawigacja">
         <a href="#system">Jak pomagamy</a>
         <a href="#sample">Przykładowa Mapa</a>
+        <a href="#work">Realizacje</a>
+        <a href="#team">Zespół</a>
         <a href="#offer">Oferta</a>
       </nav>
       <a className="header-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>
@@ -202,12 +204,98 @@ function Evidence() {
   )
 }
 
+
+function Work() {
+  return (
+    <section className="work" id="work">
+      <div className="section-shell">
+        <div className="section-heading section-heading--split work-heading">
+          <div className="eyebrow">06 / WYBRANE REALIZACJE</div>
+          <div>
+            <h2>Nie tylko rekomendujemy. <span className="accent-text">Projektujemy i budujemy.</span></h2>
+            <p>Wybrane produkty i strony, przy których pracowaliśmy nad pozycjonowaniem, doświadczeniem użytkownika, komunikacją albo wdrożeniem. Pokazujemy status projektu zamiast udawać case study tam, gdzie produkt nie jest jeszcze publiczny.</p>
+          </div>
+        </div>
+
+        <div className="work-grid">
+          {projects.map((project, index) => (
+            <article className={`work-card ${index === 0 ? 'work-card--featured' : ''}`} key={project.name}>
+              <div className="work-preview">
+                {project.image ? (
+                  <img src={project.image} alt={`Podgląd realizacji ${project.name}`} />
+                ) : (
+                  <div className="browser-mock" aria-hidden="true">
+                    <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
+                    <div className="browser-page">
+                      <div className="browser-kicker">{project.type}</div>
+                      <strong>{project.name}</strong>
+                      <div className="browser-lines"><i /><i /><i /></div>
+                      <div className="browser-cta" />
+                    </div>
+                  </div>
+                )}
+                <span className="work-status">{project.status}</span>
+              </div>
+              <div className="work-meta">
+                <div className="work-index">{project.index}</div>
+                <div className="work-copy">
+                  <div className="work-type">{project.type}</div>
+                  <h3>{project.name}</h3>
+                  <p>{project.description}</p>
+                  <div className="work-scope">{project.scope}</div>
+                </div>
+                {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Case preview</span>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Team() {
+  return (
+    <section className="team" id="team">
+      <div className="section-shell">
+        <div className="team-grid">
+          <div className="team-copy">
+            <div className="eyebrow">07 / ZESPÓŁ</div>
+            <h2>Founder-led. <span className="accent-text">Bez przekazywania diagnozy przez pięć warstw.</span></h2>
+            <p>DigitalMap jest małym, odpowiedzialnym zespołem wokół jednej zasady: najpierw trzeba zrozumieć problem. Specjalistów dobieramy do rekomendacji dopiero wtedy, gdy wiadomo, czego firma naprawdę potrzebuje.</p>
+            <div className="team-principle"><span>01</span><strong>Diagnoza i kierunek zostają blisko osoby odpowiedzialnej za decyzję.</strong></div>
+            <div className="team-principle"><span>02</span><strong>Nie budujemy zespołu pod sprzedaż usług. Dobieramy kompetencje pod problem.</strong></div>
+          </div>
+
+          <div className="founder-card">
+            <div className="founder-portrait">
+              {team.founder.photo ? <img src={team.founder.photo} alt={team.founder.name} /> : <span>{team.founder.initials}</span>}
+            </div>
+            <div className="founder-info">
+              <div className="founder-label">FOUNDER / DIGITALMAP</div>
+              <h3>{team.founder.name}</h3>
+              <strong>{team.founder.role}</strong>
+              <p>{team.founder.bio}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="capability-grid">
+          {team.capabilities.map(([title, detail], index) => (
+            <div className="capability" key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{detail}</p></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Offer() {
   return (
     <section className="section section--ink" id="offer">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">06 / OFERTA</div>
+          <div className="eyebrow">08 / OFERTA</div>
           <div><h2>Najpierw ustal, co ma sens. <span className="accent-text">Potem wybierz kolejny ruch.</span></h2><p>Nie musisz sam diagnozować, którego produktu potrzebujesz. Możesz zacząć od pierwszego sygnału albo wejść od razu w pełną diagnozę procesu pozyskania klienta.</p></div>
         </div>
         <div className="offer-grid">
@@ -244,7 +332,7 @@ function ScanForm({ selectedSymptom }) {
     <section className="scan" id="scan">
       <div className="scan-shell">
         <div className="scan-copy">
-          <div className="eyebrow">07 / MINI MAPA</div>
+          <div className="eyebrow">09 / MINI MAPA</div>
           <h2>Sprawdź swoją firmę, zanim wydasz więcej.</h2>
           <p>Zacznij od pierwszego sygnału. Na start wystarczy domena i krótki kontekst — bez abonamentu i bez obowiązku kupowania wdrożenia.</p>
           <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 FIRMA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 KONTAKT</span></div>
@@ -308,6 +396,8 @@ export default function App() {
         <SampleMap />
         <Principle />
         <Evidence />
+        <Work />
+        <Team />
         <Offer />
         <ScanForm selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
       </main>
