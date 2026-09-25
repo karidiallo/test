@@ -1,68 +1,93 @@
 export const symptoms = [
   {
     id: 'acquisition',
-    label: 'Za mało klientów',
+    label: 'Masz za mało klientów',
     short: 'Pozyskanie',
-    description: 'Nie wiadomo, czy problem zaczyna się w widoczności, ofercie czy dopiero przy kontakcie.',
+    description:
+      'Nie wiadomo jeszcze, czy problemem jest widoczność, oferta, zaufanie czy sama droga do kontaktu.',
     focus: 0.28,
   },
   {
     id: 'conversion',
-    label: 'Ruch jest. Zapytań nie ma.',
+    label: 'Ruch jest. Zapytań nadal za mało.',
     short: 'Konwersja',
-    description: 'Ruch już istnieje, ale oferta, zaufanie albo ścieżka kontaktu nie domykają zainteresowania.',
+    description:
+      'Użytkownicy trafiają na stronę, ale oferta, CTA albo formularz nie domykają istniejącego zainteresowania.',
     focus: 0.62,
   },
   {
     id: 'competition',
-    label: 'Konkurencja wygrywa',
+    label: 'Klienci wybierają konkurencję',
     short: 'Zaufanie',
-    description: 'Klient widzi Cię, ale ktoś inny wygląda bezpieczniej lub komunikuje wartość prościej.',
+    description:
+      'Jesteś widoczny, ale ktoś inny wygląda bezpieczniej, komunikuje wartość prościej albo daje mocniejszy powód do decyzji.',
     focus: 0.46,
   },
   {
     id: 'efficiency',
-    label: 'Marketing kosztuje. Nie wiem co działa.',
+    label: 'Marketing kosztuje. Nie wiesz, co działa.',
     short: 'Efektywność',
-    description: 'Budżet jest rozproszony, a kanały są oceniane osobno zamiast jako jedna droga do przychodu.',
+    description:
+      'Budżet jest rozproszony, a wynik nie pokazuje jasno, który element procesu naprawdę ogranicza wzrost.',
     focus: 0.77,
   },
 ]
 
 export const diagnosis = {
   problem: 'Oferta i ścieżka kontaktu nie wykorzystują istniejącego ruchu.',
+
   evidence: [
-    ['Ruch', 'Popyt i wejścia już istnieją'],
-    ['Oferta', 'Przewaga nie jest czytelna wystarczająco szybko'],
-    ['Kontakt', 'CTA i formularz tworzą niepotrzebne tarcie'],
+    [
+      'Problem',
+      'Za mało osób przechodzi od wejścia na stronę do kontaktu.',
+    ],
+    [
+      'Dowody',
+      'Ruch istnieje, ale CTA, oferta i formularz tworzą tarcie.',
+    ],
+    [
+      'Priorytet',
+      'Uprościć komunikację oferty i ścieżkę konwersji.',
+    ],
   ],
-  decision: 'Nie zwiększać budżetu na pozyskanie. Najpierw poprawić ofertę i ścieżkę kontaktu.',
-  doNow: 'Uprościć proposition + CTA powyżej folda.',
-  notNow: 'Nie skalować jeszcze Google Ads.',
-  measure: 'Konwersja do jakościowego zapytania.',
+
+  decision:
+    'Najpierw poprawić ofertę i ścieżkę kontaktu. Nie zwiększać ruchu, dopóki obecny nie jest lepiej wykorzystywany.',
+
+  doNow:
+    'Przenieść główną przewagę i CTA powyżej folda.',
+
+  notNow:
+    'Nie zwiększać jeszcze budżetu Google Ads.',
+
+  measure:
+    'Współczynnik konwersji + liczba jakościowych zapytań.',
 }
 
 export const offers = [
   {
-    code: 'SCAN',
+    code: '01 / START',
     name: 'Mini Mapa',
     price: '0 zł',
-    copy: 'Pierwszy sygnał: gdzie warto przyjrzeć się bliżej, zanim zaczniesz wydawać.',
+    copy:
+      'Szybki pierwszy obraz: gdzie warto przyjrzeć się bliżej, zanim zaczniesz wydawać.',
     cta: 'Sprawdź firmę',
   },
   {
-    code: 'DIAGNOSE',
+    code: '02 / GŁÓWNY PRODUKT',
     name: 'Mapa Strategiczna',
     price: '499 zł',
-    copy: 'Problem #1, dowody, priorytet, pierwszy ruch, „nie teraz” i miernik efektu.',
-    cta: 'Zamów diagnozę',
+    copy:
+      'Diagnoza procesu pozyskania klienta i jasna hierarchia decyzji: co zrobić najpierw, czego nie ruszać i jak mierzyć efekt.',
+    cta: 'Zamów Mapę',
     featured: true,
   },
   {
-    code: 'ACT',
+    code: '03 / PO DIAGNOZIE',
     name: 'Wdrożenie / Monitoring',
-    price: 'po diagnozie',
-    copy: 'Naprawa właściwego problemu — własnym zespołem, z DigitalMap albo w modelu mieszanym.',
+    price: 'zakres po diagnozie',
+    copy:
+      'Jeśli rekomendacja wymaga działania, możesz wdrożyć ją samodzielnie, z własnym zespołem albo z DigitalMap. Monitoring ma sens dopiero wtedy, gdy wiadomo, co warto kontrolować.',
     cta: 'Zobacz dalszy krok',
   },
 ]

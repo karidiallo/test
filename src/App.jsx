@@ -16,11 +16,11 @@ function Header() {
     <header className="header">
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
-        <a href="#system">System</a>
-        <a href="#sample">Przykład</a>
+        <a href="#system">Jak pomagamy</a>
+        <a href="#sample">Przykładowa Mapa</a>
         <a href="#offer">Oferta</a>
       </nav>
-      <a className="header-cta" href="#scan">Zmapuj firmę <Arrow /></a>
+      <a className="header-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>
     </header>
   )
 }
@@ -53,12 +53,12 @@ function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
       <div className="story-steps">
         <div className="story-step hero-step">
           <div className="step-copy step-copy--hero">
-            <div className="eyebrow">DIGITALMAP / DIAGNOZA PRZED WYDATKIEM</div>
-            <h1>Marketing ma wiele kanałów.<br /><span>Wzrost blokuje jedno najważniejsze miejsce.</span></h1>
-            <p className="hero-lead">DigitalMap analizuje drogę od pierwszego kontaktu do przychodu, znajduje problem #1 i daje Ci jasną decyzję: <b>co zrobić teraz, czego nie ruszać i po czym poznać, że zadziałało.</b></p>
+            <div className="eyebrow">DIAGNOSTYKA MARKETINGOWA</div>
+            <h1>Zanim wydasz więcej na marketing,<br /><span>sprawdź, co naprawdę blokuje Twój wzrost.</span></h1>
+            <p className="hero-lead">DigitalMap analizuje drogę od widoczności do klienta, znajduje najważniejsze wąskie gardło i pokazuje, <b>co zrobić najpierw — oraz czego na razie nie ruszać.</b></p>
             <div className="hero-actions">
-              <a className="button button--dark" href="#scan">Zmapuj moją firmę <Arrow /></a>
-              <a className="button button--ghost" href="#sample">Otwórz przykładową diagnozę</a>
+              <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
+              <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
             </div>
             <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>Bez abonamentu</span><span>Bez obowiązku wdrożenia</span></div>
           </div>
@@ -66,9 +66,9 @@ function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
 
         <div className="story-step" id="system">
           <div className="step-copy step-copy--panel">
-            <div className="eyebrow">01 / SYMPTOM ≠ PRZYCZYNA</div>
-            <h2>Co widzisz po swojej stronie?</h2>
-            <p>Wybierz objaw. Mapa pokaże miejsce, które warto sprawdzić — nie będziemy udawać, że sam objaw jest już diagnozą.</p>
+            <div className="eyebrow">01 / PROBLEM Z MARKETINGIEM</div>
+            <h2>Objaw nie mówi jeszcze, gdzie naprawdę zaczyna się problem.</h2>
+            <p>Masz za mało klientów, ruch nie zamienia się w zapytania albo konkurencja wygrywa? Zamiast zgadywać kanał, najpierw ustalamy, gdzie naprawdę zaczyna się strata.</p>
             <div className="symptom-mini-list">
               {symptoms.map((item) => (
                 <button key={item.id} onClick={() => onSelectSymptom(item)}>{item.label}<Arrow /></button>
@@ -79,19 +79,19 @@ function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
 
         <div className="story-step">
           <div className="step-copy step-copy--panel step-copy--right">
-            <div className="eyebrow">02 / BOTTLENECK</div>
-            <h2>Problem rzadko zaczyna się tam, gdzie go widać.</h2>
-            <p>Więcej ruchu nie naprawi słabej oferty. Lepszy landing nie naprawi braku zaufania. DigitalMap szuka miejsca, w którym realnie urywa się wynik.</p>
-            <div className="signal-line"><i /> WĄSKIE GARDŁO <span>oferta / kontakt</span></div>
+            <div className="eyebrow">02 / JAK MAPUJEMY WZROST</div>
+            <h2>Mapujemy całą drogę od widoczności do klienta.</h2>
+            <p>Badamy rynek, widoczność, zaufanie, ofertę, konwersję i konkurencję. Szukamy miejsca, które dziś najbardziej ogranicza wynik — nie listy wszystkiego, co można poprawić.</p>
+            <div className="signal-line"><i /> PROBLEM #1 <span>oferta / ścieżka kontaktu</span></div>
           </div>
         </div>
 
         <div className="story-step">
           <div className="step-copy step-copy--panel">
-            <div className="eyebrow">03 / DECYZJA</div>
-            <h2>Dane nie są diagnozą. <span className="accent-text">Potrzebujesz kolejności.</span></h2>
-            <p>Dlatego outputem nie jest 80-punktowa lista błędów. To decyzja: problem #1 → dowody → priorytet → pierwszy ruch → „nie teraz” → miernik.</p>
-            <a className="text-link" href="#sample">Zobacz, jak wygląda wynik <Arrow /></a>
+            <div className="eyebrow">03 / CO DOSTAJESZ</div>
+            <h2>Nie listę błędów. <span className="accent-text">Jasną hierarchię decyzji.</span></h2>
+            <p>Problem #1, dowody, priorytet, pierwszy ruch, plan działania, rzeczy „nie teraz” i miernik, po którym można ocenić efekt zmiany.</p>
+            <a className="text-link" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ function SampleMap() {
   const [tab, setTab] = useState('decision')
   const tabs = {
     decision: ['DECYZJA', diagnosis.decision],
-    now: ['ZRÓB TERAZ', diagnosis.doNow],
+    now: ['PIERWSZY RUCH', diagnosis.doNow],
     later: ['NIE TERAZ', diagnosis.notNow],
     measure: ['MIERNIK', diagnosis.measure],
   }
@@ -114,8 +114,8 @@ function SampleMap() {
         <div className="section-heading section-heading--split">
           <div className="eyebrow">04 / PRZYKŁADOWA MAPA</div>
           <div>
-            <h2>Nie raport. <span className="accent-text">Interfejs do podjęcia decyzji.</span></h2>
-            <p>Ta sekcja ma wyglądać jak produkt, nie jak PDF sprzedawany przez agencję.</p>
+            <h2>Zobacz, jak wygląda <span className="accent-text">decyzja zamiast listy błędów.</span></h2>
+            <p>Przykładowy format wyniku dla firmy usługowej. Mapa ma odpowiedzieć: co zrobić najpierw, czego teraz nie ruszać i po czym poznać, że zmiana działa.</p>
           </div>
         </div>
 
@@ -123,19 +123,19 @@ function SampleMap() {
           <aside className="diagnosis-rail">
             <TopographicLogo inverted />
             <div className="rail-nav">
-              <button className="active">Overview</button>
-              <button>Customer path</button>
-              <button>Evidence</button>
-              <button>30 days</button>
+              <button className="active">Przegląd</button>
+              <button>Droga klienta</button>
+              <button>Dowody</button>
+              <button>Plan 30 dni</button>
             </div>
-            <small>DEMO / firma usługowa</small>
+            <small>PRZYKŁADOWY FORMAT / firma usługowa</small>
           </aside>
 
           <div className="diagnosis-main">
             <div className="diagnosis-top"><span>STATUS ANALIZY</span><b>zakończona</b></div>
             <div className="priority-layout">
               <div className="priority-copy">
-                <span className="priority-no">PRIORITY 01</span>
+                <span className="priority-no">PROBLEM #1</span>
                 <h3>{diagnosis.problem}</h3>
                 <p>Ruch już dociera na stronę, ale użytkownik nie dostaje wystarczającego powodu ani wystarczająco prostej drogi do kontaktu.</p>
               </div>
@@ -152,7 +152,7 @@ function SampleMap() {
             </div>
             <div className="decision-output">
               <div><span>{tabs[tab][0]}</span><strong>{tabs[tab][1]}</strong></div>
-              <a href="#scan">Uruchom dla swojej firmy <Arrow /></a>
+              <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
             </div>
           </div>
         </div>
@@ -165,12 +165,12 @@ function Principle() {
   return (
     <section className="principle">
       <div className="principle-inner">
-        <div className="eyebrow">NASZA ZASADA</div>
-        <h2>Jeśli problemem nie jest SEO,<br /><span>nie sprzedamy Ci SEO.</span></h2>
+        <div className="eyebrow">CZYM DIGITALMAP RÓŻNI SIĘ OD AGENCJI</div>
+        <h2>Najpierw diagnoza.<br /><span>Dopiero potem rozwiązanie.</span></h2>
         <div className="principle-grid">
-          <p>Jeśli więcej ruchu nie zwiększy sprzedaży, nie każemy Ci kupować więcej ruchu.</p>
-          <p>Jeśli coś działa, nie będziemy tego naprawiać tylko po to, żeby mieć co wdrożyć.</p>
-          <p>DigitalMap istnieje po to, żeby znaleźć właściwą decyzję — nie właściwą usługę do sprzedania.</p>
+          <p>Nie zaczynamy od sprzedaży kanału. Najpierw diagnozujemy, gdzie faktycznie zatrzymuje się wynik.</p>
+          <p>Dopiero potem można zdecydować, czy potrzebne jest SEO, Ads, redesign, CRO czy zupełnie inny ruch.</p>
+          <p>Rekomendacje możesz wdrożyć samodzielnie, z własnym zespołem, inną firmą albo z DigitalMap.</p>
         </div>
       </div>
     </section>
@@ -179,20 +179,20 @@ function Principle() {
 
 function Evidence() {
   const items = [
-    ['01', 'Strona', 'Oferta, UX, CTA, formularze i ścieżka kontaktu.'],
-    ['02', 'Widoczność', 'Google, SEO, lokalność, AI Search i źródła ruchu.'],
-    ['03', 'Zaufanie', 'Opinie, reputacja, proof, komunikacja i przewagi.'],
-    ['04', 'Marketing', 'Ads, social, koszt, jakość leadów i spójność kanałów.'],
-    ['05', 'Konkurencja', 'Co sprawia, że inny wybór jest dla klienta prostszy.'],
-    ['06', 'Ekonomia', 'Gdzie wynik kończy się na aktywności zamiast przychodzie.'],
+    ['01', 'Strona i oferta', 'Czy klient w kilka sekund rozumie, co oferujesz, dla kogo to jest i dlaczego ma wybrać właśnie Ciebie?'],
+    ['02', 'Wizytówka Google', 'Sprawdzamy widoczność lokalną, kompletność profilu, opinie, kategorie i to, jak firma wygląda obok konkurencji.'],
+    ['03', 'Social media', 'Czy kanały społecznościowe budują zaufanie i wspierają decyzję klienta, czy tylko generują aktywność bez biznesowego efektu?'],
+    ['04', 'Widoczność i ruch', 'Patrzymy, skąd przychodzą klienci, gdzie firma znika z pola widzenia i czy pozyskiwany ruch ma właściwą intencję.'],
+    ['05', 'Reklamy i marketing', 'Nie pytamy tylko, czy kampania ma kliknięcia. Sprawdzamy, czy budżet prowadzi do jakościowych zapytań i gdzie wynik się urywa.'],
+    ['06', 'Zaufanie i reputacja', 'Opinie, dowody, komunikacja i spójność marki często decydują o wyborze wcześniej niż sam cennik czy zakres usługi.'],
   ]
 
   return (
     <section className="section section--paper">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">05 / EVIDENCE</div>
-          <div><h2>Każda rekomendacja musi mieć <span className="accent-text">podstawę.</span></h2><p>Nie dodajemy kanałów do oferty. Łączymy sygnały z całej drogi klienta.</p></div>
+          <div className="eyebrow">05 / CO SPRAWDZAMY</div>
+          <div><h2>Patrzymy na cały system, <span className="accent-text">nie jeden kanał.</span></h2><p>Łączymy sygnały z całej drogi klienta, żeby ustalić, co jest dziś problemem #1, a co tylko kolejną rzeczą, którą można byłoby poprawić.</p></div>
         </div>
         <div className="evidence-grid">
           {items.map(([no, title, copy]) => <article key={no}><span>{no}</span><h3>{title}</h3><p>{copy}</p></article>)}
@@ -208,7 +208,7 @@ function Offer() {
       <div className="section-shell">
         <div className="section-heading section-heading--split">
           <div className="eyebrow">06 / OFERTA</div>
-          <div><h2>Wybierasz głębokość diagnozy. <span className="accent-text">Nie katalog usług.</span></h2><p>Na homepage pokazujemy trzy logiczne etapy zamiast zmuszać klienta do samodzielnego diagnozowania, którego produktu potrzebuje.</p></div>
+          <div><h2>Najpierw ustal, co ma sens. <span className="accent-text">Potem wybierz kolejny ruch.</span></h2><p>Nie musisz sam diagnozować, którego produktu potrzebujesz. Możesz zacząć od pierwszego sygnału albo wejść od razu w pełną diagnozę procesu pozyskania klienta.</p></div>
         </div>
         <div className="offer-grid">
           {offers.map((offer) => (
@@ -221,7 +221,7 @@ function Offer() {
             </article>
           ))}
         </div>
-        <div className="special-paths"><span>Ścieżki specjalistyczne:</span> Mapa AI · Mapa Start · zakres dobierany po pierwszym sygnale</div>
+        <div className="special-paths"><span>Nie wiesz, czego potrzebujesz?</span> Wyślij firmę — pomożemy dobrać właściwy zakres. Mapa Start i Mapa AI zostają jako ścieżki specjalistyczne.</div>
       </div>
     </section>
   )
@@ -244,42 +244,42 @@ function ScanForm({ selectedSymptom }) {
     <section className="scan" id="scan">
       <div className="scan-shell">
         <div className="scan-copy">
-          <div className="eyebrow">07 / START</div>
-          <h2>Uruchom DigitalMap dla swojej firmy.</h2>
-          <p>V1 używa progressive form: najpierw działanie, potem kontekst, na końcu kontakt. Dzięki temu nie wygląda jak klasyczny formularz leadowy agencji.</p>
-          <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 DOMENA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 WYNIK</span></div>
+          <div className="eyebrow">07 / MINI MAPA</div>
+          <h2>Sprawdź swoją firmę, zanim wydasz więcej.</h2>
+          <p>Zacznij od pierwszego sygnału. Na start wystarczy domena i krótki kontekst — bez abonamentu i bez obowiązku kupowania wdrożenia.</p>
+          <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 FIRMA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 KONTAKT</span></div>
         </div>
 
         <form className="scan-card" onSubmit={submit}>
           {!done && step === 0 && <>
             <span className="form-kicker">MINI MAPA / 0 ZŁ</span>
-            <h3>Jaki biznes mamy zmapować?</h3>
+            <h3>Od jakiej firmy zaczynamy?</h3>
             <label>Domena / nazwa firmy</label>
             <input autoFocus value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="twojafirma.pl" />
-            <button type="submit">Zmapuj <Arrow /></button>
+            <button type="submit">Sprawdź swoją firmę <Arrow /></button>
             <small>Bez abonamentu. Bez obowiązku wdrożenia.</small>
           </>}
 
           {!done && step === 1 && <>
-            <span className="form-kicker">SYMPTOM</span>
-            <h3>Co dziś najbardziej boli?</h3>
+            <span className="form-kicker">KRÓTKI KONTEKST</span>
+            <h3>Z czym dziś najbardziej się mierzysz?</h3>
             <div className="form-options">
               {symptoms.map((item) => <button key={item.id} type="button" className={selectedSymptom.id === item.id ? 'active' : ''} onClick={() => { selectedSymptom.set(item); setStep(2) }}>{item.label}</button>)}
             </div>
-            <small>Nie traktujemy tej odpowiedzi jako diagnozy. To tylko punkt startu.</small>
+            <small>Ta odpowiedź nie jest diagnozą — pomaga tylko ustawić pierwszy kierunek analizy.</small>
           </>}
 
           {!done && step === 2 && <>
-            <span className="form-kicker">WYNIK</span>
-            <h3>Gdzie wysłać pierwszy kierunek?</h3>
+            <span className="form-kicker">MINI MAPA</span>
+            <h3>Gdzie mamy wrócić z pierwszym kierunkiem?</h3>
             <div className="domain-confirm"><span>{domain || 'twojafirma.pl'}</span><b>{selectedSymptom.value.short}</b></div>
             <label>E-mail</label>
             <input autoFocus type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="kontakt@twojafirma.pl" />
             <button type="submit">Wyślij pierwszy kierunek <Arrow /></button>
-            <small>Demo V1: formularz nie wysyła danych do backendu.</small>
+            <small>Wersja testowa strony — wysyłkę formularza podłączymy przed publikacją produkcyjną.</small>
           </>}
 
-          {done && <div className="form-success"><span>✓</span><h3>Flow gotowy.</h3><p>W produkcji tutaj podpinamy Twój endpoint / CRM / automatyzację Mini Mapy.</p><button type="button" onClick={() => { setDone(false); setStep(0) }}>Uruchom ponownie</button></div>}
+          {done && <div className="form-success"><span>✓</span><h3>Dzięki.</h3><p>W docelowej wersji w tym miejscu potwierdzimy zgłoszenie i wrócimy z pierwszym kierunkiem analizy.</p><button type="button" onClick={() => { setDone(false); setStep(0) }}>Sprawdź inną firmę</button></div>}
         </form>
       </div>
     </section>
@@ -287,7 +287,7 @@ function ScanForm({ selectedSymptom }) {
 }
 
 function Footer() {
-  return <footer><TopographicLogo inverted /><p>Diagnoza przed wydatkiem. Decyzja przed wdrożeniem.</p><span>DigitalMap / concept V1 · 2026</span></footer>
+  return <footer><TopographicLogo inverted /><p>Najpierw znajdź problem. Potem zdecyduj, na co warto wydać pieniądze.</p><span>© 2026 DigitalMap</span></footer>
 }
 
 export default function App() {
