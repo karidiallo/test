@@ -1,371 +1,392 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { ContactShadows, Html, Line } from '@react-three/drei'
+import { Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-const PAPER = '#eee8df'
-const STONE = '#c9c0b6'
-const INK = '#181513'
-const ACCENT = '#df765f'
-const WINE = '#a83459'
-const CHAMPAGNE = '#c69a7d'
+const INK = '#0b0b0c'
+const GRAPHITE = '#151517'
+const GRAPHITE_2 = '#1f1f22'
+const STEEL = '#77716b'
+const IVORY = '#f4efe7'
+const CHAMPAGNE = '#c9a477'
+const CORAL = '#de755f'
+const WINE = '#8f2f50'
 
 const zones = [
   {
-    key: 'visibility', no: '01', title: 'WIDOCZNOŚĆ', eyebrow: 'CZY FIRMA JEST WIDOCZNA?',
-    detail: 'Google · SEO · Maps · AI Search', pos: [-3.6, -0.72], type: 'radar', color: '#d97861',
+    key: 'visibility', no: '01', title: 'WIDOCZNOŚĆ',
+    question: 'Czy Twoja firma pojawia się wtedy, kiedy klient naprawdę szuka?',
+    detail: 'Google · SEO · Maps · Ads · AI Search',
+    pos: [-3.7, -0.92], kind: 'tower',
   },
   {
-    key: 'website', no: '02', title: 'STRONA I OFERTA', eyebrow: 'CZY KLIENT ROZUMIE WARTOŚĆ?',
-    detail: 'Komunikat · UX · CTA · oferta', pos: [-1.7, 0.78], type: 'portal', color: '#c55b69',
+    key: 'website', no: '02', title: 'STRONA I OFERTA',
+    question: 'Czy klient od razu rozumie wartość, przewagę i następny krok?',
+    detail: 'Komunikat · UX · CTA · oferta · landing page',
+    pos: [-1.75, 0.82], kind: 'pavilion',
   },
   {
-    key: 'social', no: '03', title: 'SOCIAL & CONTENT', eyebrow: 'CZY MARKA BUDUJE UWAGĘ?',
-    detail: 'Treści · social · spójność · relacja', pos: [0.15, -0.58], type: 'network', color: '#9e3d62',
+    key: 'social', no: '03', title: 'SOCIAL & CONTENT',
+    question: 'Czy treści budują uwagę, relację i prowadzą dalej?',
+    detail: 'Content · social · spójność · zaangażowanie',
+    pos: [0.28, -0.78], kind: 'studio',
   },
   {
-    key: 'trust', no: '04', title: 'ZAUFANIE', eyebrow: 'CZY KLIENT MA POWÓD CI ZAUFAĆ?',
-    detail: 'Opinie · proof · reputacja · przewaga', pos: [2.05, 0.86], type: 'proof', color: '#8d3154',
+    key: 'trust', no: '04', title: 'ZAUFANIE',
+    question: 'Czy klient ma wystarczający powód, żeby wybrać właśnie Ciebie?',
+    detail: 'Opinie · case studies · reputacja · proof',
+    pos: [2.15, 0.96], kind: 'boardroom',
   },
   {
-    key: 'conversion', no: '05', title: 'KONWERSJA', eyebrow: 'GDZIE ZAINTERESOWANIE GINIE?',
-    detail: 'Formularz · kontakt · lead · sprzedaż', pos: [3.9, -0.34], type: 'funnel', color: '#d16f5c',
+    key: 'conversion', no: '05', title: 'KONWERSJA',
+    question: 'Gdzie zainteresowanie przestaje zamieniać się w kontakt i sprzedaż?',
+    detail: 'Formularz · lead · konsultacja · oferta · sprzedaż',
+    pos: [4.02, -0.52], kind: 'hq',
   },
 ]
 
-function heightAt(x, z) {
-  const ridge = Math.exp(-((z + Math.sin(x * 0.55) * 0.44) ** 2) / 0.76) * 0.36
-  const left = Math.exp(-((x + 2.7) ** 2 + (z - 0.15) ** 2) / 2.9) * 0.70
-  const mid = Math.exp(-((x + 0.3) ** 2 + (z + 0.4) ** 2) / 2.1) * 0.52
-  const right = Math.exp(-((x - 2.7) ** 2 + (z - 0.3) ** 2) / 2.55) * 0.80
-  const canyon = Math.exp(-((x - 0.75) ** 2 + (z + 0.05) ** 2) / 0.19) * 0.38
-  const step = Math.sin(x * 1.15 + z * 0.8) * 0.035
-  return 0.14 + ridge + left + mid + right - canyon + step
+const roadPoints = [
+  [-5.25, -1.7], [-4.55, -1.2], [-3.7, -0.92], [-2.85, -0.12], [-1.75, 0.82],
+  [-0.72, 0.15], [0.28, -0.78], [1.26, 0.03], [2.15, 0.96], [3.15, 0.15], [4.02, -0.52], [5.15, 0.1],
+]
+
+function slabY(x, z) {
+  return 0.015 + Math.sin(x * 0.5) * 0.006 + Math.cos(z * 0.8) * 0.004
 }
 
-function Terrain() {
-  const geometry = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(10.8, 6.8, 150, 96)
-    const pos = geo.attributes.position
-    const colors = []
-    const low = new THREE.Color('#a99f96')
-    const mid = new THREE.Color('#d8d0c6')
-    const high = new THREE.Color('#f8f4ed')
+function DistrictBase({ x, z, w, d, rot = 0, tone = GRAPHITE_2 }) {
+  return (
+    <group position={[x, 0, z]} rotation={[0, rot, 0]}>
+      <mesh receiveShadow position={[0, 0.035, 0]}>
+        <boxGeometry args={[w, 0.07, d]} />
+        <meshStandardMaterial color={tone} metalness={0.18} roughness={0.72} />
+      </mesh>
+      <mesh position={[0, 0.073, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[w * 0.92, d * 0.88]} />
+        <meshBasicMaterial color="#2b2927" transparent opacity={0.42} />
+      </mesh>
+    </group>
+  )
+}
 
-    for (let i = 0; i < pos.count; i += 1) {
-      const x = pos.getX(i)
-      const z = -pos.getY(i)
-      const h = heightAt(x, z)
-      pos.setZ(i, h)
-      const t = THREE.MathUtils.clamp((h - 0.08) / 0.95, 0, 1)
-      const c = t < 0.55
-        ? low.clone().lerp(mid, t / 0.55)
-        : mid.clone().lerp(high, (t - 0.55) / 0.45)
-      colors.push(c.r, c.g, c.b)
+function ExecutiveMapBase() {
+  const contour = useMemo(() => {
+    const lines = []
+    for (let i = 0; i < 8; i += 1) {
+      const inset = i * 0.32
+      lines.push([
+        new THREE.Vector3(-5.7 + inset, 0.086 + i * 0.001, -3.25 + inset * 0.34),
+        new THREE.Vector3(5.7 - inset, 0.086 + i * 0.001, -3.25 + inset * 0.34),
+        new THREE.Vector3(5.7 - inset, 0.086 + i * 0.001, 3.25 - inset * 0.34),
+        new THREE.Vector3(-5.7 + inset, 0.086 + i * 0.001, 3.25 - inset * 0.34),
+        new THREE.Vector3(-5.7 + inset, 0.086 + i * 0.001, -3.25 + inset * 0.34),
+      ])
     }
-
-    geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-    geo.rotateX(-Math.PI / 2)
-    geo.computeVertexNormals()
-    return geo
+    return lines
   }, [])
 
-  const wire = useMemo(() => geometry.clone(), [geometry])
-
   return (
-    <group position={[0, -0.86, 0]}>
-      <mesh position={[0, -0.34, 0]} receiveShadow>
-        <boxGeometry args={[11.35, 0.52, 7.35]} />
-        <meshStandardMaterial color="#817970" roughness={0.96} />
+    <group position={[0, -0.92, 0]}>
+      <mesh receiveShadow>
+        <boxGeometry args={[12.4, 0.34, 7.4]} />
+        <meshStandardMaterial color="#09090a" metalness={0.34} roughness={0.5} />
       </mesh>
-      <mesh geometry={geometry} receiveShadow castShadow>
-        <meshStandardMaterial vertexColors roughness={0.86} metalness={0.01} />
+      <mesh position={[0, 0.19, 0]} receiveShadow>
+        <boxGeometry args={[11.85, 0.08, 6.88]} />
+        <meshStandardMaterial color="#121214" metalness={0.16} roughness={0.84} />
       </mesh>
-      <mesh geometry={wire} position={[0, 0.012, 0]}>
-        <meshBasicMaterial color="#514a45" wireframe transparent opacity={0.055} depthWrite={false} />
-      </mesh>
-      <mesh position={[0, 0.025, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[10.5, 6.5, 18, 12]} />
-        <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.028} depthWrite={false} />
-      </mesh>
-    </group>
-  )
-}
-
-function RadarLandmark({ color }) {
-  const sweep = useRef()
-  useFrame(({ clock }) => {
-    if (sweep.current) sweep.current.rotation.z = -clock.getElapsedTime() * 0.55
-  })
-  return (
-    <group>
-      {[0.32, 0.53, 0.75].map((r, i) => (
-        <mesh key={r} rotation={[Math.PI / 2, 0, 0]} position={[0, 0.04 + i * 0.025, 0]}>
-          <torusGeometry args={[r, 0.018, 12, 64]} />
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4 - i * 0.08} roughness={0.3} />
-        </mesh>
+      {contour.map((points, i) => (
+        <Line key={i} points={points} color={i === 0 ? '#5b5148' : '#393431'} lineWidth={i === 0 ? 1.25 : 0.65} transparent opacity={0.38 - i * 0.025} />
       ))}
-      <mesh position={[0, 0.46, 0]} castShadow>
-        <cylinderGeometry args={[0.055, 0.11, 0.88, 18]} />
-        <meshStandardMaterial color={INK} metalness={0.35} roughness={0.34} />
-      </mesh>
-      <group ref={sweep} position={[0, 0.085, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <mesh position={[0.38, 0, 0]}>
-          <boxGeometry args={[0.72, 0.015, 0.018]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.65} />
-        </mesh>
-      </group>
+      <DistrictBase x={-3.7} z={-0.92} w={2.05} d={1.75} rot={-0.08} />
+      <DistrictBase x={-1.75} z={0.82} w={2.0} d={1.55} rot={0.04} tone="#19191b" />
+      <DistrictBase x={0.28} z={-0.78} w={2.0} d={1.72} rot={-0.03} />
+      <DistrictBase x={2.15} z={0.96} w={2.12} d={1.58} rot={0.06} tone="#19191b" />
+      <DistrictBase x={4.02} z={-0.52} w={1.95} d={1.72} rot={-0.08} />
     </group>
   )
 }
 
-function PortalLandmark({ color }) {
+function LitWindow({ position, size = [0.18, 0.08], strength = 0.8 }) {
   return (
-    <group>
-      <mesh position={[-0.42, 0.40, 0]} castShadow><boxGeometry args={[0.12, 0.80, 0.14]} /><meshStandardMaterial color={INK} roughness={0.36} /></mesh>
-      <mesh position={[0.42, 0.40, 0]} castShadow><boxGeometry args={[0.12, 0.80, 0.14]} /><meshStandardMaterial color={INK} roughness={0.36} /></mesh>
-      <mesh position={[0, 0.78, 0]} castShadow><boxGeometry args={[0.96, 0.12, 0.14]} /><meshStandardMaterial color={INK} roughness={0.36} /></mesh>
-      <mesh position={[0, 0.42, -0.02]}>
-        <planeGeometry args={[0.70, 0.58]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.32} transparent opacity={0.55} side={THREE.DoubleSide} />
-      </mesh>
-      <mesh position={[0, 0.42, 0.02]}>
-        <planeGeometry args={[0.50, 0.37]} />
-        <meshBasicMaterial color="#fff8f0" transparent opacity={0.68} />
-      </mesh>
-    </group>
+    <mesh position={position}>
+      <planeGeometry args={size} />
+      <meshStandardMaterial color={IVORY} emissive={CHAMPAGNE} emissiveIntensity={strength} roughness={0.3} />
+    </mesh>
   )
 }
 
-function NetworkLandmark({ color }) {
-  const nodes = [[-0.52, 0.22, 0.10], [0, 0.76, -0.04], [0.55, 0.28, 0.11], [0.05, 0.26, 0.52]]
-  const lines = [[0,1],[1,2],[1,3],[0,3],[2,3]]
+function VisibilityTower({ active }) {
   return (
     <group>
-      {lines.map(([a,b], i) => <Line key={i} points={[new THREE.Vector3(...nodes[a]), new THREE.Vector3(...nodes[b])]} color={color} lineWidth={1.7} transparent opacity={0.7} />)}
-      {nodes.map((p, i) => (
-        <mesh key={i} position={p} castShadow>
-          <sphereGeometry args={[i === 1 ? 0.14 : 0.10, 20, 20]} />
-          <meshStandardMaterial color={i === 1 ? '#fff5ec' : color} emissive={color} emissiveIntensity={i === 1 ? 0.65 : 0.28} roughness={0.3} />
+      <mesh position={[0, 0.48, 0]} castShadow>
+        <boxGeometry args={[0.7, 0.96, 0.62]} />
+        <meshStandardMaterial color="#151517" metalness={0.46} roughness={0.28} />
+      </mesh>
+      {[0.2, 0.4, 0.6, 0.8].map((y) => <LitWindow key={y} position={[0.351, y, 0.0]} size={[0.01, 0.12]} strength={active ? 2.1 : 0.8} />)}
+      <mesh position={[0, 1.2, 0]} castShadow>
+        <cylinderGeometry args={[0.025, 0.04, 0.52, 12]} />
+        <meshStandardMaterial color={CHAMPAGNE} metalness={0.76} roughness={0.22} />
+      </mesh>
+      {[0.22, 0.38].map((r) => (
+        <mesh key={r} position={[0, 1.43, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[r, 0.012, 10, 48]} />
+          <meshBasicMaterial color={active ? CORAL : CHAMPAGNE} transparent opacity={active ? 0.95 : 0.4} />
         </mesh>
       ))}
     </group>
   )
 }
 
-function ProofLandmark({ color }) {
-  const core = useRef()
-  useFrame(({ clock }) => {
-    if (core.current) core.current.rotation.y = clock.getElapsedTime() * 0.20
-  })
+function WebsitePavilion({ active }) {
   return (
     <group>
-      <mesh position={[0, 0.22, 0]} receiveShadow><cylinderGeometry args={[0.58, 0.68, 0.14, 6]} /><meshStandardMaterial color="#9b9187" roughness={0.8} /></mesh>
-      <mesh ref={core} position={[0, 0.66, 0]} castShadow>
-        <octahedronGeometry args={[0.40, 0]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.33} metalness={0.24} roughness={0.28} />
+      <mesh position={[0, 0.27, 0]} castShadow>
+        <boxGeometry args={[1.28, 0.52, 0.82]} />
+        <meshPhysicalMaterial color="#171719" metalness={0.28} roughness={0.2} transmission={0.18} transparent opacity={0.94} />
       </mesh>
+      <mesh position={[0, 0.54, -0.1]}>
+        <boxGeometry args={[1.06, 0.035, 0.58]} />
+        <meshStandardMaterial color="#312a26" metalness={0.3} roughness={0.44} />
+      </mesh>
+      <mesh position={[0, 0.29, 0.416]}>
+        <planeGeometry args={[0.78, 0.25]} />
+        <meshStandardMaterial color="#0e0f11" emissive={active ? CORAL : CHAMPAGNE} emissiveIntensity={active ? 1.2 : 0.25} />
+      </mesh>
+      {[[-0.44, 0.28, 0.418], [0.44, 0.28, 0.418]].map((p, i) => <LitWindow key={i} position={p} size={[0.13, 0.19]} strength={active ? 1.8 : 0.55} />)}
+      <mesh position={[0, 0.04, 0.57]}>
+        <boxGeometry args={[0.86, 0.035, 0.32]} />
+        <meshStandardMaterial color="#262326" roughness={0.75} />
+      </mesh>
+    </group>
+  )
+}
+
+function SocialStudio({ active }) {
+  const bars = [0.35, 0.52, 0.4, 0.7, 0.57]
+  return (
+    <group>
+      <mesh position={[0, 0.1, 0]}>
+        <cylinderGeometry args={[0.78, 0.84, 0.16, 40]} />
+        <meshStandardMaterial color="#171719" metalness={0.3} roughness={0.48} />
+      </mesh>
+      <mesh position={[0, 0.23, -0.18]} castShadow>
+        <boxGeometry args={[1.24, 0.35, 0.56]} />
+        <meshStandardMaterial color="#202023" metalness={0.24} roughness={0.34} />
+      </mesh>
+      {bars.map((h, i) => (
+        <mesh key={i} position={[-0.4 + i * 0.2, 0.28 + h * 0.28, 0.11]}>
+          <boxGeometry args={[0.09, h * 0.56, 0.06]} />
+          <meshStandardMaterial color={i === 3 ? WINE : '#6b5c54'} emissive={i === 3 ? WINE : CHAMPAGNE} emissiveIntensity={active ? 0.8 : 0.16} />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.74, -0.23]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.42, 0.015, 10, 52]} />
+        <meshBasicMaterial color={active ? CORAL : CHAMPAGNE} transparent opacity={active ? 0.9 : 0.38} />
+      </mesh>
+    </group>
+  )
+}
+
+function TrustBoardroom({ active }) {
+  return (
+    <group>
+      <mesh position={[0, 0.26, 0]} castShadow>
+        <boxGeometry args={[1.34, 0.5, 0.92]} />
+        <meshStandardMaterial color="#151416" metalness={0.34} roughness={0.26} />
+      </mesh>
+      <mesh position={[0, 0.44, 0.47]}>
+        <planeGeometry args={[0.88, 0.18]} />
+        <meshStandardMaterial color="#16110f" emissive={active ? CHAMPAGNE : '#5f4936'} emissiveIntensity={active ? 1.1 : 0.3} />
+      </mesh>
+      {[-0.48, -0.16, 0.16, 0.48].map((x, i) => (
+        <mesh key={i} position={[x, 0.54, -0.2]} castShadow>
+          <boxGeometry args={[0.06, 0.66, 0.08]} />
+          <meshStandardMaterial color={i === 1 || i === 2 ? CHAMPAGNE : '#5c5149'} metalness={0.58} roughness={0.32} />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.13, 0.08]}>
+        <boxGeometry args={[0.76, 0.08, 0.36]} />
+        <meshStandardMaterial color="#302721" metalness={0.15} roughness={0.45} />
+      </mesh>
+    </group>
+  )
+}
+
+function ConversionHQ({ active }) {
+  return (
+    <group>
       {[0, 1, 2].map((i) => (
-        <mesh key={i} position={[(i - 1) * 0.48, 0.30, -0.43]} castShadow>
-          <boxGeometry args={[0.24, 0.52 + i * 0.08, 0.18]} />
-          <meshStandardMaterial color={i === 1 ? '#2a2522' : '#665d57'} roughness={0.5} />
+        <mesh key={i} position={[0.18 - i * 0.18, 0.18 + i * 0.24, -0.08 + i * 0.04]} castShadow>
+          <boxGeometry args={[1.1 - i * 0.18, 0.32, 0.86 - i * 0.08]} />
+          <meshStandardMaterial color={i === 2 ? '#262126' : '#161618'} metalness={0.38} roughness={0.3} />
         </mesh>
       ))}
-    </group>
-  )
-}
-
-function FunnelLandmark({ color }) {
-  return (
-    <group>
-      {[0.63, 0.47, 0.31].map((r, i) => (
-        <mesh key={r} position={[0, 0.72 - i * 0.26, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[r, 0.055, 12, 42]} />
-          <meshStandardMaterial color={i === 2 ? WINE : color} emissive={color} emissiveIntensity={0.2 + i * 0.12} roughness={0.28} />
-        </mesh>
-      ))}
-      <mesh position={[0, 0.05, 0]} rotation={[0, 0, Math.PI]} castShadow>
-        <coneGeometry args={[0.22, 0.48, 24]} />
-        <meshStandardMaterial color={INK} metalness={0.25} roughness={0.34} />
+      <mesh position={[0.12, 0.86, 0.0]}>
+        <boxGeometry args={[0.48, 0.05, 0.42]} />
+        <meshStandardMaterial color={CHAMPAGNE} emissive={active ? CORAL : CHAMPAGNE} emissiveIntensity={active ? 1.4 : 0.34} />
       </mesh>
+      {[0.2, 0.44, 0.68].map((y, i) => <LitWindow key={y} position={[0.73 - i * 0.1, y, 0.18]} size={[0.012, 0.13]} strength={active ? 1.6 : 0.5} />)}
     </group>
   )
 }
 
-function Landmark({ type, color }) {
-  if (type === 'radar') return <RadarLandmark color={color} />
-  if (type === 'portal') return <PortalLandmark color={color} />
-  if (type === 'network') return <NetworkLandmark color={color} />
-  if (type === 'proof') return <ProofLandmark color={color} />
-  return <FunnelLandmark color={color} />
+function ZoneArchitecture({ kind, active }) {
+  if (kind === 'tower') return <VisibilityTower active={active} />
+  if (kind === 'pavilion') return <WebsitePavilion active={active} />
+  if (kind === 'studio') return <SocialStudio active={active} />
+  if (kind === 'boardroom') return <TrustBoardroom active={active} />
+  return <ConversionHQ active={active} />
 }
 
-function Zone({ zone, index, progressRef, onSelectZone }) {
+function Zone({ zone, index, activeIndex, hoveredIndex, setHoveredIndex, onSelectZone }) {
   const group = useRef()
-  const halo = useRef()
-  const [hovered, setHovered] = useState(false)
+  const ring = useRef()
+  const active = activeIndex === index
+  const hovered = hoveredIndex === index
   const [x, z] = zone.pos
-  const y = heightAt(x, z) - 0.70
 
   useFrame(({ clock }) => {
-    const p = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1)
-    const mapped = THREE.MathUtils.clamp((p - 0.12) / 0.88, 0, 0.999)
-    const active = p > 0.12 && Math.min(4, Math.floor(mapped * 5)) === index
-    const s = hovered || active ? 1.08 : 1
-    if (group.current) group.current.scale.lerp(new THREE.Vector3(s, s, s), 0.11)
-    if (halo.current) {
-      halo.current.material.opacity = THREE.MathUtils.lerp(halo.current.material.opacity, active ? 0.75 : hovered ? 0.5 : 0.18, 0.12)
-      halo.current.rotation.z = clock.getElapsedTime() * (active ? 0.26 : 0.08)
+    const target = active || hovered ? 1.08 : 1
+    if (group.current) {
+      group.current.scale.x = THREE.MathUtils.lerp(group.current.scale.x, target, 0.1)
+      group.current.scale.y = THREE.MathUtils.lerp(group.current.scale.y, target, 0.1)
+      group.current.scale.z = THREE.MathUtils.lerp(group.current.scale.z, target, 0.1)
+    }
+    if (ring.current) {
+      ring.current.rotation.z = clock.getElapsedTime() * (active ? 0.22 : 0.05)
+      ring.current.material.opacity = THREE.MathUtils.lerp(ring.current.material.opacity, active ? 0.82 : hovered ? 0.5 : 0.12, 0.08)
     }
   })
 
   return (
-    <group ref={group} position={[x, y, z]}>
-      <mesh ref={halo} position={[0, 0.03, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.92, 0.018, 12, 84]} />
-        <meshBasicMaterial color={zone.color} transparent opacity={0.18} />
+    <group ref={group} position={[x, -0.71 + slabY(x, z), z]}
+      onPointerEnter={(e) => { e.stopPropagation(); setHoveredIndex(index); document.body.style.cursor = 'pointer' }}
+      onPointerLeave={() => { setHoveredIndex(-1); document.body.style.cursor = '' }}
+      onClick={(e) => { e.stopPropagation(); onSelectZone?.(index) }}>
+      <mesh ref={ring} position={[0, 0.045, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.93, 0.015, 10, 72]} />
+        <meshBasicMaterial color={active ? CORAL : CHAMPAGNE} transparent opacity={0.12} />
       </mesh>
-      <mesh position={[0, 0.015, 0]} receiveShadow>
-        <cylinderGeometry args={[0.86, 0.94, 0.11, 56]} />
-        <meshStandardMaterial color="#d9d1c8" roughness={0.7} metalness={0.04} />
-      </mesh>
-      <group position={[0, 0.10, 0]} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)}>
-        <Landmark type={zone.type} color={zone.color} />
+      <ZoneArchitecture kind={zone.kind} active={active || hovered} />
+      <group position={[-0.64, 0.08, 0.64]}>
+        <mesh>
+          <cylinderGeometry args={[0.16, 0.16, 0.055, 40]} />
+          <meshStandardMaterial color={active ? CORAL : '#252327'} emissive={active ? CORAL : '#000000'} emissiveIntensity={active ? 0.8 : 0} metalness={0.4} roughness={0.35} />
+        </mesh>
+        <mesh position={[0, 0.031, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.075, 0.09, 32]} />
+          <meshBasicMaterial color={IVORY} />
+        </mesh>
       </group>
-      <Html position={[0, 1.46, 0]} center distanceFactor={6.4} style={{ pointerEvents: 'auto' }}>
-        <button className={`map-zone-label ${hovered ? 'is-hovered' : ''}`} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => onSelectZone?.(index)}>
-          <span>{zone.no}</span>
-          <strong>{zone.title}</strong>
-          <small>{zone.detail}</small>
-          <i>↗</i>
-        </button>
-      </Html>
     </group>
   )
 }
 
-function Route({ progressRef }) {
-  const pulseRefs = useRef([])
-  const scanRef = useRef()
-  const curve = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-5.0, heightAt(-5.0, -1.1) - 0.66, -1.1),
-    ...zones.map((z) => new THREE.Vector3(z.pos[0], heightAt(z.pos[0], z.pos[1]) - 0.57, z.pos[1])),
-    new THREE.Vector3(5.0, heightAt(5.0, 0.4) - 0.62, 0.4),
-  ], false, 'catmullrom', 0.40), [])
-  const points = useMemo(() => curve.getPoints(220), [curve])
+function RoadSystem({ progressRef }) {
+  const curve = useMemo(() => new THREE.CatmullRomCurve3(
+    roadPoints.map(([x, z]) => new THREE.Vector3(x, -0.695, z)), false, 'catmullrom', 0.36
+  ), [])
+  const points = useMemo(() => curve.getPoints(260), [curve])
+  const pulses = useRef([])
+  const scanner = useRef()
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime()
-    pulseRefs.current.forEach((mesh, i) => {
-      if (!mesh) return
-      const pp = (t * 0.048 + i / 11) % 1
-      mesh.position.copy(curve.getPointAt(pp))
-      const s = 0.85 + Math.sin(t * 3.4 + i) * 0.18
-      mesh.scale.setScalar(s)
+    pulses.current.forEach((m, i) => {
+      if (!m) return
+      m.position.copy(curve.getPointAt((t * 0.035 + i / 8) % 1))
     })
-    if (scanRef.current) {
+    if (scanner.current) {
       const p = THREE.MathUtils.clamp((progressRef.current - 0.08) / 0.92, 0, 1)
-      scanRef.current.position.copy(curve.getPointAt(p))
-      scanRef.current.rotation.y = t * 0.5
+      scanner.current.position.copy(curve.getPointAt(p))
     }
   })
 
   return (
     <group>
-      <Line points={points} color="#7d2544" lineWidth={4.3} transparent opacity={0.18} />
-      <Line points={points} color="#ef9a7f" lineWidth={1.55} transparent opacity={0.95} />
-      {Array.from({ length: 11 }).map((_, i) => (
-        <mesh key={i} ref={(el) => { pulseRefs.current[i] = el }}>
-          <sphereGeometry args={[0.055, 14, 14]} />
-          <meshBasicMaterial color={i % 4 === 0 ? '#ffffff' : ACCENT} transparent opacity={0.9} />
+      <Line points={points} color="#070708" lineWidth={8} transparent opacity={0.96} />
+      <Line points={points} color="#5a4b40" lineWidth={3.6} transparent opacity={0.92} />
+      <Line points={points} color={CHAMPAGNE} lineWidth={1.15} transparent opacity={0.9} />
+      {Array.from({ length: 8 }).map((_, i) => (
+        <mesh key={i} ref={(el) => { pulses.current[i] = el }}>
+          <sphereGeometry args={[i % 4 === 0 ? 0.055 : 0.036, 14, 14]} />
+          <meshBasicMaterial color={i % 4 === 0 ? IVORY : CORAL} />
         </mesh>
       ))}
-      <group ref={scanRef}>
+      <group ref={scanner}>
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.25, 0.025, 12, 48]} />
-          <meshStandardMaterial color="#ffffff" emissive={WINE} emissiveIntensity={1.4} roughness={0.3} />
+          <torusGeometry args={[0.22, 0.018, 10, 52]} />
+          <meshBasicMaterial color={CORAL} transparent opacity={0.95} />
         </mesh>
-        <mesh position={[0, 0.34, 0]}>
-          <cylinderGeometry args={[0.012, 0.012, 0.64, 8]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.65} />
-        </mesh>
+        <pointLight color={CORAL} intensity={4} distance={1.5} />
       </group>
     </group>
   )
 }
 
-function DataPins() {
-  const pins = useMemo(() => [
-    [-4.4, 0.1], [-2.8, 1.3], [-2.5, -1.5], [-0.8, 1.65], [0.95, -1.35],
-    [1.15, 1.55], [2.85, -1.55], [3.25, 1.45], [4.55, 0.85], [4.25, -1.35],
+function ContextBlocks() {
+  const blocks = useMemo(() => [
+    [-4.9, 1.65, .62, .42, .20], [-4.15, 1.85, .42, .36, .28], [-2.9, -2.05, .7, .44, .18],
+    [-2.05, -1.9, .42, .32, .31], [-0.72, 1.9, .66, .44, .22], [0.1, 1.78, .38, .35, .34],
+    [1.03, -2.0, .58, .42, .20], [1.73, -1.78, .36, .3, .30], [3.22, 1.98, .58, .38, .24],
+    [4.25, 1.68, .4, .3, .36], [4.82, -1.75, .64, .4, .20], [3.68, -2.1, .36, .32, .28],
   ], [])
-  return pins.map(([x, z], i) => {
-    const y = heightAt(x, z) - 0.71
-    const h = 0.16 + (i % 3) * 0.07
-    return (
-      <group key={i} position={[x, y, z]}>
-        <mesh position={[0, h / 2, 0]}>
-          <cylinderGeometry args={[0.012, 0.012, h, 8]} />
-          <meshBasicMaterial color={i % 2 ? CHAMPAGNE : WINE} transparent opacity={0.55} />
-        </mesh>
-        <mesh position={[0, h + 0.03, 0]}>
-          <sphereGeometry args={[0.025, 10, 10]} />
-          <meshBasicMaterial color="#ffffff" />
-        </mesh>
-      </group>
-    )
-  })
+  return blocks.map(([x, z, w, d, h], i) => (
+    <mesh key={i} position={[x, -0.75 + h / 2, z]} castShadow>
+      <boxGeometry args={[w, h, d]} />
+      <meshStandardMaterial color={i % 3 === 0 ? '#222125' : '#18181a'} metalness={0.2} roughness={0.62} />
+    </mesh>
+  ))
 }
 
 function CameraRig({ progressRef }) {
   const { camera, pointer } = useThree()
-  const pos = useMemo(() => new THREE.Vector3(), [])
   const target = useMemo(() => new THREE.Vector3(), [])
   const desired = useMemo(() => new THREE.Vector3(), [])
   const desiredTarget = useMemo(() => new THREE.Vector3(), [])
 
   const cameraPath = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(7.7, 5.5, 8.6),
-    ...zones.map((z, i) => new THREE.Vector3(z.pos[0] + (i % 2 ? 2.2 : 2.5), 2.85 + i * 0.05, z.pos[1] + 3.55)),
-  ], false, 'catmullrom', 0.34), [])
-
+    new THREE.Vector3(7.7, 5.2, 8.4),
+    ...zones.map((z, i) => new THREE.Vector3(z.pos[0] + (i % 2 ? 2.1 : 2.45), 2.55 + i * 0.04, z.pos[1] + 3.3)),
+  ], false, 'catmullrom', 0.32), [])
   const targetPath = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0.2, -0.15, 0),
-    ...zones.map((z) => new THREE.Vector3(z.pos[0], heightAt(z.pos[0], z.pos[1]) - 0.23, z.pos[1])),
-  ], false, 'catmullrom', 0.34), [])
+    new THREE.Vector3(0.3, -0.55, 0),
+    ...zones.map((z) => new THREE.Vector3(z.pos[0], -0.35, z.pos[1])),
+  ], false, 'catmullrom', 0.32), [])
 
   useFrame(() => {
     const raw = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1)
     const p = raw < 0.115 ? 0 : THREE.MathUtils.smoothstep((raw - 0.115) / 0.885, 0, 1)
     desired.copy(cameraPath.getPointAt(p))
     desiredTarget.copy(targetPath.getPointAt(p))
-    desired.x += pointer.x * 0.18
-    desired.y += pointer.y * 0.10
-    desired.z += pointer.x * 0.08
-    pos.copy(camera.position).lerp(desired, 0.048)
+    desired.x += pointer.x * 0.12
+    desired.y += pointer.y * 0.05
+    camera.position.lerp(desired, 0.045)
     target.lerp(desiredTarget, 0.065)
-    camera.position.copy(pos)
     camera.lookAt(target)
   })
   return null
 }
 
-function Scene({ progressRef, onSelectZone }) {
+function Scene({ progressRef, activeIndex, hoveredIndex, setHoveredIndex, onSelectZone }) {
   return (
     <>
-      <color attach="background" args={[PAPER]} />
-      <fog attach="fog" args={[PAPER, 11, 24]} />
-      <ambientLight intensity={1.3} />
-      <hemisphereLight args={['#fff7ee', '#564b45', 2.25]} />
-      <directionalLight position={[4, 9, 6]} intensity={3.35} color="#fff7ef" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
-      <directionalLight position={[-5, 3, -4]} intensity={1.15} color="#bbc8d7" />
-      <pointLight position={[-3.5, 2.0, 1.5]} intensity={10} color={ACCENT} distance={7} />
-      <pointLight position={[2.8, 2.2, 1.2]} intensity={11} color={WINE} distance={7} />
-      <Terrain />
-      <Route progressRef={progressRef} />
-      <DataPins />
-      {zones.map((zone, i) => <Zone key={zone.key} zone={zone} index={i} progressRef={progressRef} onSelectZone={onSelectZone} />)}
-      <ContactShadows position={[0, -0.86, 0]} opacity={0.26} scale={14} blur={3.1} far={5.2} />
+      <color attach="background" args={[INK]} />
+      <fog attach="fog" args={[INK, 11.5, 23]} />
+      <ambientLight intensity={0.58} />
+      <hemisphereLight args={['#eadbc8', '#070708', 0.8]} />
+      <directionalLight position={[5, 8, 6]} intensity={2.5} color="#f0dfca" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-4, 4, -5]} intensity={0.75} color="#8a94a5" />
+      <pointLight position={[-2.4, 2.4, 2.3]} intensity={5.5} color={CHAMPAGNE} distance={7} />
+      <pointLight position={[3.4, 2.0, -0.8]} intensity={4.2} color={WINE} distance={5.5} />
+      <ExecutiveMapBase />
+      <ContextBlocks />
+      <RoadSystem progressRef={progressRef} />
+      {zones.map((zone, i) => (
+        <Zone key={zone.key} zone={zone} index={i} activeIndex={activeIndex} hoveredIndex={hoveredIndex}
+          setHoveredIndex={setHoveredIndex} onSelectZone={onSelectZone} />
+      ))}
       <CameraRig progressRef={progressRef} />
     </>
   )
@@ -373,6 +394,7 @@ function Scene({ progressRef, onSelectZone }) {
 
 export function LivingMap({ progressRef, onSelectZone }) {
   const [active, setActive] = useState(-1)
+  const [hovered, setHovered] = useState(-1)
 
   useEffect(() => {
     let raf
@@ -386,26 +408,39 @@ export function LivingMap({ progressRef, onSelectZone }) {
     return () => cancelAnimationFrame(raf)
   }, [progressRef])
 
+  const inspected = zones[hovered >= 0 ? hovered : active >= 0 ? active : 0]
+  const inspectedIndex = hovered >= 0 ? hovered : active
+
   return (
-    <div className="living-map living-map--strategy">
+    <div className="living-map living-map--executive">
       <Canvas
-        dpr={[1, 1.55]}
-        camera={{ position: [7.7, 5.5, 8.6], fov: 39, near: 0.1, far: 60 }}
+        dpr={[1, 1.5]}
+        camera={{ position: [7.7, 5.2, 8.4], fov: 38, near: 0.1, far: 60 }}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
         shadows
       >
-        <Scene progressRef={progressRef} onSelectZone={onSelectZone} />
+        <Scene progressRef={progressRef} activeIndex={active} hoveredIndex={hovered} setHoveredIndex={setHovered} onSelectZone={onSelectZone} />
       </Canvas>
-      <div className="strategy-map-topline"><i /> INTERAKTYWNA MAPA WZROSTU <span>przewijaj lub wybierz obszar</span></div>
-      <div className="strategy-map-nav" aria-label="Obszary mapy">
+
+      <div className="executive-map-kicker"><i /> DIGITALMAP / BUSINESS GROWTH MAP <span>scroll · hover · click</span></div>
+
+      <aside className={`map-inspector ${inspectedIndex >= 0 ? 'is-active' : ''}`}>
+        <div className="map-inspector__top"><span>{inspected.no}</span><small>OBSZAR DIAGNOZY</small></div>
+        <strong>{inspected.title}</strong>
+        <p>{inspected.question}</p>
+        <div>{inspected.detail}</div>
+      </aside>
+
+      <div className="executive-map-nav" aria-label="Obszary mapy">
         {zones.map((zone, index) => (
-          <button key={zone.key} className={active === index ? 'active' : ''} onClick={() => onSelectZone?.(index)}>
-            <span>{zone.no}</span>{zone.title}
+          <button key={zone.key} className={active === index ? 'active' : ''}
+            onMouseEnter={() => setHovered(index)} onMouseLeave={() => setHovered(-1)} onClick={() => onSelectZone?.(index)}>
+            <span>{zone.no}</span><b>{zone.title}</b>
           </button>
         ))}
       </div>
-      <div className="map-ui-corner map-ui-corner--tl" />
-      <div className="map-ui-corner map-ui-corner--br" />
+
+      <div className="executive-map-scale"><span>01</span><i /><span>05</span></div>
     </div>
   )
 }
