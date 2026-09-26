@@ -2653,3 +2653,502 @@ footer > span { font-size: 11px !important; }
     font-size: 11.5px !important;
   }
 }
+
+/* =========================================================
+   V18 — final polish based on review notes
+   ========================================================= */
+
+/* HERO: stronger copy, trust image, cleaner premium composition */
+.strategy-story-card--hero {
+  display: grid;
+  gap: 0;
+}
+
+.strategy-story-card--hero .hero-title-clean {
+  font-family: var(--display);
+  font-weight: 620 !important;
+}
+
+.hero-trust-photo {
+  display: grid;
+  grid-template-columns: 164px 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(43,34,28,.10);
+  background: rgba(255,255,255,.58);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.68);
+}
+
+.hero-trust-photo img {
+  width: 100%;
+  height: 122px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-trust-photo-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.hero-trust-photo-copy span {
+  color: #9f7456;
+  font: 800 10px/1 var(--body);
+  letter-spacing: .16em;
+}
+
+.hero-trust-photo-copy strong {
+  color: #191512;
+  font: 560 18px/1.4 var(--display);
+  letter-spacing: -.02em;
+}
+
+/* sample map / diagnosis readability */
+.evidence-detail {
+  grid-template-columns: 1fr auto !important;
+  align-items: start;
+}
+
+.evidence-detail span {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.evidence-detail .confidence-pill,
+.evidence-detail b {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  margin: 0;
+}
+
+.evidence-detail p {
+  grid-column: 1 / -1 !important;
+  grid-row: 2;
+  max-width: 100%;
+  font-size: 16px !important;
+  line-height: 1.72 !important;
+}
+
+.diagnosis-ui--interactive .evidence-row strong,
+.diagnosis-ui--interactive .evidence-browser-main p,
+.diagnosis-ui--interactive .journey-stage p,
+.diagnosis-ui--interactive .plan-grid p,
+.diagnosis-ui--interactive .decision-output strong {
+  font-size: 15px !important;
+  line-height: 1.62 !important;
+}
+
+.diagnosis-ui--interactive .priority-copy p,
+.diagnosis-ui--interactive .view-intro p,
+.diagnosis-ui--interactive .evidence-browser-main h4 {
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+.diagnosis-ui--interactive .priority-copy h3,
+.diagnosis-ui--interactive .view-intro h3 {
+  text-wrap: balance;
+}
+
+.diagnosis-ui--interactive .evidence-browser-main {
+  padding: 28px 26px;
+}
+
+/* why digitalmap cards */
+.principle-grid--cards {
+  gap: 18px;
+}
+
+.principle-grid--cards article {
+  min-height: 320px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.principle-grid--cards article > div span {
+  font-size: 11px;
+}
+
+.principle-grid--cards h3 {
+  max-width: 14ch;
+  margin-top: 28px;
+  margin-bottom: 18px;
+  font-size: clamp(32px, 3vw, 48px);
+}
+
+.principle-grid--cards p {
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+  color: #5f5852 !important;
+}
+
+/* industries cards centered, no numbering */
+.industry-grid {
+  gap: 14px;
+}
+
+.industry-grid article {
+  min-height: 168px;
+  padding: 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.industry-grid h3 {
+  margin: 0 0 10px;
+  font-size: clamp(32px, 2.6vw, 42px);
+}
+
+.industry-grid p {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: .14em;
+}
+
+/* offer — less AI-slop, clearer product layout */
+.offer-selector button {
+  min-height: 104px;
+}
+
+.offer-selector button strong {
+  font-size: 24px;
+}
+
+.offer-selector button small,
+.offer-cost-note,
+.offer-help p,
+.offer-help--secondary strong {
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+
+.offer-focus-card {
+  min-height: 0;
+  padding: 34px;
+}
+
+.offer-focus-title {
+  gap: 20px;
+  align-items: end;
+}
+
+.offer-focus-title h3 {
+  font-size: clamp(56px, 5vw, 84px);
+  line-height: .92;
+  letter-spacing: -.065em;
+  text-wrap: balance;
+}
+
+.offer-focus-title p {
+  max-width: 840px;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.offer-focus-title > strong {
+  font-size: clamp(42px, 4vw, 64px);
+  white-space: nowrap;
+}
+
+.offer-fit-grid {
+  margin-top: 28px;
+  gap: 0;
+  border: 1px solid rgba(18,17,16,.10);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.offer-fit-grid > div {
+  padding: 20px 18px;
+  background: rgba(255,255,255,.62);
+}
+
+.offer-fit-grid > div strong {
+  font-size: 17px;
+  line-height: 1.62;
+}
+
+.offer-deliverables {
+  margin-top: 28px;
+}
+
+.offer-deliverables > span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--wine);
+  font: 800 12px/1 var(--body);
+  letter-spacing: .16em;
+}
+
+.offer-deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.offer-deliverable {
+  min-height: 76px;
+  padding: 16px 16px 15px;
+  border: 1px solid rgba(18,17,16,.10);
+  border-radius: 16px;
+  background: rgba(255,255,255,.72);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.offer-deliverable i {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(165,46,85,.10);
+  color: var(--wine);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.offer-deliverable strong {
+  color: #231d1a;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 650;
+}
+
+.offer-value-anchor {
+  margin-top: 18px;
+  padding: 18px 20px;
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.offer-cta-row {
+  margin-top: 22px;
+  display: grid;
+  gap: 10px;
+}
+
+.offer-cta-row small {
+  color: #776e67;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.offer-main-cta {
+  min-height: 62px;
+  font-size: 16px;
+}
+
+/* work / realizacje readability */
+.browser-page {
+  color: #13100e;
+  background: linear-gradient(180deg, #f7f4ef 0%, #f3ede5 100%);
+}
+
+.browser-kicker {
+  color: #9c3158;
+  font-size: 11px;
+}
+
+.browser-page strong {
+  max-width: 10ch;
+  color: #13100e;
+}
+
+.browser-lines i {
+  background: #c7bdb4;
+}
+
+.work-copy p,
+.work-case-copy p,
+.work-scope,
+.work-link--muted {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+}
+
+.work-copy p {
+  color: rgba(255,255,255,.76);
+}
+
+.work-case-copy p {
+  color: rgba(255,255,255,.84);
+}
+
+.work-link {
+  font-size: 14px;
+}
+
+.work-link--muted {
+  color: rgba(255,255,255,.72);
+}
+
+/* FAQ clarity */
+.faq-heading h2 {
+  text-wrap: balance;
+}
+
+.faq-heading p {
+  font-size: 18px;
+  line-height: 1.68;
+}
+
+.faq-list-v14 {
+  gap: 0;
+  border-top: 0;
+}
+
+.faq-list-v14 details {
+  min-height: 0;
+  background: rgba(255,255,255,.58);
+}
+
+.faq-list-v14 summary {
+  min-height: 88px;
+  padding: 24px 24px;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.faq-list-v14 summary i {
+  font-size: 24px;
+}
+
+.faq-list-v14 details > p {
+  margin: -4px 24px 26px;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* final CTA button polish */
+.final-cta-v14 {
+  gap: 44px;
+}
+
+.final-cta-v14 p {
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.final-cta-actions {
+  gap: 12px;
+  align-self: stretch;
+}
+
+.final-cta-actions .button {
+  min-height: 60px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+.final-cta-v14 .button--ghost.final-cta-alt {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+}
+
+.final-cta-v14 .button--ghost.final-cta-alt:hover {
+  background: rgba(255,255,255,.12);
+}
+
+/* form copy + CTA */
+.scan-copy p,
+.field-help,
+.scan-card--v6 small {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+.scan-card--v6 h3 {
+  max-width: 13ch;
+  text-wrap: balance;
+}
+
+.scan-card--v6 label {
+  font-size: 13px;
+}
+
+.scan-card--v6 input,
+.scan-card--v6 textarea {
+  font-size: 18px !important;
+}
+
+.scan-card--v6 button[type="submit"] {
+  min-height: 62px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+@media (max-width: 1020px) {
+  .offer-deliverables-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-trust-photo {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-trust-photo img {
+    height: 170px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-trust-photo-copy strong {
+    font-size: 16px;
+  }
+
+  .offer-focus-card {
+    padding: 24px 18px;
+  }
+
+  .offer-focus-title h3 {
+    font-size: clamp(42px, 10vw, 56px);
+  }
+
+  .faq-list-v14 summary {
+    font-size: 16px;
+    min-height: 74px;
+  }
+
+  .faq-list-v14 details > p,
+  .work-copy p,
+  .work-case-copy p,
+  .scan-copy p,
+  .field-help {
+    font-size: 15px !important;
+  }
+}
+
+/* work cards switched to consistent premium dark surfaces */
+.work-card {
+  background: linear-gradient(180deg, rgba(25,20,18,.98) 0%, rgba(19,16,14,.98) 100%) !important;
+  border-color: rgba(255,255,255,.08) !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.22) !important;
+}
+
+.work-copy h3,
+.work-link,
+.work-card .work-type,
+.work-card .work-index,
+.work-card .work-scope {
+  color: #fff;
+}
+
+.work-card .work-type {
+  color: rgba(255,255,255,.52);
+}
+
+.work-card .work-scope {
+  color: rgba(255,255,255,.48);
+}

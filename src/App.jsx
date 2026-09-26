@@ -136,12 +136,19 @@ function Story({ progressRef }) {
                 <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
                 <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
               </h1>
-              <p className="hero-lead">DigitalMap analizuje drogę od pierwszego kontaktu z marką do decyzji klienta. Znajdujemy miejsce, które dziś najbardziej ogranicza wynik — i pokazujemy, co zrobić najpierw.</p>
+              <p className="hero-lead">DigitalMap patrzy na całą drogę klienta — od widoczności i pierwszego kliknięcia, przez ofertę i zaufanie, aż po kontakt lub zakup. Dzięki temu wiesz, co ogranicza wynik teraz i co warto zrobić najpierw.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
               <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
+              <div className="hero-trust-photo">
+                <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Zespół biznesowy podczas spotkania strategicznego" />
+                <div className="hero-trust-photo-copy">
+                  <span>REALNY KONTEKST BIZNESOWY</span>
+                  <strong>Diagnoza ma pomagać podjąć decyzję, nie generować kolejną listę zadań.</strong>
+                </div>
+              </div>
             </article>
           )}
         </div>
@@ -408,7 +415,12 @@ function Industries() {
           <a href="#scan" className="text-link">Nie widzisz swojej branży? Sprawdź firmę <Arrow /></a>
         </div>
         <div className="industry-grid">
-          {industries.map((industry, index) => <article key={industry.name}><span>{String(index + 1).padStart(2, '0')}</span><h3>{industry.name}</h3><p>{industry.tag}</p></article>)}
+          {industries.map((industry) => (
+            <article key={industry.name}>
+              <h3>{industry.name}</h3>
+              <p>{industry.tag}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -442,7 +454,7 @@ function Work() {
               <div className="work-meta">
                 <div className="work-index">{project.index}</div>
                 <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / REZULTAT</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
-                {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Case preview</span>}
+                {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Zakres projektu</span>}
               </div>
             </article>
           ))}
@@ -514,12 +526,26 @@ function Offer({ onChoose }) {
               <div><span>NAJLEPSZA, GDY</span><strong>{offer.bestFor}</strong></div>
               <div><span>WYNIK</span><strong>{offer.result}</strong></div>
             </div>
-            <div className="offer-includes"><span>W ZAKRESIE</span><div>{offer.includes.map((item) => <b key={item}>{item}</b>)}</div></div>{offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
-            <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}>{offer.cta} <Arrow /></a>
+            <div className="offer-deliverables">
+              <span>CO DOSTAJESZ</span>
+              <div className="offer-deliverables-grid">
+                {offer.includes.map((item) => (
+                  <article key={item} className="offer-deliverable">
+                    <i>✓</i>
+                    <strong>{item}</strong>
+                  </article>
+                ))}
+              </div>
+            </div>
+            {offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
+            <div className="offer-cta-row">
+              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}>{offer.cta} <Arrow /></a>
+              <small>Bez ukrytego wdrożenia. Najpierw diagnoza, potem decyzja.</small>
+            </div>
           </article>
         </div>
 
-        <div className="offer-help"><span>Nie wiesz, czego potrzebujesz?</span><p>Nie musisz diagnozować się samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa, powiemy to wprost.</p><a href="#scan">Pomóżcie mi wybrać <Arrow /></a></div><div className="offer-help offer-help--secondary"><span>Masz już agencję, freelancera albo własny marketing team?</span><p>DigitalMap może być niezależnym drugim spojrzeniem. Chodzi o to, żebyś rozumiał, za co płacisz, dlaczego to robicie i co powinno wydarzyć się dalej.</p><strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong></div><div className="offer-cost-note">Nowa strona, kampania, SEO czy miesięczny retainer mogą kosztować wielokrotnie więcej niż sama diagnoza. Dlatego warto najpierw upewnić się, że rozwiązujemy właściwy problem.</div>
+        <div className="offer-help"><span>Nie wiesz, którą Mapę wybrać?</span><p>Nie musisz tego oceniać samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa albo krótszy zakres, powiemy to wprost.</p><a href="#scan">Pomóżcie mi wybrać <Arrow /></a></div><div className="offer-help offer-help--secondary"><span>Masz już agencję, freelancera albo własny marketing team?</span><p>DigitalMap działa także jako niezależne drugie spojrzenie. Chodzi o to, żebyś wiedział, gdzie naprawdę jest problem, co jest priorytetem i jakie działanie ma sens jako następne.</p><strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong></div><div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, content albo wdrożenie. To dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
       </div>
     </section>
   )
@@ -553,11 +579,11 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
         <form className="scan-card scan-card--v6" onSubmit={submit}>
           {!done && step === 0 && <>
             <span className="form-kicker">KROK 01 / FIRMA</span>
-            <h3>Co mamy sprawdzić?</h3>
-            <label>Domena albo nazwa firmy</label>
+            <h3>Gdzie Twoja firma może tracić klientów?</h3>
+            <label>Nazwa firmy albo domena</label>
             <input autoFocus value={company} onChange={(e) => setCompany(e.target.value)} placeholder="twojafirma.pl lub Nazwa Firmy" />
-            <p className="field-help">Nie masz strony? Wpisz samą nazwę firmy — możemy zacząć od rynku, widoczności i dostępnych publicznie sygnałów.</p>
-            <button type="submit">Dalej: wybierz problem <Arrow /></button>
+            <p className="field-help">Nie masz jeszcze strony? To nie problem. Wpisz nazwę firmy — zaczniemy od rynku, widoczności, oferty i publicznie dostępnych sygnałów.</p>
+            <button type="submit">Dalej: pokaż problem <Arrow /></button>
           </>}
 
           {!done && step === 1 && <>
@@ -606,7 +632,7 @@ function FAQ() {
         </div>
         <div className="final-cta-v14">
           <div><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
-          <div className="final-cta-actions"><a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--ghost" href="#offer">Zobacz ofertę</a></div>
+          <div className="final-cta-actions"><a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--ghost final-cta-alt" href="#offer">Zobacz zakres i ofertę</a></div>
         </div>
       </div>
     </section>
