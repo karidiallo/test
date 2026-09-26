@@ -33,12 +33,12 @@ function Header() {
   )
 }
 
-function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
+function Story({ progressRef }) {
   const storyRef = useRef(null)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      progressRef.current = 0.65
+      progressRef.current = 0.5
       return
     }
 
@@ -52,56 +52,71 @@ function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
     return () => trigger.kill()
   }, [progressRef])
 
+  const stages = [
+    {
+      no: '01 / POZYSKANIE',
+      title: <>Czy właściwi klienci <span className="accent-text">w ogóle Cię znajdują?</span></>,
+      copy: 'Pierwszy pokój pokazuje, skąd bierze się uwaga: Google, reklamy, social media, polecenia i pozostałe źródła ruchu. Nie zwiększamy budżetu, zanim nie wiemy, czy trafiasz do właściwych osób.',
+      proof: 'Najpierw sprawdzamy jakość pozyskania — nie liczbę kanałów.',
+    },
+    {
+      no: '02 / WIDOCZNOŚĆ',
+      title: <>Widoczność ma wartość dopiero wtedy, gdy <span className="accent-text">prowadzi właściwy ruch.</span></>,
+      copy: 'Wchodzimy do warstwy wyszukiwania i danych. Patrzymy, na jakie potrzeby odpowiadasz, gdzie znika firma i czy użytkownik trafia do miejsca, które może zamienić uwagę w decyzję.',
+      proof: 'SEO · Google · AI Search · Ads · Analytics',
+    },
+    {
+      no: '03 / ZAUFANIE',
+      title: <>Klient już Cię widzi. <span className="accent-text">Czy ma powód Ci zaufać?</span></>,
+      copy: 'Tutaj sprawdzamy dowody: opinie, case studies, eksperckość, przewagę, komunikację i spójność. Bardzo często problem nie leży w braku ruchu — tylko w braku wystarczającego powodu, żeby wybrać właśnie Ciebie.',
+      proof: 'Opinie · proof · reputacja · przewaga',
+    },
+    {
+      no: '04 / KONWERSJA',
+      title: <>Zainteresowanie powinno prowadzić do <span className="accent-text">prostej decyzji.</span></>,
+      copy: 'Oferta, CTA, formularz i ścieżka kontaktu muszą usuwać tarcie. Jeśli użytkownik chce kupić, ale musi domyślać się następnego kroku, wzrost zatrzymuje się właśnie tutaj.',
+      proof: 'Oferta · UX · CRO · formularze · kontakt',
+    },
+    {
+      no: '05 / PRZYCHÓD',
+      title: <>Celem nie jest „więcej marketingu”. <span className="accent-text">Celem jest wzrost.</span></>,
+      copy: 'Na końcu łączymy cały system z wynikiem: jakościowymi zapytaniami, sprzedażą, kosztem pozyskania i przychodem. Dostajesz decyzję, który ruch ma sens teraz — i czego nie warto jeszcze finansować.',
+      proof: 'Priorytet → pierwszy ruch → miernik efektu',
+      cta: true,
+    },
+  ]
+
   return (
-    <section className="story" id="top" ref={storyRef}>
+    <section className="story story--office-journey" id="top" ref={storyRef}>
       <div className="story-canvas-wrap">
-        <LivingMap progressRef={progressRef} selectedFocusRef={selectedFocusRef} />
+        <LivingMap progressRef={progressRef} />
       </div>
 
       <div className="story-steps">
-        <div className="story-step hero-step">
-          <div className="step-copy step-copy--hero">
-            <div className="eyebrow">DIAGNOSTYKA MARKETINGOWA</div>
-            <h1>Zanim wydasz więcej na marketing,<br /><span>sprawdź, co naprawdę blokuje Twój wzrost.</span></h1>
-            <p className="hero-lead">DigitalMap analizuje drogę od widoczności do klienta, znajduje najważniejsze wąskie gardło i pokazuje, <b>co zrobić najpierw — oraz czego na razie nie ruszać.</b></p>
+        <div className="story-step hero-step journey-intro-step">
+          <div className="step-copy step-copy--hero journey-intro-copy">
+            <div className="eyebrow">DIGITALMAP / INTERAKTYWNA DIAGNOZA</div>
+            <h1>Przejdź przez firmę i zobacz, <span>gdzie naprawdę zatrzymuje się wzrost.</span></h1>
+            <p className="hero-lead">To nie dekoracyjna mapa. Scroll prowadzi Cię przez pięć biznesowych światów — od pozyskania uwagi do przychodu — i pokazuje, gdzie najczęściej ginie potencjał.</p>
             <div className="hero-actions">
               <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
-              <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
+              <a className="button button--ghost" href="#sample">Zobacz przykładową diagnozę</a>
             </div>
-            <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>Bez abonamentu</span><span>Bez obowiązku wdrożenia</span></div>
+            <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów wzrostu</span><span>Jedna decyzja priorytetowa</span></div>
           </div>
         </div>
 
-        <div className="story-step" id="system">
-          <div className="step-copy step-copy--panel">
-            <div className="eyebrow">01 / PROBLEM Z MARKETINGIEM</div>
-            <h2>Objaw nie mówi jeszcze, <span className="accent-text">gdzie naprawdę zaczyna się problem.</span></h2>
-            <p>Masz za mało klientów, ruch nie zamienia się w zapytania albo konkurencja wygrywa? Zamiast zgadywać kanał, najpierw ustalamy, gdzie naprawdę zaczyna się strata.</p>
-            <div className="symptom-mini-list">
-              {symptoms.map((item) => (
-                <button key={item.id} onClick={() => onSelectSymptom(item)}>{item.label}<Arrow /></button>
-              ))}
+        {stages.map((stage, index) => (
+          <div className={`story-step journey-world-step ${index % 2 ? 'journey-world-step--right' : ''}`} key={stage.no}>
+            <div className="journey-world-card">
+              <div className="eyebrow">{stage.no}</div>
+              <h2>{stage.title}</h2>
+              <p>{stage.copy}</p>
+              <div className="journey-world-proof"><i />{stage.proof}</div>
+              {stage.cta && <a className="journey-world-cta" href="#scan">Znajdź problem #1 w swojej firmie <Arrow /></a>}
             </div>
           </div>
-        </div>
-
-        <div className="story-step">
-          <div className="step-copy step-copy--panel step-copy--right">
-            <div className="eyebrow">02 / JAK MAPUJEMY WZROST</div>
-            <h2>Mapujemy całą drogę od widoczności do klienta.</h2>
-            <p>Badamy rynek, widoczność, zaufanie, ofertę, konwersję i konkurencję. Szukamy miejsca, które dziś najbardziej ogranicza wynik — nie listy wszystkiego, co można poprawić.</p>
-            <div className="signal-line"><i /> PROBLEM #1 <span>oferta / ścieżka kontaktu</span></div>
-          </div>
-        </div>
-
-        <div className="story-step">
-          <div className="step-copy step-copy--panel">
-            <div className="eyebrow">03 / CO DOSTAJESZ</div>
-            <h2>Nie listę błędów. <span className="accent-text">Jasną hierarchię decyzji.</span></h2>
-            <p>Problem #1, dowody, priorytet, pierwszy ruch, plan działania, rzeczy „nie teraz” i miernik, po którym można ocenić efekt zmiany.</p>
-            <a className="text-link" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   )

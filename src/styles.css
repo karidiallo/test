@@ -1028,3 +1028,49 @@ textarea { font: inherit; }
   .principle-grid--cards { grid-template-columns: 1fr; }
   .principle-grid--cards article { min-height: 230px; }
 }
+
+/* ===== V8 / IMMERSIVE OFFICE JOURNEY ===== */
+.story--office-journey { min-height: 600vh; background: #ece7df; }
+.story--office-journey .story-step { min-height: 100vh; }
+.story--office-journey .story-canvas-wrap { background: #ece7df; }
+.living-map--office { background: #ece7df; }
+.living-map--office canvas { opacity: 1; transform: none; }
+.living-map--office::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(90deg, rgba(236,231,223,.92) 0%, rgba(236,231,223,.50) 21%, transparent 43%, transparent 100%),
+              linear-gradient(0deg, rgba(20,17,15,.08), transparent 26%);
+}
+.journey-intro-copy { position: relative; z-index: 4; }
+.journey-intro-copy h1 { max-width: 790px; }
+.journey-world-step { justify-content: flex-start; }
+.journey-world-step--right { justify-content: flex-end; }
+.journey-world-card {
+  position: relative; z-index: 4; pointer-events: auto;
+  width: min(500px, 39vw); padding: 28px 30px 26px;
+  border: 1px solid rgba(255,255,255,.18); border-radius: 22px;
+  background: rgba(18,16,15,.78); color: white; backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 28px 80px rgba(27,22,18,.22);
+}
+.journey-world-card .eyebrow { color: #f1a0b4; }
+.journey-world-card h2 { margin: 18px 0 16px; font: 520 clamp(42px,4.3vw,68px)/.93 var(--display); letter-spacing: -.055em; }
+.journey-world-card p { margin: 0; color: rgba(255,255,255,.66); font-size: 13px; line-height: 1.72; }
+.journey-world-proof { margin-top: 22px; padding-top: 17px; border-top: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.82); font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+.journey-world-proof i { width: 8px; height: 8px; border-radius: 50%; background: #df765f; box-shadow: 0 0 0 7px rgba(223,118,95,.12); }
+.journey-world-cta { margin-top: 22px; min-height: 48px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; border-radius: 11px; background: linear-gradient(120deg,#df8c69,#c84468 58%,#932448); color: white; text-decoration: none; font-size: 10px; font-weight: 750; }
+.office-station-label { min-width: 138px; padding: 10px 11px; display: flex; gap: 9px; align-items: center; border-radius: 12px; color: white; background: rgba(20,18,17,.82); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(12px); box-shadow: 0 10px 36px rgba(0,0,0,.18); }
+.office-station-label > span { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #f5e9e0; color: #9d365b; font: 800 8px/1 var(--body); }
+.office-station-label b { display: block; font: 750 8px/1 var(--body); letter-spacing: .10em; }
+.office-station-label small { display: block; margin-top: 4px; color: rgba(255,255,255,.58); font: 600 7px/1 var(--body); }
+.office-screen-copy { padding: 5px 8px; border-radius: 6px; color: rgba(255,255,255,.9); background: rgba(17,15,14,.72); font: 750 6px/1 var(--body); letter-spacing: .11em; white-space: nowrap; }
+.journey-hud { position: absolute; z-index: 4; left: 50%; bottom: 28px; transform: translateX(-50%); min-width: 390px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; background: rgba(17,15,14,.68); color: rgba(255,255,255,.76); backdrop-filter: blur(16px); display: flex; align-items: center; justify-content: space-between; gap: 20px; font: 700 8px/1 var(--body); letter-spacing: .12em; }
+.journey-hud div { display: flex; gap: 14px; align-items: center; }
+.journey-hud i { width: 7px; height: 7px; border-radius: 50%; background: #d96f62; box-shadow: 0 0 0 4px rgba(217,111,98,.12); }
+
+@media (max-width: 760px) {
+  .story--office-journey { min-height: 600vh; }
+  .living-map--office::after { background: linear-gradient(0deg, rgba(236,231,223,.92) 0%, rgba(236,231,223,.30) 45%, transparent 72%); }
+  .journey-world-step, .journey-world-step--right { justify-content: center; align-items: flex-end; }
+  .journey-world-card { width: 100%; padding: 21px; }
+  .journey-world-card h2 { font-size: 42px; }
+  .journey-hud { display: none; }
+}

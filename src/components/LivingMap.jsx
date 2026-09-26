@@ -3,283 +3,274 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-const accent = new THREE.Color('#c84468')
-const warm = new THREE.Color('#d98a6c')
+const ACCENT = '#d96f62'
+const WINE = '#a62f55'
+const INK = '#171513'
+const GLASS = '#d7dde0'
 
-function gaussian(x, z, cx, cz, sx, sz, amp) {
-  return Math.exp(-(((x - cx) ** 2) / sx + ((z - cz) ** 2) / sz)) * amp
-}
+const stations = [
+  { key: 'acquisition', no: '01', title: 'POZYSKANIE', sub: 'Przyciągasz uwagę', pos: [-5.8, 0, 0.75], rot: -0.08, screen: 'MARKETING / DISCOVERY' },
+  { key: 'visibility', no: '02', title: 'WIDOCZNOŚĆ', sub: 'Jesteś widoczny', pos: [-2.9, 0.35, -0.35], rot: 0.06, screen: 'SEO / CONTENT / ANALYTICS' },
+  { key: 'trust', no: '03', title: 'ZAUFANIE', sub: 'Budujesz zaufanie', pos: [0.05, 0.72, 0.7], rot: -0.04, screen: 'PROOF / OPINIE / EXPERTISE' },
+  { key: 'conversion', no: '04', title: 'KONWERSJA', sub: 'Podejmują decyzję', pos: [3.0, 0.35, -0.48], rot: 0.05, screen: 'OFERTA / CTA / KONTAKT' },
+  { key: 'revenue', no: '05', title: 'PRZYCHÓD', sub: 'Generujesz wzrost', pos: [5.95, 0.92, 0.62], rot: -0.05, screen: 'WYNIK / RETENCJA / LTV' },
+]
 
-function heightAt(x, z) {
-  const massif = gaussian(x, z, -1.8, 0.25, 4.2, 2.5, 0.58)
-  const eastern = gaussian(x, z, 1.65, -0.18, 2.6, 1.9, 0.74)
-  const shoulder = gaussian(x, z, 0.35, 1.0, 5.0, 0.72, 0.25)
-  const ridge = Math.exp(-((z + Math.sin(x * 0.58) * 0.42) ** 2) / 0.5) * 0.24
-  const valley = gaussian(x, z, 0.68, 0.02, 0.22, 0.28, 0.28)
-  const erosion = Math.sin(x * 1.45 + Math.sin(z * 1.8)) * 0.035 + Math.sin(z * 2.8 - x * 0.55) * 0.023
-  const micro = Math.sin((x + z) * 4.1) * 0.012 + Math.sin(x * 5.7 - z * 3.2) * 0.009
-  const edgeFade = Math.max(0, 1 - Math.pow(Math.abs(x) / 4.9, 5) - Math.pow(Math.abs(z) / 3.3, 5))
-  return 0.105 + (massif + eastern + shoulder + ridge - valley + erosion + micro) * Math.max(0.35, edgeFade)
-}
-
-function buildContours() {
-  const vertices = []
-  const xMin = -4.4
-  const xMax = 4.4
-  const zMin = -2.9
-  const zMax = 2.9
-  const nx = 78
-  const nz = 52
-  const levels = [0.18, 0.28, 0.38, 0.48, 0.58, 0.68, 0.78, 0.88, 0.98]
-
-  const interpolate = (a, b, va, vb, level) => {
-    const denom = vb - va
-    const t = Math.abs(denom) < 1e-6 ? 0.5 : (level - va) / denom
-    return [THREE.MathUtils.lerp(a[0], b[0], t), THREE.MathUtils.lerp(a[1], b[1], t)]
-  }
-
-  levels.forEach((level) => {
-    for (let iz = 0; iz < nz; iz++) {
-      const z0 = THREE.MathUtils.lerp(zMin, zMax, iz / nz)
-      const z1 = THREE.MathUtils.lerp(zMin, zMax, (iz + 1) / nz)
-      for (let ix = 0; ix < nx; ix++) {
-        const x0 = THREE.MathUtils.lerp(xMin, xMax, ix / nx)
-        const x1 = THREE.MathUtils.lerp(xMin, xMax, (ix + 1) / nx)
-        const corners = [[x0, z0], [x1, z0], [x1, z1], [x0, z1]]
-        const values = corners.map(([x, z]) => heightAt(x, z))
-        const hits = []
-        const edges = [[0, 1], [1, 2], [2, 3], [3, 0]]
-
-        edges.forEach(([a, b]) => {
-          const va = values[a] - level
-          const vb = values[b] - level
-          if ((va < 0 && vb >= 0) || (vb < 0 && va >= 0)) hits.push(interpolate(corners[a], corners[b], values[a], values[b], level))
-        })
-
-        if (hits.length >= 2) {
-          for (let i = 0; i + 1 < hits.length; i += 2) {
-            const [a, b] = [hits[i], hits[i + 1]]
-            vertices.push(a[0], level + 0.013, a[1], b[0], level + 0.013, b[1])
-          }
-        }
-      }
-    }
-  })
-
-  const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
-  return geometry
-}
-
-function Terrain() {
-  const geometry = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(8.8, 5.8, 118, 78)
-    const pos = geo.attributes.position
-    const colors = []
-    const low = new THREE.Color('#b9afa3')
-    const mid = new THREE.Color('#d9d1c8')
-    const high = new THREE.Color('#f4f0e9')
-
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i)
-      const planeY = pos.getY(i)
-      const z = -planeY
-      const h = heightAt(x, z)
-      pos.setZ(i, h)
-      const t = THREE.MathUtils.clamp((h - 0.08) / 0.9, 0, 1)
-      const c = t < 0.56 ? low.clone().lerp(mid, t / 0.56) : mid.clone().lerp(high, (t - 0.56) / 0.44)
-      colors.push(c.r, c.g, c.b)
-    }
-
-    geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-    geo.rotateX(-Math.PI / 2)
-    geo.computeVertexNormals()
-    return geo
-  }, [])
-
-  const contours = useMemo(() => buildContours(), [])
-
+function Box({ position, scale, color = '#d6cec4', roughness = 0.72, metalness = 0.03, transparent = false, opacity = 1 }) {
   return (
-    <group position={[0, -0.74, 0]}>
-      <mesh position={[0, -0.16, 0]} receiveShadow>
-        <boxGeometry args={[9.25, 0.22, 6.25]} />
-        <meshStandardMaterial color="#a99f94" roughness={0.94} metalness={0} />
-      </mesh>
-      <mesh geometry={geometry} receiveShadow castShadow>
-        <meshPhysicalMaterial vertexColors roughness={0.93} metalness={0} clearcoat={0.05} clearcoatRoughness={0.9} />
-      </mesh>
-      <lineSegments geometry={contours} position={[0, 0.008, 0]}>
-        <lineBasicMaterial color="#665d55" transparent opacity={0.2} depthWrite={false} />
-      </lineSegments>
+    <mesh position={position} castShadow receiveShadow>
+      <boxGeometry args={scale} />
+      <meshStandardMaterial color={color} roughness={roughness} metalness={metalness} transparent={transparent} opacity={opacity} />
+    </mesh>
+  )
+}
+
+function Desk({ x, z, rotation = 0 }) {
+  return (
+    <group position={[x, 0.34, z]} rotation={[0, rotation, 0]}>
+      <Box position={[0, 0, 0]} scale={[0.74, 0.055, 0.33]} color="#8f8175" roughness={0.65} />
+      <Box position={[-0.28, -0.18, 0]} scale={[0.045, 0.34, 0.26]} color="#4c4743" />
+      <Box position={[0.28, -0.18, 0]} scale={[0.045, 0.34, 0.26]} color="#4c4743" />
+      <Box position={[0, 0.20, -0.055]} scale={[0.38, 0.24, 0.025]} color="#22201e" roughness={0.35} />
+      <Box position={[0, 0.20, -0.068]} scale={[0.31, 0.16, 0.012]} color="#c95870" roughness={0.35} />
     </group>
   )
 }
 
-function CustomerRoute({ selectedFocusRef }) {
+function Plant({ position }) {
+  return (
+    <group position={position}>
+      <mesh position={[0, 0.12, 0]}>
+        <cylinderGeometry args={[0.10, 0.14, 0.24, 18]} />
+        <meshStandardMaterial color="#7d6c5d" roughness={0.82} />
+      </mesh>
+      {[[-0.05, 0.33, 0], [0.05, 0.43, 0.02], [0, 0.52, -0.03]].map((p, i) => (
+        <mesh key={i} position={p} rotation={[0, i * 1.2, 0.45]}>
+          <sphereGeometry args={[0.09, 12, 8]} />
+          <meshStandardMaterial color={i === 1 ? '#43584b' : '#526958'} roughness={0.9} />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+function People({ seed = 0 }) {
+  const points = useMemo(() => [
+    [-0.9, -0.35], [-0.4, 0.25], [0.25, -0.28], [0.75, 0.15], [0.08, 0.44],
+  ].map(([x, z], i) => [x + Math.sin(seed + i) * 0.08, z + Math.cos(seed * 2 + i) * 0.07]), [seed])
+
+  return points.map(([x, z], i) => (
+    <group key={i} position={[x, 0.17, z]}>
+      <mesh position={[0, 0.23, 0]} castShadow>
+        <capsuleGeometry args={[0.055, 0.20, 4, 8]} />
+        <meshStandardMaterial color={i % 2 ? '#2f3134' : '#5a514a'} roughness={0.75} />
+      </mesh>
+      <mesh position={[0, 0.42, 0]} castShadow>
+        <sphereGeometry args={[0.055, 12, 12]} />
+        <meshStandardMaterial color="#c89e84" roughness={0.8} />
+      </mesh>
+    </group>
+  ))
+}
+
+function OfficeWorld({ station, index }) {
+  const [x, y, z] = station.pos
+  const width = index === 2 ? 2.55 : 2.35
+  const depth = index === 4 ? 1.85 : 1.7
+  const wallH = index === 4 ? 1.55 : 1.35
+
+  return (
+    <group position={[x, y, z]} rotation={[0, station.rot, 0]}>
+      <Box position={[0, -0.11, 0]} scale={[width, 0.20, depth]} color="#c4bbb0" roughness={0.88} />
+      <Box position={[0, -0.01, 0]} scale={[width - 0.12, 0.06, depth - 0.12]} color="#e9e3db" roughness={0.62} />
+
+      <Box position={[0, wallH / 2 - 0.02, -depth / 2 + 0.045]} scale={[width, wallH, 0.06]} color="#b9b0a6" roughness={0.75} />
+      <Box position={[-width / 2 + 0.04, wallH / 2 - 0.02, 0]} scale={[0.055, wallH, depth]} color={GLASS} transparent opacity={0.28} roughness={0.15} />
+      <Box position={[width / 2 - 0.04, wallH / 2 - 0.02, 0]} scale={[0.055, wallH, depth]} color={GLASS} transparent opacity={0.18} roughness={0.15} />
+
+      <Box position={[0, 0.93, -depth / 2 + 0.09]} scale={[1.42, 0.50, 0.045]} color="#242221" roughness={0.30} />
+      <Box position={[0, 0.93, -depth / 2 + 0.06]} scale={[1.25, 0.34, 0.018]} color={index === 3 ? '#b73758' : index === 4 ? '#d97a5f' : '#93415c'} roughness={0.25} />
+
+      {index === 0 ? (
+        <>
+          <Box position={[-0.58, 0.18, 0.14]} scale={[0.65, 0.28, 0.44]} color="#7e7065" />
+          <Box position={[0.25, 0.18, 0.20]} scale={[0.65, 0.28, 0.44]} color="#7e7065" />
+          <Plant position={[0.88, 0, -0.40]} />
+        </>
+      ) : index === 2 ? (
+        <>
+          <Box position={[0, 0.30, 0.10]} scale={[1.25, 0.08, 0.60]} color="#8b7d72" />
+          <People seed={index + 10} />
+          <Plant position={[-0.98, 0, -0.46]} />
+          <Plant position={[0.99, 0, 0.46]} />
+        </>
+      ) : index === 4 ? (
+        <>
+          <Box position={[0, 0.26, 0.08]} scale={[1.35, 0.07, 0.66]} color="#75675f" />
+          <People seed={index + 20} />
+          <Plant position={[-0.92, 0, 0.52]} />
+        </>
+      ) : (
+        <>
+          <Desk x={-0.55} z={0.22} rotation={0.05} />
+          <Desk x={0.46} z={0.15} rotation={-0.05} />
+          <Plant position={[0.88, 0, -0.48]} />
+          <People seed={index} />
+        </>
+      )}
+
+      <Html position={[0, 1.62, 0.03]} center distanceFactor={6.8} style={{ pointerEvents: 'none' }}>
+        <div className="office-station-label">
+          <span>{station.no}</span>
+          <div><b>{station.title}</b><small>{station.sub}</small></div>
+        </div>
+      </Html>
+
+      <Html position={[0, 1.05, -depth / 2 + 0.01]} center distanceFactor={8.6} style={{ pointerEvents: 'none' }}>
+        <div className="office-screen-copy">{station.screen}</div>
+      </Html>
+    </group>
+  )
+}
+
+function Bridges() {
+  const links = stations.slice(0, -1).map((s, i) => {
+    const a = new THREE.Vector3(...s.pos)
+    const b = new THREE.Vector3(...stations[i + 1].pos)
+    const mid = a.clone().lerp(b, 0.5)
+    const length = a.distanceTo(b)
+    const angle = Math.atan2(b.z - a.z, b.x - a.x)
+    return { mid, length, angle, y: Math.max(a.y, b.y) + 0.05 }
+  })
+
+  return links.map((l, i) => (
+    <group key={i} position={[l.mid.x, l.y, l.mid.z]} rotation={[0, -l.angle, 0]}>
+      <Box position={[0, -0.02, 0]} scale={[l.length - 1.0, 0.07, 0.34]} color="#c8beb4" roughness={0.65} />
+      <Box position={[0, 0.18, -0.15]} scale={[l.length - 1.0, 0.34, 0.025]} color={GLASS} transparent opacity={0.23} roughness={0.15} />
+      <Box position={[0, 0.18, 0.15]} scale={[l.length - 1.0, 0.34, 0.025]} color={GLASS} transparent opacity={0.23} roughness={0.15} />
+    </group>
+  ))
+}
+
+function Route() {
   const pulseRefs = useRef([])
-  const bottleneckRef = useRef()
-
-  const curve = useMemo(() => {
-    const raw = [
-      [-3.55, -0.7],
-      [-2.52, 0.28],
-      [-1.28, -0.16],
-      [-0.08, 0.18],
-      [0.94, -0.06],
-      [2.0, 0.4],
-      [3.25, 0.02],
-    ]
-    const points = raw.map(([x, z]) => new THREE.Vector3(x, heightAt(x, z) - 0.60, z))
-    return new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.48)
-  }, [])
-
-  const linePoints = useMemo(() => curve.getPoints(130), [curve])
+  const curve = useMemo(() => new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-6.65, 0.15, 1.15),
+    ...stations.map((s) => new THREE.Vector3(s.pos[0], s.pos[1] + 0.10, s.pos[2] + 0.08)),
+    new THREE.Vector3(6.7, 1.08, 0.20),
+  ], false, 'catmullrom', 0.35), [])
+  const linePoints = useMemo(() => curve.getPoints(220), [curve])
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime()
     pulseRefs.current.forEach((mesh, i) => {
       if (!mesh) return
-      const routeT = (t * 0.062 + i / 8) % 1
-      const p = curve.getPointAt(routeT)
-      mesh.position.copy(p)
-      const focus = selectedFocusRef.current ?? 0.62
-      const dist = Math.abs(routeT - focus)
-      mesh.scale.setScalar(dist < 0.05 ? 0.42 : 1)
-      mesh.material.opacity = dist < 0.05 ? 0.22 : 0.88
+      const p = (t * 0.035 + i / 9) % 1
+      mesh.position.copy(curve.getPointAt(p))
+      const s = 0.72 + Math.sin(t * 3 + i) * 0.12
+      mesh.scale.setScalar(s)
     })
-
-    if (bottleneckRef.current) {
-      const focus = selectedFocusRef.current ?? 0.62
-      const p = curve.getPointAt(focus)
-      bottleneckRef.current.position.copy(p)
-      bottleneckRef.current.rotation.y = Math.sin(t * 0.5) * 0.16
-    }
   })
 
   return (
     <group>
-      <Line points={linePoints} color="#8e294b" lineWidth={2.0} transparent opacity={0.7} />
-      <Line points={linePoints} color="#efb099" lineWidth={0.58} transparent opacity={0.92} />
-      {Array.from({ length: 8 }).map((_, i) => (
-        <mesh key={i} ref={(el) => (pulseRefs.current[i] = el)}>
-          <sphereGeometry args={[0.047, 16, 16]} />
-          <meshBasicMaterial color={i % 2 ? accent : warm} transparent opacity={0.9} />
+      <Line points={linePoints} color="#7d2544" lineWidth={4.2} transparent opacity={0.40} />
+      <Line points={linePoints} color="#ffb28f" lineWidth={1.55} transparent opacity={0.95} />
+      {Array.from({ length: 9 }).map((_, i) => (
+        <mesh key={i} ref={(el) => { pulseRefs.current[i] = el }}>
+          <sphereGeometry args={[0.06, 16, 16]} />
+          <meshBasicMaterial color={i % 3 === 0 ? '#ffffff' : ACCENT} />
         </mesh>
       ))}
-      <group ref={bottleneckRef}>
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.19, 0.018, 12, 54]} />
-          <meshStandardMaterial color="#ad3155" emissive="#681632" emissiveIntensity={0.7} roughness={0.55} />
-        </mesh>
-        <mesh position={[0, 0.22, 0]}>
-          <octahedronGeometry args={[0.052, 0]} />
-          <meshBasicMaterial color="#ffffff" />
-        </mesh>
-      </group>
     </group>
   )
 }
 
-function Labels() {
-  const labels = [
-    ['POZYSKANIE', -3.25, -0.9],
-    ['ZAUFANIE', -1.28, 0.82],
-    ['KONWERSJA', 0.75, -0.92],
-    ['PRZYCHÓD', 2.72, 0.62],
-  ]
-  return labels.map(([label, x, z]) => (
-    <Html key={label} position={[x, heightAt(x, z) - 0.45, z]} center distanceFactor={7.5} style={{ pointerEvents: 'none' }}>
-      <div className="map-label">{label}</div>
-    </Html>
-  ))
-}
-
-function SurveyMarkers() {
-  const points = [[-2.65, 1.45], [-0.6, -1.7], [1.6, 1.5], [3.1, -1.15]]
-  return points.map(([x, z], index) => (
-    <group key={`${x}-${z}`} position={[x, heightAt(x, z) - 0.63, z]}>
-      <mesh position={[0, 0.12, 0]}>
-        <cylinderGeometry args={[0.008, 0.008, 0.24, 8]} />
-        <meshBasicMaterial color="#625a53" transparent opacity={0.48} />
-      </mesh>
-      <mesh position={[0, 0.245, 0]}>
-        <sphereGeometry args={[0.018, 10, 10]} />
-        <meshBasicMaterial color={index === 2 ? '#c84468' : '#6f665e'} />
+function Ground() {
+  return (
+    <group position={[0, -0.25, 0]}>
+      <Box position={[0, -0.28, 0]} scale={[15.4, 0.48, 5.2]} color="#a99f95" roughness={0.95} />
+      <Box position={[0, -0.02, 0]} scale={[15.0, 0.06, 4.8]} color="#ded7cf" roughness={0.82} />
+      <mesh position={[0, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[14.8, 4.6, 1, 1]} />
+        <meshStandardMaterial color="#e7e0d8" roughness={0.92} />
       </mesh>
     </group>
-  ))
+  )
 }
 
-function CameraRig({ progressRef, selectedFocusRef }) {
+function CameraRig({ progressRef }) {
   const { camera, pointer } = useThree()
+  const pos = useMemo(() => new THREE.Vector3(), [])
   const target = useMemo(() => new THREE.Vector3(), [])
-  const desired = useMemo(() => new THREE.Vector3(), [])
+  const nextPos = useMemo(() => new THREE.Vector3(), [])
+  const nextTarget = useMemo(() => new THREE.Vector3(), [])
+
+  const cameraPath = useMemo(() => new THREE.CatmullRomCurve3([
+    new THREE.Vector3(8.8, 6.4, 9.8),
+    new THREE.Vector3(-5.3, 2.1, 4.15),
+    new THREE.Vector3(-2.45, 2.05, 3.55),
+    new THREE.Vector3(0.35, 2.35, 3.55),
+    new THREE.Vector3(3.15, 2.05, 3.45),
+    new THREE.Vector3(6.15, 2.45, 3.6),
+  ], false, 'catmullrom', 0.25), [])
+
+  const targetPath = useMemo(() => new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 0.45, 0),
+    ...stations.map((s) => new THREE.Vector3(s.pos[0], s.pos[1] + 0.43, s.pos[2])),
+  ], false, 'catmullrom', 0.25), [])
 
   useFrame(() => {
-    const p = progressRef.current || 0
-    const focus = selectedFocusRef.current ?? 0.62
-
-    if (p < 0.25) {
-      const q = p / 0.25
-      desired.set(6.7 - q * 1.1, 4.55 - q * 0.28, 7.8 - q * 0.85)
-      target.set(-0.1, -0.02, 0)
-    } else if (p < 0.58) {
-      const q = (p - 0.25) / 0.33
-      desired.set(5.6 - q * 1.75, 4.27 - q * 1.18, 6.95 - q * 1.65)
-      target.set(0.12 + q * 0.45, 0.02, 0)
-    } else if (p < 0.82) {
-      const q = (p - 0.58) / 0.24
-      const x = THREE.MathUtils.lerp(-0.25, THREE.MathUtils.lerp(-2.0, 2.1, focus), q)
-      desired.set(3.85 - q * 0.72, 3.09 - q * 0.58, 5.3 - q * 1.28)
-      target.set(x, -0.02, 0)
-    } else {
-      const q = (p - 0.82) / 0.18
-      desired.set(3.13 + q * 0.48, 2.51 + q * 1.3, 4.02 + q * 1.55)
-      target.set(0.55, -0.02, 0)
-    }
-
-    desired.x += pointer.x * 0.14
-    desired.y += pointer.y * 0.07
-    camera.position.lerp(desired, 0.042)
+    const p = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1)
+    const eased = THREE.MathUtils.smoothstep(p, 0, 1)
+    nextPos.copy(cameraPath.getPointAt(eased))
+    nextTarget.copy(targetPath.getPointAt(eased))
+    nextPos.x += pointer.x * 0.12
+    nextPos.y += pointer.y * 0.06
+    pos.copy(camera.position).lerp(nextPos, 0.055)
+    target.lerp(nextTarget, 0.075)
+    camera.position.copy(pos)
     camera.lookAt(target)
   })
-
   return null
 }
 
-function Scene({ progressRef, selectedFocusRef }) {
+function Scene({ progressRef }) {
   return (
     <>
-      <ambientLight intensity={1.2} />
-      <hemisphereLight args={['#fff9f2', '#756a60', 2.0]} />
-      <directionalLight position={[4.5, 8.5, 5.5]} intensity={3.0} color="#fff8f0" castShadow shadow-mapSize-width={1536} shadow-mapSize-height={1536} />
-      <pointLight position={[-4, 2.1, -2]} intensity={9} color="#d8786e" distance={8} />
-      <pointLight position={[3, 1.4, 2]} intensity={6} color="#ae3157" distance={6.5} />
-      <Terrain />
-      <CustomerRoute selectedFocusRef={selectedFocusRef} />
-      <SurveyMarkers />
-      <Labels />
-      <ContactShadows position={[0, -0.92, 0]} opacity={0.22} scale={10.8} blur={3.5} far={4.4} />
-      <CameraRig progressRef={progressRef} selectedFocusRef={selectedFocusRef} />
+      <color attach="background" args={['#ece7df']} />
+      <fog attach="fog" args={['#ece7df', 11, 23]} />
+      <ambientLight intensity={1.25} />
+      <hemisphereLight args={['#fff7ec', '#665d55', 2.2]} />
+      <directionalLight position={[3, 9, 6]} intensity={3.3} color="#fff4e8" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-7, 4, -5]} intensity={1.1} color="#b7cae1" />
+      <pointLight position={[0, 3.5, 1]} intensity={15} color="#e57f63" distance={10} />
+      <Ground />
+      <Bridges />
+      {stations.map((station, i) => <OfficeWorld key={station.key} station={station} index={i} />)}
+      <Route />
+      <ContactShadows position={[0, -0.25, 0]} opacity={0.26} scale={18} blur={3.6} far={5.5} />
+      <CameraRig progressRef={progressRef} />
     </>
   )
 }
 
-export function LivingMap({ progressRef, selectedFocusRef }) {
+export function LivingMap({ progressRef }) {
   return (
-    <div className="living-map" aria-hidden="true">
-      <div className="living-map-fallback" />
+    <div className="living-map living-map--office">
       <Canvas
         dpr={[1, 1.55]}
-        camera={{ position: [6.7, 4.55, 7.8], fov: 39, near: 0.1, far: 50 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        camera={{ position: [8.8, 6.4, 9.8], fov: 40, near: 0.1, far: 45 }}
+        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance', toneMapping: THREE.ACESFilmicToneMapping }}
         shadows
       >
-        <Scene progressRef={progressRef} selectedFocusRef={selectedFocusRef} />
+        <Scene progressRef={progressRef} />
       </Canvas>
-      <div className="map-ui-corner map-ui-corner--tl" />
-      <div className="map-ui-corner map-ui-corner--br" />
-      <div className="map-ui-status"><i /> LIVE DECISION TERRAIN / V2</div>
+      <div className="journey-hud">
+        <span>3D GROWTH JOURNEY</span>
+        <div>{stations.map((s) => <i key={s.key} title={s.title} />)}</div>
+      </div>
+      <div className="map-ui-status"><i /> INTERACTIVE BUSINESS JOURNEY / V8</div>
     </div>
   )
 }
