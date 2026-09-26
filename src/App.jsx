@@ -41,31 +41,31 @@ function Story({ progressRef }) {
 
   const stages = [
     {
-      no: '01 / WIDOCZNOŚĆ',
+      no: 'WIDOCZNOŚĆ',
       title: <>Czy Twoja firma jest <span className="accent-text">widoczna wtedy, kiedy klient szuka?</span></>,
       copy: 'Sprawdzamy, czy docierasz do właściwych ludzi przy właściwej potrzebie — w Google, Maps, reklamach i nowych kanałach wyszukiwania.',
       proof: 'Google · SEO · Maps · Ads · AI Search',
     },
     {
-      no: '02 / STRONA I OFERTA',
+      no: 'STRONA I OFERTA',
       title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu wie, dlaczego ma wybrać właśnie Ciebie?</span></>,
       copy: 'Sprawdzamy ofertę, komunikację, UX i CTA. Dobry ruch nic nie daje, jeśli klient nie rozumie wartości albo nie wie, co zrobić dalej.',
       proof: 'Oferta · komunikacja · UX · CTA · landing page',
     },
     {
-      no: '03 / SOCIAL & CONTENT',
+      no: 'SOCIAL & CONTENT',
       title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
       copy: 'Sprawdzamy, czy content buduje zaufanie, pokazuje wartość i prowadzi dalej — czy tylko generuje aktywność bez wpływu na wynik.',
       proof: 'Social · content · proof · droga do kontaktu',
     },
     {
-      no: '04 / ZAUFANIE',
+      no: 'ZAUFANIE',
       title: <>Klient już Cię zna. <span className="accent-text">Czy ma wystarczający powód, żeby Ci zaufać?</span></>,
       copy: 'Sprawdzamy opinie, dowody, reputację, eksperckość i sposób prezentowania przewagi firmy.',
       proof: 'Opinie · case studies · reputacja · przewaga',
     },
     {
-      no: '05 / KONWERSJA',
+      no: 'KONWERSJA',
       title: <>Jest zainteresowanie. <span className="accent-text">Gdzie klient odpada przed kontaktem?</span></>,
       copy: 'Łączymy wcześniejsze etapy i sprawdzamy drogę od zainteresowania do zapytania, konsultacji lub zakupu.',
       proof: 'Formularz · kontakt · lead · konsultacja · sprzedaż',

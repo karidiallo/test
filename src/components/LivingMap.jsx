@@ -428,7 +428,7 @@ export function LivingMap({ progressRef, onSelectZone }) {
 
       {inspectedIndex >= 0 && (
         <aside className="map-inspector is-active">
-          <div className="map-inspector__top"><span>{inspected.no}</span><small>OBSZAR DIAGNOZY</small></div>
+          <div className="map-inspector__top"><small>OBSZAR DIAGNOZY</small></div>
           <strong>{inspected.title}</strong>
           <p>{inspected.question}</p>
           <div>{inspected.detail}</div>
@@ -439,7 +439,7 @@ export function LivingMap({ progressRef, onSelectZone }) {
         {zones.map((zone, index) => (
           <button key={zone.key} className={active === index ? 'active' : ''}
             onMouseEnter={() => setHovered(index)} onMouseLeave={() => setHovered(-1)} onClick={() => onSelectZone?.(index)}>
-            <span>{zone.no}</span><b>{zone.title}</b>
+            <b>{zone.title}</b>
           </button>
         ))}
       </div>
