@@ -36,22 +36,7 @@ function Header() {
 function Story({ progressRef }) {
   const storyRef = useRef(null)
   const stepRefs = useRef([])
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      progressRef.current = 0.5
-      return
-    }
-
-    const trigger = ScrollTrigger.create({
-      trigger: storyRef.current,
-      start: 'top top',
-      end: 'bottom bottom',
-      onUpdate: (self) => { progressRef.current = self.progress },
-    })
-
-    return () => trigger.kill()
-  }, [progressRef])
+  const [activeStage, setActiveStage] = useState(-1)
 
   const stages = [
     {
@@ -87,45 +72,76 @@ function Story({ progressRef }) {
     },
   ]
 
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      progressRef.current = 0.5
+      setActiveStage(2)
+      return
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: storyRef.current,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => {
+        progressRef.current = self.progress
+        const next = self.progress <= 0.12
+          ? -1
+          : Math.min(4, Math.floor(((self.progress - 0.12) / 0.88) * 5))
+        setActiveStage((prev) => (prev === next ? prev : next))
+      },
+    })
+
+    return () => trigger.kill()
+  }, [progressRef])
+
   function goToZone(index) {
-    stepRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    stepRefs.current[index + 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
+  const stage = activeStage >= 0 ? stages[activeStage] : null
+
   return (
-    <section className="story story--strategy-map" id="top" ref={storyRef}>
+    <section className="story story--strategy-map story--fixed-narrative" id="top" ref={storyRef}>
       <div className="story-canvas-wrap">
         <LivingMap progressRef={progressRef} onSelectZone={goToZone} />
-      </div>
 
-      <div className="story-steps">
-        <div className="story-step hero-step strategy-intro-step">
-          <div className="step-copy step-copy--hero strategy-intro-copy">
-            <div className="eyebrow">DIGITALMAP / MAPA WZROSTU FIRMY</div>
-            <h1 className="hero-title-clean">
-              <span className="hero-title-line hero-title-line--plain">Zanim wydasz</span>
-              <span className="hero-title-line hero-title-line--plain">więcej na marketing,</span>
-              <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
-              <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
-            </h1>
-            <p className="hero-lead">Przejdź przez pięć obszarów, które prowadzą klienta od znalezienia firmy do decyzji. Mapa pokazuje cały system — a DigitalMap szuka miejsca, które dziś najbardziej ogranicza Twój wzrost.</p>
-            <div className="hero-actions">
-              <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
-              <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
-            </div>
-            <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów wzrostu</span><span>Problem #1 zamiast listy błędów</span></div>
-          </div>
-        </div>
-
-        {stages.map((stage, index) => (
-          <div ref={(el) => { stepRefs.current[index] = el }} className={`story-step strategy-zone-step ${index % 2 ? 'strategy-zone-step--right' : ''}`} key={stage.no}>
-            <div className="strategy-zone-copy">
+        <div className="strategy-story-ui">
+          {stage ? (
+            <article className="strategy-story-card strategy-story-card--zone" key={stage.no}>
               <div className="eyebrow">{stage.no}</div>
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
               <div className="strategy-zone-proof"><i />{stage.proof}</div>
               {stage.cta && <a className="strategy-zone-cta" href="#scan">Znajdź problem #1 w swojej firmie <Arrow /></a>}
-            </div>
-          </div>
+            </article>
+          ) : (
+            <article className="strategy-story-card strategy-story-card--hero">
+              <div className="eyebrow">DIGITALMAP / MAPA WZROSTU FIRMY</div>
+              <h1 className="hero-title-clean">
+                <span className="hero-title-line">Zanim wydasz</span>
+                <span className="hero-title-line">więcej na marketing,</span>
+                <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
+                <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
+              </h1>
+              <p className="hero-lead">Przejdź przez pięć obszarów, które prowadzą klienta od znalezienia firmy do decyzji. Mapa pokazuje cały system — a DigitalMap szuka miejsca, które dziś najbardziej ogranicza Twój wzrost.</p>
+              <div className="hero-actions">
+                <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
+                <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
+              </div>
+              <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów wzrostu</span><span>Problem #1 zamiast listy błędów</span></div>
+            </article>
+          )}
+        </div>
+      </div>
+
+      <div className="story-steps story-scroll-spacers" aria-hidden="true">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            className="story-step story-scroll-spacer"
+            key={index}
+            ref={(el) => { stepRefs.current[index] = el }}
+          />
         ))}
       </div>
     </section>

@@ -1304,3 +1304,270 @@ textarea { font: inherit; }
   .executive-map-nav button { min-width:118px; flex:0 0 auto; }
   .map-inspector { display:none; }
 }
+
+/* =========================================================
+   V12 HERO — LIGHT STRATEGY MAP / FIXED NARRATIVE
+   ========================================================= */
+.story--strategy-map.story--fixed-narrative {
+  min-height: 600vh;
+  background: #eee8df !important;
+}
+.story--fixed-narrative .story-canvas-wrap {
+  background: #eee8df !important;
+}
+.story--fixed-narrative .living-map--executive {
+  background:
+    radial-gradient(circle at 72% 42%, rgba(255,255,255,.96) 0%, rgba(249,245,239,.76) 30%, transparent 58%),
+    radial-gradient(circle at 55% 74%, rgba(190,148,119,.12), transparent 34%),
+    #eee8df !important;
+}
+.story--fixed-narrative .living-map--executive::before {
+  background: linear-gradient(90deg,
+    rgba(238,232,223,.98) 0%,
+    rgba(238,232,223,.91) 24%,
+    rgba(238,232,223,.42) 40%,
+    rgba(238,232,223,.02) 62%,
+    rgba(238,232,223,.08) 100%) !important;
+}
+.story--fixed-narrative .living-map--executive::after {
+  background: linear-gradient(0deg,
+    rgba(238,232,223,.30) 0%,
+    transparent 20%,
+    transparent 82%,
+    rgba(238,232,223,.20) 100%) !important;
+}
+
+.story--fixed-narrative .story-steps {
+  margin-top: -100vh;
+  pointer-events: none;
+}
+.story--fixed-narrative .story-scroll-spacer {
+  min-height: 100vh;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.strategy-story-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 72px;
+}
+
+.strategy-story-card {
+  pointer-events: auto;
+  width: min(590px, 42vw);
+  margin-left: 0;
+  animation: strategyCardIn .34s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes strategyCardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.strategy-story-card--hero {
+  padding: 0;
+  color: #171412;
+  text-shadow: none;
+}
+.strategy-story-card--hero .eyebrow {
+  color: #9f7456 !important;
+}
+.strategy-story-card--hero .hero-title-clean {
+  margin: 18px 0 0;
+  max-width: 650px !important;
+  font-size: clamp(54px, 4.8vw, 82px) !important;
+  line-height: .91 !important;
+  letter-spacing: -.065em;
+}
+.strategy-story-card--hero .hero-title-line {
+  display: block;
+  white-space: nowrap;
+  color: #171412;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+.strategy-story-card--hero .hero-title-line--accent {
+  background: var(--accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.strategy-story-card--hero .hero-lead {
+  max-width: 590px;
+  margin-top: 24px;
+  color: #5c554f !important;
+  font-size: 15px;
+  line-height: 1.68;
+}
+.strategy-story-card--hero .button--ghost {
+  color: #211d1a !important;
+  border-color: rgba(32,26,22,.16) !important;
+  background: rgba(255,255,255,.44) !important;
+}
+.strategy-story-card--hero .micro-proof {
+  color: #756c64 !important;
+}
+.strategy-story-card--hero .micro-proof span {
+  border-color: rgba(34,28,24,.12) !important;
+}
+
+.strategy-story-card--zone {
+  position: relative;
+  padding: 26px 28px 25px 30px;
+  border: 1px solid rgba(44,35,29,.12);
+  border-radius: 18px;
+  background: rgba(250,248,244,.91);
+  box-shadow: 0 26px 80px rgba(79,61,48,.13);
+  backdrop-filter: blur(20px);
+  color: #171412;
+}
+.strategy-story-card--zone::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 3px;
+  height: 48px;
+  background: linear-gradient(180deg,#c9a477,#df765f 55%,#9d365b);
+}
+.strategy-story-card--zone .eyebrow {
+  color: #9b694e !important;
+}
+.strategy-story-card--zone h2 {
+  margin: 16px 0 15px;
+  color: #171412 !important;
+  font: 540 clamp(39px,3.8vw,62px)/.94 var(--display);
+  letter-spacing: -.055em;
+}
+.strategy-story-card--zone p {
+  margin: 0;
+  max-width: 500px;
+  color: #625a53 !important;
+  font-size: 13px;
+  line-height: 1.72;
+}
+.strategy-story-card--zone .strategy-zone-proof {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top-color: rgba(39,31,26,.11) !important;
+  color: #4d453f !important;
+}
+.strategy-story-card--zone .strategy-zone-proof i {
+  background: #bd8f6d;
+  box-shadow: 0 0 0 5px rgba(189,143,109,.13);
+}
+.strategy-story-card--zone .strategy-zone-cta {
+  color: #fff;
+}
+
+/* Light, quiet inspector: secondary to the fixed narrative card */
+.story--fixed-narrative .map-inspector {
+  top: 122px;
+  right: 30px;
+  width: min(285px, 21vw);
+  padding: 16px 17px 15px;
+  border: 1px solid rgba(51,40,32,.12);
+  border-radius: 14px;
+  background: rgba(250,248,244,.90);
+  box-shadow: 0 20px 54px rgba(75,58,46,.11);
+  backdrop-filter: blur(18px);
+}
+.story--fixed-narrative .map-inspector__top {
+  border-bottom-color: rgba(43,34,28,.09);
+}
+.story--fixed-narrative .map-inspector__top span { color: #b55255; }
+.story--fixed-narrative .map-inspector__top small { color: #91877e; }
+.story--fixed-narrative .map-inspector strong {
+  color: #1b1714;
+  font-size: 18px;
+}
+.story--fixed-narrative .map-inspector p {
+  color: #615951;
+  font-size: 10px;
+}
+.story--fixed-narrative .map-inspector > div:last-child { color: #9b7154; }
+
+/* Visible, centered journey navigator */
+.story--fixed-narrative .executive-map-nav {
+  left: 50%;
+  right: auto;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(720px, calc(100vw - 80px));
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid rgba(53,42,34,.12);
+  border-radius: 15px;
+  background: rgba(250,248,244,.94);
+  box-shadow: 0 18px 60px rgba(70,53,41,.13);
+}
+.story--fixed-narrative .executive-map-nav button {
+  min-width: 0;
+  padding: 10px 12px 9px;
+  color: #6c625a;
+}
+.story--fixed-narrative .executive-map-nav button span { color: #ae6761; }
+.story--fixed-narrative .executive-map-nav button:hover {
+  color: #1a1714;
+  background: #fffaf5;
+}
+.story--fixed-narrative .executive-map-nav button.active {
+  color: #fff;
+  background: linear-gradient(125deg,#27211d,#67413c 58%,#9a3657);
+}
+.story--fixed-narrative .executive-map-nav button.active span { color: #f5b08f; }
+
+@media (max-width: 1180px) {
+  .strategy-story-card { width: min(540px, 48vw); }
+  .strategy-story-card--hero .hero-title-clean { font-size: clamp(48px,5.4vw,72px) !important; }
+  .story--fixed-narrative .map-inspector { right: 18px; width: 250px; }
+  .story--fixed-narrative .executive-map-nav { width: min(650px, calc(100vw - 40px)); }
+}
+
+@media (max-width: 820px) {
+  .strategy-story-ui {
+    width: calc(100% - 24px);
+    align-items: flex-end;
+    padding: 0 0 84px;
+  }
+  .strategy-story-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .strategy-story-card--hero,
+  .strategy-story-card--zone {
+    padding: 18px 18px 18px 20px;
+    border: 1px solid rgba(44,35,29,.10);
+    border-radius: 16px;
+    background: rgba(250,248,244,.91);
+    box-shadow: 0 16px 48px rgba(79,61,48,.10);
+    backdrop-filter: blur(18px);
+  }
+  .strategy-story-card--hero .hero-title-line { white-space: normal; }
+  .strategy-story-card--hero .hero-title-clean { font-size: clamp(42px,11vw,60px) !important; }
+  .strategy-story-card--hero .hero-lead { font-size: 13px; }
+  .strategy-story-card--zone h2 { font-size: clamp(34px,9.5vw,48px); }
+  .story--fixed-narrative .map-inspector { display: none !important; }
+  .story--fixed-narrative .executive-map-nav {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 10px;
+    transform: none;
+    display: flex;
+    overflow-x: auto;
+  }
+  .story--fixed-narrative .executive-map-nav button { min-width: 116px; flex: 0 0 auto; }
+  .story--fixed-narrative .living-map--executive::before {
+    background: linear-gradient(0deg, rgba(238,232,223,.88) 0%, rgba(238,232,223,.34) 42%, transparent 70%) !important;
+  }
+}

@@ -5,7 +5,7 @@ import * as THREE from 'three'
 
 const INK = '#1b1816'
 const GRAPHITE = '#26211e'
-const GRAPHITE_2 = '#332c27'
+const GRAPHITE_2 = '#d5c8bb'
 const STEEL = '#77716b'
 const IVORY = '#f4efe7'
 const CHAMPAGNE = '#c9a477'
@@ -63,7 +63,7 @@ function DistrictBase({ x, z, w, d, rot = 0, tone = GRAPHITE_2 }) {
       </mesh>
       <mesh position={[0, 0.073, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[w * 0.92, d * 0.88]} />
-        <meshBasicMaterial color="#6a5547" transparent opacity={0.28} />
+        <meshBasicMaterial color="#a37d61" transparent opacity={0.18} />
       </mesh>
     </group>
   )
@@ -89,19 +89,19 @@ function ExecutiveMapBase() {
     <group position={[0, -0.92, 0]}>
       <mesh receiveShadow>
         <boxGeometry args={[12.4, 0.34, 7.4]} />
-        <meshStandardMaterial color="#211d1a" metalness={0.28} roughness={0.54} />
+        <meshStandardMaterial color="#c8b9aa" metalness={0.12} roughness={0.72} />
       </mesh>
       <mesh position={[0, 0.19, 0]} receiveShadow>
         <boxGeometry args={[11.85, 0.08, 6.88]} />
-        <meshStandardMaterial color="#322b26" metalness={0.12} roughness={0.76} />
+        <meshStandardMaterial color="#e7ded3" metalness={0.06} roughness={0.82} />
       </mesh>
       {contour.map((points, i) => (
-        <Line key={i} points={points} color={i === 0 ? '#c09a77' : '#6f5d50'} lineWidth={i === 0 ? 1.25 : 0.65} transparent opacity={0.68 - i * 0.045} />
+        <Line key={i} points={points} color={i === 0 ? '#9f7658' : '#c5ad98'} lineWidth={i === 0 ? 1.25 : 0.65} transparent opacity={0.68 - i * 0.045} />
       ))}
       <DistrictBase x={-3.7} z={-0.92} w={2.05} d={1.75} rot={-0.08} />
-      <DistrictBase x={-1.75} z={0.82} w={2.0} d={1.55} rot={0.04} tone="#19191b" />
+      <DistrictBase x={-1.75} z={0.82} w={2.0} d={1.55} rot={0.04} tone="#ddd0c2" />
       <DistrictBase x={0.28} z={-0.78} w={2.0} d={1.72} rot={-0.03} />
-      <DistrictBase x={2.15} z={0.96} w={2.12} d={1.58} rot={0.06} tone="#19191b" />
+      <DistrictBase x={2.15} z={0.96} w={2.12} d={1.58} rot={0.06} tone="#d9cbbb" />
       <DistrictBase x={4.02} z={-0.52} w={1.95} d={1.72} rot={-0.08} />
     </group>
   )
@@ -305,9 +305,9 @@ function RoadSystem({ progressRef }) {
 
   return (
     <group>
-      <Line points={points} color="#070708" lineWidth={8} transparent opacity={0.96} />
-      <Line points={points} color="#5a4b40" lineWidth={3.6} transparent opacity={0.92} />
-      <Line points={points} color={CHAMPAGNE} lineWidth={1.15} transparent opacity={0.9} />
+      <Line points={points} color="#3b3029" lineWidth={7.5} transparent opacity={0.46} />
+      <Line points={points} color="#b28a6e" lineWidth={3.4} transparent opacity={0.96} />
+      <Line points={points} color={WINE} lineWidth={1.25} transparent opacity={0.92} />
       {Array.from({ length: 8 }).map((_, i) => (
         <mesh key={i} ref={(el) => { pulses.current[i] = el }}>
           <sphereGeometry args={[i % 4 === 0 ? 0.055 : 0.036, 14, 14]} />
@@ -335,7 +335,7 @@ function ContextBlocks() {
   return blocks.map(([x, z, w, d, h], i) => (
     <mesh key={i} position={[x, -0.75 + h / 2, z]} castShadow>
       <boxGeometry args={[w, h, d]} />
-      <meshStandardMaterial color={i % 3 === 0 ? '#222125' : '#18181a'} metalness={0.2} roughness={0.62} />
+      <meshStandardMaterial color={i % 3 === 0 ? '#b8aa9d' : '#d7ccc2'} metalness={0.08} roughness={0.78} />
     </mesh>
   ))
 }
@@ -372,14 +372,14 @@ function CameraRig({ progressRef }) {
 function Scene({ progressRef, activeIndex, hoveredIndex, setHoveredIndex, onSelectZone }) {
   return (
     <>
-      <color attach="background" args={['#1b1816']} />
-      <fog attach="fog" args={['#1b1816', 14, 28]} />
-      <ambientLight intensity={1.35} />
-      <hemisphereLight args={['#fff2df', '#251e1a', 1.45]} />
-      <directionalLight position={[5, 8, 6]} intensity={4.1} color="#ffe7c8" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
-      <directionalLight position={[-4, 4, -5]} intensity={1.35} color="#9da7b7" />
-      <pointLight position={[-2.4, 2.4, 2.3]} intensity={7.5} color={CHAMPAGNE} distance={7} />
-      <pointLight position={[3.4, 2.0, -0.8]} intensity={5.5} color={WINE} distance={5.5} />
+      <color attach="background" args={['#eee8df']} />
+      <fog attach="fog" args={['#eee8df', 16, 32]} />
+      <ambientLight intensity={2.15} />
+      <hemisphereLight args={['#fffaf2', '#9a8878', 2.0]} />
+      <directionalLight position={[5, 8, 6]} intensity={4.8} color="#fff4df" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-4, 4, -5]} intensity={1.8} color="#cbd4df" />
+      <pointLight position={[-2.4, 2.4, 2.3]} intensity={5.2} color={CHAMPAGNE} distance={7} />
+      <pointLight position={[3.4, 2.0, -0.8]} intensity={3.8} color={CORAL} distance={5.5} />
       <ExecutiveMapBase />
       <ContextBlocks />
       <RoadSystem progressRef={progressRef} />
