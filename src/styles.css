@@ -1074,3 +1074,78 @@ textarea { font: inherit; }
   .journey-world-card h2 { font-size: 42px; }
   .journey-hud { display: none; }
 }
+
+/* =========================================================
+   V9 — INTERACTIVE STRATEGY TERRAIN / HERO ONLY
+   Rest of V8 stays unchanged.
+   ========================================================= */
+.story--strategy-map { min-height: 600vh; background: #eee8df; }
+.story--strategy-map .story-step { min-height: 100vh; }
+.story--strategy-map .story-canvas-wrap { background: #eee8df; }
+.living-map--strategy { background: radial-gradient(circle at 60% 40%, #faf7f1 0%, #eee8df 48%, #e6dfd6 100%); }
+.living-map--strategy canvas { opacity: 1; transform: none; }
+.living-map--strategy::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background:
+    linear-gradient(90deg, rgba(238,232,223,.98) 0%, rgba(238,232,223,.72) 24%, rgba(238,232,223,.08) 45%, transparent 68%),
+    linear-gradient(0deg, rgba(238,232,223,.42) 0%, transparent 24%);
+}
+.strategy-intro-copy { position: relative; z-index: 5; max-width: 720px; }
+.strategy-intro-copy h1 { max-width: 760px; }
+.strategy-intro-copy h1 span {
+  background: linear-gradient(115deg,#dd8b6e 0%,#cf5c69 48%,#9d365b 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.strategy-zone-step { justify-content: flex-start; padding-left: clamp(26px,6vw,110px); }
+.strategy-zone-step--right { justify-content: flex-end; padding-left: 0; padding-right: clamp(26px,6vw,110px); }
+.strategy-zone-copy {
+  position: relative; z-index: 5; width: min(500px, 36vw); padding: 24px 0 24px 22px;
+  border-left: 1px solid rgba(24,21,19,.22); color: #181513;
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+.strategy-zone-copy::before { content:''; position:absolute; left:-4px; top:27px; width:7px; height:7px; border-radius:50%; background:#c84468; box-shadow:0 0 0 8px rgba(200,68,104,.10); }
+.strategy-zone-copy .eyebrow { color: #9d365b; }
+.strategy-zone-copy h2 { margin: 18px 0 16px; font: 520 clamp(38px,4vw,66px)/.95 var(--display); letter-spacing: -.055em; color:#161311; }
+.strategy-zone-copy p { margin:0; max-width: 470px; color:#635c56; font-size:13px; line-height:1.75; }
+.strategy-zone-proof { margin-top:22px; padding-top:16px; border-top:1px solid rgba(24,21,19,.12); display:flex; align-items:center; gap:10px; color:#413b36; font-size:10px; font-weight:760; letter-spacing:.03em; }
+.strategy-zone-proof i { width:8px; height:8px; border-radius:50%; background:#df765f; box-shadow:0 0 0 7px rgba(223,118,95,.12); }
+.strategy-zone-cta { margin-top:20px; min-height:48px; padding:0 14px; display:flex; align-items:center; justify-content:space-between; border-radius:11px; background:linear-gradient(120deg,#df8c69,#c84468 58%,#932448); color:#fff; text-decoration:none; font-size:10px; font-weight:760; box-shadow:0 12px 30px rgba(147,36,72,.18); }
+
+.map-zone-label {
+  position: relative; min-width: 168px; max-width: 210px; padding: 11px 34px 11px 12px;
+  border: 1px solid rgba(28,23,20,.12); border-radius: 12px; background: rgba(250,248,244,.88);
+  box-shadow: 0 12px 30px rgba(42,32,27,.10); backdrop-filter: blur(14px); color:#181513;
+  display:grid; grid-template-columns:auto 1fr; column-gap:8px; row-gap:2px; text-align:left; cursor:pointer;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.map-zone-label:hover,.map-zone-label.is-hovered { transform: translateY(-5px); border-color: rgba(168,52,89,.30); background: rgba(255,252,248,.96); box-shadow:0 18px 46px rgba(73,48,38,.16); }
+.map-zone-label span { grid-row:1 / span 2; align-self:center; color:#a83459; font:800 8px/1 var(--body); letter-spacing:.08em; }
+.map-zone-label strong { font:700 10px/1.05 var(--body); letter-spacing:.02em; }
+.map-zone-label small { color:#746b64; font:600 7px/1.25 var(--body); }
+.map-zone-label i { position:absolute; right:10px; top:50%; transform:translateY(-50%); font-style:normal; color:#a83459; }
+.strategy-map-topline { position:absolute; z-index:6; top:90px; right:38px; display:flex; align-items:center; gap:9px; color:#514943; font:800 8px/1 var(--body); letter-spacing:.13em; text-transform:uppercase; }
+.strategy-map-topline i { width:7px; height:7px; border-radius:50%; background:#c84468; box-shadow:0 0 0 6px rgba(200,68,104,.10); }
+.strategy-map-topline span { color:#948981; font-weight:600; letter-spacing:.03em; text-transform:none; }
+.strategy-map-nav { position:absolute; z-index:6; left:50%; bottom:26px; transform:translateX(-50%); display:flex; gap:4px; padding:6px; border:1px solid rgba(31,26,23,.12); border-radius:999px; background:rgba(250,248,244,.82); backdrop-filter:blur(16px); box-shadow:0 14px 38px rgba(55,43,36,.10); }
+.strategy-map-nav button { min-height:34px; padding:0 11px; border:0; border-radius:999px; background:transparent; color:#6d645e; font:720 7px/1 var(--body); letter-spacing:.04em; cursor:pointer; transition:background .18s ease,color .18s ease,transform .18s ease; }
+.strategy-map-nav button span { margin-right:5px; color:#ac6b62; }
+.strategy-map-nav button:hover { color:#181513; transform:translateY(-1px); }
+.strategy-map-nav button.active { background:#181513; color:#fff; }
+.strategy-map-nav button.active span { color:#f09b84; }
+
+@media (max-width: 900px) {
+  .story--strategy-map { min-height: 600vh; }
+  .living-map--strategy::after { background:linear-gradient(0deg,rgba(238,232,223,.96) 0%,rgba(238,232,223,.62) 36%,transparent 65%); }
+  .strategy-zone-step,.strategy-zone-step--right { justify-content:center; align-items:flex-end; padding:0 16px 90px; }
+  .strategy-zone-copy { width:100%; max-width:640px; padding:18px 18px 18px 22px; border:1px solid rgba(24,21,19,.10); border-radius:18px; background:rgba(250,248,244,.85); backdrop-filter:blur(16px); box-shadow:0 16px 45px rgba(57,43,34,.08); }
+  .strategy-zone-copy::before { left:18px; top:-4px; }
+  .strategy-zone-copy h2 { font-size:42px; }
+  .strategy-map-topline { display:none; }
+  .strategy-map-nav { bottom:12px; max-width:calc(100vw - 24px); overflow-x:auto; justify-content:flex-start; }
+  .strategy-map-nav button { white-space:nowrap; }
+  .map-zone-label { min-width:138px; transform:scale(.86); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-zone-label,.strategy-map-nav button { transition:none; }
+}
