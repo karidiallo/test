@@ -298,7 +298,7 @@ function RoadSystem({ progressRef }) {
       m.position.copy(curve.getPointAt((t * 0.035 + i / 8) % 1))
     })
     if (scanner.current) {
-      const p = THREE.MathUtils.clamp((progressRef.current - 0.08) / 0.92, 0, 1)
+      const p = THREE.MathUtils.clamp((progressRef.current - 0.14) / 0.86, 0, 1)
       scanner.current.position.copy(curve.getPointAt(p))
     }
   })
@@ -357,7 +357,7 @@ function CameraRig({ progressRef }) {
 
   useFrame(() => {
     const raw = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1)
-    const p = raw < 0.115 ? 0 : THREE.MathUtils.smoothstep((raw - 0.115) / 0.885, 0, 1)
+    const p = raw < 0.14 ? 0 : THREE.MathUtils.smoothstep((raw - 0.14) / 0.86, 0, 1)
     desired.copy(cameraPath.getPointAt(p))
     desiredTarget.copy(targetPath.getPointAt(p))
     desired.x += pointer.x * 0.12
@@ -400,7 +400,11 @@ export function LivingMap({ progressRef, onSelectZone }) {
     let raf
     const tick = () => {
       const p = progressRef.current || 0
-      const next = p <= 0.12 ? -1 : Math.min(4, Math.floor(((p - 0.12) / 0.88) * 5))
+      const breaks = [0.14, 0.31, 0.48, 0.65, 0.82]
+      let next = -1
+      for (let i = breaks.length - 1; i >= 0; i -= 1) {
+        if (p >= breaks[i]) { next = i; break }
+      }
       setActive((prev) => (prev === next ? prev : next))
       raf = requestAnimationFrame(tick)
     }

@@ -36,6 +36,7 @@ function Header() {
 function Story({ progressRef }) {
   const storyRef = useRef(null)
   const stepRefs = useRef([])
+  const cardRef = useRef(null)
   const [activeStage, setActiveStage] = useState(-1)
 
   const stages = [
@@ -85,15 +86,27 @@ function Story({ progressRef }) {
       end: 'bottom bottom',
       onUpdate: (self) => {
         progressRef.current = self.progress
-        const next = self.progress <= 0.12
-          ? -1
-          : Math.min(4, Math.floor(((self.progress - 0.12) / 0.88) * 5))
+        const breaks = [0.14, 0.31, 0.48, 0.65, 0.82]
+        let next = -1
+        for (let i = breaks.length - 1; i >= 0; i -= 1) {
+          if (self.progress >= breaks[i]) { next = i; break }
+        }
         setActiveStage((prev) => (prev === next ? prev : next))
       },
     })
 
     return () => trigger.kill()
   }, [progressRef])
+
+  useEffect(() => {
+    if (!cardRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    gsap.killTweensOf(cardRef.current)
+    gsap.fromTo(
+      cardRef.current,
+      { autoAlpha: 0.35, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 0.46, ease: 'power2.out', overwrite: true },
+    )
+  }, [activeStage])
 
   function goToZone(index) {
     stepRefs.current[index + 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -108,7 +121,7 @@ function Story({ progressRef }) {
 
         <div className="strategy-story-ui">
           {stage ? (
-            <article className="strategy-story-card strategy-story-card--zone" key={stage.no}>
+            <article ref={cardRef} className="strategy-story-card strategy-story-card--zone">
               <div className="eyebrow">{stage.no}</div>
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
@@ -116,7 +129,7 @@ function Story({ progressRef }) {
               {stage.cta && <a className="strategy-zone-cta" href="#scan">Znajdź problem #1 w swojej firmie <Arrow /></a>}
             </article>
           ) : (
-            <article className="strategy-story-card strategy-story-card--hero">
+            <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
               <div className="eyebrow">DIGITALMAP / MAPA WZROSTU FIRMY</div>
               <h1 className="hero-title-clean">
                 <span className="hero-title-line">Zanim wydasz</span>
@@ -195,10 +208,10 @@ function SampleMap() {
     <section className="sample-section" id="sample">
       <div className="section-shell">
         <div className="section-heading section-heading--split sample-heading">
-          <div className="eyebrow">05 / PRZYKŁADOWA MAPA</div>
+          <div className="eyebrow">05 / DIAGNOZA MARKETINGOWA</div>
           <div>
-            <h2>Nie raport do odłożenia. <span className="accent-text">Interaktywna hierarchia decyzji.</span></h2>
-            <p>Kliknij po przykładowej diagnozie firmy usługowej. Każdy ekran odpowiada na inne pytanie: gdzie jest problem, co go potwierdza, co zrobić teraz i czego nie dotykać.</p>
+            <h2>Zobacz, gdzie Twoja firma <span className="accent-text">traci klientów.</span></h2>
+            <p>Przejdź przez przykładową diagnozę marketingową. Każdy ekran pokazuje inny etap decyzji: gdzie jest problem, co go potwierdza, co zrobić teraz i czego na razie nie ruszać.</p>
           </div>
         </div>
 
@@ -212,11 +225,11 @@ function SampleMap() {
                 </button>
               ))}
             </div>
-            <small>DEMO MAPY / firma usługowa</small>
+            <small>ZOBACZ, GDZIE TWOJA FIRMA TRACI KLIENTÓW.</small>
           </aside>
 
           <div className="diagnosis-main">
-            <div className="diagnosis-top"><span>DIGITALMAP / DIAGNOSIS 01</span><b>status: zakończona</b></div>
+            <div className="diagnosis-top"><span>DIGITALMAP / DIAGNOZA MARKETINGOWA</span><b>status: zakończona</b></div>
 
             {view === 'overview' && (
               <div className="map-view map-view--overview">
@@ -288,7 +301,7 @@ function Principle() {
   const points = [
     ['01', 'Bez kanału na wejściu', 'Nie zaczynamy od SEO, Ads, sociali ani redesignu. Zaczynamy od pytania: gdzie faktycznie zatrzymuje się wynik?'],
     ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem #1, priorytet i pierwszy ruch. Dopiero potem wiadomo, na co warto przeznaczyć budżet.'],
-    ['03', 'Bez lock-inu', 'Rekomendację możesz wdrożyć z nami, samodzielnie, z własnym zespołem albo z innym wykonawcą. Diagnoza ma bronić decyzji, nie abonamentu.'],
+    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, samodzielnie, z własnym zespołem albo z innym wykonawcą. Diagnoza ma bronić decyzji, nie abonamentu.'],
   ]
 
   return (
@@ -448,11 +461,16 @@ function Team() {
           <div><h2>Za DigitalMap stoją <span className="accent-text">konkretni ludzie.</span></h2><p>Pięć osób, pięć uzupełniających się kompetencji. Strategia, marketing, technologia, płatne pozyskanie i social media spotykają się przy jednym celu: znaleźć właściwy problem i przełożyć go na właściwy ruch.</p></div>
         </div>
 
-        <div className="team-members">
+        <div className="team-members team-members--text-only">
           {team.members.map((member, index) => (
-            <article className={`team-member ${member.featured ? 'team-member--featured' : ''}`} key={member.name}>
-              <div className="team-member-portrait">{member.photo ? <img src={member.photo} alt={member.name} /> : <span>{member.initials}</span>}<div className="team-member-number">0{index + 1}</div></div>
-              <div className="team-member-info"><div className="team-member-role">{member.role}</div><h3>{member.name}</h3><p>{member.bio}</p></div>
+            <article className={`team-member team-member--text ${member.featured ? 'team-member--featured' : ''}`} key={member.name}>
+              <div className="team-member-card-top">
+                <span>0{index + 1}</span>
+                <div className="team-member-role">{member.role}</div>
+              </div>
+              <h3>{member.name}</h3>
+              <div className="team-member-scope-label">Zakres działań</div>
+              <p>{member.bio}</p>
             </article>
           ))}
         </div>
