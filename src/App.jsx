@@ -101,7 +101,12 @@ function Story({ progressRef }) {
         <div className="story-step hero-step strategy-intro-step">
           <div className="step-copy step-copy--hero strategy-intro-copy">
             <div className="eyebrow">DIGITALMAP / MAPA WZROSTU FIRMY</div>
-            <h1>Zanim wydasz więcej na marketing, <span>zobacz, gdzie naprawdę zaczyna się problem.</span></h1>
+            <h1 className="hero-title-clean">
+              <span className="hero-title-line hero-title-line--plain">Zanim wydasz</span>
+              <span className="hero-title-line hero-title-line--plain">więcej na marketing,</span>
+              <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
+              <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
+            </h1>
             <p className="hero-lead">Przejdź przez pięć obszarów, które prowadzą klienta od znalezienia firmy do decyzji. Mapa pokazuje cały system — a DigitalMap szuka miejsca, które dziś najbardziej ogranicza Twój wzrost.</p>
             <div className="hero-actions">
               <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>

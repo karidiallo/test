@@ -3,9 +3,9 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-const INK = '#0b0b0c'
-const GRAPHITE = '#151517'
-const GRAPHITE_2 = '#1f1f22'
+const INK = '#1b1816'
+const GRAPHITE = '#26211e'
+const GRAPHITE_2 = '#332c27'
 const STEEL = '#77716b'
 const IVORY = '#f4efe7'
 const CHAMPAGNE = '#c9a477'
@@ -63,7 +63,7 @@ function DistrictBase({ x, z, w, d, rot = 0, tone = GRAPHITE_2 }) {
       </mesh>
       <mesh position={[0, 0.073, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[w * 0.92, d * 0.88]} />
-        <meshBasicMaterial color="#2b2927" transparent opacity={0.42} />
+        <meshBasicMaterial color="#6a5547" transparent opacity={0.28} />
       </mesh>
     </group>
   )
@@ -89,14 +89,14 @@ function ExecutiveMapBase() {
     <group position={[0, -0.92, 0]}>
       <mesh receiveShadow>
         <boxGeometry args={[12.4, 0.34, 7.4]} />
-        <meshStandardMaterial color="#09090a" metalness={0.34} roughness={0.5} />
+        <meshStandardMaterial color="#211d1a" metalness={0.28} roughness={0.54} />
       </mesh>
       <mesh position={[0, 0.19, 0]} receiveShadow>
         <boxGeometry args={[11.85, 0.08, 6.88]} />
-        <meshStandardMaterial color="#121214" metalness={0.16} roughness={0.84} />
+        <meshStandardMaterial color="#322b26" metalness={0.12} roughness={0.76} />
       </mesh>
       {contour.map((points, i) => (
-        <Line key={i} points={points} color={i === 0 ? '#5b5148' : '#393431'} lineWidth={i === 0 ? 1.25 : 0.65} transparent opacity={0.38 - i * 0.025} />
+        <Line key={i} points={points} color={i === 0 ? '#c09a77' : '#6f5d50'} lineWidth={i === 0 ? 1.25 : 0.65} transparent opacity={0.68 - i * 0.045} />
       ))}
       <DistrictBase x={-3.7} z={-0.92} w={2.05} d={1.75} rot={-0.08} />
       <DistrictBase x={-1.75} z={0.82} w={2.0} d={1.55} rot={0.04} tone="#19191b" />
@@ -121,7 +121,7 @@ function VisibilityTower({ active }) {
     <group>
       <mesh position={[0, 0.48, 0]} castShadow>
         <boxGeometry args={[0.7, 0.96, 0.62]} />
-        <meshStandardMaterial color="#151517" metalness={0.46} roughness={0.28} />
+        <meshStandardMaterial color="#2a2421" metalness={0.46} roughness={0.28} />
       </mesh>
       {[0.2, 0.4, 0.6, 0.8].map((y) => <LitWindow key={y} position={[0.351, y, 0.0]} size={[0.01, 0.12]} strength={active ? 2.1 : 0.8} />)}
       <mesh position={[0, 1.2, 0]} castShadow>
@@ -143,7 +143,7 @@ function WebsitePavilion({ active }) {
     <group>
       <mesh position={[0, 0.27, 0]} castShadow>
         <boxGeometry args={[1.28, 0.52, 0.82]} />
-        <meshPhysicalMaterial color="#171719" metalness={0.28} roughness={0.2} transmission={0.18} transparent opacity={0.94} />
+        <meshPhysicalMaterial color="#302925" metalness={0.28} roughness={0.2} transmission={0.18} transparent opacity={0.94} />
       </mesh>
       <mesh position={[0, 0.54, -0.1]}>
         <boxGeometry args={[1.06, 0.035, 0.58]} />
@@ -168,11 +168,11 @@ function SocialStudio({ active }) {
     <group>
       <mesh position={[0, 0.1, 0]}>
         <cylinderGeometry args={[0.78, 0.84, 0.16, 40]} />
-        <meshStandardMaterial color="#171719" metalness={0.3} roughness={0.48} />
+        <meshStandardMaterial color="#302925" metalness={0.3} roughness={0.48} />
       </mesh>
       <mesh position={[0, 0.23, -0.18]} castShadow>
         <boxGeometry args={[1.24, 0.35, 0.56]} />
-        <meshStandardMaterial color="#202023" metalness={0.24} roughness={0.34} />
+        <meshStandardMaterial color="#382f2a" metalness={0.24} roughness={0.34} />
       </mesh>
       {bars.map((h, i) => (
         <mesh key={i} position={[-0.4 + i * 0.2, 0.28 + h * 0.28, 0.11]}>
@@ -193,7 +193,7 @@ function TrustBoardroom({ active }) {
     <group>
       <mesh position={[0, 0.26, 0]} castShadow>
         <boxGeometry args={[1.34, 0.5, 0.92]} />
-        <meshStandardMaterial color="#151416" metalness={0.34} roughness={0.26} />
+        <meshStandardMaterial color="#2d2623" metalness={0.34} roughness={0.26} />
       </mesh>
       <mesh position={[0, 0.44, 0.47]}>
         <planeGeometry args={[0.88, 0.18]} />
@@ -219,7 +219,7 @@ function ConversionHQ({ active }) {
       {[0, 1, 2].map((i) => (
         <mesh key={i} position={[0.18 - i * 0.18, 0.18 + i * 0.24, -0.08 + i * 0.04]} castShadow>
           <boxGeometry args={[1.1 - i * 0.18, 0.32, 0.86 - i * 0.08]} />
-          <meshStandardMaterial color={i === 2 ? '#262126' : '#161618'} metalness={0.38} roughness={0.3} />
+          <meshStandardMaterial color={i === 2 ? '#4a3834' : '#2d2724'} metalness={0.38} roughness={0.3} />
         </mesh>
       ))}
       <mesh position={[0.12, 0.86, 0.0]}>
@@ -372,14 +372,14 @@ function CameraRig({ progressRef }) {
 function Scene({ progressRef, activeIndex, hoveredIndex, setHoveredIndex, onSelectZone }) {
   return (
     <>
-      <color attach="background" args={[INK]} />
-      <fog attach="fog" args={[INK, 11.5, 23]} />
-      <ambientLight intensity={0.58} />
-      <hemisphereLight args={['#eadbc8', '#070708', 0.8]} />
-      <directionalLight position={[5, 8, 6]} intensity={2.5} color="#f0dfca" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
-      <directionalLight position={[-4, 4, -5]} intensity={0.75} color="#8a94a5" />
-      <pointLight position={[-2.4, 2.4, 2.3]} intensity={5.5} color={CHAMPAGNE} distance={7} />
-      <pointLight position={[3.4, 2.0, -0.8]} intensity={4.2} color={WINE} distance={5.5} />
+      <color attach="background" args={['#1b1816']} />
+      <fog attach="fog" args={['#1b1816', 14, 28]} />
+      <ambientLight intensity={1.35} />
+      <hemisphereLight args={['#fff2df', '#251e1a', 1.45]} />
+      <directionalLight position={[5, 8, 6]} intensity={4.1} color="#ffe7c8" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-4, 4, -5]} intensity={1.35} color="#9da7b7" />
+      <pointLight position={[-2.4, 2.4, 2.3]} intensity={7.5} color={CHAMPAGNE} distance={7} />
+      <pointLight position={[3.4, 2.0, -0.8]} intensity={5.5} color={WINE} distance={5.5} />
       <ExecutiveMapBase />
       <ContextBlocks />
       <RoadSystem progressRef={progressRef} />
@@ -422,14 +422,14 @@ export function LivingMap({ progressRef, onSelectZone }) {
         <Scene progressRef={progressRef} activeIndex={active} hoveredIndex={hovered} setHoveredIndex={setHovered} onSelectZone={onSelectZone} />
       </Canvas>
 
-      <div className="executive-map-kicker"><i /> DIGITALMAP / BUSINESS GROWTH MAP <span>scroll · hover · click</span></div>
-
-      <aside className={`map-inspector ${inspectedIndex >= 0 ? 'is-active' : ''}`}>
-        <div className="map-inspector__top"><span>{inspected.no}</span><small>OBSZAR DIAGNOZY</small></div>
-        <strong>{inspected.title}</strong>
-        <p>{inspected.question}</p>
-        <div>{inspected.detail}</div>
-      </aside>
+      {inspectedIndex >= 0 && (
+        <aside className="map-inspector is-active">
+          <div className="map-inspector__top"><span>{inspected.no}</span><small>OBSZAR DIAGNOZY</small></div>
+          <strong>{inspected.title}</strong>
+          <p>{inspected.question}</p>
+          <div>{inspected.detail}</div>
+        </aside>
+      )}
 
       <div className="executive-map-nav" aria-label="Obszary mapy">
         {zones.map((zone, index) => (
@@ -440,7 +440,6 @@ export function LivingMap({ progressRef, onSelectZone }) {
         ))}
       </div>
 
-      <div className="executive-map-scale"><span>01</span><i /><span>05</span></div>
     </div>
   )
 }
