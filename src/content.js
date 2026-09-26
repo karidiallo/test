@@ -3,32 +3,28 @@ export const symptoms = [
     id: 'acquisition',
     label: 'Masz za mało klientów',
     short: 'Pozyskanie',
-    description:
-      'Nie wiadomo jeszcze, czy problemem jest widoczność, oferta, zaufanie czy sama droga do kontaktu.',
+    description: 'Nie wiadomo jeszcze, czy problemem jest widoczność, oferta, zaufanie czy sama droga do kontaktu.',
     focus: 0.28,
   },
   {
     id: 'conversion',
     label: 'Ruch jest. Zapytań nadal za mało.',
     short: 'Konwersja',
-    description:
-      'Użytkownicy trafiają na stronę, ale oferta, CTA albo formularz nie domykają istniejącego zainteresowania.',
+    description: 'Użytkownicy trafiają na stronę, ale oferta, CTA albo formularz nie domykają istniejącego zainteresowania.',
     focus: 0.62,
   },
   {
     id: 'competition',
     label: 'Klienci wybierają konkurencję',
     short: 'Zaufanie',
-    description:
-      'Jesteś widoczny, ale ktoś inny wygląda bezpieczniej, komunikuje wartość prościej albo daje mocniejszy powód do decyzji.',
+    description: 'Jesteś widoczny, ale ktoś inny wygląda bezpieczniej, komunikuje wartość prościej albo daje mocniejszy powód do decyzji.',
     focus: 0.46,
   },
   {
     id: 'efficiency',
     label: 'Marketing kosztuje. Nie wiesz, co działa.',
     short: 'Efektywność',
-    description:
-      'Budżet jest rozproszony, a wynik nie pokazuje jasno, który element procesu naprawdę ogranicza wzrost.',
+    description: 'Budżet jest rozproszony, a wynik nie pokazuje jasno, który element procesu naprawdę ogranicza wzrost.',
     focus: 0.77,
   },
 ]
@@ -38,13 +34,13 @@ export const processSteps = [
     no: '01',
     title: 'Pokazujesz nam firmę',
     accent: 'firmę',
-    copy: 'Domena + krótki kontekst. Na start wystarczy to, co już masz.',
+    copy: 'Domena albo nazwa firmy + krótki kontekst. Nie musisz mieć gotowych danych ani strony internetowej.',
   },
   {
     no: '02',
     title: 'Mapujemy drogę klienta',
     accent: 'drogę klienta',
-    copy: 'Badamy rynek, widoczność, zaufanie, ofertę, konwersję i konkurencję.',
+    copy: 'Badamy rynek, widoczność, zaufanie, ofertę, konwersję, ruch i konkurencję.',
   },
   {
     no: '03',
@@ -56,33 +52,105 @@ export const processSteps = [
     no: '04',
     title: 'Dostajesz decyzję',
     accent: 'decyzję',
-    copy: 'Priorytet, pierwszy ruch, plan, „nie teraz” i sposób pomiaru.',
+    copy: 'Priorytet, pierwszy ruch, plan, rzeczy „nie teraz” i sposób pomiaru efektu.',
   },
 ]
 
 export const diagnosis = {
   problem: 'Oferta i ścieżka kontaktu nie wykorzystują istniejącego ruchu.',
+  summary: 'Ruch już dociera na stronę, ale użytkownik nie dostaje wystarczającego powodu ani wystarczająco prostej drogi do kontaktu.',
   evidence: [
-    ['Problem', 'Za mało osób przechodzi od wejścia na stronę do kontaktu.'],
-    ['Dowody', 'Ruch istnieje, ale CTA, oferta i formularz tworzą tarcie.'],
-    ['Priorytet', 'Uprościć komunikację oferty i ścieżkę konwersji.'],
+    {
+      label: 'Problem',
+      value: 'Za mało osób przechodzi od wejścia na stronę do kontaktu.',
+      detail: 'Ruch istnieje, ale przejście od zainteresowania do działania jest zbyt słabe. Problem nie zaczyna się więc od samego pozyskania ruchu.',
+    },
+    {
+      label: 'Dowody',
+      value: 'CTA, oferta i formularz tworzą tarcie.',
+      detail: 'Najważniejsza wartość jest schowana zbyt nisko, CTA jest mało konkretne, a formularz wymaga decyzji zanim klient rozumie, co dostanie.',
+    },
+    {
+      label: 'Priorytet',
+      value: 'Uprościć komunikację oferty i ścieżkę konwersji.',
+      detail: 'Najpierw poprawiamy element, który blokuje wykorzystanie obecnego popytu. Dopiero później dokładamy nowe źródła ruchu.',
+    },
   ],
-  decision:
-    'Najpierw poprawić ofertę i ścieżkę kontaktu. Nie zwiększać ruchu, dopóki obecny nie jest lepiej wykorzystywany.',
-  doNow: 'Przenieść główną przewagę i CTA powyżej folda.',
-  notNow: 'Nie zwiększać jeszcze budżetu Google Ads.',
-  measure: 'Współczynnik konwersji + liczba jakościowych zapytań.',
+  stages: [
+    { name: 'Pozyskanie', status: 'stabilne', score: '72%', note: 'Ruch już istnieje. Nie jest dziś głównym ograniczeniem.' },
+    { name: 'Zaufanie', status: 'do poprawy', score: '58%', note: 'Proof i argumenty są obecne, ale pojawiają się za późno.' },
+    { name: 'Konwersja', status: 'wąskie gardło', score: '31%', note: 'Największa strata następuje między zrozumieniem oferty a kontaktem.' },
+    { name: 'Przychód', status: 'skutek', score: '—', note: 'Mniejsza liczba jakościowych zapytań ogranicza wynik sprzedażowy.' },
+  ],
+  plan: [
+    { no: '01', title: 'Wyostrzyć ofertę', copy: 'Jednoznacznie nazwać rezultat, odbiorcę i powód wyboru już w pierwszym ekranie.' },
+    { no: '02', title: 'Uprościć CTA', copy: 'Jedno główne działanie na kluczowych ekranach zamiast kilku równorzędnych ścieżek.' },
+    { no: '03', title: 'Skrócić formularz', copy: 'Zebrać tylko dane potrzebne do pierwszego kontaktu i przenieść resztę pytań później.' },
+    { no: '04', title: 'Zmierz zmianę', copy: 'Porównać współczynnik kontaktu i liczbę jakościowych zapytań przed i po wdrożeniu.' },
+  ],
+  decision: 'Najpierw poprawić ofertę i ścieżkę kontaktu. Nie zwiększać ruchu, dopóki obecny nie jest lepiej wykorzystywany.',
+  doNow: 'Przenieść główną przewagę i jedno wyraźne CTA powyżej folda, a następnie skrócić drogę do kontaktu.',
+  notNow: 'Nie zwiększać jeszcze budżetu Google Ads i nie rozpoczynać pełnego redesignu strony.',
+  measure: 'Współczynnik przejścia do kontaktu, liczba jakościowych zapytań oraz koszt pozyskania zapytania.',
 }
 
-export const tools = [
-  { code: 'GA4', name: 'Analytics', detail: 'Ruch, zachowanie użytkowników, konwersje i punkty odpływu.' },
-  { code: 'GSC', name: 'Search Console', detail: 'Widoczność organiczna, zapytania, strony wejścia i problemy indeksacji.' },
-  { code: 'GBP', name: 'Google Profile', detail: 'Widoczność lokalna, opinie, kategorie i obecność obok konkurencji.' },
-  { code: 'ADS', name: 'Google / Meta', detail: 'Koszt ruchu, jakość leadów, kampanie i miejsca utraty efektywności.' },
-  { code: 'SEO', name: 'Screaming Frog', detail: 'Warstwa techniczna strony, architektura, crawl i błędy wpływające na widoczność.' },
-  { code: 'AH', name: 'Ahrefs', detail: 'Konkurencja, profil linków, potencjał tematów i różnice w widoczności.' },
-  { code: 'AI', name: 'ChatGPT / Gemini / Claude', detail: 'Wsparcie researchu i syntezy. AI nie podejmuje za nas decyzji strategicznej.' },
-  { code: 'AUTO', name: 'n8n', detail: 'Automatyzacje, przepływ danych i powtarzalne procesy, gdy faktycznie mają sens.' },
+export const toolGroups = [
+  {
+    id: 'data',
+    no: '01',
+    title: 'Dane i zachowanie',
+    copy: 'Sprawdzamy, co użytkownicy faktycznie robią — nie tylko ile osób odwiedziło stronę.',
+    tools: [
+      { code: 'GA4', name: 'Google Analytics 4', detail: 'Ruch, zachowanie, konwersje i punkty odpływu.' },
+      { code: 'GSC', name: 'Search Console', detail: 'Zapytania, strony wejścia, widoczność i problemy indeksacji.' },
+    ],
+  },
+  {
+    id: 'visibility',
+    no: '02',
+    title: 'Widoczność i rynek',
+    copy: 'Porównujemy obecność firmy z realnym polem konkurencji i intencją klienta.',
+    tools: [
+      { code: 'SF', name: 'Screaming Frog', detail: 'Architektura, crawl, techniczne SEO i jakość struktury serwisu.' },
+      { code: 'AH', name: 'Ahrefs', detail: 'Konkurencja, linki, tematy i różnice w widoczności.' },
+      { code: 'GBP', name: 'Google Business Profile', detail: 'Lokalność, opinie, kategorie i pozycja obok konkurencji.' },
+    ],
+  },
+  {
+    id: 'acquisition',
+    no: '03',
+    title: 'Płatne pozyskanie',
+    copy: 'Patrzymy dalej niż kliknięcia: koszt musi prowadzić do jakościowego zapytania i przychodu.',
+    tools: [
+      { code: 'GADS', name: 'Google Ads', detail: 'Intencja, koszt, jakość ruchu i skuteczność kampanii.' },
+      { code: 'META', name: 'Meta Ads', detail: 'Kreacje, odbiorcy, lead flow i jakość pozyskania.' },
+    ],
+  },
+  {
+    id: 'ai',
+    no: '04',
+    title: 'AI Search i automatyzacja',
+    copy: 'AI pomaga przy researchu i sprawdzaniu widoczności. Nie zastępuje oceny biznesowej.',
+    tools: [
+      { code: 'AI', name: 'ChatGPT / Gemini / Claude', detail: 'Widoczność marki, research, synteza i porównanie źródeł.' },
+      { code: 'N8N', name: 'n8n', detail: 'Automatyzacja powtarzalnych przepływów, gdy rzeczywiście skraca pracę.' },
+    ],
+  },
+]
+
+export const industries = [
+  { name: 'Medycyna estetyczna', tag: 'high LTV' },
+  { name: 'Stomatologia', tag: 'local + trust' },
+  { name: 'Beauty premium', tag: 'local + social' },
+  { name: 'Nieruchomości', tag: 'lead generation' },
+  { name: 'Kancelarie', tag: 'expert + trust' },
+  { name: 'Usługi lokalne', tag: 'Google + conversion' },
+  { name: 'E-commerce', tag: 'traffic + CRO' },
+  { name: 'SaaS i produkty cyfrowe', tag: 'product + GTM' },
+  { name: 'Eksperci i edukacja', tag: 'authority + lead' },
+  { name: 'Hospitality', tag: 'local + booking' },
+  { name: 'Automotive', tag: 'local + lead' },
+  { name: 'B2B services', tag: 'pipeline + positioning' },
 ]
 
 export const projects = [
@@ -92,8 +160,7 @@ export const projects = [
     type: 'AI SaaS / Product / Web',
     status: 'PRE-LAUNCH',
     scope: 'Landing · product strategy · positioning · UX/UI · GTM',
-    description:
-      'Produkt SaaS budowany od pozycjonowania i architektury informacji po doświadczenie strony i komunikację wejścia na rynek.',
+    description: 'Produkt SaaS budowany od pozycjonowania i architektury informacji po doświadczenie strony i komunikację wejścia na rynek.',
     url: '',
     image: '',
   },
@@ -103,8 +170,7 @@ export const projects = [
     type: 'Fitness app / Product UX',
     status: 'IN DEVELOPMENT',
     scope: 'Product direction · UX · gamification',
-    description:
-      'Kierunek produktu i doświadczenia aplikacji fitness, z naciskiem na mechaniki zaangażowania i czytelną ścieżkę użytkownika.',
+    description: 'Kierunek produktu i doświadczenia aplikacji fitness, z naciskiem na mechaniki zaangażowania i czytelną ścieżkę użytkownika.',
     url: '',
     image: '',
   },
@@ -114,8 +180,7 @@ export const projects = [
     type: 'Website / UX / SEO',
     status: 'W REALIZACJI',
     scope: 'Website V2 · copy · layout · SEO',
-    description:
-      'Przebudowa strony eksperckiej: komunikacja oferty, struktura treści, UX oraz fundament pod widoczność organiczną.',
+    description: 'Przebudowa strony eksperckiej: komunikacja oferty, struktura treści, UX oraz fundament pod widoczność organiczną.',
     url: '',
     image: '',
   },
@@ -125,8 +190,7 @@ export const projects = [
     type: 'Landing / Lead flow',
     status: 'PRZED PUBLIKACJĄ',
     scope: 'Landing · formularz · mailbox · lead flow',
-    description:
-      'Landing z prostą ścieżką kontaktu i obsługą formularza, przygotowany do finalnej weryfikacji przed publikacją.',
+    description: 'Landing z prostą ścieżką kontaktu i obsługą formularza, przygotowany do finalnej weryfikacji przed publikacją.',
     url: '',
     image: '',
   },
@@ -138,8 +202,7 @@ export const team = {
       initials: 'A',
       name: 'Artur',
       role: 'Founder',
-      bio:
-        'Odpowiada za kierunek DigitalMap, rozwój firmy i spójność między diagnozą, decyzją biznesową a dalszym wdrożeniem.',
+      bio: 'Odpowiada za kierunek DigitalMap, rozwój firmy i spójność między diagnozą, decyzją biznesową a dalszym wdrożeniem.',
       photo: '',
       featured: true,
     },
@@ -147,32 +210,28 @@ export const team = {
       initials: 'K',
       name: 'Kari',
       role: 'Head of Marketing',
-      bio:
-        'Odpowiada za strategię marketingową, komunikację, pozycjonowanie oferty oraz doświadczenie klienta od pierwszego kontaktu do decyzji.',
+      bio: 'Odpowiada za strategię marketingową, komunikację, pozycjonowanie oferty oraz doświadczenie klienta od pierwszego kontaktu do decyzji.',
       photo: '',
     },
     {
       initials: 'R',
       name: 'Roman',
       role: 'Web Development & Technical SEO',
-      bio:
-        'Łączy warstwę techniczną stron z wydajnością, wdrożeniem i fundamentami technicznego SEO.',
+      bio: 'Łączy warstwę techniczną stron z wydajnością, wdrożeniem i fundamentami technicznego SEO.',
       photo: '',
     },
     {
       initials: 'G',
       name: 'Gerard',
       role: 'PPC Specialist',
-      bio:
-        'Odpowiada za płatne kampanie, jakość ruchu i ocenę tego, czy budżet reklamowy prowadzi do realnego wyniku biznesowego.',
+      bio: 'Odpowiada za płatne kampanie, jakość ruchu i ocenę tego, czy budżet reklamowy prowadzi do realnego wyniku biznesowego.',
       photo: '',
     },
     {
       initials: 'A',
       name: 'Anna',
       role: 'Social Media Manager',
-      bio:
-        'Odpowiada za social media, spójność komunikacji i treści, które budują zaufanie oraz wspierają decyzję klienta.',
+      bio: 'Odpowiada za social media, spójność komunikacji i treści, które budują zaufanie oraz wspierają decyzję klienta.',
       photo: '',
     },
   ],
@@ -180,49 +239,69 @@ export const team = {
 
 export const offers = [
   {
-    code: '01 / START',
+    id: 'mini',
+    code: '01',
+    label: 'Pierwszy sygnał',
     name: 'Mini Mapa',
     price: '0 zł',
-    copy:
-      'Szybki pierwszy obraz: gdzie warto przyjrzeć się bliżej, zanim zaczniesz wydawać.',
-    details: 'Pierwsze sygnały · potencjalne wąskie gardło · kierunek dalszej diagnozy',
-    cta: 'Sprawdź firmę',
+    audience: 'Przedsiębiorca / mała firma',
+    bestFor: 'Gdy wiesz, że coś nie działa, ale nie chcesz jeszcze kupować pełnej diagnozy.',
+    copy: 'Szybki pierwszy obraz pokazujący, któremu obszarowi warto przyjrzeć się bliżej.',
+    includes: ['pierwsze sygnały', 'potencjalne wąskie gardło', 'kierunek dalszej diagnozy'],
+    result: 'Wiesz, od którego obszaru zacząć i czy potrzebujesz głębszej analizy.',
+    cta: 'Zacznij bezpłatnie',
   },
   {
-    code: '02 / SZYBKA DIAGNOZA',
+    id: 'start',
+    code: '02',
+    label: 'Jeden priorytet',
     name: 'Mapa Start',
     price: '249 zł',
-    copy:
-      'Dla firmy, która potrzebuje znaleźć pierwszy priorytet bez analizowania całego procesu pozyskania klienta.',
-    details: 'Problem #1 · najważniejsze sygnały · pierwszy ruch · co odpuścić na teraz',
+    audience: 'Mała / rosnąca firma',
+    bestFor: 'Gdy chcesz znaleźć jeden główny problem i konkretny pierwszy ruch bez analizowania wszystkiego.',
+    copy: 'Krótsza diagnoza skoncentrowana na jednym najważniejszym ograniczeniu.',
+    includes: ['problem #1', 'najważniejsze sygnały', 'pierwszy ruch', 'co odpuścić na teraz'],
+    result: 'Dostajesz jasny priorytet zamiast listy kilkunastu możliwych działań.',
     cta: 'Wybieram Start',
   },
   {
-    code: '03 / GŁÓWNY PRODUKT',
+    id: 'strategic',
+    code: '03',
+    label: 'Pełna diagnoza',
     name: 'Mapa Strategiczna',
     price: '499 zł',
-    copy:
-      'Diagnoza procesu pozyskania klienta i jasna hierarchia decyzji: co zrobić najpierw, czego nie ruszać i jak mierzyć efekt.',
-    details: 'Pełna droga klienta · priorytety · plan działania · mierniki · „nie teraz”',
+    audience: 'Średnia / większa firma lub wiele kanałów',
+    bestFor: 'Gdy marketing już działa, budżet jest rozproszony albo kilka problemów nakłada się na siebie.',
+    copy: 'Diagnoza całej drogi od widoczności do klienta i hierarchia decyzji biznesowych.',
+    includes: ['pełna droga klienta', 'dowody i priorytety', 'plan działania', 'mierniki', 'lista „nie teraz”'],
+    result: 'Wiesz, co zrobić najpierw, czego nie ruszać i po czym poznać, że decyzja działa.',
     cta: 'Zamów Mapę',
     featured: true,
   },
   {
-    code: '04 / AI SEARCH',
+    id: 'ai',
+    code: '04',
+    label: 'AI Search',
     name: 'Mapa AI',
     price: '199 zł',
-    copy:
-      'Analiza tego, czy i jak firma pojawia się w odpowiedziach ChatGPT, Gemini i Claude oraz jakie sygnały wpływają na ten obraz.',
-    details: 'Widoczność AI · sposób przedstawiania marki · luki informacyjne · rekomendacje',
+    audience: 'Marka / firma budująca widoczność w AI',
+    bestFor: 'Gdy chcesz sprawdzić, czy i jak firma pojawia się w ChatGPT, Gemini i Claude.',
+    copy: 'Analiza obecności marki w odpowiedziach systemów AI oraz sygnałów, które wpływają na ten obraz.',
+    includes: ['widoczność AI', 'sposób przedstawiania marki', 'luki informacyjne', 'rekomendacje'],
+    result: 'Wiesz, jak AI opisuje firmę, gdzie są braki i co można poprawić.',
     cta: 'Sprawdź AI',
   },
   {
-    code: '05 / PO DIAGNOZIE',
+    id: 'implementation',
+    code: '05',
+    label: 'Po diagnozie',
     name: 'Wdrożenie / Monitoring',
-    price: 'zakres po diagnozie',
-    copy:
-      'Jeśli rekomendacja wymaga działania, możesz wdrożyć ją samodzielnie, z własnym zespołem albo z DigitalMap. Monitoring ma sens dopiero wtedy, gdy wiadomo, co warto kontrolować.',
-    details: 'Wdrożenie priorytetu · pomiar · monitoring zmian · kolejna decyzja',
+    price: 'indywidualnie',
+    audience: 'Firma z gotowym priorytetem',
+    bestFor: 'Gdy diagnoza już pokazała, co trzeba naprawić i potrzebujesz wykonania albo kontroli wyniku.',
+    copy: 'Wdrażamy rekomendowany priorytet albo monitorujemy zmiany, jeśli ma to biznesowy sens.',
+    includes: ['wdrożenie priorytetu', 'pomiar', 'monitoring zmian', 'kolejna decyzja'],
+    result: 'Strategia przechodzi w działanie bez dokładania przypadkowych usług.',
     cta: 'Zapytaj o zakres',
   },
 ]
