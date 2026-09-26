@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { LivingMap } from './components/LivingMap.jsx'
 import { TopographicLogo } from './components/TopographicLogo.jsx'
-import { diagnosis, industries, offers, processSteps, projects, symptoms, team, toolGroups } from './content.js'
+import { diagnosis, faqs, industries, offers, processSteps, projects, symptoms, team, toolGroups } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,36 +43,35 @@ function Story({ progressRef }) {
     {
       no: '01 / WIDOCZNOŚĆ',
       title: <>Czy Twoja firma jest <span className="accent-text">widoczna wtedy, kiedy klient szuka?</span></>,
-      copy: 'Sprawdzamy Google, SEO, mapy, reklamy i AI Search. Nie chodzi o sam ruch — tylko o to, czy firma pojawia się przy właściwej potrzebie i trafia do właściwych osób.',
+      copy: 'Sprawdzamy, czy docierasz do właściwych ludzi przy właściwej potrzebie — w Google, Maps, reklamach i nowych kanałach wyszukiwania.',
       proof: 'Google · SEO · Maps · Ads · AI Search',
     },
     {
       no: '02 / STRONA I OFERTA',
-      title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu rozumie, dlaczego właśnie Ty?</span></>,
-      copy: 'Analizujemy komunikat, ofertę, UX, CTA i landing page. Jeśli wartość jest niejasna albo następny krok wymaga myślenia, nawet dobry ruch nie zamieni się w zapytanie.',
-      proof: 'Komunikat · oferta · UX · CTA · landing page',
+      title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu wie, dlaczego ma wybrać właśnie Ciebie?</span></>,
+      copy: 'Sprawdzamy ofertę, komunikację, UX i CTA. Dobry ruch nic nie daje, jeśli klient nie rozumie wartości albo nie wie, co zrobić dalej.',
+      proof: 'Oferta · komunikacja · UX · CTA · landing page',
     },
     {
       no: '03 / SOCIAL & CONTENT',
-      title: <>Twoja marka publikuje. <span className="accent-text">Czy naprawdę buduje uwagę i relację?</span></>,
-      copy: 'Patrzymy, czy social media i treści wzmacniają decyzję klienta, czy są tylko aktywnością. Spójność, formaty, proof i droga z contentu do kontaktu mają pracować na wynik.',
-      proof: 'Social · content · spójność · zaangażowanie',
+      title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
+      copy: 'Sprawdzamy, czy content buduje zaufanie, pokazuje wartość i prowadzi dalej — czy tylko generuje aktywność bez wpływu na wynik.',
+      proof: 'Social · content · proof · droga do kontaktu',
     },
     {
       no: '04 / ZAUFANIE',
       title: <>Klient już Cię zna. <span className="accent-text">Czy ma wystarczający powód, żeby Ci zaufać?</span></>,
-      copy: 'Opinie, case studies, eksperckość, reputacja i dowody przewagi często decydują wcześniej niż cena. Szukamy tego, czego brakuje do bezpiecznej decyzji.',
+      copy: 'Sprawdzamy opinie, dowody, reputację, eksperckość i sposób prezentowania przewagi firmy.',
       proof: 'Opinie · case studies · reputacja · przewaga',
     },
     {
       no: '05 / KONWERSJA',
-      title: <>Zainteresowanie ma prowadzić do działania. <span className="accent-text">Gdzie klient odpada?</span></>,
-      copy: 'Formularz, kontakt, konsultacja, lead i oferta muszą tworzyć prostą ścieżkę. Łączymy wcześniejsze obszary i wskazujemy miejsce, które dziś najbardziej ogranicza wynik.',
+      title: <>Jest zainteresowanie. <span className="accent-text">Gdzie klient odpada przed kontaktem?</span></>,
+      copy: 'Łączymy wcześniejsze etapy i sprawdzamy drogę od zainteresowania do zapytania, konsultacji lub zakupu.',
       proof: 'Formularz · kontakt · lead · konsultacja · sprzedaż',
       cta: true,
     },
   ]
-
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       progressRef.current = 0.5
@@ -126,23 +125,23 @@ function Story({ progressRef }) {
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
               <div className="strategy-zone-proof"><i />{stage.proof}</div>
-              {stage.cta && <a className="strategy-zone-cta" href="#scan">Znajdź problem #1 w swojej firmie <Arrow /></a>}
+              {stage.cta && <a className="strategy-zone-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>}
             </article>
           ) : (
             <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
-              <div className="eyebrow">DIGITALMAP / MAPA WZROSTU FIRMY</div>
+              <div className="eyebrow">DIGITALMAP / DIAGNOZA PRZED WYDATKIEM</div>
               <h1 className="hero-title-clean">
                 <span className="hero-title-line">Zanim wydasz</span>
                 <span className="hero-title-line">więcej na marketing,</span>
                 <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
                 <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
               </h1>
-              <p className="hero-lead">Przejdź przez pięć obszarów, które prowadzą klienta od znalezienia firmy do decyzji. Mapa pokazuje cały system — a DigitalMap szuka miejsca, które dziś najbardziej ogranicza Twój wzrost.</p>
+              <p className="hero-lead">DigitalMap analizuje drogę od pierwszego kontaktu z marką do decyzji klienta. Znajdujemy miejsce, które dziś najbardziej ogranicza wynik — i pokazujemy, co zrobić najpierw.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
-              <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów wzrostu</span><span>Problem #1 zamiast listy błędów</span></div>
+              <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
             </article>
           )}
         </div>
@@ -166,9 +165,9 @@ function Process() {
     <section className="process-section" id="process">
       <div className="section-shell process-layout">
         <div className="process-intro">
-          <div className="eyebrow">04 / JAK TO DZIAŁA</div>
+          <div className="eyebrow">JAK POWSTAJE MAPA</div>
           <h2>Od firmy do decyzji <span className="accent-text">w czterech krokach.</span></h2>
-          <p>Bez warsztatu na trzy godziny. Bez wdrożenia w ciemno. Najpierw zawężamy problem, później ustalamy kolejność.</p>
+          <p>Nie zaczynamy od rekomendowania usług. Najpierw zawężamy problem, sprawdzamy dowody i ustalamy właściwą kolejność działań.</p>
         </div>
         <div className="process-timeline">
           {processSteps.map((step) => (
@@ -201,17 +200,17 @@ function SampleMap() {
     ['overview', 'Przegląd'],
     ['journey', 'Droga klienta'],
     ['evidence', 'Dowody'],
-    ['plan', 'Plan 30 dni'],
+    ['plan', 'Plan działania'],
   ]
 
   return (
     <section className="sample-section" id="sample">
       <div className="section-shell">
         <div className="section-heading section-heading--split sample-heading">
-          <div className="eyebrow">05 / DIAGNOZA MARKETINGOWA</div>
+          <div className="eyebrow">PRZYKŁADOWY WYNIK DIAGNOZY</div>
           <div>
-            <h2>Zobacz, gdzie Twoja firma <span className="accent-text">traci klientów.</span></h2>
-            <p>Przejdź przez przykładową diagnozę marketingową. Każdy ekran pokazuje inny etap decyzji: gdzie jest problem, co go potwierdza, co zrobić teraz i czego na razie nie ruszać.</p>
+            <h2>Zobacz, <span className="accent-text">co dostajesz po Mapie.</span></h2>
+            <p>Przejdź przez przykładową diagnozę: od problemu i dowodów, przez drogę klienta, aż po plan działania i końcową decyzję.</p>
           </div>
         </div>
 
@@ -225,7 +224,7 @@ function SampleMap() {
                 </button>
               ))}
             </div>
-            <small>ZOBACZ, GDZIE TWOJA FIRMA TRACI KLIENTÓW.</small>
+            <div className="sample-map-badge">PRZYKŁADOWA MAPA</div><small>ZOBACZ, GDZIE TWOJA FIRMA TRACI KLIENTÓW.</small>
           </aside>
 
           <div className="diagnosis-main">
@@ -247,7 +246,7 @@ function SampleMap() {
                     ))}
                   </div>
                 </div>
-                <div className="evidence-detail"><span>{diagnosis.evidence[evidenceIndex].label}</span><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
+                <div className="evidence-detail"><span>{diagnosis.evidence[evidenceIndex].label}</span><b className="confidence-pill">{diagnosis.evidence[evidenceIndex].confidence}</b><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
               </div>
             )}
 
@@ -266,19 +265,19 @@ function SampleMap() {
 
             {view === 'evidence' && (
               <div className="map-view map-view--evidence">
-                <div className="view-intro"><span>DOWODY</span><h3>Co potwierdza priorytet?</h3><p>Kliknij sygnał. Pokazujemy nie tylko obserwację, ale też dlaczego ma znaczenie biznesowe.</p></div>
+                <div className="view-intro"><span>DOWODY</span><h3>Dlaczego właśnie ten problem jest priorytetem?</h3><p>Kliknij sygnał. Pokazujemy obserwację, znaczenie biznesowe i poziom pewności.</p></div>
                 <div className="evidence-browser">
                   <div className="evidence-browser-nav">
                     {diagnosis.evidence.map((item, index) => <button key={item.label} className={evidenceIndex === index ? 'active' : ''} onClick={() => setEvidenceIndex(index)}><span>0{index + 1}</span>{item.label}</button>)}
                   </div>
-                  <div className="evidence-browser-main"><span>{diagnosis.evidence[evidenceIndex].label}</span><h4>{diagnosis.evidence[evidenceIndex].value}</h4><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
+                  <div className="evidence-browser-main"><span>{diagnosis.evidence[evidenceIndex].label}</span><b className="confidence-pill">{diagnosis.evidence[evidenceIndex].confidence}</b><h4>{diagnosis.evidence[evidenceIndex].value}</h4><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
                 </div>
               </div>
             )}
 
             {view === 'plan' && (
               <div className="map-view map-view--plan">
-                <div className="view-intro"><span>PLAN 30 DNI</span><h3>Najpierw ruch, który odblokowuje resztę.</h3><p>Plan ma kolejność. Nie próbujemy wdrażać wszystkiego naraz.</p></div>
+                <div className="view-intro"><span>PLAN DZIAŁANIA</span><h3>Najpierw ruch, który odblokowuje resztę.</h3><p>Nie próbujemy poprawiać wszystkiego jednocześnie. Plan pokazuje kolejność następnych ruchów.</p></div>
                 <div className="plan-grid">{diagnosis.plan.map((item) => <article key={item.no}><span>{item.no}</span><h4>{item.title}</h4><p>{item.copy}</p></article>)}</div>
               </div>
             )}
@@ -299,16 +298,16 @@ function SampleMap() {
 
 function Principle() {
   const points = [
-    ['01', 'Bez kanału na wejściu', 'Nie zaczynamy od SEO, Ads, sociali ani redesignu. Zaczynamy od pytania: gdzie faktycznie zatrzymuje się wynik?'],
-    ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem #1, priorytet i pierwszy ruch. Dopiero potem wiadomo, na co warto przeznaczyć budżet.'],
-    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, samodzielnie, z własnym zespołem albo z innym wykonawcą. Diagnoza ma bronić decyzji, nie abonamentu.'],
+    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, Ads, social mediów albo nowej strony. Najpierw ustalamy, gdzie naprawdę zatrzymuje się wynik.'],
+    ['02', 'Decyzja przed wydatkiem', 'Problem, dowody i priorytet są pierwsze. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
+    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem, freelancerem, obecną agencją albo innym wykonawcą.'],
   ]
 
   return (
     <section className="principle principle--v7">
       <div className="principle-inner">
         <div className="principle-kicker-row">
-          <div className="eyebrow">CZYM DIGITALMAP RÓŻNI SIĘ OD AGENCJI</div>
+          <div className="eyebrow">DLACZEGO DIGITALMAP</div>
           <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
         </div>
         <h2>Najpierw diagnoza. <span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
@@ -321,6 +320,7 @@ function Principle() {
             </article>
           ))}
         </div>
+        <div className="principle-signature">Diagnoza ma bronić decyzji, nie abonamentu.</div>
       </div>
     </section>
   )
@@ -334,8 +334,8 @@ function Method() {
     <section className="method-v6" id="method">
       <div className="section-shell">
         <div className="method-v6-head">
-          <div className="eyebrow">06 / METODA</div>
-          <div><h2>Narzędzia mają znaleźć sygnał. <span className="accent-text">Nie podjąć decyzję za firmę.</span></h2><p>Łączymy dane, research i obserwację rynku. Potem człowiek ocenia znaczenie sygnałów, odrzuca szum i ustala kolejność działań.</p></div>
+          <div className="eyebrow">METODA</div>
+          <div><h2>Dane pokazują, co się dzieje. <span className="accent-text">My ustalamy, co z tym zrobić.</span></h2><p>Łączymy dane, research i obserwację rynku. Narzędzia pomagają znaleźć sygnały. Priorytet wynika jednak z kontekstu biznesowego — nie z automatycznego score'u.</p></div>
         </div>
 
         <div className="method-command">
@@ -356,15 +356,15 @@ function Method() {
                 </article>
               ))}
             </div>
-            <div className="method-pipeline"><span>Źródła</span><i>→</i><span>Sygnały</span><i>→</i><span>Kontekst</span><i>→</i><b>Priorytet</b></div>
+            <div className="method-pipeline"><span>Źródła</span><i>→</i><span>Sygnały</span><i>→</i><span>Kontekst</span><i>→</i><b>Priorytet</b><i>→</i><b>Decyzja</b></div>
           </div>
 
           <aside className="human-decision-card">
             <div className="human-orbit"><i /><i /><i /><b /></div>
             <span>HUMAN REVIEW</span>
-            <h3>Dane nie wiedzą, co jest najważniejsze dla Twojego biznesu.</h3>
-            <p>Dlatego wynik nie jest automatycznym score'em. Oddzielamy fakty od hipotez, łączymy sygnały z kontekstem i dopiero wtedy wskazujemy problem #1.</p>
-            <div className="human-decision-foot"><span>fakty</span><span>sygnały</span><span>hipotezy</span><strong>decyzja</strong></div>
+            <h3>Nie każdy sygnał jest problemem wartym rozwiązania.</h3>
+            <p>Dlatego Mapa nie kończy się automatycznym score'em. Oddzielamy to, co potwierdzone, od silnych sygnałów i hipotez — a dopiero później ustalamy priorytet.</p>
+            <div className="human-decision-foot"><span>POTWIERDZONE</span><span>SILNY SYGNAŁ</span><span>HIPOTEZA</span><strong>DECYZJA</strong></div>
           </aside>
         </div>
       </div>
@@ -374,20 +374,20 @@ function Method() {
 
 function Evidence() {
   const items = [
-    ['01', 'Strona i oferta', 'Czy klient w kilka sekund rozumie, co oferujesz, dla kogo to jest i dlaczego ma wybrać właśnie Ciebie?'],
-    ['02', 'Wizytówka Google', 'Sprawdzamy widoczność lokalną, kompletność profilu, opinie, kategorie i to, jak firma wygląda obok konkurencji.'],
-    ['03', 'Social media', 'Czy kanały społecznościowe budują zaufanie i wspierają decyzję klienta, czy tylko generują aktywność bez biznesowego efektu?'],
-    ['04', 'Widoczność i ruch', 'Patrzymy, skąd przychodzą klienci, gdzie firma znika z pola widzenia i czy pozyskiwany ruch ma właściwą intencję.'],
-    ['05', 'Reklamy i marketing', 'Nie pytamy tylko, czy kampania ma kliknięcia. Sprawdzamy, czy budżet prowadzi do jakościowych zapytań i gdzie wynik się urywa.'],
-    ['06', 'Zaufanie i reputacja', 'Opinie, dowody, komunikacja i spójność marki często decydują o wyborze wcześniej niż sam cennik czy zakres usługi.'],
+    ['01', 'Strona i oferta', 'Czy klient szybko rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
+    ['02', 'Google i lokalność', 'Czy firma jest widoczna tam, gdzie klient jej szuka — i jak wygląda obok konkurencji?'],
+    ['03', 'Social media i content', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
+    ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy ruch ma odpowiednią intencję?'],
+    ['05', 'Reklamy', 'Czy wydawany budżet prowadzi do jakościowych zapytań i gdzie po drodze tracony jest wynik?'],
+    ['06', 'Zaufanie i reputacja', 'Czy klient ma wystarczające dowody, aby podjąć decyzję?'],
   ]
 
   return (
     <section className="section evidence-section" id="scope">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">07 / CO SPRAWDZAMY</div>
-          <div><h2>Patrzymy na cały system, <span className="accent-text">nie jeden kanał.</span></h2><p>Łączymy sygnały z całej drogi klienta, żeby ustalić, co jest dziś problemem #1, a co tylko kolejną rzeczą, którą można byłoby poprawić.</p></div>
+          <div className="eyebrow">ZAKRES DIAGNOZY</div>
+          <div><h2>Patrzymy na całą drogę klienta, <span className="accent-text">nie jeden kanał.</span></h2><p>Nie szukamy największej liczby błędów. Szukamy elementu, który dziś najbardziej ogranicza wynik.</p></div>
         </div>
         <div className="evidence-grid evidence-grid--hover">
           {items.map(([no, title, copy]) => <article key={no}><span>{no}</span><div className="evidence-arrow">↗</div><h3>{title}</h3><p>{copy}</p></article>)}
@@ -402,9 +402,9 @@ function Industries() {
     <section className="industries" id="industries">
       <div className="section-shell industries-layout">
         <div className="industries-copy">
-          <div className="eyebrow">08 / DLA KOGO</div>
+          <div className="eyebrow">DLA KOGO</div>
           <h2>Branża zmienia kontekst. <span className="accent-text">Nie logikę diagnozy.</span></h2>
-          <p>Pracujemy międzybranżowo — z firmami lokalnymi, eksperckimi, usługowymi i cyfrowymi. Jeśli da się prześledzić drogę od widoczności do decyzji klienta, możemy znaleźć miejsce, które ogranicza wynik.</p>
+          <p>Pracujemy z firmami usługowymi, lokalnymi, eksperckimi, cyfrowymi, B2B i B2C. Branża zmienia kontekst, ale logika pozostaje ta sama: kontakt z marką → ocena → decyzja → kontakt lub zakup. Poniżej tylko przykłady — nie zamknięta lista branż.</p>
           <a href="#scan" className="text-link">Nie widzisz swojej branży? Sprawdź firmę <Arrow /></a>
         </div>
         <div className="industry-grid">
@@ -420,10 +420,10 @@ function Work() {
     <section className="work" id="work">
       <div className="section-shell">
         <div className="section-heading section-heading--split work-heading">
-          <div className="eyebrow">10 / WYBRANE REALIZACJE</div>
+          <div className="eyebrow">WYBRANE REALIZACJE</div>
           <div>
-            <h2>Nie tylko rekomendujemy. <span className="accent-text">Projektujemy i budujemy.</span></h2>
-            <p>Wybrane produkty i strony, przy których pracowaliśmy nad pozycjonowaniem, doświadczeniem użytkownika, komunikacją albo wdrożeniem. Status projektu pokazujemy wprost.</p>
+            <h2>Decyzja ma wartość dopiero wtedy, <span className="accent-text">gdy można przełożyć ją na działanie.</span></h2>
+            <p>Wybrane produkty i strony, przy których pracowaliśmy nad strategią, komunikacją, doświadczeniem użytkownika lub wdrożeniem. Zakres i status każdego projektu pokazujemy wprost.</p>
           </div>
         </div>
 
@@ -441,7 +441,7 @@ function Work() {
               </div>
               <div className="work-meta">
                 <div className="work-index">{project.index}</div>
-                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-scope">{project.scope}</div></div>
+                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / REZULTAT</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
                 {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Case preview</span>}
               </div>
             </article>
@@ -457,8 +457,8 @@ function Team() {
     <section className="team" id="team">
       <div className="section-shell">
         <div className="team-heading">
-          <div className="eyebrow">11 / ZESPÓŁ</div>
-          <div><h2>Za DigitalMap stoją <span className="accent-text">konkretni ludzie.</span></h2><p>Pięć osób, pięć uzupełniających się kompetencji. Strategia, marketing, technologia, płatne pozyskanie i social media spotykają się przy jednym celu: znaleźć właściwy problem i przełożyć go na właściwy ruch.</p></div>
+          <div className="eyebrow">ZESPÓŁ</div>
+          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, development, płatne pozyskanie i social media pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
         </div>
 
         <div className="team-members team-members--text-only">
@@ -474,7 +474,7 @@ function Team() {
             </article>
           ))}
         </div>
-        <div className="team-trustline"><span>Jedna diagnoza.</span><span>Wspólna odpowiedzialność za kierunek.</span><span>Bez anonimowego przekazywania projektu między działami.</span></div>
+        <div className="team-trustline"><span>Jedna diagnoza.</span><span>Wspólny kierunek.</span><span>Jasna odpowiedzialność za rekomendację.</span></div>
       </div>
     </section>
   )
@@ -493,8 +493,8 @@ function Offer({ onChoose }) {
     <section className="offer-v6" id="offer">
       <div className="section-shell">
         <div className="offer-v6-head">
-          <div className="eyebrow">09 / OFERTA</div>
-          <div><h2>Nie wybieraj „pakietu”. <span className="accent-text">Wybierz poziom problemu.</span></h2><p>Każdy produkt odpowiada na inną sytuację firmy. Kliknij opcję, żeby od razu zobaczyć, dla kogo jest, kiedy ma sens i jaki wynik dostajesz.</p></div>
+          <div className="eyebrow">OFERTA</div>
+          <div><h2>Nie wybieraj usługi w ciemno. <span className="accent-text">Wybierz zakres diagnozy.</span></h2><p>Od pierwszego sygnału po pełną analizę procesu pozyskania klienta. Każdy poziom odpowiada na inne pytanie i kończy się konkretnym następnym krokiem.</p></div>
         </div>
 
         <div className="offer-chooser">
@@ -514,12 +514,12 @@ function Offer({ onChoose }) {
               <div><span>NAJLEPSZA, GDY</span><strong>{offer.bestFor}</strong></div>
               <div><span>WYNIK</span><strong>{offer.result}</strong></div>
             </div>
-            <div className="offer-includes"><span>W ZAKRESIE</span><div>{offer.includes.map((item) => <b key={item}>{item}</b>)}</div></div>
+            <div className="offer-includes"><span>W ZAKRESIE</span><div>{offer.includes.map((item) => <b key={item}>{item}</b>)}</div></div>{offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
             <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}>{offer.cta} <Arrow /></a>
           </article>
         </div>
 
-        <div className="offer-help"><span>Nie wiesz, czego potrzebujesz?</span><p>Nie musisz diagnozować się samodzielnie. Zostaw firmę i problem — jeśli wystarczy bezpłatna Mini Mapa, powiemy to wprost.</p><a href="#scan">Pomóżcie mi wybrać <Arrow /></a></div>
+        <div className="offer-help"><span>Nie wiesz, czego potrzebujesz?</span><p>Nie musisz diagnozować się samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa, powiemy to wprost.</p><a href="#scan">Pomóżcie mi wybrać <Arrow /></a></div><div className="offer-help offer-help--secondary"><span>Masz już agencję, freelancera albo własny marketing team?</span><p>DigitalMap może być niezależnym drugim spojrzeniem. Chodzi o to, żebyś rozumiał, za co płacisz, dlaczego to robicie i co powinno wydarzyć się dalej.</p><strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong></div><div className="offer-cost-note">Nowa strona, kampania, SEO czy miesięczny retainer mogą kosztować wielokrotnie więcej niż sama diagnoza. Dlatego warto najpierw upewnić się, że rozwiązujemy właściwy problem.</div>
       </div>
     </section>
   )
@@ -543,9 +543,9 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
     <section className="scan" id="scan">
       <div className="scan-shell">
         <div className="scan-copy">
-          <div className="eyebrow">12 / ZACZNIJ OD FIRMY</div>
-          <h2>Nie musisz wiedzieć, <span className="accent-text">której usługi potrzebujesz.</span></h2>
-          <p>Podaj stronę albo po prostu nazwę firmy, wybierz problem i zostaw e-mail. Jeśli nie masz strony — to nie blokuje diagnozy. Najpierw ustalimy, od czego warto zacząć.</p>
+          <div className="eyebrow">ZACZNIJ OD FIRMY</div>
+          <h2>Pokaż nam firmę. <span className="accent-text">Nie musisz wiedzieć, czego potrzebujesz.</span></h2>
+          <p>Podaj domenę lub nazwę firmy, wybierz problem i zostaw kontakt. Jeśli nie masz strony, nadal możemy zacząć od rynku, widoczności i publicznie dostępnych sygnałów.</p>
           <div className="scan-selected"><span>WYBRANA ŚCIEŻKA</span><strong>{selectedOffer?.name || 'Mini Mapa'}</strong><small>{selectedOffer?.price || '0 zł'}</small></div>
           <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 FIRMA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 KONTAKT</span></div>
         </div>
@@ -562,7 +562,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
 
           {!done && step === 1 && <>
             <span className="form-kicker">KROK 02 / PROBLEM</span>
-            <h3>Co dziś najbardziej Cię blokuje?</h3>
+            <h3>Co dziś najbardziej ogranicza wynik?</h3>
             <div className="form-options form-options--v6">
               {symptoms.map((item) => <button key={item.id} type="button" className={selectedSymptom.id === item.id ? 'active' : ''} onClick={() => { selectedSymptom.set(item); setStep(2) }}><span>{item.label}</span><i>↗</i></button>)}
             </div>
@@ -571,7 +571,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
 
           {!done && step === 2 && <>
             <span className="form-kicker">KROK 03 / KONTAKT</span>
-            <h3>Gdzie mamy wrócić z pierwszym kierunkiem?</h3>
+            <h3>Gdzie wysłać wynik?</h3>
             <div className="domain-confirm"><span>{company}</span><b>{selectedSymptom.value.short}</b></div>
             <label>E-mail</label>
             <input autoFocus type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ty@firma.pl" />
@@ -581,8 +581,33 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
             <small>Dane wykorzystamy wyłącznie do odpowiedzi w sprawie wybranej Mapy.</small>
           </>}
 
-          {done && <div className="form-success"><span>✓</span><h3>Dzięki.</h3><p>Zgłoszenie ma komplet informacji potrzebnych do pierwszego spojrzenia: firma, problem i kontakt.</p><button type="button" onClick={() => { setDone(false); setStep(0); setCompany(''); setEmail(''); setNote('') }}>Sprawdź inną firmę</button></div>}
+          {done && <div className="form-success"><span>✓</span><h3>Dzięki. Mamy to.</h3><p>Firma, problem i kontakt wystarczą, żeby zacząć od pierwszych sygnałów. Odpowiedź dostaniesz na podany e-mail — bez obietnicy sztucznego terminu, którego nie możemy konsekwentnie utrzymać.</p><button type="button" onClick={() => { setDone(false); setStep(0); setCompany(''); setEmail(''); setNote('') }}>Sprawdź inną firmę</button></div>}
         </form>
+      </div>
+    </section>
+  )
+}
+
+function FAQ() {
+  return (
+    <section className="faq-section" id="faq">
+      <div className="section-shell">
+        <div className="section-heading section-heading--split faq-heading">
+          <div className="eyebrow">FAQ / PRZED DECYZJĄ</div>
+          <div><h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2><p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz.</p></div>
+        </div>
+        <div className="faq-list-v14">
+          {faqs.map((item) => (
+            <details key={item.q}>
+              <summary><span>{item.q}</span><i>+</i></summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+        <div className="final-cta-v14">
+          <div><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
+          <div className="final-cta-actions"><a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--ghost" href="#offer">Zobacz ofertę</a></div>
+        </div>
       </div>
     </section>
   )
@@ -592,13 +617,13 @@ function Footer() {
   return (
     <footer className="site-footer" id="footer">
       <div className="footer-grid">
-        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap to warstwa diagnostyczno-decyzyjna przed wydawaniem pieniędzy na marketing. Najpierw znajdujemy problem #1. Dopiero potem wybieramy rozwiązanie.</p><span>© 2026 DigitalMap</span></div>
+        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p><strong>Najpierw diagnoza.<br/>Potem decyzja.<br/>Dopiero później wydatek.</strong><span>© 2026 DigitalMap</span></div>
         <div className="footer-column"><h3>Oferta</h3><a href="#offer">Mini Mapa</a><a href="#offer">Mapa Start</a><a href="#offer">Mapa Strategiczna</a><a href="#offer">Mapa AI</a><a href="#offer">Wdrożenie / Monitoring</a></div>
-        <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a></div>
+        <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a><a href="#faq">FAQ</a></div>
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#scan">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
       </div>
-      <div className="footer-bottom"><span>Diagnoza → decyzja → wdrożenie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
+      <div className="footer-bottom"><span>Diagnoza → decyzja → działanie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
     </footer>
   )
 }
@@ -628,6 +653,7 @@ export default function App() {
         <Offer onChoose={setSelectedOffer} />
         <Work />
         <Team />
+        <FAQ />
         <ScanForm selectedOffer={selectedOffer} selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
       </main>
       <Footer />

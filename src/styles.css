@@ -1761,3 +1761,217 @@ textarea { font: inherit; }
 @media (max-width: 620px) {
   .team-members.team-members--text-only { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   V14 — FINAL COPY / SALES / POSITIONING PASS
+   Copy-first refinements only. Existing visual system stays.
+   ========================================================= */
+
+.sample-map-badge {
+  width: fit-content;
+  margin-top: auto;
+  padding: 7px 9px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  color: rgba(255,255,255,.72);
+  font: 800 7px/1 var(--body);
+  letter-spacing: .13em;
+}
+
+.diagnosis-rail .sample-map-badge + small { margin-top: 10px; }
+
+.confidence-pill {
+  display: inline-flex;
+  width: fit-content;
+  margin: 8px 0 0;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(165,46,85,.09);
+  color: var(--wine);
+  font: 850 7px/1 var(--body);
+  letter-spacing: .11em;
+}
+
+.evidence-browser-main .confidence-pill {
+  margin: 10px 0 4px;
+}
+
+.principle-signature {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(18,17,16,.12);
+  color: var(--ink);
+  font: 520 clamp(24px, 2.8vw, 40px)/1 var(--display);
+  letter-spacing: -.045em;
+}
+
+.work-case-copy {
+  margin-top: 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.work-case-copy > div {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.09);
+}
+
+.work-case-copy span {
+  display: block;
+  margin-bottom: 5px;
+  color: #e692a7;
+  font: 800 7px/1 var(--body);
+  letter-spacing: .12em;
+}
+
+.work-case-copy p {
+  margin: 0;
+  color: rgba(255,255,255,.64);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.offer-value-anchor {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--wine);
+  background: rgba(165,46,85,.055);
+  color: #443b35;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.offer-help--secondary {
+  margin-top: 10px;
+}
+
+.offer-help--secondary strong {
+  display: block;
+  color: rgba(255,255,255,.72);
+  font-size: 9px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.offer-cost-note {
+  max-width: 940px;
+  margin: 18px auto 0;
+  color: rgba(255,255,255,.42);
+  font-size: 9px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.faq-section {
+  padding: 150px 0;
+  background: #f1ece5;
+  color: var(--ink);
+}
+
+.faq-heading { margin-bottom: 58px; }
+.faq-heading p { max-width: 640px; color: #716861; }
+
+.faq-list-v14 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(18,17,16,.12);
+}
+
+.faq-list-v14 details {
+  border-bottom: 1px solid rgba(18,17,16,.12);
+  min-height: 76px;
+}
+
+.faq-list-v14 details:nth-child(odd) {
+  border-right: 1px solid rgba(18,17,16,.12);
+}
+
+.faq-list-v14 summary {
+  min-height: 76px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.faq-list-v14 summary::-webkit-details-marker { display: none; }
+.faq-list-v14 summary i { color: var(--wine); font-style: normal; font-size: 18px; font-weight: 400; }
+.faq-list-v14 details[open] summary i { transform: rotate(45deg); }
+
+.faq-list-v14 details > p {
+  max-width: 700px;
+  margin: -4px 22px 24px;
+  color: #6e655e;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.final-cta-v14 {
+  margin-top: 64px;
+  padding: 34px;
+  border-radius: 24px;
+  background: #171412;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1.45fr .55fr;
+  gap: 36px;
+  align-items: end;
+}
+
+.final-cta-v14 > div:first-child > span {
+  color: #e692a7;
+  font: 850 8px/1 var(--body);
+  letter-spacing: .13em;
+}
+
+.final-cta-v14 h3 {
+  max-width: 860px;
+  margin: 16px 0 14px;
+  font: 520 clamp(34px, 4vw, 58px)/.96 var(--display);
+  letter-spacing: -.055em;
+}
+
+.final-cta-v14 p {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(255,255,255,.54);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.final-cta-actions {
+  display: grid;
+  gap: 9px;
+}
+
+.final-cta-actions .button {
+  width: 100%;
+  justify-content: center;
+}
+
+.final-cta-v14 .button--ghost {
+  border-color: rgba(255,255,255,.16);
+  color: #fff;
+}
+
+.footer-brand > strong {
+  display: block;
+  margin-top: 22px;
+  color: rgba(255,255,255,.8);
+  font: 520 20px/1.15 var(--display);
+  letter-spacing: -.035em;
+}
+
+@media (max-width: 900px) {
+  .faq-section { padding: 100px 0; }
+  .faq-list-v14 { grid-template-columns: 1fr; }
+  .faq-list-v14 details:nth-child(odd) { border-right: 0; }
+  .final-cta-v14 { grid-template-columns: 1fr; padding: 26px; }
+  .work-case-copy { margin-top: 18px; }
+}
