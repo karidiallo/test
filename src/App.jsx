@@ -25,8 +25,8 @@ function Header() {
         <a href="#process">Jak działamy</a>
         <a href="#sample">Mapa</a>
         <a href="#industries">Dla kogo</a>
-        <a href="#work">Realizacje</a>
         <a href="#offer">Oferta</a>
+        <a href="#work">Realizacje</a>
       </nav>
       <a className="header-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>
     </header>
@@ -244,15 +244,28 @@ function SampleMap() {
 }
 
 function Principle() {
+  const points = [
+    ['01', 'Bez kanału na wejściu', 'Nie zaczynamy od SEO, Ads, sociali ani redesignu. Zaczynamy od pytania: gdzie faktycznie zatrzymuje się wynik?'],
+    ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem #1, priorytet i pierwszy ruch. Dopiero potem wiadomo, na co warto przeznaczyć budżet.'],
+    ['03', 'Bez lock-inu', 'Rekomendację możesz wdrożyć z nami, samodzielnie, z własnym zespołem albo z innym wykonawcą. Diagnoza ma bronić decyzji, nie abonamentu.'],
+  ]
+
   return (
-    <section className="principle principle--dark">
+    <section className="principle principle--v7">
       <div className="principle-inner">
-        <div className="eyebrow">CZYM DIGITALMAP RÓŻNI SIĘ OD AGENCJI</div>
-        <h2>Najpierw diagnoza.<br /><span>Dopiero potem rozwiązanie.</span></h2>
-        <div className="principle-grid">
-          <p>Nie zaczynamy od sprzedaży kanału. Najpierw diagnozujemy, gdzie faktycznie zatrzymuje się wynik.</p>
-          <p>Dopiero potem można zdecydować, czy potrzebne jest SEO, Ads, redesign, CRO czy zupełnie inny ruch.</p>
-          <p>Rekomendacje możesz wdrożyć samodzielnie, z własnym zespołem, inną firmą albo z DigitalMap.</p>
+        <div className="principle-kicker-row">
+          <div className="eyebrow">CZYM DIGITALMAP RÓŻNI SIĘ OD AGENCJI</div>
+          <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
+        </div>
+        <h2>Najpierw diagnoza. <span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
+        <div className="principle-grid principle-grid--cards">
+          {points.map(([no, title, copy]) => (
+            <article key={no}>
+              <div><span>{no}</span><i>↗</i></div>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -353,7 +366,7 @@ function Work() {
     <section className="work" id="work">
       <div className="section-shell">
         <div className="section-heading section-heading--split work-heading">
-          <div className="eyebrow">09 / WYBRANE REALIZACJE</div>
+          <div className="eyebrow">10 / WYBRANE REALIZACJE</div>
           <div>
             <h2>Nie tylko rekomendujemy. <span className="accent-text">Projektujemy i budujemy.</span></h2>
             <p>Wybrane produkty i strony, przy których pracowaliśmy nad pozycjonowaniem, doświadczeniem użytkownika, komunikacją albo wdrożeniem. Status projektu pokazujemy wprost.</p>
@@ -390,7 +403,7 @@ function Team() {
     <section className="team" id="team">
       <div className="section-shell">
         <div className="team-heading">
-          <div className="eyebrow">10 / ZESPÓŁ</div>
+          <div className="eyebrow">11 / ZESPÓŁ</div>
           <div><h2>Za DigitalMap stoją <span className="accent-text">konkretni ludzie.</span></h2><p>Pięć osób, pięć uzupełniających się kompetencji. Strategia, marketing, technologia, płatne pozyskanie i social media spotykają się przy jednym celu: znaleźć właściwy problem i przełożyć go na właściwy ruch.</p></div>
         </div>
 
@@ -421,7 +434,7 @@ function Offer({ onChoose }) {
     <section className="offer-v6" id="offer">
       <div className="section-shell">
         <div className="offer-v6-head">
-          <div className="eyebrow">11 / OFERTA</div>
+          <div className="eyebrow">09 / OFERTA</div>
           <div><h2>Nie wybieraj „pakietu”. <span className="accent-text">Wybierz poziom problemu.</span></h2><p>Każdy produkt odpowiada na inną sytuację firmy. Kliknij opcję, żeby od razu zobaczyć, dla kogo jest, kiedy ma sens i jaki wynik dostajesz.</p></div>
         </div>
 
@@ -553,9 +566,9 @@ export default function App() {
         <Method />
         <Evidence />
         <Industries />
+        <Offer onChoose={setSelectedOffer} />
         <Work />
         <Team />
-        <Offer onChoose={setSelectedOffer} />
         <ScanForm selectedOffer={selectedOffer} selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
       </main>
       <Footer />
