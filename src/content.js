@@ -33,6 +33,33 @@ export const symptoms = [
   },
 ]
 
+export const processSteps = [
+  {
+    no: '01',
+    title: 'Pokazujesz nam firmę',
+    accent: 'firmę',
+    copy: 'Domena + krótki kontekst. Na start wystarczy to, co już masz.',
+  },
+  {
+    no: '02',
+    title: 'Mapujemy drogę klienta',
+    accent: 'drogę klienta',
+    copy: 'Badamy rynek, widoczność, zaufanie, ofertę, konwersję i konkurencję.',
+  },
+  {
+    no: '03',
+    title: 'Znajdujemy problem #1',
+    accent: 'problem #1',
+    copy: 'Oddzielamy fakty, silne sygnały i hipotezy. Nie traktujemy każdego błędu jak priorytetu.',
+  },
+  {
+    no: '04',
+    title: 'Dostajesz decyzję',
+    accent: 'decyzję',
+    copy: 'Priorytet, pierwszy ruch, plan, „nie teraz” i sposób pomiaru.',
+  },
+]
+
 export const diagnosis = {
   problem: 'Oferta i ścieżka kontaktu nie wykorzystują istniejącego ruchu.',
   evidence: [
@@ -46,6 +73,17 @@ export const diagnosis = {
   notNow: 'Nie zwiększać jeszcze budżetu Google Ads.',
   measure: 'Współczynnik konwersji + liczba jakościowych zapytań.',
 }
+
+export const tools = [
+  { code: 'GA4', name: 'Analytics', detail: 'Ruch, zachowanie użytkowników, konwersje i punkty odpływu.' },
+  { code: 'GSC', name: 'Search Console', detail: 'Widoczność organiczna, zapytania, strony wejścia i problemy indeksacji.' },
+  { code: 'GBP', name: 'Google Profile', detail: 'Widoczność lokalna, opinie, kategorie i obecność obok konkurencji.' },
+  { code: 'ADS', name: 'Google / Meta', detail: 'Koszt ruchu, jakość leadów, kampanie i miejsca utraty efektywności.' },
+  { code: 'SEO', name: 'Screaming Frog', detail: 'Warstwa techniczna strony, architektura, crawl i błędy wpływające na widoczność.' },
+  { code: 'AH', name: 'Ahrefs', detail: 'Konkurencja, profil linków, potencjał tematów i różnice w widoczności.' },
+  { code: 'AI', name: 'ChatGPT / Gemini / Claude', detail: 'Wsparcie researchu i syntezy. AI nie podejmuje za nas decyzji strategicznej.' },
+  { code: 'AUTO', name: 'n8n', detail: 'Automatyzacje, przepływ danych i powtarzalne procesy, gdy faktycznie mają sens.' },
+]
 
 export const projects = [
   {
@@ -147,23 +185,44 @@ export const offers = [
     price: '0 zł',
     copy:
       'Szybki pierwszy obraz: gdzie warto przyjrzeć się bliżej, zanim zaczniesz wydawać.',
+    details: 'Pierwsze sygnały · potencjalne wąskie gardło · kierunek dalszej diagnozy',
     cta: 'Sprawdź firmę',
   },
   {
-    code: '02 / GŁÓWNY PRODUKT',
+    code: '02 / SZYBKA DIAGNOZA',
+    name: 'Mapa Start',
+    price: '249 zł',
+    copy:
+      'Dla firmy, która potrzebuje znaleźć pierwszy priorytet bez analizowania całego procesu pozyskania klienta.',
+    details: 'Problem #1 · najważniejsze sygnały · pierwszy ruch · co odpuścić na teraz',
+    cta: 'Wybieram Start',
+  },
+  {
+    code: '03 / GŁÓWNY PRODUKT',
     name: 'Mapa Strategiczna',
     price: '499 zł',
     copy:
       'Diagnoza procesu pozyskania klienta i jasna hierarchia decyzji: co zrobić najpierw, czego nie ruszać i jak mierzyć efekt.',
+    details: 'Pełna droga klienta · priorytety · plan działania · mierniki · „nie teraz”',
     cta: 'Zamów Mapę',
     featured: true,
   },
   {
-    code: '03 / PO DIAGNOZIE',
+    code: '04 / AI SEARCH',
+    name: 'Mapa AI',
+    price: '199 zł',
+    copy:
+      'Analiza tego, czy i jak firma pojawia się w odpowiedziach ChatGPT, Gemini i Claude oraz jakie sygnały wpływają na ten obraz.',
+    details: 'Widoczność AI · sposób przedstawiania marki · luki informacyjne · rekomendacje',
+    cta: 'Sprawdź AI',
+  },
+  {
+    code: '05 / PO DIAGNOZIE',
     name: 'Wdrożenie / Monitoring',
     price: 'zakres po diagnozie',
     copy:
       'Jeśli rekomendacja wymaga działania, możesz wdrożyć ją samodzielnie, z własnym zespołem albo z DigitalMap. Monitoring ma sens dopiero wtedy, gdy wiadomo, co warto kontrolować.',
-    cta: 'Zobacz dalszy krok',
+    details: 'Wdrożenie priorytetu · pomiar · monitoring zmian · kolejna decyzja',
+    cta: 'Zapytaj o zakres',
   },
 ]

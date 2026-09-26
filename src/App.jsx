@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { LivingMap } from './components/LivingMap.jsx'
 import { TopographicLogo } from './components/TopographicLogo.jsx'
-import { diagnosis, offers, projects, symptoms, team } from './content.js'
+import { diagnosis, offers, processSteps, projects, symptoms, team, tools } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -11,13 +11,19 @@ function Arrow() {
   return <span aria-hidden="true">↗</span>
 }
 
+function accentTitle(title, accent) {
+  const [before, after = ''] = title.split(accent)
+  return <>{before}<span className="accent-text">{accent}</span>{after}</>
+}
+
 function Header() {
   return (
     <header className="header">
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
-        <a href="#system">Jak pomagamy</a>
-        <a href="#sample">Przykładowa Mapa</a>
+        <a href="#system">Problem z marketingiem</a>
+        <a href="#process">Jak działamy</a>
+        <a href="#sample">Mapa</a>
         <a href="#work">Realizacje</a>
         <a href="#team">Zespół</a>
         <a href="#offer">Oferta</a>
@@ -101,6 +107,30 @@ function Story({ progressRef, selectedFocusRef, onSelectSymptom }) {
   )
 }
 
+function Process() {
+  return (
+    <section className="process-section" id="process">
+      <div className="section-shell process-layout">
+        <div className="process-intro">
+          <div className="eyebrow">04 / JAK TO DZIAŁA</div>
+          <h2>Od domeny do decyzji <span className="accent-text">w czterech krokach.</span></h2>
+          <p>Bez warsztatu na trzy godziny. Bez wdrożenia w ciemno. Najpierw zawężamy problem, później ustalamy kolejność.</p>
+        </div>
+        <div className="process-timeline">
+          {processSteps.map((step) => (
+            <article className="process-step" key={step.no}>
+              <div className="process-dot" />
+              <span className="process-no">{step.no}</span>
+              <h3>{accentTitle(step.title, step.accent)}</h3>
+              <p>{step.copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function SampleMap() {
   const [tab, setTab] = useState('decision')
   const tabs = {
@@ -114,7 +144,7 @@ function SampleMap() {
     <section className="section section--dark" id="sample">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">04 / PRZYKŁADOWA MAPA</div>
+          <div className="eyebrow">05 / PRZYKŁADOWA MAPA</div>
           <div>
             <h2>Zobacz, jak wygląda <span className="accent-text">decyzja zamiast listy błędów.</span></h2>
             <p>Przykładowy format wyniku dla firmy usługowej. Mapa ma odpowiedzieć: co zrobić najpierw, czego teraz nie ruszać i po czym poznać, że zmiana działa.</p>
@@ -179,6 +209,57 @@ function Principle() {
   )
 }
 
+function Method() {
+  return (
+    <section className="method" id="method">
+      <div className="section-shell">
+        <div className="method-shell">
+          <div className="method-main">
+            <div className="eyebrow">06 / METODA</div>
+            <h2>Analizę wspierają narzędzia. <span className="method-script">Decyzję podejmuje człowiek.</span></h2>
+            <p className="method-lead">Korzystamy z danych i narzędzi, żeby szybciej znaleźć sygnały. Nie traktujemy ich jednak jak automatycznej odpowiedzi — najważniejsze jest to, co faktycznie ma znaczenie dla konkretnego biznesu.</p>
+
+            <div className="tool-grid">
+              {tools.map((tool) => (
+                <article className="tool-card" key={tool.code}>
+                  <div><span>{tool.code}</span><strong>{tool.name}</strong></div>
+                  <p>{tool.detail}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="method-flow" aria-label="Proces analizy">
+              <span>Narzędzia</span><i>→</i><span>Dane</span><i>→</i><span>Wnioski</span><i>→</i><b>Decyzja</b>
+            </div>
+
+            <p className="method-note">Jeśli udostępnisz GA4 lub Search Console, możemy uwzględnić dane wewnętrzne. Jeśli nie — jasno zaznaczamy, co jest potwierdzone, co jest silnym sygnałem, a co pozostaje hipotezą.</p>
+
+            <div className="human-review">
+              <div className="human-mark"><i /></div>
+              <div>
+                <span>HUMAN REVIEW</span>
+                <strong>Strategia / analiza / priorytetyzacja</strong>
+                <p>Narzędzia zbierają sygnały. Człowiek ocenia ich znaczenie, łączy je z kontekstem biznesowym i ustala priorytet dla firmy.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside className="method-aside">
+            <span className="aside-kicker">CO SPRAWDZAMY</span>
+            <h3>Nie jeden kanał. <span>Cały system.</span></h3>
+            <div className="method-checks">
+              <div><b>WWW</b><strong>Strona i oferta</strong><p>Komunikat · UX · CTA · formularze</p></div>
+              <div><b>SEO</b><strong>Widoczność</strong><p>Google · AI Search · intencja ruchu</p></div>
+              <div><b>ADS</b><strong>Płatne pozyskanie</strong><p>Koszt · jakość leadów · konwersja</p></div>
+              <div><b>REP</b><strong>Zaufanie</strong><p>Opinie · proof · reputacja · przewaga</p></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Evidence() {
   const items = [
     ['01', 'Strona i oferta', 'Czy klient w kilka sekund rozumie, co oferujesz, dla kogo to jest i dlaczego ma wybrać właśnie Ciebie?'],
@@ -190,10 +271,10 @@ function Evidence() {
   ]
 
   return (
-    <section className="section section--paper">
+    <section className="section section--paper" id="scope">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">05 / CO SPRAWDZAMY</div>
+          <div className="eyebrow">07 / CO SPRAWDZAMY</div>
           <div><h2>Patrzymy na cały system, <span className="accent-text">nie jeden kanał.</span></h2><p>Łączymy sygnały z całej drogi klienta, żeby ustalić, co jest dziś problemem #1, a co tylko kolejną rzeczą, którą można byłoby poprawić.</p></div>
         </div>
         <div className="evidence-grid">
@@ -204,13 +285,12 @@ function Evidence() {
   )
 }
 
-
 function Work() {
   return (
     <section className="work" id="work">
       <div className="section-shell">
         <div className="section-heading section-heading--split work-heading">
-          <div className="eyebrow">06 / WYBRANE REALIZACJE</div>
+          <div className="eyebrow">08 / WYBRANE REALIZACJE</div>
           <div>
             <h2>Nie tylko rekomendujemy. <span className="accent-text">Projektujemy i budujemy.</span></h2>
             <p>Wybrane produkty i strony, przy których pracowaliśmy nad pozycjonowaniem, doświadczeniem użytkownika, komunikacją albo wdrożeniem. Pokazujemy status projektu zamiast udawać case study tam, gdzie produkt nie jest jeszcze publiczny.</p>
@@ -259,7 +339,7 @@ function Team() {
     <section className="team" id="team">
       <div className="section-shell">
         <div className="team-heading">
-          <div className="eyebrow">07 / ZESPÓŁ</div>
+          <div className="eyebrow">09 / ZESPÓŁ</div>
           <div>
             <h2>Za DigitalMap stoją <span className="accent-text">konkretni ludzie.</span></h2>
             <p>Pięć osób, pięć uzupełniających się kompetencji. Strategia, marketing, technologia, płatne pozyskanie i social media spotykają się przy jednym celu: znaleźć właściwy problem i przełożyć go na właściwy ruch.</p>
@@ -297,21 +377,22 @@ function Offer() {
     <section className="section section--ink" id="offer">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
-          <div className="eyebrow">08 / OFERTA</div>
-          <div><h2>Najpierw ustal, co ma sens. <span className="accent-text">Potem wybierz kolejny ruch.</span></h2><p>Nie musisz sam diagnozować, którego produktu potrzebujesz. Możesz zacząć od pierwszego sygnału albo wejść od razu w pełną diagnozę procesu pozyskania klienta.</p></div>
+          <div className="eyebrow">10 / OFERTA</div>
+          <div><h2>Najpierw ustal, co ma sens. <span className="accent-text">Potem wybierz kolejny ruch.</span></h2><p>Nie musisz sam diagnozować, którego produktu potrzebujesz. Zacznij od pierwszego sygnału, szybkiej diagnozy albo pełnej Mapy Strategicznej.</p></div>
         </div>
-        <div className="offer-grid">
+        <div className="offer-grid offer-grid--five">
           {offers.map((offer) => (
             <article className={`offer-card ${offer.featured ? 'offer-card--featured' : ''}`} key={offer.code}>
               <div className="offer-top"><span>{offer.code}</span>{offer.featured && <b>GŁÓWNY PRODUKT</b>}</div>
               <h3>{offer.name}</h3>
               <p>{offer.copy}</p>
+              <div className="offer-details">{offer.details}</div>
               <div className="offer-price">{offer.price}</div>
               <a href="#scan">{offer.cta} <Arrow /></a>
             </article>
           ))}
         </div>
-        <div className="special-paths"><span>Nie wiesz, czego potrzebujesz?</span> Wyślij firmę — pomożemy dobrać właściwy zakres. Mapa Start i Mapa AI zostają jako ścieżki specjalistyczne.</div>
+        <div className="special-paths"><span>Nie wiesz, czego potrzebujesz?</span> Wyślij firmę — pomożemy dobrać właściwy zakres. Jeśli wystarczy darmowa Mini Mapa, powiemy to wprost.</div>
       </div>
     </section>
   )
@@ -334,7 +415,7 @@ function ScanForm({ selectedSymptom }) {
     <section className="scan" id="scan">
       <div className="scan-shell">
         <div className="scan-copy">
-          <div className="eyebrow">09 / MINI MAPA</div>
+          <div className="eyebrow">11 / MINI MAPA</div>
           <h2>Sprawdź swoją firmę, zanim wydasz więcej.</h2>
           <p>Zacznij od pierwszego sygnału. Na start wystarczy domena i krótki kontekst — bez abonamentu i bez obowiązku kupowania wdrożenia.</p>
           <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 FIRMA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 KONTAKT</span></div>
@@ -377,7 +458,49 @@ function ScanForm({ selectedSymptom }) {
 }
 
 function Footer() {
-  return <footer><TopographicLogo inverted /><p>Najpierw znajdź problem. Potem zdecyduj, na co warto wydać pieniądze.</p><span>© 2026 DigitalMap</span></footer>
+  return (
+    <footer className="site-footer" id="footer">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <TopographicLogo inverted />
+          <p>DigitalMap to warstwa diagnostyczno-decyzyjna przed wydawaniem pieniędzy na marketing. Najpierw znajdujemy problem #1. Dopiero potem wybieramy rozwiązanie.</p>
+          <span>© 2026 DigitalMap</span>
+        </div>
+
+        <div className="footer-column">
+          <h3>Oferta</h3>
+          <a href="#offer">Mini Mapa</a>
+          <a href="#offer">Mapa Start</a>
+          <a href="#offer">Mapa Strategiczna</a>
+          <a href="#offer">Mapa AI</a>
+          <a href="#offer">Wdrożenie / Monitoring</a>
+        </div>
+
+        <div className="footer-column">
+          <h3>Firma</h3>
+          <a href="#process">Jak działamy</a>
+          <a href="#work">Realizacje</a>
+          <a href="#team">Zespół</a>
+          <a href="#method">Wiedza / metoda</a>
+        </div>
+
+        <div className="footer-column">
+          <h3>Kontakt</h3>
+          <a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+          <a href="#scan">Formularz</a>
+        </div>
+
+        <div className="footer-column footer-formal">
+          <h3>Formalności</h3>
+          <span>Polityka prywatności</span>
+          <span>Regulamin</span>
+          <span>Cookies</span>
+          <small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small>
+        </div>
+      </div>
+      <div className="footer-bottom"><span>Diagnoza → decyzja → wdrożenie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
+    </footer>
+  )
 }
 
 export default function App() {
@@ -395,8 +518,10 @@ export default function App() {
       <Header />
       <main>
         <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
+        <Process />
         <SampleMap />
         <Principle />
+        <Method />
         <Evidence />
         <Work />
         <Team />
