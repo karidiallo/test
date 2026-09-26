@@ -3152,3 +3152,171 @@ footer > span { font-size: 11px !important; }
 .work-card .work-scope {
   color: rgba(255,255,255,.48);
 }
+
+/* =========================================================
+   V19 — hero photo background rework
+   ========================================================= */
+
+.strategy-story-ui {
+  width: min(1520px, calc(100% - 56px));
+}
+
+.strategy-story-card {
+  width: min(760px, 52vw);
+}
+
+.strategy-story-card--hero {
+  position: relative;
+  width: min(820px, 56vw);
+  min-height: 650px;
+  padding: 42px 40px 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  border-radius: 34px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255,255,255,.18);
+  background:
+    linear-gradient(115deg, rgba(16,12,10,.72) 0%, rgba(16,12,10,.50) 36%, rgba(16,12,10,.22) 66%, rgba(16,12,10,.10) 100%),
+    linear-gradient(180deg, rgba(16,12,10,.18) 0%, rgba(16,12,10,.58) 100%),
+    url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1600') center center / cover no-repeat;
+  box-shadow: 0 34px 90px rgba(49,32,23,.18);
+}
+
+.strategy-story-card--hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 78% 20%, rgba(255,255,255,.22), transparent 24%),
+    linear-gradient(90deg, rgba(8,7,7,.42) 0%, rgba(8,7,7,.16) 44%, rgba(8,7,7,0) 74%);
+}
+
+.strategy-story-card--hero::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.26), rgba(255,255,255,0));
+  opacity: .85;
+}
+
+.strategy-story-card--hero .eyebrow {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 18px;
+  color: rgba(255,229,210,.92) !important;
+}
+
+.strategy-story-card--hero .hero-title-clean {
+  position: relative;
+  z-index: 2;
+  max-width: 12ch !important;
+  margin: 0;
+  font-size: clamp(64px, 5vw, 90px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.072em;
+}
+
+.strategy-story-card--hero .hero-title-line {
+  color: #fffaf6;
+  text-shadow: 0 3px 26px rgba(0,0,0,.18);
+}
+
+.strategy-story-card--hero .hero-title-line--accent {
+  background: linear-gradient(135deg, #f0a07f 0%, #e46a75 54%, #bb315c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.strategy-story-card--hero .hero-lead {
+  position: relative;
+  z-index: 2;
+  max-width: 35ch;
+  margin-top: 22px;
+  color: rgba(255,249,244,.92) !important;
+  font-size: 18px !important;
+  line-height: 1.72;
+}
+
+.strategy-story-card--hero .hero-actions {
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+}
+
+.strategy-story-card--hero .button--dark {
+  background: #fffaf5 !important;
+  color: #14110f !important;
+  box-shadow: 0 16px 34px rgba(0,0,0,.20);
+}
+
+.strategy-story-card--hero .button--dark:hover {
+  background: #ffffff !important;
+}
+
+.strategy-story-card--hero .button--ghost {
+  border-color: rgba(255,255,255,.28) !important;
+  color: #fffaf6 !important;
+  background: rgba(255,255,255,.09) !important;
+}
+
+.strategy-story-card--hero .button--ghost:hover {
+  background: rgba(255,255,255,.16) !important;
+}
+
+.strategy-story-card--hero .micro-proof {
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.strategy-story-card--hero .micro-proof span {
+  background: rgba(255,255,255,.12) !important;
+  color: rgba(255,249,244,.92) !important;
+  border-color: rgba(255,255,255,.15) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* remove old mini image styles if they still exist */
+.hero-trust-photo,
+.hero-trust-photo-copy { display:none !important; }
+
+@media (max-width: 1180px) {
+  .strategy-story-card,
+  .strategy-story-card--hero {
+    width: min(720px, 58vw);
+  }
+
+  .strategy-story-card--hero {
+    min-height: 610px;
+  }
+}
+
+@media (max-width: 820px) {
+  .strategy-story-card--hero {
+    width: min(100%, 96vw);
+    min-height: 560px;
+    padding: 26px 20px 24px;
+    border-radius: 24px;
+  }
+
+  .strategy-story-card--hero .hero-title-clean {
+    max-width: 100% !important;
+    font-size: clamp(48px, 11vw, 64px) !important;
+  }
+
+  .strategy-story-card--hero .hero-lead {
+    max-width: 100%;
+    font-size: 16px !important;
+  }
+}

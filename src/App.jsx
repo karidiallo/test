@@ -142,13 +142,6 @@ function Story({ progressRef }) {
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
               <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
-              <div className="hero-trust-photo">
-                <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Zespół biznesowy podczas spotkania strategicznego" />
-                <div className="hero-trust-photo-copy">
-                  <span>REALNY KONTEKST BIZNESOWY</span>
-                  <strong>Diagnoza ma pomagać podjąć decyzję, nie generować kolejną listę zadań.</strong>
-                </div>
-              </div>
             </article>
           )}
         </div>
