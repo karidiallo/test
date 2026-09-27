@@ -11,6 +11,35 @@ function Arrow() {
   return <span aria-hidden="true">↗</span>
 }
 
+function MicroIcon({ type }) {
+  if (type === 'contract') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7 4.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6A1.5 1.5 0 0 1 7.5 4.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+        <path d="M14 4.5V9h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+        <path d="M9 12.5h6M9 16h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    )
+  }
+
+  if (type === 'card') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect x="3.5" y="6" width="17" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+        <path d="M3.5 10h17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M7.5 14.5h3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+      <path d="M12 8.5v7M8.5 12h7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
 function accentTitle(title, accent) {
   const [before, after = ''] = title.split(accent)
   return <>{before}<span className="accent-text">{accent}</span>{after}</>
@@ -139,9 +168,13 @@ function Story({ progressRef }) {
               <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
-                <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
+                <a className="button button--hero-secondary" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
               </div>
-              <div className="micro-proof"><span>Mini Mapa 0 zł</span><span>5 obszarów diagnozy</span><span>Bez karty</span></div>
+              <div className="micro-proof">
+                <span><i className="micro-proof-icon"><MicroIcon type="free" /></i>Mini Mapa 0 zł</span>
+                <span><i className="micro-proof-icon"><MicroIcon type="contract" /></i>Bez zobowiązań</span>
+                <span><i className="micro-proof-icon"><MicroIcon type="card" /></i>Bez karty</span>
+              </div>
             </article>
           )}
         </div>

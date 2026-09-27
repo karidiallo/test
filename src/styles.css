@@ -5806,3 +5806,80 @@ footer > span { font-size: 11px !important; }
     margin-top: 20px !important;
   }
 }
+
+
+/* v35 hero proof + CTA polish */
+.story--fixed-narrative .strategy-story-card--hero .hero-actions {
+  gap: 14px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button--hero-secondary {
+  color: #fffaf6 !important;
+  border: 1px solid rgba(238, 112, 133, 0.28) !important;
+  background: linear-gradient(135deg, rgba(238, 133, 108, 0.96), rgba(213, 62, 122, 0.96)) !important;
+  box-shadow: 0 16px 30px rgba(217, 90, 120, 0.22) !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button--hero-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(217, 90, 120, 0.28) !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button--hero-secondary span {
+  color: inherit;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof {
+  margin-top: 26px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px 18px !important;
+  align-items: center !important;
+  color: #6a6158 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  border-right: 0 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span::before {
+  content: '' !important;
+  width: 1px !important;
+  height: 14px !important;
+  margin-right: 2px !important;
+  background: rgba(105, 95, 85, 0.22) !important;
+  position: static !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #cc6c79;
+  flex: 0 0 auto;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof {
+    gap: 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof span + span::before {
+    height: 12px !important;
+  }
+}
