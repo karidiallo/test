@@ -295,60 +295,83 @@ function Problems() {
 }
 
 function SampleMap() {
-  const decisionBlocks = [
-    {
-      label: 'CO ZNALEŹLIŚMY?',
-      title: 'Klient zbyt długo szuka powodu, żeby wybrać właśnie tę firmę.',
-      copy: 'Oferta nie komunikuje najważniejszej wartości wystarczająco szybko, wezwanie do działania nie prowadzi jasno do następnego kroku, a formularz dokłada tarcie w momencie decyzji.',
-    },
-    {
-      label: 'CO ZROBIĆ NAJPIERW?',
-      title: 'Poprawić ofertę i uprościć drogę do kontaktu.',
-      copy: 'Najpierw wykorzystać lepiej ruch, który już jest. Dopiero później inwestować w zwiększanie jego skali.',
-    },
-    {
-      label: 'CZEGO TERAZ NIE ROBIĆ?',
-      title: 'Nie zwiększać budżetu reklamowego. Nie przebudowywać całej strony.',
-      copy: 'Najpierw sprawdzić, czy poprawienie kluczowych elementów zwiększy liczbę jakościowych zapytań.',
-    },
-    {
-      label: 'CO MIERZYĆ?',
-      title: 'Liczbę jakościowych zapytań, przejścia do kontaktu i koszt pozyskania zapytania.',
-      copy: 'To pokazuje, czy zmiana faktycznie poprawia wynik, a nie tylko wygląd strony albo liczbę wejść.',
-    },
+  const actions = [
+    ['01', 'Wyostrzyć ofertę', 'Pokazać rezultat i powód wyboru już w pierwszym ekranie.'],
+    ['02', 'Uprościć kontakt', 'Zostawić jeden wyraźny następny krok zamiast kilku równorzędnych ścieżek.'],
+    ['03', 'Skrócić formularz', 'Na początku pytać tylko o informacje potrzebne do pierwszego kontaktu.'],
+  ]
+
+  const metrics = [
+    ['Zapytania', 'Liczba jakościowych zapytań'],
+    ['Kontakt', 'Przejścia do formularza lub rozmowy'],
+    ['Koszt', 'Koszt pozyskania zapytania'],
   ]
 
   return (
     <section className="sample-section sample-section--decision" id="sample">
       <div className="section-shell">
         <div className="section-heading section-heading--split sample-heading sample-heading--decision">
-          <div className="eyebrow">PRZYKŁADOWA ODPOWIEDŹ</div>
+          <div className="eyebrow">PRZYKŁADOWY WYNIK</div>
           <div>
-            <h2>Zobacz, z jaką odpowiedzią <span className="accent-text">wychodzisz z DigitalMap.</span></h2>
-            <p>Nie dostajesz kolejnej listy rzeczy do poprawy. Dostajesz odpowiedź: gdzie dziś tracisz największy potencjał, co zrobić najpierw i na co na razie nie wydawać pieniędzy.</p>
+            <h2>Zobacz, z czym <span className="accent-text">wychodzisz z DigitalMap.</span></h2>
+            <p>Jeden priorytet. Konkretny plan. Jasno wskazane rzeczy, których na razie nie warto finansować.</p>
           </div>
         </div>
 
-        <div className="decision-example">
-          <article className="decision-example-lead">
-            <span>CO NAPRAWDĘ BLOKUJE WYNIKI?</span>
-            <h3>Masz ruch. <strong>Problem zaczyna się później.</strong></h3>
-            <p>Ludzie trafiają na stronę, ale zbyt mało z nich przechodzi do kontaktu. Zwiększenie ruchu prawdopodobnie tylko zwiększyłoby koszt — bez rozwiązania głównego problemu.</p>
-          </article>
+        <div className="decision-snapshot">
+          <div className="decision-snapshot-top">
+            <div className="decision-snapshot-summary">
+              <span>NAJWAŻNIEJSZY WNIOSEK</span>
+              <h3>Ruch jest. <strong>Sprzedaż nie wykorzystuje jego potencjału.</strong></h3>
+              <p>Największa strata pojawia się między zainteresowaniem ofertą a kontaktem.</p>
+            </div>
 
-          <div className="decision-example-grid">
-            {decisionBlocks.map((item, index) => (
-              <article className={`decision-example-card decision-example-card--${index + 1}`} key={item.label}>
-                <span>{item.label}</span>
-                <h4>{item.title}</h4>
-                <p>{item.copy}</p>
-              </article>
-            ))}
+            <div className="decision-scoreboard" aria-label="Przykładowe wyniki diagnozy">
+              <div>
+                <span>Widoczność</span>
+                <strong>72%</strong>
+                <small>Wystarczająca</small>
+              </div>
+              <div className="is-critical">
+                <span>Konwersja</span>
+                <strong>31%</strong>
+                <small>Największa strata</small>
+              </div>
+            </div>
           </div>
 
-          <div className="decision-example-bottom">
-            <span>WŁAŚNIE PO TO POWSTAJE MAPA</span>
-            <strong>Żebyś wiedział, co zrobić najpierw — zamiast poprawiać wszystko naraz.</strong>
+          <div className="decision-snapshot-body">
+            <div className="decision-priority">
+              <span>CO ROBIĆ TERAZ</span>
+              <h4>Najpierw poprawić ofertę i drogę do kontaktu.</h4>
+              <div className="decision-action-list">
+                {actions.map(([no, title, copy]) => (
+                  <article key={no}>
+                    <b>{no}</b>
+                    <div><strong>{title}</strong><p>{copy}</p></div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <aside className="decision-snapshot-side">
+              <div className="decision-not-now">
+                <span>NIE TERAZ</span>
+                <strong>Nie zwiększać budżetu reklamowego.</strong>
+                <strong>Nie przebudowywać całej strony.</strong>
+              </div>
+
+              <div className="decision-measure">
+                <span>CO MIERZYĆ</span>
+                {metrics.map(([label, copy]) => (
+                  <div key={label}><b>{label}</b><p>{copy}</p></div>
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <div className="decision-snapshot-footer">
+            <strong>Efekt: wiesz, co zrobić teraz, co odłożyć i po czym poznać, że zmiana działa.</strong>
             <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
           </div>
         </div>
