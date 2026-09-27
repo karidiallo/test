@@ -245,42 +245,49 @@ function Problems() {
   const active = visibleProblems[activeProblem]
 
   return (
-    <section className="problems-section problems-section--interactive" id="system">
-      <div className="section-shell problems-experience">
-        <div className="problems-intro">
-          <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
-          <h2>Nie wybierasz usługi. <span className="accent-text">Zaczynasz od problemu, który chcesz rozwiązać.</span></h2>
-          <p>Wybierz sytuację najbliższą Twojej firmie. Pokażemy Ci, od czego warto zacząć — bez zgadywania, czy potrzebujesz SEO, reklam, nowej strony czy czegoś zupełnie innego.</p>
-
-          <div className="problem-active-summary" aria-live="polite">
-            <span>WYBRANA SYTUACJA</span>
-            <strong>{active.label}</strong>
-            <p>{active.description}</p>
-            <a href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
+    <section className="problems-section problems-section--compact" id="system">
+      <div className="section-shell problems-compact-shell">
+        <div className="problems-compact-head">
+          <div>
+            <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
+            <h2>Wybierz sytuację, która <span className="accent-text">najbardziej przypomina Twoją.</span></h2>
           </div>
+          <p>Nie musisz wiedzieć, czy potrzebujesz SEO, reklam, nowej strony czy zmian w ofercie. Zacznij od tego, co dziś nie działa tak, jak powinno.</p>
         </div>
 
-        <div className="problem-navigator" role="list" aria-label="Najczęstsze problemy marketingowe">
-          {visibleProblems.map((item, index) => {
-            const isActive = index === activeProblem
-            return (
-              <button
-                type="button"
-                role="listitem"
-                key={item.id}
-                className={`problem-row ${isActive ? 'is-active' : ''}`}
-                onMouseEnter={() => setActiveProblem(index)}
-                onFocus={() => setActiveProblem(index)}
-                onClick={() => setActiveProblem(index)}
-                aria-expanded={isActive}
-              >
-                <span className="problem-row-title">{item.label}</span>
-                <span className="problem-row-action" aria-hidden="true">{isActive ? '—' : '↗'}</span>
-                <span className="problem-row-copy">{item.description}</span>
-                <span className="problem-row-line" aria-hidden="true"><i /></span>
-              </button>
-            )
-          })}
+        <div className="problem-tabs" role="tablist" aria-label="Najczęstsze problemy marketingowe">
+          {visibleProblems.map((item, index) => (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={index === activeProblem}
+              key={item.id}
+              className={`problem-tab ${index === activeProblem ? 'is-active' : ''}`}
+              onMouseEnter={() => setActiveProblem(index)}
+              onFocus={() => setActiveProblem(index)}
+              onClick={() => setActiveProblem(index)}
+            >
+              <span>{item.label}</span>
+              <i aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+
+        <div className="problem-stage" role="tabpanel" aria-live="polite">
+          <div className="problem-stage-index">{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</div>
+          <div className="problem-stage-content" key={active.id}>
+            <div>
+              <span className="problem-stage-kicker">TWOJA SYTUACJA</span>
+              <h3>{active.label}</h3>
+            </div>
+            <div className="problem-stage-detail">
+              <p>{active.description}</p>
+              <a href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
+            </div>
+          </div>
+          <div className="problem-stage-progress" aria-hidden="true">
+            <span style={{ width: `${((activeProblem + 1) / visibleProblems.length) * 100}%` }} />
+          </div>
         </div>
       </div>
     </section>
