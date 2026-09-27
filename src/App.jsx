@@ -45,6 +45,25 @@ function accentTitle(title, accent) {
   return <>{before}<span className="accent-text">{accent}</span>{after}</>
 }
 
+function JourneyRail({ items, label = 'ŚCIEŻKA KLIENTA', emphasizeLast = false }) {
+  return (
+    <div className="journey-rail" aria-label={label}>
+      <div className="journey-rail__label">{label}</div>
+      <div className="journey-rail__track">
+        {items.map((item, index) => (
+          <div
+            className={`journey-rail__item ${emphasizeLast && index === items.length - 1 ? 'is-active' : ''}`}
+            key={item}
+          >
+            <span className="journey-rail__node" aria-hidden="true" />
+            <b>{item}</b>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function Header() {
   return (
     <header className="header">
@@ -153,7 +172,11 @@ function Story({ progressRef }) {
               <div className="eyebrow">{stage.no}</div>
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
-              <div className="strategy-zone-proof"><i />{stage.proof}</div>
+              <JourneyRail
+                items={stage.proof.split(' · ')}
+                label={stage.no === 'KONWERSJA' ? 'ŚCIEŻKA DO SPRZEDAŻY' : 'CO SPRAWDZAMY'}
+                emphasizeLast={stage.no === 'KONWERSJA'}
+              />
               {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#scan">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
             </article>
           ) : (

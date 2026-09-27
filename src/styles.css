@@ -5883,3 +5883,119 @@ footer > span { font-size: 11px !important; }
     height: 12px !important;
   }
 }
+
+/* =========================================================
+   V37 — premium journey rail instead of generic proof tag
+   ========================================================= */
+
+.story--fixed-narrative .strategy-story-card--zone .strategy-zone-proof {
+  display: none !important;
+}
+
+.journey-rail {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(28, 24, 21, 0.10);
+}
+
+.journey-rail__label {
+  margin-bottom: 18px;
+  color: #9b7160;
+  font: 800 10px/1 var(--body);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.journey-rail__track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  align-items: start;
+}
+
+.journey-rail__track::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 7px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(179,151,129,.28), rgba(179,151,129,.58), rgba(179,151,129,.28));
+}
+
+.journey-rail__item {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  min-width: 0;
+  padding-right: 10px;
+}
+
+.journey-rail__node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #fffaf5;
+  background: #cab29d;
+  box-shadow: 0 0 0 1px rgba(142,112,91,.22), 0 4px 12px rgba(94,68,52,.10);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.journey-rail__item b {
+  display: block;
+  max-width: 11ch;
+  color: #4f4842;
+  font: 650 11px/1.35 var(--body);
+  letter-spacing: .01em;
+  overflow-wrap: anywhere;
+}
+
+.journey-rail__item:hover .journey-rail__node {
+  transform: scale(1.18);
+  background: #d96b78;
+  box-shadow: 0 0 0 5px rgba(217,107,120,.10);
+}
+
+.journey-rail__item:hover b {
+  color: #1f1a17;
+}
+
+.journey-rail__item.is-active .journey-rail__node {
+  background: linear-gradient(135deg, #ef8e70, #c83261);
+  box-shadow: 0 0 0 6px rgba(203,67,102,.11), 0 8px 18px rgba(176,58,89,.18);
+}
+
+.journey-rail__item.is-active b {
+  color: #b62e59;
+  font-weight: 760;
+}
+
+@media (max-width: 1080px) {
+  .journey-rail__track {
+    grid-template-columns: repeat(5, minmax(86px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .journey-rail {
+    margin-top: 20px;
+    padding-top: 14px;
+  }
+
+  .journey-rail__label {
+    margin-bottom: 14px;
+  }
+
+  .journey-rail__track {
+    grid-template-columns: repeat(5, 92px);
+  }
+
+  .journey-rail__item b {
+    font-size: 10.5px;
+  }
+}
