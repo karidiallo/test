@@ -125,12 +125,7 @@ function Story({ progressRef }) {
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
               <div className="strategy-zone-proof"><i />{stage.proof}</div>
-              <div className="stage-mini-nav" aria-label="Nawigacja po obszarach">
-                {stages.map((item, index) => (
-                  <button key={item.no} className={activeStage === index ? 'active' : ''} type="button" onClick={() => goToZone(index)} aria-label={item.no} />
-                ))}
-              </div>
-              {stage.cta && <div className="strategy-zone-action"><span>Chcesz zobaczyć, gdzie traci Twoja firma?</span><a className="strategy-zone-cta" href="#scan">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
+              {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#scan">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
             </article>
           ) : (
             <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
@@ -138,15 +133,15 @@ function Story({ progressRef }) {
               <h1 className="hero-title-clean">
                 <span className="hero-title-line">Zanim wydasz</span>
                 <span className="hero-title-line">więcej na marketing,</span>
-                <span className="hero-title-line hero-title-line--accent">zobacz, gdzie naprawdę</span>
-                <span className="hero-title-line hero-title-line--accent">zaczyna się problem.</span>
+                <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
+                <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
               </h1>
               <p className="hero-lead">DigitalMap patrzy na całą drogę klienta — od widoczności i pierwszego kliknięcia, przez ofertę i zaufanie, aż po kontakt lub zakup. Dzięki temu wiesz, co ogranicza wynik teraz i co warto zrobić najpierw.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
-              <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
+              <div className="micro-proof"><span>Mini Mapa 0 zł</span><span>5 obszarów diagnozy</span><span>Bez karty</span></div>
             </article>
           )}
         </div>
@@ -540,8 +535,8 @@ function Offer({ onChoose }) {
             </div>
             {offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
             <div className="offer-cta-row">
-              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}><span><small>PRZEJDŹ DALEJ</small><strong>{offer.cta}</strong></span><i aria-hidden="true">↗</i></a>
-              <small>Bez ukrytego wdrożenia. Najpierw diagnoza, potem decyzja.</small>
+              <div className="offer-cta-context"><span>WYBRANY ZAKRES</span><strong>{offer.name}</strong><small>Najpierw diagnoza. Wdrożenie jest osobną decyzją.</small></div>
+              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}><span>Wybieram tę Mapę</span><i aria-hidden="true">↗</i></a>
             </div>
           </article>
         </div>
