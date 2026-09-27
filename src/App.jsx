@@ -92,31 +92,31 @@ function Story({ progressRef }) {
       no: 'WIDOCZNOŚĆ',
       title: <>Czy Twoja firma jest <span className="accent-text">widoczna wtedy, kiedy klient szuka?</span></>,
       copy: 'Sprawdzamy, czy Twoja firma pojawia się tam, gdzie potencjalni klienci naprawdę szukają rozwiązania — w Google, Maps, reklamach i wyszukiwaniu AI. Pokazujemy, gdzie tracisz widoczność i co może zwiększyć liczbę wartościowych wejść.',
-      proof: 'Google · SEO · Maps · Ads · AI Search',
+      proof: 'Google · SEO · Mapy Google · Reklamy · Wyszukiwanie AI',
     },
     {
       no: 'STRONA I OFERTA',
       title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu wie, dlaczego ma wybrać właśnie Ciebie?</span></>,
-      copy: 'Sprawdzamy, dlaczego ruch na stronie nie zamienia się w zapytania i płacących klientów. Analizujemy ofertę, komunikację, UX i CTA, żeby wskazać miejsca, w których klient traci zainteresowanie albo rezygnuje z kontaktu.',
-      proof: 'Oferta · komunikacja · UX · CTA · landing page',
+      copy: 'Sprawdzamy, dlaczego ruch na stronie nie zamienia się w zapytania i płacących klientów. Analizujemy ofertę, komunikację, UX i wezwania do działania, żeby wskazać miejsca, w których klient traci zainteresowanie albo rezygnuje z kontaktu.',
+      proof: 'Oferta · Komunikacja · UX · Wezwanie do działania · Strona docelowa',
     },
     {
       no: 'SOCIAL & CONTENT',
       title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
-      copy: 'Sprawdzamy, czy social media i content docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
-      proof: 'Social · content · proof · droga do kontaktu',
+      copy: 'Sprawdzamy, czy media społecznościowe i treści docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
+      proof: 'Media społecznościowe · Treści · Dowody zaufania · Droga do kontaktu',
     },
     {
       no: 'ZAUFANIE',
       title: <>Klient już Cię zna. <span className="accent-text">Czy ma wystarczający powód, żeby Ci zaufać?</span></>,
       copy: 'Sprawdzamy opinie, dowody, reputację, eksperckość i sposób prezentowania przewagi firmy.',
-      proof: 'Opinie · case studies · reputacja · przewaga',
+      proof: 'Opinie · Studia przypadków · Reputacja · Przewaga',
     },
     {
       no: 'KONWERSJA',
       title: <>Jest zainteresowanie. <span className="accent-text">Gdzie klient odpada przed kontaktem?</span></>,
       copy: 'Łączymy wcześniejsze etapy i sprawdzamy drogę od zainteresowania do zapytania, konsultacji lub zakupu.',
-      proof: 'Formularz · kontakt · lead · konsultacja · sprzedaż',
+      proof: 'Formularz · Kontakt · Zapytanie · Konsultacja · Sprzedaż',
       cta: true,
     },
   ]
@@ -188,7 +188,7 @@ function Story({ progressRef }) {
                 <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
                 <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
               </h1>
-              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
+              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i media społecznościowe, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
                 <a className="button button--hero-secondary" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
@@ -283,7 +283,7 @@ function SampleMap() {
           </aside>
 
           <div className="diagnosis-main">
-            <div className="diagnosis-top"><span>DIGITALMAP / DIAGNOZA MARKETINGOWA</span><b>status: zakończona</b></div>
+            <div className="diagnosis-top"><span>DIGITALMAP / DIAGNOZA MARKETINGOWA</span><b>Status: Zakończona</b></div>
 
             {view === 'overview' && (
               <div className="map-view map-view--overview">
@@ -353,7 +353,7 @@ function SampleMap() {
 
 function Principle() {
   const points = [
-    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, Ads, social mediów albo nowej strony. Najpierw ustalamy, gdzie naprawdę zatrzymuje się wynik.'],
+    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, reklam, mediów społecznościowych albo nowej strony. Najpierw ustalamy, gdzie naprawdę zatrzymuje się wynik.'],
     ['02', 'Decyzja przed wydatkiem', 'Problem, dowody i priorytet są pierwsze. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
     ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem, freelancerem, obecną agencją albo innym wykonawcą.'],
   ]
@@ -393,7 +393,7 @@ function Method() {
       <div className="section-shell">
         <div className="method-v6-head">
           <div className="eyebrow">METODA</div>
-          <div><h2>Dane pokazują, co się dzieje. <span className="accent-text">My ustalamy, co z tym zrobić.</span></h2><p>Łączymy dane, research i obserwację rynku. Narzędzia pomagają znaleźć sygnały. Priorytet wynika jednak z kontekstu biznesowego — nie z automatycznego score'u.</p></div>
+          <div><h2>Dane pokazują, co się dzieje. <span className="accent-text">My ustalamy, co z tym zrobić.</span></h2><p>Łączymy dane, badanie rynku i obserwację zachowań klientów. Narzędzia pomagają znaleźć sygnały. Priorytet wynika jednak z kontekstu biznesowego — nie z automatycznej punktacji.</p></div>
         </div>
 
         <div className="method-command">
@@ -421,7 +421,7 @@ function Method() {
             <div className="human-orbit"><i /><i /><i /><b /></div>
             <span>HUMAN REVIEW</span>
             <h3>Nie każdy sygnał jest problemem wartym rozwiązania.</h3>
-            <p>Dlatego Mapa nie kończy się automatycznym score'em. Oddzielamy to, co potwierdzone, od silnych sygnałów i hipotez — a dopiero później ustalamy priorytet.</p>
+            <p>Dlatego Mapa nie kończy się automatyczną oceną punktową. Oddzielamy to, co potwierdzone, od silnych sygnałów i hipotez — a dopiero później ustalamy priorytet.</p>
             <div className="human-decision-foot"><span>POTWIERDZONE</span><span>SILNY SYGNAŁ</span><span>HIPOTEZA</span><strong>DECYZJA</strong></div>
           </aside>
         </div>
@@ -434,7 +434,7 @@ function Evidence() {
   const items = [
     ['01', 'Strona i oferta', 'Czy klient szybko rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
     ['02', 'Google i lokalność', 'Czy firma jest widoczna tam, gdzie klient jej szuka — i jak wygląda obok konkurencji?'],
-    ['03', 'Social media i content', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
+    ['03', 'Media społecznościowe i treści', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
     ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy ruch ma odpowiednią intencję?'],
     ['05', 'Reklamy', 'Czy wydawany budżet prowadzi do jakościowych zapytań i gdzie po drodze tracony jest wynik?'],
     ['06', 'Zaufanie i reputacja', 'Czy klient ma wystarczające dowody, aby podjąć decyzję?'],
@@ -504,7 +504,7 @@ function Work() {
               </div>
               <div className="work-meta">
                 <div className="work-index">{project.index}</div>
-                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / REZULTAT</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
+                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / WYNIK</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
                 {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Zakres projektu</span>}
               </div>
             </article>
@@ -521,7 +521,7 @@ function Team() {
       <div className="section-shell">
         <div className="team-heading">
           <div className="eyebrow">ZESPÓŁ</div>
-          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, development, płatne pozyskanie i social media pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
+          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, rozwój stron, płatne pozyskanie i media społecznościowe pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
         </div>
 
         <div className="team-members team-members--text-only">
@@ -604,12 +604,12 @@ function Offer({ onChoose }) {
             <a href="#scan">Pomóżcie mi wybrać <Arrow /></a>
           </article>
           <article className="offer-support-card offer-support-card--dark">
-            <span>Masz już agencję, freelancera albo własny marketing team?</span>
+            <span>Masz już agencję, niezależnego specjalistę albo własny zespół marketingowy?</span>
             <p>DigitalMap działa także jako niezależne drugie spojrzenie. Chodzi o to, żebyś wiedział, gdzie naprawdę jest problem, co jest priorytetem i jakie działanie ma sens jako następne.</p>
-            <strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong>
+            <strong>Przed: „może więcej reklam?” → Po Mapie: teraz / później / nie teraz.</strong>
           </article>
         </div>
-        <div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, content albo wdrożenie. Dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
+        <div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, treści albo wdrożenie. Dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
       </div>
     </section>
   )
@@ -684,7 +684,7 @@ function FAQ() {
       <div className="section-shell">
         <div className="faq-layout-premium">
           <aside className="faq-intro-panel">
-            <div className="eyebrow">FAQ / PRZED DECYZJĄ</div>
+            <div className="eyebrow">NAJCZĘSTSZE PYTANIA / PRZED DECYZJĄ</div>
             <h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2>
             <p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz. Odpowiedzi mają pomóc Ci szybko ocenić, czy DigitalMap pasuje do sytuacji Twojej firmy.</p>
             <a href="#scan" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
@@ -712,8 +712,8 @@ function Footer() {
     <footer className="site-footer" id="footer">
       <div className="footer-grid">
         <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
-        <div className="footer-column"><h3>Oferta</h3><a href="#offer">Mini Mapa</a><a href="#offer">Mapa Start</a><a href="#offer">Mapa Strategiczna</a><a href="#offer">Mapa AI</a><a href="#offer">Wdrożenie / Monitoring</a></div>
-        <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a><a href="#faq">FAQ</a></div>
+        <div className="footer-column"><h3>Oferta</h3><a href="#offer">Mini Mapa</a><a href="#offer">Mapa Podstawowa</a><a href="#offer">Mapa Strategiczna</a><a href="#offer">Mapa AI</a><a href="#offer">Wdrożenie / Monitorowanie</a></div>
+        <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a><a href="#faq">Najczęstsze Pytania</a></div>
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#scan">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
       </div>
