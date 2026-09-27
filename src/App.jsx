@@ -315,7 +315,7 @@ function Principle() {
           <div className="eyebrow">DLACZEGO DIGITALMAP</div>
           <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
         </div>
-        <h2>Najpierw diagnoza. <span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
+        <h2>Najpierw diagnoza.<br/><span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
         <div className="principle-editorial">
           {points.map(([no, title, copy]) => (
             <article key={no}>
@@ -547,7 +547,19 @@ function Offer({ onChoose }) {
           </article>
         </div>
 
-        <div className="offer-help"><span>Nie wiesz, którą Mapę wybrać?</span><p>Nie musisz tego oceniać samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa albo krótszy zakres, powiemy to wprost.</p><a href="#scan">Pomóżcie mi wybrać <Arrow /></a></div><div className="offer-help offer-help--secondary"><span>Masz już agencję, freelancera albo własny marketing team?</span><p>DigitalMap działa także jako niezależne drugie spojrzenie. Chodzi o to, żebyś wiedział, gdzie naprawdę jest problem, co jest priorytetem i jakie działanie ma sens jako następne.</p><strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong></div><div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, content albo wdrożenie. To dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
+        <div className="offer-support-grid">
+          <article className="offer-support-card">
+            <span>Nie wiesz, którą Mapę wybrać?</span>
+            <p>Nie musisz tego oceniać samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa albo krótszy zakres, powiemy to wprost.</p>
+            <a href="#scan">Pomóżcie mi wybrać <Arrow /></a>
+          </article>
+          <article className="offer-support-card offer-support-card--dark">
+            <span>Masz już agencję, freelancera albo własny marketing team?</span>
+            <p>DigitalMap działa także jako niezależne drugie spojrzenie. Chodzi o to, żebyś wiedział, gdzie naprawdę jest problem, co jest priorytetem i jakie działanie ma sens jako następne.</p>
+            <strong>Przed: „może więcej Ads?” → Po Mapie: teraz / później / nie teraz.</strong>
+          </article>
+        </div>
+        <div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, content albo wdrożenie. Dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
       </div>
     </section>
   )
@@ -620,21 +632,25 @@ function FAQ() {
   return (
     <section className="faq-section" id="faq">
       <div className="section-shell">
-        <div className="section-heading section-heading--split faq-heading">
-          <div className="eyebrow">FAQ / PRZED DECYZJĄ</div>
-          <div><h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2><p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz.</p></div>
+        <div className="faq-layout-premium">
+          <aside className="faq-intro-panel">
+            <div className="eyebrow">FAQ / PRZED DECYZJĄ</div>
+            <h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2>
+            <p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz. Odpowiedzi mają pomóc Ci szybko ocenić, czy DigitalMap pasuje do sytuacji Twojej firmy.</p>
+            <a href="#scan" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
+          </aside>
+          <div className="faq-list-v14 faq-list-premium">
+            {faqs.map((item, index) => (
+              <details key={item.q}>
+                <summary><span className="faq-number">{String(index + 1).padStart(2, '0')}</span><span>{item.q}</span><i>+</i></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
-        <div className="faq-list-v14">
-          {faqs.map((item) => (
-            <details key={item.q}>
-              <summary><span>{item.q}</span><i>+</i></summary>
-              <p>{item.a}</p>
-            </details>
-          ))}
-        </div>
-        <div className="final-cta-v14">
-          <div><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
-          <div className="final-cta-actions"><a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--ghost final-cta-alt" href="#offer">Zobacz zakres i ofertę</a></div>
+        <div className="final-cta-v14 final-cta-premium">
+          <div className="final-cta-copy"><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
+          <div className="final-cta-actions"><a className="button button--primary-light" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--outline-light" href="#offer">Zobacz zakres i ofertę</a></div>
         </div>
       </div>
     </section>
@@ -645,13 +661,14 @@ function Footer() {
   return (
     <footer className="site-footer" id="footer">
       <div className="footer-grid">
-        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p><strong>Najpierw diagnoza.<br/>Potem decyzja.<br/>Dopiero później wydatek.</strong><span>© 2026 DigitalMap</span></div>
+        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
         <div className="footer-column"><h3>Oferta</h3><a href="#offer">Mini Mapa</a><a href="#offer">Mapa Start</a><a href="#offer">Mapa Strategiczna</a><a href="#offer">Mapa AI</a><a href="#offer">Wdrożenie / Monitoring</a></div>
         <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a><a href="#faq">FAQ</a></div>
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#scan">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
       </div>
-      <div className="footer-bottom"><span>Diagnoza → decyzja → działanie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
+      <div className="footer-slogan">Najpierw diagnoza. <span>Potem decyzja. Dopiero później wydatek.</span></div>
+      <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
     </footer>
   )
 }
