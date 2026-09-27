@@ -574,7 +574,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
             <span className="form-kicker">KROK 01 / FIRMA</span>
             <h3>Gdzie Twoja firma może tracić klientów?</h3>
             <label>Nazwa firmy albo domena</label>
-            <input autoFocus value={company} onChange={(e) => setCompany(e.target.value)} placeholder="twojafirma.pl lub Nazwa Firmy" />
+            <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="twojafirma.pl lub Nazwa Firmy" />
             <p className="field-help">Nie masz jeszcze strony? To nie problem. Wpisz nazwę firmy — zaczniemy od rynku, widoczności, oferty i publicznie dostępnych sygnałów.</p>
             <button type="submit">Dalej: pokaż problem <Arrow /></button>
           </>}

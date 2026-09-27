@@ -372,7 +372,6 @@ function CameraRig({ progressRef }) {
 function Scene({ progressRef, activeIndex, hoveredIndex, setHoveredIndex, onSelectZone }) {
   return (
     <>
-      <color attach="background" args={['#eee8df']} />
       <fog attach="fog" args={['#eee8df', 16, 32]} />
       <ambientLight intensity={2.15} />
       <hemisphereLight args={['#fffaf2', '#9a8878', 2.0]} />
@@ -420,7 +419,7 @@ export function LivingMap({ progressRef, onSelectZone }) {
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [7.7, 5.2, 8.4], fov: 38, near: 0.1, far: 60 }}
-        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         shadows
       >
         <Scene progressRef={progressRef} activeIndex={active} hoveredIndex={hovered} setHoveredIndex={setHovered} onSelectZone={onSelectZone} />
