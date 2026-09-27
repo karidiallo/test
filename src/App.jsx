@@ -125,6 +125,11 @@ function Story({ progressRef }) {
               <h2>{stage.title}</h2>
               <p>{stage.copy}</p>
               <div className="strategy-zone-proof"><i />{stage.proof}</div>
+              <div className="stage-mini-nav" aria-label="Nawigacja po obszarach">
+                {stages.map((item, index) => (
+                  <button key={item.no} className={activeStage === index ? 'active' : ''} type="button" onClick={() => goToZone(index)} aria-label={item.no} />
+                ))}
+              </div>
               {stage.cta && <a className="strategy-zone-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>}
             </article>
           ) : (
@@ -142,6 +147,16 @@ function Story({ progressRef }) {
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
               <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
+              <div className="hero-building-nav" aria-label="Przejdź do obszaru diagnozy">
+                <span className="hero-building-label">PRZEJDŹ PO MAPIE</span>
+                {stages.map((item, index) => (
+                  <button key={item.no} type="button" onClick={() => goToZone(index)}>
+                    <i>{String(index + 1).padStart(2, '0')}</i>
+                    <b>{item.no}</b>
+                    <em>↗</em>
+                  </button>
+                ))}
+              </div>
             </article>
           )}
         </div>
@@ -311,12 +326,15 @@ function Principle() {
           <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
         </div>
         <h2>Najpierw diagnoza. <span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
-        <div className="principle-grid principle-grid--cards">
+        <div className="principle-editorial">
           {points.map(([no, title, copy]) => (
             <article key={no}>
-              <div><span>{no}</span><i>↗</i></div>
-              <h3>{title}</h3>
-              <p>{copy}</p>
+              <span className="principle-editorial-no">{no}</span>
+              <div className="principle-editorial-copy">
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </div>
+              <i aria-hidden="true">↗</i>
             </article>
           ))}
         </div>
@@ -506,7 +524,8 @@ function Offer({ onChoose }) {
           <div className="offer-selector">
             {offers.map((item) => (
               <button key={item.id} className={activeOffer === item.id ? 'active' : ''} onClick={() => choose(item)}>
-                <span>{item.code}</span><div><strong>{item.name}</strong><small>{item.label}</small></div><b>{item.price}</b><i>↗</i>
+                <div className="offer-selector-main"><strong>{item.name}</strong><small>{item.label}</small></div>
+                <div className="offer-selector-meta"><b>{item.price}</b><i>↗</i></div>
               </button>
             ))}
           </div>
