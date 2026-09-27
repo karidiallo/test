@@ -98,19 +98,19 @@ function Story({ progressRef }) {
       no: 'STRONA I OFERTA',
       title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu wie, dlaczego ma wybrać właśnie Ciebie?</span></>,
       copy: 'Sprawdzamy, dlaczego ruch na stronie nie zamienia się w zapytania i płacących klientów. Analizujemy ofertę, komunikację, UX i wezwania do działania, żeby wskazać miejsca, w których klient traci zainteresowanie albo rezygnuje z kontaktu.',
-      proof: 'Oferta · Komunikacja · UX · Wezwanie do działania · Strona docelowa',
+      proof: 'Oferta · Komunikacja · UX · Wezwanie Do Działania · Strona Docelowa',
     },
     {
-      no: 'SOCIAL & CONTENT',
+      no: 'MEDIA SPOŁECZNOŚCIOWE I TREŚCI',
       title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
       copy: 'Sprawdzamy, czy media społecznościowe i treści docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
-      proof: 'Media społecznościowe · Treści · Dowody zaufania · Droga do kontaktu',
+      proof: 'Media Społecznościowe · Treści · Dowody Zaufania · Droga Do Kontaktu',
     },
     {
       no: 'ZAUFANIE',
       title: <>Klient już Cię zna. <span className="accent-text">Czy ma wystarczający powód, żeby Ci zaufać?</span></>,
       copy: 'Sprawdzamy opinie, dowody, reputację, eksperckość i sposób prezentowania przewagi firmy.',
-      proof: 'Opinie · Studia przypadków · Reputacja · Przewaga',
+      proof: 'Opinie · Studia Przypadków · Reputacja · Dowody Zaufania',
     },
     {
       no: 'KONWERSJA',
@@ -419,7 +419,7 @@ function Method() {
 
           <aside className="human-decision-card">
             <div className="human-orbit"><i /><i /><i /><b /></div>
-            <span>HUMAN REVIEW</span>
+            <span>OCENA EKSPERTA</span>
             <h3>Nie każdy sygnał jest problemem wartym rozwiązania.</h3>
             <p>Dlatego Mapa nie kończy się automatyczną oceną punktową. Oddzielamy to, co potwierdzone, od silnych sygnałów i hipotez — a dopiero później ustalamy priorytet.</p>
             <div className="human-decision-foot"><span>POTWIERDZONE</span><span>SILNY SYGNAŁ</span><span>HIPOTEZA</span><strong>DECYZJA</strong></div>
