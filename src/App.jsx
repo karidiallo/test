@@ -130,7 +130,7 @@ function Story({ progressRef }) {
                   <button key={item.no} className={activeStage === index ? 'active' : ''} type="button" onClick={() => goToZone(index)} aria-label={item.no} />
                 ))}
               </div>
-              {stage.cta && <a className="strategy-zone-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>}
+              {stage.cta && <div className="strategy-zone-action"><span>Chcesz zobaczyć, gdzie traci Twoja firma?</span><a className="strategy-zone-cta" href="#scan">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
             </article>
           ) : (
             <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
@@ -178,7 +178,6 @@ function Process() {
           {processSteps.map((step) => (
             <article className="process-step" key={step.no}>
               <div className="process-dot" />
-              <span className="process-no">{step.no}</span>
               <h3>{accentTitle(step.title, step.accent)}</h3>
               <p>{step.copy}</p>
             </article>
@@ -214,7 +213,7 @@ function SampleMap() {
         <div className="section-heading section-heading--split sample-heading">
           <div className="eyebrow">PRZYKŁADOWY WYNIK DIAGNOZY</div>
           <div>
-            <h2>Zobacz, <span className="accent-text">co dostajesz po Mapie.</span></h2>
+            <h2>Zobacz co dostajesz <span className="accent-text">razem z DigitalMap.</span></h2>
             <p>Przejdź przez przykładową diagnozę: od problemu i dowodów, przez drogę klienta, aż po plan działania i końcową decyzję.</p>
           </div>
         </div>
@@ -328,7 +327,7 @@ function Principle() {
             </article>
           ))}
         </div>
-        <div className="principle-signature">Diagnoza ma bronić decyzji, nie abonamentu.</div>
+        <div className="principle-signature">Najpierw właściwy problem. Potem właściwa inwestycja.</div>
       </div>
     </section>
   )
@@ -541,7 +540,7 @@ function Offer({ onChoose }) {
             </div>
             {offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
             <div className="offer-cta-row">
-              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}>{offer.cta} <Arrow /></a>
+              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}><span><small>PRZEJDŹ DALEJ</small><strong>{offer.cta}</strong></span><i aria-hidden="true">↗</i></a>
               <small>Bez ukrytego wdrożenia. Najpierw diagnoza, potem decyzja.</small>
             </div>
           </article>
