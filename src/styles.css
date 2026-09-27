@@ -3322,159 +3322,233 @@ footer > span { font-size: 11px !important; }
 }
 
 /* =========================================================
-   V20 — full-width hero with photo integrated into whole scene
+   V21 — seamless full-width hero photo blended into map
    ========================================================= */
 
+.story--fixed-narrative,
 .story--fixed-narrative .story-canvas-wrap {
-  position: sticky;
+  background: #f4eee6 !important;
 }
 
-.story--fixed-narrative .story-canvas-wrap::after {
+.story--fixed-narrative .story-canvas-wrap {
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+/* Premium texture across entire hero */
+.story--fixed-narrative .story-canvas-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 79% 16%, transparent 0 54px, rgba(201,159,128,.18) 54px 58px, transparent 58px 104px, rgba(201,159,128,.08) 104px 108px, transparent 108px),
+    radial-gradient(circle at 10% 80%, transparent 0 58px, rgba(171,59,92,.08) 58px 61px, transparent 61px 98px, rgba(171,59,92,.05) 98px 101px, transparent 101px),
+    repeating-linear-gradient(125deg, rgba(169,148,130,.06) 0 1px, transparent 1px 28px),
+    linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.06) 100%);
+}
+
+/* The actual full-hero business photo, fading naturally into the map side */
+.story--fixed-narrative .story-canvas-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
     linear-gradient(90deg,
-      rgba(15,11,10,.66) 0%,
-      rgba(15,11,10,.46) 18%,
-      rgba(15,11,10,.18) 34%,
-      rgba(15,11,10,.04) 48%,
-      rgba(15,11,10,0) 62%),
-    linear-gradient(180deg, rgba(20,16,14,.16) 0%, rgba(20,16,14,.12) 100%),
-    url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1800') left center / 58% 100% no-repeat;
-  opacity: 1;
+      rgba(16,13,12,.70) 0%,
+      rgba(16,13,12,.58) 14%,
+      rgba(16,13,12,.34) 28%,
+      rgba(16,13,12,.14) 40%,
+      rgba(16,13,12,.04) 48%,
+      rgba(16,13,12,0) 58%),
+    linear-gradient(180deg,
+      rgba(16,13,12,.18) 0%,
+      rgba(16,13,12,.08) 26%,
+      rgba(16,13,12,.02) 45%,
+      rgba(16,13,12,.10) 100%),
+    url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1800') left center / 60% 100% no-repeat;
+}
+
+/* Make the map sit above the photo and feel like the scene continues */
+.story--fixed-narrative .living-map--executive {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 73% 36%, rgba(255,255,255,.96) 0%, rgba(247,242,234,.84) 26%, rgba(240,233,223,.38) 46%, rgba(240,233,223,.04) 62%, transparent 70%),
+    linear-gradient(90deg, rgba(244,238,230,0) 0%, rgba(244,238,230,.02) 28%, rgba(244,238,230,.28) 46%, rgba(244,238,230,.92) 62%, rgba(244,238,230,1) 100%) !important;
 }
 
 .story--fixed-narrative .living-map--executive::before {
-  background: linear-gradient(90deg,
-    rgba(247,242,234,.10) 0%,
-    rgba(247,242,234,.05) 16%,
-    rgba(247,242,234,.03) 24%,
-    rgba(247,242,234,.18) 38%,
-    rgba(247,242,234,.55) 50%,
-    rgba(247,242,234,.10) 100%) !important;
-}
-
-.story--fixed-narrative .living-map--executive {
+  content: '';
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 72% 38%, rgba(255,255,255,.94) 0%, rgba(250,246,240,.76) 31%, rgba(239,231,220,.18) 58%, transparent 74%),
-    radial-gradient(circle at 54% 74%, rgba(190,148,119,.16), transparent 34%),
-    linear-gradient(135deg, #f6f0e8 0%, #eee4d8 44%, #f7f3ed 100%) !important;
+    linear-gradient(90deg,
+      rgba(247,242,234,0) 0%,
+      rgba(247,242,234,0) 27%,
+      rgba(247,242,234,.06) 38%,
+      rgba(247,242,234,.28) 49%,
+      rgba(247,242,234,.82) 61%,
+      rgba(247,242,234,.98) 74%,
+      rgba(247,242,234,1) 100%) !important;
 }
 
-.strategy-story-ui {
-  width: 100%;
-  max-width: none;
-  padding: 104px 56px 0;
+.story--fixed-narrative .living-map--executive::after {
+  opacity: .74 !important;
+  background:
+    linear-gradient(0deg, rgba(255,255,255,.12) 0%, transparent 16%, transparent 84%, rgba(255,255,255,.12) 100%),
+    repeating-linear-gradient(135deg, rgba(170,144,125,.05) 0 1px, transparent 1px 30px) !important;
 }
 
-.strategy-story-card {
-  width: min(760px, 45vw);
+.story--fixed-narrative .living-map--executive canvas {
+  position: relative;
+  z-index: 3;
+  filter: saturate(1.06) contrast(1.02) brightness(1.01) !important;
 }
 
-.strategy-story-card--hero {
-  width: min(820px, 48vw);
+.story--fixed-narrative .strategy-story-ui {
+  z-index: 6;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 104px 56px 118px !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+.story--fixed-narrative .strategy-story-card {
+  width: auto;
+  margin: 0;
+}
+
+.story--fixed-narrative .strategy-story-card--hero {
+  width: min(840px, 49vw) !important;
   min-height: calc(100vh - 180px);
-  padding: 0;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-  overflow: visible;
+  align-items: flex-start;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  overflow: visible !important;
 }
 
-.strategy-story-card--hero::before,
-.strategy-story-card--hero::after {
+.story--fixed-narrative .strategy-story-card--hero::before,
+.story--fixed-narrative .strategy-story-card--hero::after {
   display: none !important;
 }
 
-.strategy-story-card--hero .eyebrow {
-  margin-bottom: 20px;
-  color: rgba(255,236,220,.90) !important;
+.story--fixed-narrative .strategy-story-card--hero .eyebrow {
+  margin-bottom: 18px;
+  color: rgba(255,231,213,.94) !important;
+  font-size: 11px !important;
+  letter-spacing: .18em;
 }
 
-.strategy-story-card--hero .hero-title-clean {
-  max-width: 10.5ch !important;
-  font-size: clamp(70px, 5.8vw, 104px) !important;
+.story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+  max-width: 10.4ch !important;
+  margin: 0 !important;
+  font-size: clamp(72px, 6vw, 106px) !important;
   line-height: .9 !important;
-  letter-spacing: -.078em;
+  letter-spacing: -.08em;
+  text-wrap: balance;
 }
 
-.strategy-story-card--hero .hero-title-line {
-  color: #fffaf5;
-  text-shadow: 0 4px 26px rgba(0,0,0,.22);
+.story--fixed-narrative .strategy-story-card--hero .hero-title-line {
+  color: #fff9f4 !important;
+  text-shadow: 0 4px 28px rgba(0,0,0,.18);
 }
 
-.strategy-story-card--hero .hero-title-line--accent {
-  background: linear-gradient(135deg, #f2a484 0%, #e56c76 52%, #c0335d 100%);
+.story--fixed-narrative .strategy-story-card--hero .hero-title-line--accent {
+  background: linear-gradient(135deg, #f2a583 0%, #e46d77 54%, #c0325b 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: transparent !important;
   -webkit-text-fill-color: transparent;
 }
 
-.strategy-story-card--hero .hero-lead {
-  max-width: 34ch;
-  margin-top: 24px;
-  color: rgba(255,246,238,.94) !important;
+.story--fixed-narrative .strategy-story-card--hero .hero-lead {
+  max-width: 33ch !important;
+  margin-top: 26px !important;
+  color: rgba(255,247,241,.95) !important;
   font-size: 19px !important;
-  line-height: 1.7;
-  text-shadow: 0 1px 16px rgba(0,0,0,.16);
+  line-height: 1.72 !important;
+  text-shadow: 0 2px 18px rgba(0,0,0,.14);
 }
 
-.strategy-story-card--hero .hero-actions {
-  margin-top: 28px;
+.story--fixed-narrative .strategy-story-card--hero .hero-actions {
+  margin-top: 28px !important;
 }
 
-.strategy-story-card--hero .button--dark {
+.story--fixed-narrative .strategy-story-card--hero .button--dark {
   background: #fffaf5 !important;
-  color: #15110f !important;
+  color: #14110f !important;
+  box-shadow: 0 16px 38px rgba(0,0,0,.18) !important;
 }
 
-.strategy-story-card--hero .button--ghost {
+.story--fixed-narrative .strategy-story-card--hero .button--ghost {
   background: rgba(255,255,255,.12) !important;
   border-color: rgba(255,255,255,.28) !important;
   color: #fffaf5 !important;
 }
 
-.strategy-story-card--hero .micro-proof {
-  margin-top: 26px;
+.story--fixed-narrative .strategy-story-card--hero .micro-proof {
+  margin-top: 24px !important;
+  gap: 10px;
 }
 
-.strategy-story-card--hero .micro-proof span {
-  background: rgba(255,255,255,.11) !important;
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span {
+  padding: 8px 12px !important;
+  border-right: 0 !important;
   border-radius: 999px;
-  border-right: 0;
   border: 1px solid rgba(255,255,255,.12) !important;
-  padding: 8px 12px;
-  color: rgba(255,247,239,.92) !important;
+  background: rgba(255,255,255,.10) !important;
+  color: rgba(255,248,242,.92) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Make header visually belong to the hero scene */
+.header {
+  background: rgba(250,248,244,.60) !important;
+  border-color: rgba(255,255,255,.32) !important;
+  box-shadow: 0 16px 42px rgba(22,17,14,.08) !important;
+  backdrop-filter: blur(18px) !important;
 }
 
 @media (max-width: 1180px) {
   .story--fixed-narrative .story-canvas-wrap::after {
     background:
       linear-gradient(90deg,
-        rgba(15,11,10,.60) 0%,
-        rgba(15,11,10,.38) 24%,
-        rgba(15,11,10,.12) 42%,
-        rgba(15,11,10,0) 58%),
-      url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1600') left center / 62% 100% no-repeat;
+        rgba(16,13,12,.66) 0%,
+        rgba(16,13,12,.48) 20%,
+        rgba(16,13,12,.22) 34%,
+        rgba(16,13,12,.06) 46%,
+        rgba(16,13,12,0) 58%),
+      linear-gradient(180deg, rgba(16,13,12,.16) 0%, rgba(16,13,12,.08) 100%),
+      url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1600') left center / 64% 100% no-repeat;
   }
 
-  .strategy-story-ui {
-    padding: 100px 34px 0;
+  .story--fixed-narrative .strategy-story-ui {
+    padding: 98px 34px 110px !important;
   }
 
-  .strategy-story-card--hero {
-    width: min(720px, 54vw);
+  .story--fixed-narrative .strategy-story-card--hero {
+    width: min(760px, 55vw) !important;
   }
 
-  .strategy-story-card--hero .hero-title-clean {
-    font-size: clamp(58px, 5.5vw, 86px) !important;
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    font-size: clamp(60px, 5.8vw, 88px) !important;
   }
 }
 
@@ -3482,31 +3556,47 @@ footer > span { font-size: 11px !important; }
   .story--fixed-narrative .story-canvas-wrap::after {
     background:
       linear-gradient(180deg,
-        rgba(15,11,10,.58) 0%,
-        rgba(15,11,10,.38) 22%,
-        rgba(15,11,10,.18) 38%,
-        rgba(15,11,10,.04) 58%,
-        rgba(15,11,10,0) 74%),
-      url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1200') center top / cover no-repeat;
+        rgba(16,13,12,.62) 0%,
+        rgba(16,13,12,.42) 22%,
+        rgba(16,13,12,.18) 42%,
+        rgba(16,13,12,.04) 62%,
+        rgba(16,13,12,0) 76%),
+      url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200') center top / cover no-repeat;
   }
 
-  .strategy-story-ui {
-    padding: 88px 18px 0;
+  .story--fixed-narrative .living-map--executive {
+    background:
+      radial-gradient(circle at 55% 70%, rgba(247,242,234,.88) 0%, rgba(247,242,234,.46) 28%, rgba(247,242,234,0) 56%),
+      linear-gradient(180deg, rgba(244,238,230,0) 0%, rgba(244,238,230,.18) 44%, rgba(244,238,230,.96) 68%, rgba(244,238,230,1) 100%) !important;
   }
 
-  .strategy-story-card--hero {
-    width: 100%;
+  .story--fixed-narrative .living-map--executive::before {
+    background: linear-gradient(180deg,
+      rgba(247,242,234,0) 0%,
+      rgba(247,242,234,.04) 28%,
+      rgba(247,242,234,.42) 54%,
+      rgba(247,242,234,.96) 72%,
+      rgba(247,242,234,1) 100%) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui {
+    padding: 92px 18px 108px !important;
+    align-items: flex-start !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero {
+    width: 100% !important;
     min-height: auto;
-    padding-top: 34px;
+    padding-top: 16px !important;
   }
 
-  .strategy-story-card--hero .hero-title-clean {
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
     max-width: 100% !important;
-    font-size: clamp(46px, 12vw, 66px) !important;
+    font-size: clamp(48px, 12vw, 66px) !important;
   }
 
-  .strategy-story-card--hero .hero-lead {
-    max-width: 100%;
+  .story--fixed-narrative .strategy-story-card--hero .hero-lead {
+    max-width: 100% !important;
     font-size: 16px !important;
   }
 }
