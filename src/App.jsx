@@ -136,10 +136,10 @@ function Story({ progressRef }) {
                 <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
                 <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
               </h1>
-              <p className="hero-lead">DigitalMap patrzy na całą drogę klienta — od widoczności i pierwszego kliknięcia, przez ofertę i zaufanie, aż po kontakt lub zakup. Dzięki temu wiesz, co ogranicza wynik teraz i co warto zrobić najpierw.</p>
+              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
-                <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
+                <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
               </div>
               <div className="micro-proof"><span>Mini Mapa 0 zł</span><span>5 obszarów diagnozy</span><span>Bez karty</span></div>
             </article>

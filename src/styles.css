@@ -5754,3 +5754,55 @@ footer > span { font-size: 11px !important; }
     white-space: normal;
   }
 }
+
+/* =========================================================
+   V34 — hero spacing + supporting copy polish
+   ========================================================= */
+
+/* Give the hero copy a proper left margin instead of hugging the viewport. */
+.story--fixed-narrative .strategy-story-ui--hero {
+  padding-left: 78px !important;
+}
+
+/* Make both hero CTAs feel like one intentional pair. */
+.story--fixed-narrative .strategy-story-card--hero .hero-actions {
+  gap: 14px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+  min-height: 60px !important;
+  padding-inline: 25px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button span {
+  flex: none;
+}
+
+/* Supporting facts sit lower and slightly inward for a cleaner optical alignment. */
+.story--fixed-narrative .strategy-story-card--hero .micro-proof {
+  margin-top: 25px !important;
+  margin-left: 10px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span,
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span {
+  font-size: 12.5px !important;
+  font-weight: 640 !important;
+}
+
+@media (max-width: 1280px) {
+  .story--fixed-narrative .strategy-story-ui--hero {
+    padding-left: 56px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .story--fixed-narrative .strategy-story-ui--hero {
+    padding-left: 22px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof {
+    margin-left: 0 !important;
+    margin-top: 20px !important;
+  }
+}
