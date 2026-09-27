@@ -5491,3 +5491,266 @@ footer > span { font-size: 11px !important; }
     width: min(100%, 520px) !important;
   }
 }
+
+/* =========================================================
+   V33 — readability + editorial journey + support/footer fixes
+   ========================================================= */
+
+/* HERO — bigger CTAs and clearly readable supporting line */
+.story--fixed-narrative .strategy-story-card--hero .hero-actions {
+  margin-top: 26px !important;
+  gap: 12px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+  min-height: 60px !important;
+  padding: 0 24px !important;
+  border-radius: 14px !important;
+  font-size: 14px !important;
+  font-weight: 760 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof {
+  margin-top: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  color: #615851 !important;
+  font-size: 12.5px !important;
+  line-height: 1.25 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span,
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span {
+  position: relative;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #615851 !important;
+  box-shadow: none !important;
+  font-size: 12.5px !important;
+  font-weight: 650 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span {
+  margin-left: 14px;
+  padding-left: 16px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 15px;
+  background: rgba(36,29,25,.18);
+  transform: translateY(-50%);
+}
+
+/* JOURNEY — restore the cleaner open editorial layout (no white AI-card background) */
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone,
+.story--fixed-narrative .strategy-story-card--zone {
+  position: relative;
+  width: min(600px, 38vw) !important;
+  padding: 10px 18px 12px 34px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  overflow: visible !important;
+  transition: none !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone:hover,
+.story--fixed-narrative .strategy-story-card--zone:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone::before,
+.story--fixed-narrative .strategy-story-card--zone::before {
+  content: '' !important;
+  position: absolute;
+  left: 0 !important;
+  top: 10px !important;
+  width: 3px !important;
+  height: 104px !important;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f08b71 0%, #d82d64 100%) !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone h2,
+.story--fixed-narrative .strategy-story-card--zone h2 {
+  max-width: 12ch !important;
+  margin: 18px 0 20px !important;
+  font-size: clamp(44px, 3.5vw, 64px) !important;
+  line-height: .95 !important;
+  letter-spacing: -.064em !important;
+  color: #171310 !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone p,
+.story--fixed-narrative .strategy-story-card--zone p {
+  max-width: 43ch !important;
+  margin: 0 !important;
+  color: #665d56 !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-zone-proof,
+.story--fixed-narrative .strategy-zone-proof {
+  width: fit-content;
+  margin-top: 24px !important;
+  padding: 14px 0 0 !important;
+  border-top: 1px solid rgba(31,25,21,.13) !important;
+  color: #4a423c !important;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+}
+
+/* OFFER SUPPORT — larger, readable, self-explanatory */
+.offer-support-grid {
+  margin-top: 28px !important;
+  gap: 18px !important;
+}
+
+.offer-support-card {
+  min-height: 240px !important;
+  padding: 30px 32px !important;
+  border-radius: 24px !important;
+}
+
+.offer-support-card > span {
+  font-size: 15px !important;
+  line-height: 1.35 !important;
+}
+
+.offer-support-card p {
+  margin: 20px 0 26px !important;
+  color: #4f4741 !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+}
+
+.offer-support-card a {
+  font-size: 15px !important;
+  font-weight: 760 !important;
+}
+
+.offer-support-card--dark p {
+  color: rgba(255,255,255,.76) !important;
+}
+
+.offer-support-card--dark strong {
+  font-size: 16px !important;
+  line-height: 1.58 !important;
+}
+
+.offer-cost-note {
+  margin-top: 18px !important;
+  padding: 22px 26px !important;
+  border-radius: 18px !important;
+  color: #332d29 !important;
+  font-size: 16px !important;
+  line-height: 1.68 !important;
+  font-weight: 620 !important;
+}
+
+/* TEAM TRUSTLINE — no more microscopic footer-like text */
+.team-trustline {
+  margin-top: 36px !important;
+}
+
+.team-trustline span {
+  min-height: 76px;
+  padding: 22px 26px !important;
+  display: flex;
+  align-items: center;
+  color: #554d47 !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  font-weight: 650 !important;
+}
+
+/* FOOTER — deliberate two-line statement; never split the final sentence */
+.footer-slogan {
+  margin-top: 68px !important;
+  padding: 34px 0 30px !important;
+  display: grid;
+  gap: 6px;
+  border-top: 1px solid rgba(255,255,255,.07) !important;
+  font: 540 clamp(34px, 4.1vw, 60px)/.98 var(--display) !important;
+  letter-spacing: -.055em !important;
+}
+
+.footer-slogan-line {
+  display: block;
+  color: #fff !important;
+}
+
+.footer-slogan-line--accent {
+  width: fit-content;
+  white-space: nowrap;
+  background: linear-gradient(110deg, #f59a78 0%, #e05a72 55%, #b72a58 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 1000px) {
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone,
+  .story--fixed-narrative .strategy-story-card--zone {
+    width: min(560px, 48vw) !important;
+  }
+
+  .offer-support-grid { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 760px) {
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+    width: 100%;
+    min-height: 58px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof {
+    row-gap: 8px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone,
+  .story--fixed-narrative .strategy-story-card--zone {
+    width: 100% !important;
+    padding: 8px 0 10px 22px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone h2,
+  .story--fixed-narrative .strategy-story-card--zone h2 {
+    font-size: 40px !important;
+  }
+
+  .offer-support-card {
+    min-height: auto !important;
+    padding: 24px 22px !important;
+  }
+
+  .team-trustline { grid-template-columns: 1fr !important; }
+  .team-trustline span { min-height: 64px; }
+
+  .footer-slogan {
+    font-size: 38px !important;
+  }
+
+  .footer-slogan-line--accent {
+    white-space: normal;
+  }
+}

@@ -65,9 +65,9 @@ export const processSteps = [
   },
   {
     no: '03',
-    title: 'Znajdujemy wąskie gardło',
-    accent: 'wąskie gardło',
-    copy: 'Oddzielamy fakty od sygnałów i hipotez. Nie każdy wykryty problem jest problemem, który warto naprawiać jako pierwszy.',
+    title: 'Znajdujemy możliwości',
+    accent: 'możliwości',
+    copy: 'Szukamy niewykorzystanego potencjału w tym, co już działa — ruchu, ofercie, zaufaniu, kanałach i procesie sprzedaży. Wskazujemy możliwości, które mogą dać największy efekt bez dokładania przypadkowych działań.',
   },
   {
     no: '04',

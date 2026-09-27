@@ -661,7 +661,7 @@ function Footer() {
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#scan">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
       </div>
-      <div className="footer-slogan">Najpierw diagnoza. <span>Potem decyzja. Dopiero później wydatek.</span></div>
+      <div className="footer-slogan"><span className="footer-slogan-line">Najpierw diagnoza. Potem decyzja.</span><span className="footer-slogan-line footer-slogan-line--accent">Dopiero później wydatek.</span></div>
       <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
     </footer>
   )
