@@ -147,16 +147,6 @@ function Story({ progressRef }) {
                 <a className="button button--ghost" href="#sample">Zobacz przykładową Mapę</a>
               </div>
               <div className="micro-proof"><span>Mini Mapa · 0 zł</span><span>5 obszarów diagnozy</span><span>Priorytet zamiast listy błędów</span></div>
-              <div className="hero-building-nav" aria-label="Przejdź do obszaru diagnozy">
-                <span className="hero-building-label">PRZEJDŹ PO MAPIE</span>
-                {stages.map((item, index) => (
-                  <button key={item.no} type="button" onClick={() => goToZone(index)}>
-                    <i>{String(index + 1).padStart(2, '0')}</i>
-                    <b>{item.no}</b>
-                    <em>↗</em>
-                  </button>
-                ))}
-              </div>
             </article>
           )}
         </div>
