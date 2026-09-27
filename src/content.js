@@ -71,9 +71,9 @@ export const processSteps = [
   },
   {
     no: '04',
-    title: 'Dostajesz decyzję',
-    accent: 'decyzję',
-    copy: 'Priorytet, pierwszy ruch, plan działania, rzeczy „nie teraz” i miernik, po którym można ocenić efekt zmiany.',
+    title: 'Dostajesz plan działania',
+    accent: 'plan działania',
+    copy: 'Otrzymujesz plan marketingowy dopasowany do Twojej firmy: co zrobić najpierw, co później, czego na razie nie ruszać i jak mierzyć efekty. Krok po kroku — z naciskiem na działania, które mają pomóc zdobywać więcej klientów.',
   },
 ]
 

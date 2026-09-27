@@ -72,19 +72,19 @@ function Story({ progressRef }) {
     {
       no: 'WIDOCZNOŚĆ',
       title: <>Czy Twoja firma jest <span className="accent-text">widoczna wtedy, kiedy klient szuka?</span></>,
-      copy: 'Sprawdzamy, czy docierasz do właściwych ludzi przy właściwej potrzebie — w Google, Maps, reklamach i nowych kanałach wyszukiwania.',
+      copy: 'Sprawdzamy, czy Twoja firma pojawia się tam, gdzie potencjalni klienci naprawdę szukają rozwiązania — w Google, Maps, reklamach i wyszukiwaniu AI. Pokazujemy, gdzie tracisz widoczność i co może zwiększyć liczbę wartościowych wejść.',
       proof: 'Google · SEO · Maps · Ads · AI Search',
     },
     {
       no: 'STRONA I OFERTA',
       title: <>Klient trafia na stronę. <span className="accent-text">Czy od razu wie, dlaczego ma wybrać właśnie Ciebie?</span></>,
-      copy: 'Sprawdzamy ofertę, komunikację, UX i CTA. Dobry ruch nic nie daje, jeśli klient nie rozumie wartości albo nie wie, co zrobić dalej.',
+      copy: 'Sprawdzamy, dlaczego ruch na stronie nie zamienia się w zapytania i płacących klientów. Analizujemy ofertę, komunikację, UX i CTA, żeby wskazać miejsca, w których klient traci zainteresowanie albo rezygnuje z kontaktu.',
       proof: 'Oferta · komunikacja · UX · CTA · landing page',
     },
     {
       no: 'SOCIAL & CONTENT',
       title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
-      copy: 'Sprawdzamy, czy content buduje zaufanie, pokazuje wartość i prowadzi dalej — czy tylko generuje aktywność bez wpływu na wynik.',
+      copy: 'Sprawdzamy, czy social media i content docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
       proof: 'Social · content · proof · droga do kontaktu',
     },
     {
@@ -239,10 +239,10 @@ function SampleMap() {
     <section className="sample-section" id="sample">
       <div className="section-shell">
         <div className="section-heading section-heading--split sample-heading">
-          <div className="eyebrow">PRZYKŁADOWY WYNIK DIAGNOZY</div>
+          <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
           <div>
-            <h2>Zobacz co dostajesz <span className="accent-text">razem z DigitalMap.</span></h2>
-            <p>Przejdź przez przykładową diagnozę: od problemu i dowodów, przez drogę klienta, aż po plan działania i końcową decyzję.</p>
+            <h2>Zobacz, jak wygląda <span className="accent-text">konkretny plan na więcej klientów.</span></h2>
+            <p>Na przykładzie pokazujemy, gdzie firma traci potencjalnych klientów, jakie możliwości warto wykorzystać i jak układamy działania w kolejności, która ma największy sens biznesowy.</p>
           </div>
         </div>
 
