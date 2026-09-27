@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { LivingMap } from './components/LivingMap.jsx'
 import { TopographicLogo } from './components/TopographicLogo.jsx'
-import { diagnosis, faqs, industries, offers, processSteps, projects, symptoms, team, toolGroups } from './content.js'
+import { faqs, industries, offers, processSteps, projects, symptoms, team } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -239,111 +239,88 @@ function Process() {
   )
 }
 
+function Problems() {
+  const visibleProblems = symptoms.filter((item) => item.id !== 'other')
+
+  return (
+    <section className="problems-section" id="system">
+      <div className="section-shell">
+        <div className="section-heading section-heading--split problems-heading">
+          <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
+          <div>
+            <h2>Nie musisz wiedzieć, jakiej usługi potrzebujesz. <span className="accent-text">Wystarczy, że wiesz, co dziś nie działa.</span></h2>
+            <p>Zaczynamy od sytuacji Twojej firmy, nie od gotowej usługi. Wybierz problem, który jest najbliższy temu, z czym dziś się mierzysz.</p>
+          </div>
+        </div>
+        <div className="problems-grid">
+          {visibleProblems.map((item) => (
+            <a className="problem-card" href="#scan" key={item.id}>
+              <div className="problem-card-top"><span>{item.label}</span><i>↗</i></div>
+              <p>{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function SampleMap() {
-  const [view, setView] = useState('overview')
-  const [decisionTab, setDecisionTab] = useState('decision')
-  const [evidenceIndex, setEvidenceIndex] = useState(0)
-
-  const decisionTabs = {
-    decision: ['DECYZJA', diagnosis.decision],
-    now: ['PIERWSZY RUCH', diagnosis.doNow],
-    later: ['NIE TERAZ', diagnosis.notNow],
-    measure: ['MIERNIK', diagnosis.measure],
-  }
-
-  const views = [
-    ['overview', 'Przegląd'],
-    ['journey', 'Droga klienta'],
-    ['evidence', 'Dowody'],
-    ['plan', 'Plan działania'],
+  const decisionBlocks = [
+    {
+      label: 'CO ZNALEŹLIŚMY?',
+      title: 'Klient zbyt długo szuka powodu, żeby wybrać właśnie tę firmę.',
+      copy: 'Oferta nie komunikuje najważniejszej wartości wystarczająco szybko, wezwanie do działania nie prowadzi jasno do następnego kroku, a formularz dokłada tarcie w momencie decyzji.',
+    },
+    {
+      label: 'CO ZROBIĆ NAJPIERW?',
+      title: 'Poprawić ofertę i uprościć drogę do kontaktu.',
+      copy: 'Najpierw wykorzystać lepiej ruch, który już jest. Dopiero później inwestować w zwiększanie jego skali.',
+    },
+    {
+      label: 'CZEGO TERAZ NIE ROBIĆ?',
+      title: 'Nie zwiększać budżetu reklamowego. Nie przebudowywać całej strony.',
+      copy: 'Najpierw sprawdzić, czy poprawienie kluczowych elementów zwiększy liczbę jakościowych zapytań.',
+    },
+    {
+      label: 'CO MIERZYĆ?',
+      title: 'Liczbę jakościowych zapytań, przejścia do kontaktu i koszt pozyskania zapytania.',
+      copy: 'To pokazuje, czy zmiana faktycznie poprawia wynik, a nie tylko wygląd strony albo liczbę wejść.',
+    },
   ]
 
   return (
-    <section className="sample-section" id="sample">
+    <section className="sample-section sample-section--decision" id="sample">
       <div className="section-shell">
-        <div className="section-heading section-heading--split sample-heading">
-          <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
+        <div className="section-heading section-heading--split sample-heading sample-heading--decision">
+          <div className="eyebrow">PRZYKŁADOWA ODPOWIEDŹ</div>
           <div>
-            <h2>Zobacz, jak wygląda <span className="accent-text">konkretny plan na więcej klientów.</span></h2>
-            <p>Na przykładzie pokazujemy, gdzie firma traci potencjalnych klientów, jakie możliwości warto wykorzystać i jak układamy działania w kolejności, która ma największy sens biznesowy.</p>
+            <h2>Zobacz, z jaką odpowiedzią <span className="accent-text">wychodzisz z DigitalMap.</span></h2>
+            <p>Nie dostajesz kolejnej listy rzeczy do poprawy. Dostajesz odpowiedź: gdzie dziś tracisz największy potencjał, co zrobić najpierw i na co na razie nie wydawać pieniędzy.</p>
           </div>
         </div>
 
-        <div className="diagnosis-ui diagnosis-ui--interactive">
-          <aside className="diagnosis-rail">
-            <TopographicLogo inverted />
-            <div className="rail-nav">
-              {views.map(([key, label]) => (
-                <button key={key} className={view === key ? 'active' : ''} onClick={() => setView(key)}>
-                  <span>{label}</span><Arrow />
-                </button>
-              ))}
-            </div>
-            <div className="sample-map-badge">PRZYKŁADOWA MAPA</div><small>ZOBACZ, GDZIE TWOJA FIRMA TRACI KLIENTÓW.</small>
-          </aside>
+        <div className="decision-example">
+          <article className="decision-example-lead">
+            <span>CO NAPRAWDĘ BLOKUJE WYNIKI?</span>
+            <h3>Masz ruch. <strong>Problem zaczyna się później.</strong></h3>
+            <p>Ludzie trafiają na stronę, ale zbyt mało z nich przechodzi do kontaktu. Zwiększenie ruchu prawdopodobnie tylko zwiększyłoby koszt — bez rozwiązania głównego problemu.</p>
+          </article>
 
-          <div className="diagnosis-main">
-            <div className="diagnosis-top"><span>DIGITALMAP / DIAGNOZA MARKETINGOWA</span><b>Status: Zakończona</b></div>
+          <div className="decision-example-grid">
+            {decisionBlocks.map((item, index) => (
+              <article className={`decision-example-card decision-example-card--${index + 1}`} key={item.label}>
+                <span>{item.label}</span>
+                <h4>{item.title}</h4>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
 
-            {view === 'overview' && (
-              <div className="map-view map-view--overview">
-                <div className="priority-layout">
-                  <div className="priority-copy">
-                    <span className="priority-no">PROBLEM #1</span>
-                    <h3>{diagnosis.problem}</h3>
-                    <p>{diagnosis.summary}</p>
-                  </div>
-                  <div className="evidence-stack">
-                    {diagnosis.evidence.map((item, index) => (
-                      <button className={evidenceIndex === index ? 'evidence-row active' : 'evidence-row'} key={item.label} onClick={() => setEvidenceIndex(index)}>
-                        <span>{item.label}</span><strong>{item.value}</strong><i>↗</i>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="evidence-detail"><span>{diagnosis.evidence[evidenceIndex].label}</span><b className="confidence-pill">{diagnosis.evidence[evidenceIndex].confidence}</b><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
-              </div>
-            )}
-
-            {view === 'journey' && (
-              <div className="map-view map-view--journey">
-                <div className="view-intro"><span>DROGA KLIENTA</span><h3>Gdzie zatrzymuje się wynik?</h3><p>Etapy nie są oceniane jako „dobre / złe”. Szukamy miejsca, które najbardziej ogranicza kolejny etap.</p></div>
-                <div className="journey-grid">
-                  {diagnosis.stages.map((stage, index) => (
-                    <button key={stage.name} className={stage.status === 'wąskie gardło' ? 'journey-stage critical' : 'journey-stage'} onClick={() => setEvidenceIndex(Math.min(index, diagnosis.evidence.length - 1))}>
-                      <span>0{index + 1}</span><b>{stage.name}</b><strong>{stage.score}</strong><em>{stage.status}</em><p>{stage.note}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {view === 'evidence' && (
-              <div className="map-view map-view--evidence">
-                <div className="view-intro"><span>DOWODY</span><h3>Dlaczego właśnie ten problem jest priorytetem?</h3><p>Kliknij sygnał. Pokazujemy obserwację, znaczenie biznesowe i poziom pewności.</p></div>
-                <div className="evidence-browser">
-                  <div className="evidence-browser-nav">
-                    {diagnosis.evidence.map((item, index) => <button key={item.label} className={evidenceIndex === index ? 'active' : ''} onClick={() => setEvidenceIndex(index)}><span>0{index + 1}</span>{item.label}</button>)}
-                  </div>
-                  <div className="evidence-browser-main"><span>{diagnosis.evidence[evidenceIndex].label}</span><b className="confidence-pill">{diagnosis.evidence[evidenceIndex].confidence}</b><h4>{diagnosis.evidence[evidenceIndex].value}</h4><p>{diagnosis.evidence[evidenceIndex].detail}</p></div>
-                </div>
-              </div>
-            )}
-
-            {view === 'plan' && (
-              <div className="map-view map-view--plan">
-                <div className="view-intro"><span>PLAN DZIAŁANIA</span><h3>Najpierw ruch, który odblokowuje resztę.</h3><p>Nie próbujemy poprawiać wszystkiego jednocześnie. Plan pokazuje kolejność następnych ruchów.</p></div>
-                <div className="plan-grid">{diagnosis.plan.map((item) => <article key={item.no}><span>{item.no}</span><h4>{item.title}</h4><p>{item.copy}</p></article>)}</div>
-              </div>
-            )}
-
-            <div className="decision-tabs">
-              {Object.entries(decisionTabs).map(([key, [label]]) => <button key={key} className={decisionTab === key ? 'active' : ''} onClick={() => setDecisionTab(key)}>{label}</button>)}
-            </div>
-            <div className="decision-output">
-              <div><span>{decisionTabs[decisionTab][0]}</span><strong>{decisionTabs[decisionTab][1]}</strong></div>
-              <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
-            </div>
+          <div className="decision-example-bottom">
+            <span>WŁAŚNIE PO TO POWSTAJE MAPA</span>
+            <strong>Żebyś wiedział, co zrobić najpierw — zamiast poprawiać wszystko naraz.</strong>
+            <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
           </div>
         </div>
       </div>
@@ -385,45 +362,21 @@ function Principle() {
 }
 
 function Method() {
-  const [activeGroup, setActiveGroup] = useState(toolGroups[0].id)
-  const group = toolGroups.find((item) => item.id === activeGroup) || toolGroups[0]
+  const tools = ['GA4', 'Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'Wyszukiwanie AI']
 
   return (
-    <section className="method-v6" id="method">
-      <div className="section-shell">
-        <div className="method-v6-head">
+    <section className="method-v6 method-v6--simple" id="method">
+      <div className="section-shell method-simple-shell">
+        <div className="method-simple-copy">
           <div className="eyebrow">METODA</div>
-          <div><h2>Dane pokazują, co się dzieje. <span className="accent-text">My ustalamy, co z tym zrobić.</span></h2><p>Łączymy dane, badanie rynku i obserwację zachowań klientów. Narzędzia pomagają znaleźć sygnały. Priorytet wynika jednak z kontekstu biznesowego — nie z automatycznej punktacji.</p></div>
+          <h2>Nie opieramy rekomendacji <span className="accent-text">na jednym narzędziu.</span></h2>
+          <p>Łączymy dane o ruchu, wyszukiwaniu, reklamach, konkurencji, stronie i zachowaniu klientów. Narzędzia są źródłem informacji — nie gotowej odpowiedzi.</p>
+          <strong>Najważniejsze jest to, co wynika z danych dla Twojej firmy i co warto zrobić jako następny krok.</strong>
         </div>
-
-        <div className="method-command">
-          <div className="method-group-nav" role="tablist" aria-label="Grupy narzędzi">
-            {toolGroups.map((item) => (
-              <button key={item.id} className={activeGroup === item.id ? 'active' : ''} onClick={() => setActiveGroup(item.id)}>
-                <span>{item.no}</span><strong>{item.title}</strong><i>↗</i>
-              </button>
-            ))}
-          </div>
-
-          <div className="method-stage">
-            <div className="method-stage-head"><span>{group.no} / {group.title}</span><h3>{group.copy}</h3></div>
-            <div className="method-tools-live">
-              {group.tools.map((tool) => (
-                <article key={tool.code}>
-                  <span>{tool.code}</span><div><strong>{tool.name}</strong><p>{tool.detail}</p></div>
-                </article>
-              ))}
-            </div>
-            <div className="method-pipeline"><span>Źródła</span><i>→</i><span>Sygnały</span><i>→</i><span>Kontekst</span><i>→</i><b>Priorytet</b><i>→</i><b>Decyzja</b></div>
-          </div>
-
-          <aside className="human-decision-card">
-            <div className="human-orbit"><i /><i /><i /><b /></div>
-            <span>OCENA EKSPERTA</span>
-            <h3>Nie każdy sygnał jest problemem wartym rozwiązania.</h3>
-            <p>Dlatego Mapa nie kończy się automatyczną oceną punktową. Oddzielamy to, co potwierdzone, od silnych sygnałów i hipotez — a dopiero później ustalamy priorytet.</p>
-            <div className="human-decision-foot"><span>POTWIERDZONE</span><span>SILNY SYGNAŁ</span><span>HIPOTEZA</span><strong>DECYZJA</strong></div>
-          </aside>
+        <div className="method-simple-tools" aria-label="Przykładowe źródła danych i narzędzia">
+          <span>PRZYKŁADOWE ŹRÓDŁA DANYCH</span>
+          <div>{tools.map((tool) => <b key={tool}>{tool}</b>)}</div>
+          <small>Dobieramy źródła do sytuacji firmy. Nie sprzedajemy raportu z narzędzia — sprzedajemy interpretację i plan działania.</small>
         </div>
       </div>
     </section>
@@ -458,19 +411,16 @@ function Evidence() {
 function Industries() {
   return (
     <section className="industries" id="industries">
-      <div className="section-shell industries-layout">
+      <div className="section-shell industries-layout industries-layout--simple">
         <div className="industries-copy">
           <div className="eyebrow">DLA KOGO</div>
-          <h2>Branża zmienia kontekst. <span className="accent-text">Nie logikę diagnozy.</span></h2>
-          <p>Pracujemy z firmami usługowymi, lokalnymi, eksperckimi, cyfrowymi, B2B i B2C. Branża zmienia kontekst, ale logika pozostaje ta sama: kontakt z marką → ocena → decyzja → kontakt lub zakup. Poniżej tylko przykłady — nie zamknięta lista branż.</p>
+          <h2>DigitalMap sprawdzi się szczególnie tam, <span className="accent-text">gdzie klient ma kilka dróg do wyboru.</span></h2>
+          <p>Pracujemy z firmami usługowymi, lokalnymi, eksperckimi i cyfrowymi — wszędzie tam, gdzie na wynik wpływa więcej niż jeden element marketingu.</p>
           <a href="#scan" className="text-link">Nie widzisz swojej branży? Sprawdź firmę <Arrow /></a>
         </div>
-        <div className="industry-grid">
+        <div className="industry-grid industry-grid--simple">
           {industries.map((industry) => (
-            <article key={industry.name}>
-              <h3>{industry.name}</h3>
-              <p>{industry.tag}</p>
-            </article>
+            <article key={industry.name}><h3>{industry.name}</h3></article>
           ))}
         </div>
       </div>
@@ -739,6 +689,7 @@ export default function App() {
       <Header />
       <main>
         <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
+        <Problems />
         <Process />
         <SampleMap />
         <Principle />

@@ -5999,3 +5999,337 @@ footer > span { font-size: 11px !important; }
     font-size: 10.5px;
   }
 }
+
+/* =========================================================
+   V40 — client-value rework: problems, sample answer, method, industries
+   ========================================================= */
+
+/* Problems / buying situations */
+.problems-section {
+  padding: 132px 0;
+  background: #f7f3ed;
+  color: var(--ink);
+}
+
+.problems-heading { margin-bottom: 46px; }
+.problems-heading h2 { max-width: 1040px; }
+.problems-heading p { max-width: 720px; }
+
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(18,17,16,.10);
+  border-left: 1px solid rgba(18,17,16,.10);
+}
+
+.problem-card {
+  min-height: 220px;
+  padding: 28px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 34px;
+  text-decoration: none;
+  color: var(--ink);
+  border-right: 1px solid rgba(18,17,16,.10);
+  border-bottom: 1px solid rgba(18,17,16,.10);
+  background: rgba(255,255,255,.34);
+  transition: background .22s ease, transform .22s ease, box-shadow .22s ease;
+}
+
+.problem-card:hover {
+  background: #fffaf5;
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(54,42,34,.06);
+}
+
+.problem-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.problem-card-top span {
+  max-width: 15ch;
+  font: 560 clamp(30px, 2.8vw, 44px)/.98 var(--display);
+  letter-spacing: -.045em;
+}
+
+.problem-card-top i {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  font-style: normal;
+  background: rgba(165,46,85,.08);
+  color: var(--wine);
+  transition: transform .2s ease, background .2s ease;
+}
+
+.problem-card:hover .problem-card-top i {
+  transform: translate(2px,-2px);
+  background: rgba(165,46,85,.14);
+}
+
+.problem-card p {
+  max-width: 58ch;
+  margin: 0;
+  color: #625a53;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Sample answer: sell clarity, not a report UI */
+.sample-section--decision {
+  background: linear-gradient(180deg, #eee6dc 0%, #e9e1d7 100%);
+}
+
+.sample-heading--decision { margin-bottom: 44px; }
+.sample-heading--decision h2 { max-width: 980px; }
+.sample-heading--decision p { max-width: 760px; font-size: 16px; line-height: 1.75; }
+
+.decision-example {
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(18,17,16,.12);
+  background: #171412;
+  box-shadow: 0 36px 90px rgba(56,43,34,.18);
+}
+
+.decision-example-lead {
+  padding: 44px 46px 42px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(205,74,107,.16), transparent 34%),
+    #171412;
+}
+
+.decision-example-lead > span,
+.decision-example-card > span,
+.decision-example-bottom > span {
+  display: block;
+  color: #e997aa;
+  font: 800 11px/1 var(--body);
+  letter-spacing: .15em;
+}
+
+.decision-example-lead h3 {
+  margin: 18px 0 20px;
+  max-width: 980px;
+  color: #fff;
+  font: 520 clamp(50px, 5vw, 78px)/.92 var(--display);
+  letter-spacing: -.06em;
+}
+
+.decision-example-lead h3 strong {
+  color: #ef7d78;
+  font-weight: inherit;
+}
+
+.decision-example-lead p {
+  max-width: 850px;
+  margin: 0;
+  color: rgba(255,255,255,.68);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.decision-example-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.decision-example-card {
+  min-height: 300px;
+  padding: 32px 34px 34px;
+  border-right: 1px solid rgba(255,255,255,.09);
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  background: rgba(255,255,255,.02);
+  transition: background .2s ease;
+}
+
+.decision-example-card:nth-child(2n) { border-right: 0; }
+.decision-example-card:nth-child(n+3) { border-bottom: 0; }
+.decision-example-card:hover { background: rgba(255,255,255,.045); }
+
+.decision-example-card h4 {
+  margin: 20px 0 16px;
+  max-width: 22ch;
+  color: #fff;
+  font: 520 clamp(28px, 2.6vw, 40px)/1.02 var(--display);
+  letter-spacing: -.045em;
+}
+
+.decision-example-card p {
+  max-width: 56ch;
+  margin: 0;
+  color: rgba(255,255,255,.58);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.decision-example-bottom {
+  padding: 30px 34px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  background: #fffaf5;
+}
+
+.decision-example-bottom > span { color: var(--wine); white-space: nowrap; }
+.decision-example-bottom strong {
+  color: #211c19;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.decision-example-bottom a {
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+  background: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Method: deliberately de-emphasize tools */
+.method-v6--simple {
+  padding: 132px 0;
+  background: #12100f;
+  color: #fff;
+}
+
+.method-simple-shell {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.method-simple-copy .eyebrow { color: rgba(255,255,255,.45); }
+.method-simple-copy h2 {
+  margin: 20px 0 24px;
+  max-width: 900px;
+  font: 520 clamp(54px, 5.6vw, 88px)/.91 var(--display);
+  letter-spacing: -.062em;
+}
+.method-simple-copy p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255,255,255,.60);
+  font-size: 17px;
+  line-height: 1.75;
+}
+.method-simple-copy > strong {
+  display: block;
+  max-width: 780px;
+  margin-top: 26px;
+  color: #fff;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.method-simple-tools {
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 24px;
+  background: rgba(255,255,255,.025);
+}
+.method-simple-tools > span {
+  display: block;
+  margin-bottom: 22px;
+  color: #e390a5;
+  font: 800 10px/1 var(--body);
+  letter-spacing: .14em;
+}
+.method-simple-tools > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+.method-simple-tools b {
+  padding: 11px 13px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 10px;
+  color: rgba(255,255,255,.82);
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255,255,255,.025);
+}
+.method-simple-tools small {
+  display: block;
+  margin-top: 24px;
+  color: rgba(255,255,255,.42);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Industries: simple names, no internal taxonomy */
+.industries-layout--simple { grid-template-columns: .82fr 1.18fr; }
+.industry-grid--simple {
+  gap: 1px !important;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.industry-grid--simple article {
+  min-height: 128px !important;
+  padding: 20px 24px !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #1b1816 !important;
+}
+.industry-grid--simple article:hover {
+  transform: none !important;
+  background: #231e1b !important;
+}
+.industry-grid--simple h3 {
+  margin: 0 !important;
+  max-width: none !important;
+  color: #fff !important;
+  font-size: clamp(25px, 2.2vw, 34px) !important;
+  line-height: 1.05 !important;
+}
+.industry-grid--simple p { display: none !important; }
+
+@media (max-width: 980px) {
+  .problems-grid,
+  .decision-example-grid,
+  .method-simple-shell,
+  .industries-layout--simple {
+    grid-template-columns: 1fr;
+  }
+  .problem-card { min-height: 0; }
+  .decision-example-card { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.09) !important; min-height: 0; }
+  .decision-example-card:last-child { border-bottom: 0 !important; }
+  .decision-example-bottom { grid-template-columns: 1fr; }
+  .decision-example-bottom > span { white-space: normal; }
+}
+
+@media (max-width: 720px) {
+  .problems-section,
+  .method-v6--simple { padding: 88px 0; }
+  .problem-card { padding: 22px 20px; gap: 24px; }
+  .problem-card-top span { font-size: 30px; }
+  .decision-example { border-radius: 22px; }
+  .decision-example-lead { padding: 28px 22px 26px; }
+  .decision-example-lead h3 { font-size: 44px; }
+  .decision-example-card { padding: 24px 22px; }
+  .decision-example-card h4 { font-size: 28px; }
+  .decision-example-bottom { padding: 24px 22px; }
+  .method-simple-copy h2 { font-size: 50px; }
+  .method-simple-tools { padding: 22px 18px; }
+}
