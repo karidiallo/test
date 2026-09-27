@@ -118,7 +118,7 @@ function Story({ progressRef }) {
       <div className="story-canvas-wrap">
         <LivingMap progressRef={progressRef} onSelectZone={goToZone} />
 
-        <div className="strategy-story-ui">
+        <div className={`strategy-story-ui ${stage ? 'strategy-story-ui--zone' : 'strategy-story-ui--hero'}`}>
           {stage ? (
             <article ref={cardRef} className="strategy-story-card strategy-story-card--zone">
               <div className="eyebrow">{stage.no}</div>

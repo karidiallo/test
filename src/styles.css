@@ -5339,3 +5339,155 @@ footer > span { font-size: 11px !important; }
     width: 100%;
   }
 }
+
+/* =========================================================
+   V32 — hero scale correction + stage-specific readability
+   ========================================================= */
+
+/* Do not paint the hero readability wash over the later map stages. */
+.story--fixed-narrative .strategy-story-ui::before {
+  display: none !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--hero::before {
+  content: '';
+  display: block !important;
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(690px, 44vw);
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(248,244,238,.98) 0%,
+    rgba(248,244,238,.94) 54%,
+    rgba(248,244,238,.62) 76%,
+    rgba(248,244,238,0) 100%);
+}
+
+/* Hero should fit in a laptop viewport without swallowing the map. */
+.story--fixed-narrative .strategy-story-ui {
+  padding: 104px 56px 104px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero {
+  width: min(620px, 38vw) !important;
+  max-width: 620px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+  max-width: 12.4ch !important;
+  font-size: clamp(54px, 4.45vw, 76px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.07em !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-lead {
+  max-width: 42ch !important;
+  margin-top: 22px !important;
+  font-size: 16px !important;
+  line-height: 1.68 !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions {
+  margin-top: 24px !important;
+  gap: 10px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+  min-height: 54px !important;
+  padding: 0 20px !important;
+  border-radius: 12px !important;
+  font-size: 13px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof {
+  margin-top: 16px !important;
+  font-size: 10px !important;
+}
+
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span,
+.story--fixed-narrative .strategy-story-card--hero .micro-proof span + span {
+  font-size: 10px !important;
+}
+
+/* Later stages: no giant white veil. Use a compact editorial readability strip only. */
+.story--fixed-narrative .strategy-story-ui--zone {
+  padding-left: 72px !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone {
+  width: min(560px, 34vw) !important;
+  padding: 18px 24px 20px 30px !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(35,28,24,.08) !important;
+  background: rgba(250,247,242,.88) !important;
+  box-shadow: 0 18px 46px rgba(54,40,32,.08) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone::before {
+  top: 22px !important;
+  height: 74px !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone h2 {
+  max-width: 12ch !important;
+  margin: 14px 0 15px !important;
+  font-size: clamp(40px, 3vw, 54px) !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone p {
+  max-width: 44ch !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+}
+
+.story--fixed-narrative .strategy-story-ui--zone .strategy-zone-proof {
+  margin-top: 18px !important;
+  font-size: 12px !important;
+}
+
+/* Keep bottom stage navigator below the content rather than visually merging with it. */
+.story--fixed-narrative .executive-map-nav {
+  bottom: 18px !important;
+  max-width: min(860px, calc(100vw - 70px)) !important;
+}
+
+@media (max-width: 1280px) {
+  .story--fixed-narrative .strategy-story-card--hero {
+    width: min(560px, 42vw) !important;
+  }
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    font-size: clamp(50px, 4.5vw, 68px) !important;
+  }
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone {
+    width: min(520px, 40vw) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .story--fixed-narrative .strategy-story-ui {
+    padding: 92px 22px 98px !important;
+  }
+  .story--fixed-narrative .strategy-story-ui--hero::before {
+    width: 100%;
+    background: linear-gradient(180deg,
+      rgba(248,244,238,.97) 0%,
+      rgba(248,244,238,.90) 62%,
+      rgba(248,244,238,0) 100%);
+  }
+  .story--fixed-narrative .strategy-story-card--hero {
+    width: min(100%, 560px) !important;
+    max-width: 560px !important;
+  }
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    max-width: 100% !important;
+    font-size: clamp(44px, 9vw, 58px) !important;
+  }
+  .story--fixed-narrative .strategy-story-ui--zone {
+    padding-left: 22px !important;
+  }
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone {
+    width: min(100%, 520px) !important;
+  }
+}
