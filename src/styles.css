@@ -6333,3 +6333,298 @@ footer > span { font-size: 11px !important; }
   .method-simple-copy h2 { font-size: 50px; }
   .method-simple-tools { padding: 22px 18px; }
 }
+
+/* =========================================================
+   V41 — interactive premium Problems section
+   ========================================================= */
+
+.problems-section--interactive {
+  position: relative;
+  overflow: hidden;
+  padding: 138px 0 144px;
+  background:
+    radial-gradient(circle at 86% 12%, rgba(174, 56, 91, .16), transparent 24%),
+    radial-gradient(circle at 18% 84%, rgba(217, 126, 94, .10), transparent 26%),
+    #14110f;
+  color: #f8f3ed;
+}
+
+.problems-section--interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(125deg, rgba(255,255,255,.022) 0 1px, transparent 1px 32px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 100%);
+  opacity: .72;
+}
+
+.problems-experience {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(320px, .88fr) minmax(520px, 1.12fr);
+  gap: clamp(64px, 7vw, 120px);
+  align-items: start;
+}
+
+.problems-intro {
+  position: sticky;
+  top: 128px;
+  align-self: start;
+}
+
+.problems-intro .eyebrow {
+  color: #d99a80;
+}
+
+.problems-intro h2 {
+  max-width: 760px;
+  margin: 18px 0 22px;
+  color: #fffaf5;
+  font: 560 clamp(46px, 4.2vw, 72px)/.95 var(--display);
+  letter-spacing: -.06em;
+  text-wrap: balance;
+}
+
+.problems-intro .accent-text {
+  background: linear-gradient(135deg, #ee9a79 0%, #e56875 54%, #ba3159 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.problems-intro > p {
+  max-width: 590px;
+  margin: 0;
+  color: rgba(255,248,241,.68);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.problem-active-summary {
+  margin-top: 42px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.problem-active-summary > span {
+  display: block;
+  margin-bottom: 12px;
+  color: rgba(242,164,134,.82);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.problem-active-summary strong {
+  display: block;
+  max-width: 18ch;
+  color: #fffaf5;
+  font: 560 clamp(28px, 2.5vw, 42px)/1 var(--display);
+  letter-spacing: -.045em;
+}
+
+.problem-active-summary p {
+  max-width: 560px;
+  margin: 16px 0 22px;
+  color: rgba(255,248,241,.70);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.problem-active-summary a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: #fffaf5;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.30);
+  padding-bottom: 7px;
+  transition: color .2s ease, border-color .2s ease, gap .2s ease;
+}
+
+.problem-active-summary a:hover {
+  color: #f19a7c;
+  border-color: #f19a7c;
+  gap: 18px;
+}
+
+.problem-navigator {
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.problem-row {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 26px;
+  min-height: 112px;
+  padding: 28px 4px 26px;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.problem-row::before {
+  content: '';
+  position: absolute;
+  inset: 8px -18px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity .24s ease, transform .24s ease;
+}
+
+.problem-row:hover::before,
+.problem-row.is-active::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.problem-row-title,
+.problem-row-action,
+.problem-row-copy,
+.problem-row-line {
+  position: relative;
+  z-index: 1;
+}
+
+.problem-row-title {
+  color: rgba(255,250,245,.58);
+  font: 520 clamp(28px, 2.5vw, 42px)/1 var(--display);
+  letter-spacing: -.045em;
+  transition: color .22s ease, transform .22s ease;
+}
+
+.problem-row-action {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  color: rgba(255,255,255,.46);
+  font-size: 15px;
+  transition: color .22s ease, border-color .22s ease, background .22s ease, transform .22s ease;
+}
+
+.problem-row-copy {
+  grid-column: 1 / -1;
+  max-width: 660px;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  color: rgba(255,248,241,.66);
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .34s ease, opacity .26s ease, margin-top .3s ease, transform .3s ease;
+}
+
+.problem-row-line {
+  grid-column: 1 / -1;
+  height: 2px;
+  margin-top: 22px;
+  background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+
+.problem-row-line i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #ee9a79, #c7335e);
+  transition: width .34s ease;
+}
+
+.problem-row:hover .problem-row-title,
+.problem-row.is-active .problem-row-title {
+  color: #fffaf5;
+  transform: translateX(8px);
+}
+
+.problem-row:hover .problem-row-action,
+.problem-row.is-active .problem-row-action {
+  color: #fff;
+  border-color: rgba(235,113,122,.50);
+  background: rgba(194,50,91,.14);
+  transform: translate(-4px, 0);
+}
+
+.problem-row.is-active .problem-row-copy {
+  max-height: 140px;
+  margin-top: 16px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.problem-row.is-active .problem-row-line i {
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .problems-section--interactive {
+    padding: 100px 0 108px;
+  }
+
+  .problems-experience {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+
+  .problems-intro {
+    position: static;
+  }
+
+  .problem-active-summary {
+    display: none;
+  }
+
+  .problems-intro h2 {
+    max-width: 880px;
+  }
+}
+
+@media (max-width: 680px) {
+  .problems-section--interactive {
+    padding: 82px 0 88px;
+  }
+
+  .problems-intro h2 {
+    font-size: clamp(40px, 10.8vw, 56px);
+  }
+
+  .problems-intro > p {
+    font-size: 15px;
+  }
+
+  .problem-row {
+    min-height: 96px;
+    padding: 24px 0 22px;
+  }
+
+  .problem-row-title {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .problem-row-action {
+    width: 36px;
+    height: 36px;
+  }
+
+  .problem-row-copy {
+    font-size: 14px;
+  }
+}

@@ -241,24 +241,46 @@ function Process() {
 
 function Problems() {
   const visibleProblems = symptoms.filter((item) => item.id !== 'other')
+  const [activeProblem, setActiveProblem] = useState(0)
+  const active = visibleProblems[activeProblem]
 
   return (
-    <section className="problems-section" id="system">
-      <div className="section-shell">
-        <div className="section-heading section-heading--split problems-heading">
+    <section className="problems-section problems-section--interactive" id="system">
+      <div className="section-shell problems-experience">
+        <div className="problems-intro">
           <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
-          <div>
-            <h2>Nie musisz wiedzieć, jakiej usługi potrzebujesz. <span className="accent-text">Wystarczy, że wiesz, co dziś nie działa.</span></h2>
-            <p>Zaczynamy od sytuacji Twojej firmy, nie od gotowej usługi. Wybierz problem, który jest najbliższy temu, z czym dziś się mierzysz.</p>
+          <h2>Nie wybierasz usługi. <span className="accent-text">Zaczynasz od problemu, który chcesz rozwiązać.</span></h2>
+          <p>Wybierz sytuację najbliższą Twojej firmie. Pokażemy Ci, od czego warto zacząć — bez zgadywania, czy potrzebujesz SEO, reklam, nowej strony czy czegoś zupełnie innego.</p>
+
+          <div className="problem-active-summary" aria-live="polite">
+            <span>WYBRANA SYTUACJA</span>
+            <strong>{active.label}</strong>
+            <p>{active.description}</p>
+            <a href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
           </div>
         </div>
-        <div className="problems-grid">
-          {visibleProblems.map((item) => (
-            <a className="problem-card" href="#scan" key={item.id}>
-              <div className="problem-card-top"><span>{item.label}</span><i>↗</i></div>
-              <p>{item.description}</p>
-            </a>
-          ))}
+
+        <div className="problem-navigator" role="list" aria-label="Najczęstsze problemy marketingowe">
+          {visibleProblems.map((item, index) => {
+            const isActive = index === activeProblem
+            return (
+              <button
+                type="button"
+                role="listitem"
+                key={item.id}
+                className={`problem-row ${isActive ? 'is-active' : ''}`}
+                onMouseEnter={() => setActiveProblem(index)}
+                onFocus={() => setActiveProblem(index)}
+                onClick={() => setActiveProblem(index)}
+                aria-expanded={isActive}
+              >
+                <span className="problem-row-title">{item.label}</span>
+                <span className="problem-row-action" aria-hidden="true">{isActive ? '—' : '↗'}</span>
+                <span className="problem-row-copy">{item.description}</span>
+                <span className="problem-row-line" aria-hidden="true"><i /></span>
+              </button>
+            )
+          })}
         </div>
       </div>
     </section>
