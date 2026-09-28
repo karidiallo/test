@@ -295,85 +295,199 @@ function Problems() {
 }
 
 function SampleMap() {
-  const actions = [
-    ['01', 'Wyostrzyć ofertę', 'Pokazać rezultat i powód wyboru już w pierwszym ekranie.'],
-    ['02', 'Uprościć kontakt', 'Zostawić jeden wyraźny następny krok zamiast kilku równorzędnych ścieżek.'],
-    ['03', 'Skrócić formularz', 'Na początku pytać tylko o informacje potrzebne do pierwszego kontaktu.'],
+  const channels = [
+    {
+      id: 'google-maps',
+      no: '01',
+      name: 'Google i Mapy',
+      status: 'Dobra Baza',
+      tone: 'good',
+      finding: 'Firma jest widoczna lokalnie, ale Profil Firmy Google nie pokazuje pełnej oferty i przewag.',
+      impact: 'Mniej wejść i telefonów od osób, które już szukają takiej usługi.',
+      level: 'Średni',
+      decision: 'Uzupełnić ofertę, zdjęcia, sekcje usług i pracę z opiniami przed zwiększaniem wydatków na reklamy.',
+    },
+    {
+      id: 'seo',
+      no: '02',
+      name: 'SEO',
+      status: 'Do Poprawy',
+      tone: 'watch',
+      finding: 'Najważniejsze usługi nie mają osobnych, dobrze dopasowanych stron pod konkretne intencje klientów.',
+      impact: 'Firma oddaje część bezpłatnego ruchu konkurencji na zapytania o wysokiej wartości.',
+      level: 'Wysoki',
+      decision: 'Najpierw rozbudować strony kluczowych usług i uporządkować strukturę, zamiast publikować przypadkowe artykuły.',
+    },
+    {
+      id: 'ads',
+      no: '03',
+      name: 'Reklamy',
+      status: 'Nie Skalować',
+      tone: 'critical',
+      finding: 'Kampanie dowożą ruch, ale strona nie zamienia go w wystarczającą liczbę jakościowych zapytań.',
+      impact: 'Każda dodatkowa złotówka zwiększa koszt bez rozwiązania głównego problemu.',
+      level: 'Wysoki',
+      decision: 'Nie zwiększać budżetu. Najpierw poprawić ofertę i konwersję, potem ponownie ocenić koszt pozyskania zapytania.',
+    },
+    {
+      id: 'ai-search',
+      no: '04',
+      name: 'Wyszukiwanie AI',
+      status: 'Niewykorzystane',
+      tone: 'watch',
+      finding: 'Marka rzadko pojawia się jako konkretna odpowiedź przy pytaniach o usługę i lokalnych rekomendacjach.',
+      impact: 'Firma traci część nowego źródła odkrywania marek, zanim klient trafi do Google lub na stronę.',
+      level: 'Średni',
+      decision: 'Wzmocnić eksperckie treści, dane o firmie i spójność informacji w miejscach, z których korzystają systemy AI.',
+    },
+    {
+      id: 'website-offer',
+      no: '05',
+      name: 'Strona i Oferta',
+      status: 'Główne Wąskie Gardło',
+      tone: 'critical',
+      finding: 'Klient zbyt długo szuka odpowiedzi: dlaczego wybrać właśnie tę firmę i co dokładnie dostanie.',
+      impact: 'Ruch jest, ale zbyt mało osób przechodzi od zainteresowania do kontaktu.',
+      level: 'Krytyczny',
+      decision: 'Wyostrzyć ofertę, przewagi i kolejność informacji na najważniejszych stronach przed pełnym przeprojektowaniem serwisu.',
+    },
+    {
+      id: 'social-content',
+      no: '06',
+      name: 'Media Społecznościowe i Treści',
+      status: 'Ruch Bez Przejścia',
+      tone: 'watch',
+      finding: 'Treści mają zasięg, ale rzadko prowadzą odbiorcę do konkretnej usługi, dowodu lub następnego kroku.',
+      impact: 'Firma buduje uwagę, której nie wykorzystuje do powiększania puli potencjalnych klientów.',
+      level: 'Średni',
+      decision: 'Połączyć treści z konkretnymi usługami, dowodami i ścieżką do kontaktu zamiast zwiększać samą częstotliwość publikacji.',
+    },
+    {
+      id: 'trust',
+      no: '07',
+      name: 'Opinie i Zaufanie',
+      status: 'Mocny Zasób',
+      tone: 'good',
+      finding: 'Firma ma dobre opinie i realizacje, ale najważniejsze dowody są schowane zbyt daleko od decyzji zakupowej.',
+      impact: 'Potencjalny klient nie dostaje wystarczającego potwierdzenia jakości w momencie porównywania ofert.',
+      level: 'Średni',
+      decision: 'Przenieść opinie, efekty i realizacje bliżej oferty oraz formularza, zamiast tworzyć kolejne ogólne komunikaty wizerunkowe.',
+    },
+    {
+      id: 'conversion',
+      no: '08',
+      name: 'Konwersja i Kontakt',
+      status: 'Największa Strata',
+      tone: 'critical',
+      finding: 'Kilka równorzędnych wezwań do działania i zbyt długi formularz zwiększają tarcie tuż przed kontaktem.',
+      impact: 'Firma traci osoby, które są już zainteresowane i najbliżej zostania klientem.',
+      level: 'Krytyczny',
+      decision: 'Zostawić jeden główny krok, skrócić formularz i mierzyć przejścia do kontaktu oraz jakość zapytań.',
+    },
   ]
 
-  const metrics = [
-    ['Zapytania', 'Liczba jakościowych zapytań'],
-    ['Kontakt', 'Przejścia do formularza lub rozmowy'],
-    ['Koszt', 'Koszt pozyskania zapytania'],
-  ]
+  const [activeChannel, setActiveChannel] = useState(4)
+  const active = channels[activeChannel]
 
   return (
-    <section className="sample-section sample-section--decision" id="sample">
+    <section className="sample-section sample-section--channels" id="sample">
       <div className="section-shell">
-        <div className="section-heading section-heading--split sample-heading sample-heading--decision">
-          <div className="eyebrow">PRZYKŁADOWY WYNIK</div>
+        <div className="section-heading section-heading--split channel-map-heading">
+          <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
           <div>
-            <h2>Zobacz, z czym <span className="accent-text">wychodzisz z DigitalMap.</span></h2>
-            <p>Jeden priorytet. Konkretny plan. Jasno wskazane rzeczy, których na razie nie warto finansować.</p>
+            <h2>Zobacz, co sprawdzamy — i <span className="accent-text">co to oznacza dla biznesu.</span></h2>
+            <p>To przykładowy przekrój firmy usługowej. Każdy obszar pokazuje nie tylko, co znaleźliśmy, ale też jaki ma to wpływ na pozyskiwanie klientów i co z tego wynika.</p>
           </div>
         </div>
 
-        <div className="decision-snapshot">
-          <div className="decision-snapshot-top">
-            <div className="decision-snapshot-summary">
-              <span>NAJWAŻNIEJSZY WNIOSEK</span>
-              <h3>Ruch jest. <strong>Sprzedaż nie wykorzystuje jego potencjału.</strong></h3>
-              <p>Największa strata pojawia się między zainteresowaniem ofertą a kontaktem.</p>
+        <div className="channel-map-summary">
+          <div>
+            <span>PRZYKŁADOWA FIRMA</span>
+            <strong>Lokalna Firma Usługowa</strong>
+          </div>
+          <div>
+            <span>NAJWIĘKSZY WPŁYW NA WYNIK</span>
+            <strong>Strona i Oferta + Konwersja</strong>
+          </div>
+          <div className="channel-map-summary__decision">
+            <span>DECYZJA</span>
+            <strong>Nie Skalować Reklam, Dopóki Nie Poprawimy Konwersji</strong>
+          </div>
+        </div>
+
+        <div className="channel-map-board">
+          <div className="channel-map-list" role="tablist" aria-label="Obszary sprawdzane w przykładowej Mapie">
+            <div className="channel-map-list-head" aria-hidden="true">
+              <span>Obszar</span>
+              <span>Co Znaleźliśmy</span>
+              <span>Wpływ Biznesowy</span>
             </div>
 
-            <div className="decision-scoreboard" aria-label="Przykładowe wyniki diagnozy">
+            {channels.map((channel, index) => (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={index === activeChannel}
+                className={`channel-map-row ${index === activeChannel ? 'is-active' : ''}`}
+                key={channel.id}
+                onMouseEnter={() => setActiveChannel(index)}
+                onFocus={() => setActiveChannel(index)}
+                onClick={() => setActiveChannel(index)}
+              >
+                <span className="channel-map-row__name">
+                  <i>{channel.no}</i>
+                  <b>{channel.name}</b>
+                  <em className={`channel-status channel-status--${channel.tone}`}>{channel.status}</em>
+                </span>
+                <span className="channel-map-row__finding">{channel.finding}</span>
+                <span className={`channel-impact channel-impact--${channel.tone}`}>
+                  <small>Wpływ</small>
+                  <strong>{channel.level}</strong>
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <aside className={`channel-map-detail channel-map-detail--${active.tone}`} role="tabpanel" aria-live="polite">
+            <div className="channel-map-detail__top">
+              <span>{active.no} / 08</span>
+              <em className={`channel-status channel-status--${active.tone}`}>{active.status}</em>
+            </div>
+
+            <div className="channel-map-detail__content" key={active.id}>
               <div>
-                <span>Widoczność</span>
-                <strong>72%</strong>
-                <small>Wystarczająca</small>
+                <span>OBSZAR</span>
+                <h3>{active.name}</h3>
               </div>
-              <div className="is-critical">
-                <span>Konwersja</span>
-                <strong>31%</strong>
-                <small>Największa strata</small>
-              </div>
-            </div>
-          </div>
 
-          <div className="decision-snapshot-body">
-            <div className="decision-priority">
-              <span>CO ROBIĆ TERAZ</span>
-              <h4>Najpierw poprawić ofertę i drogę do kontaktu.</h4>
-              <div className="decision-action-list">
-                {actions.map(([no, title, copy]) => (
-                  <article key={no}>
-                    <b>{no}</b>
-                    <div><strong>{title}</strong><p>{copy}</p></div>
-                  </article>
-                ))}
+              <div className="channel-map-detail__block">
+                <span>CO ZNALEŹLIŚMY</span>
+                <p>{active.finding}</p>
+              </div>
+
+              <div className="channel-map-detail__block channel-map-detail__block--impact">
+                <span>WPŁYW NA BIZNES</span>
+                <p>{active.impact}</p>
+              </div>
+
+              <div className="channel-map-detail__block channel-map-detail__block--decision">
+                <span>CO Z TEGO WYNIKA</span>
+                <p>{active.decision}</p>
               </div>
             </div>
 
-            <aside className="decision-snapshot-side">
-              <div className="decision-not-now">
-                <span>NIE TERAZ</span>
-                <strong>Nie zwiększać budżetu reklamowego.</strong>
-                <strong>Nie przebudowywać całej strony.</strong>
-              </div>
+            <div className="channel-map-detail__meter" aria-label={`Wpływ biznesowy: ${active.level}`}>
+              <span>WPŁYW BIZNESOWY</span>
+              <div><i className={`is-${active.tone}`} /></div>
+              <strong>{active.level}</strong>
+            </div>
+          </aside>
+        </div>
 
-              <div className="decision-measure">
-                <span>CO MIERZYĆ</span>
-                {metrics.map(([label, copy]) => (
-                  <div key={label}><b>{label}</b><p>{copy}</p></div>
-                ))}
-              </div>
-            </aside>
-          </div>
-
-          <div className="decision-snapshot-footer">
-            <strong>Efekt: wiesz, co zrobić teraz, co odłożyć i po czym poznać, że zmiana działa.</strong>
-            <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
-          </div>
+        <div className="channel-map-conclusion">
+          <span>WNIOSEK Z CAŁEJ MAPY</span>
+          <strong>Ta firma nie potrzebuje teraz więcej ruchu. Najpierw trzeba lepiej zamieniać obecne zainteresowanie w jakościowe zapytania.</strong>
+          <a href="#scan">Sprawdź Swoją Firmę <Arrow /></a>
         </div>
       </div>
     </section>
