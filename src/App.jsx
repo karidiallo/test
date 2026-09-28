@@ -101,16 +101,16 @@ function Story({ progressRef }) {
       proof: 'Oferta · Komunikacja · UX · Wezwanie Do Działania · Strona Docelowa',
     },
     {
-      no: 'MEDIA SPOŁECZNOŚCIOWE I TREŚCI',
+      no: 'SOCIAL MEDIA I TREŚCI',
       title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają klientowi podjąć decyzję?</span></>,
-      copy: 'Sprawdzamy, czy media społecznościowe i treści docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
-      proof: 'Media Społecznościowe · Treści · Dowody Zaufania · Droga Do Kontaktu',
+      copy: 'Sprawdzamy, czy social media i treści docierają do nowych odbiorców, budują zaufanie i zwiększają zainteresowanie ofertą — tak, żeby powiększać grupę potencjalnych klientów, a nie tylko zbierać wyświetlenia i reakcje.',
+      proof: 'Social Media · Treści · Dowody Zaufania · Droga Do Kontaktu',
     },
     {
       no: 'ZAUFANIE',
       title: <>Klient już Cię zna. <span className="accent-text">Czy ma wystarczający powód, żeby Ci zaufać?</span></>,
       copy: 'Sprawdzamy opinie, dowody, reputację, eksperckość i sposób prezentowania przewagi firmy.',
-      proof: 'Opinie · Studia Przypadków · Reputacja · Dowody Zaufania',
+      proof: 'Opinie · Case Study · Reputacja · Dowody Zaufania',
     },
     {
       no: 'KONWERSJA',
@@ -188,7 +188,7 @@ function Story({ progressRef }) {
                 <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
                 <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
               </h1>
-              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i media społecznościowe, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
+              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
               <div className="hero-actions">
                 <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
                 <a className="button button--hero-secondary" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
@@ -252,7 +252,10 @@ function Problems() {
             <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
             <h2>Wybierz sytuację, która <span className="accent-text">najbardziej przypomina Twoją.</span></h2>
           </div>
-          <p>Nie musisz wiedzieć, czy potrzebujesz SEO, reklam, nowej strony czy zmian w ofercie. Zacznij od tego, co dziś nie działa tak, jak powinno.</p>
+          <div className="problem-head-active" key={active.id} aria-live="polite">
+            <span className="problem-head-active-kicker">TWOJA SYTUACJA</span>
+            <h3>{active.label}</h3>
+          </div>
         </div>
 
         <div className="problem-tabs" role="tablist" aria-label="Najczęstsze problemy marketingowe">
@@ -276,10 +279,6 @@ function Problems() {
         <div className="problem-stage" role="tabpanel" aria-live="polite">
           <div className="problem-stage-index">{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</div>
           <div className="problem-stage-content" key={active.id}>
-            <div>
-              <span className="problem-stage-kicker">TWOJA SYTUACJA</span>
-              <h3>{active.label}</h3>
-            </div>
             <div className="problem-stage-detail">
               <p>{active.description}</p>
               <a href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
@@ -289,6 +288,8 @@ function Problems() {
             <span style={{ width: `${((activeProblem + 1) / visibleProblems.length) * 100}%` }} />
           </div>
         </div>
+
+        <p className="problems-helper-copy">Nie musisz wiedzieć, czy potrzebujesz SEO, reklam, nowej strony czy zmian w ofercie. Zacznij od tego, co dziś nie działa tak, jak powinno.</p>
       </div>
     </section>
   )
@@ -347,7 +348,7 @@ function SampleMap() {
     {
       id: 'social',
       no: '05',
-      name: 'Media Społecznościowe',
+      name: 'Social Media i Treści',
       status: 'Niewykorzystany zasięg',
       level: 'opportunity',
       x: 17,
@@ -557,7 +558,7 @@ function Evidence() {
   const items = [
     ['01', 'Strona i oferta', 'Czy klient szybko rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
     ['02', 'Google i lokalność', 'Czy firma jest widoczna tam, gdzie klient jej szuka — i jak wygląda obok konkurencji?'],
-    ['03', 'Media społecznościowe i treści', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
+    ['03', 'Social Media i Treści', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
     ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy ruch ma odpowiednią intencję?'],
     ['05', 'Reklamy', 'Czy wydawany budżet prowadzi do jakościowych zapytań i gdzie po drodze tracony jest wynik?'],
     ['06', 'Zaufanie i reputacja', 'Czy klient ma wystarczające dowody, aby podjąć decyzję?'],
@@ -641,7 +642,7 @@ function Team() {
       <div className="section-shell">
         <div className="team-heading">
           <div className="eyebrow">ZESPÓŁ</div>
-          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, rozwój stron, płatne pozyskanie i media społecznościowe pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
+          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, rozwój stron, płatne pozyskanie i social media pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
         </div>
 
         <div className="team-members team-members--text-only">
