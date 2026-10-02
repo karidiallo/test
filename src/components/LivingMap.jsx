@@ -446,31 +446,44 @@ function ContextCampus() {
   )
 }
 
-function CameraRig({ progressRef }) {
+function CameraRig({ activeIndex }) {
   const { camera, pointer } = useThree()
-  const target = useMemo(() => new THREE.Vector3(WORLD_X, -0.42, 0), [])
+  const target = useMemo(() => new THREE.Vector3(WORLD_X + 0.45, -0.2, 0), [])
   const desired = useMemo(() => new THREE.Vector3(), [])
   const desiredTarget = useMemo(() => new THREE.Vector3(), [])
 
-  const cameraPath = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(8.6, 5.55, 9.0),
-    ...zones.map((z, i) => new THREE.Vector3(WORLD_X + z.pos[0] + (i % 2 ? 2.15 : 2.45), 2.72 + i * 0.035, z.pos[1] + 3.35)),
-  ], false, 'catmullrom', 0.3), [])
+  const heroView = useMemo(() => ({
+    camera: new THREE.Vector3(8.6, 5.55, 9.0),
+    target: new THREE.Vector3(WORLD_X + 0.45, -0.48, 0),
+  }), [])
 
-  const targetPath = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(WORLD_X + 0.45, -0.48, 0),
-    ...zones.map((z) => new THREE.Vector3(WORLD_X + z.pos[0], -0.32, z.pos[1])),
-  ], false, 'catmullrom', 0.3), [])
+  const zoneViews = useMemo(() => zones.map((zone, index) => ({
+    camera: new THREE.Vector3(
+      WORLD_X + zone.pos[0] + (index % 2 ? 2.2 : 2.5),
+      index === 0 ? 2.58 : 2.46 + index * 0.025,
+      zone.pos[1] + (index === 0 ? 3.02 : 3.12),
+    ),
+    target: new THREE.Vector3(
+      WORLD_X + zone.pos[0],
+      index === 0 ? 0.02 : -0.08,
+      zone.pos[1],
+    ),
+  })), [])
 
-  useFrame(() => {
-    const raw = THREE.MathUtils.clamp(progressRef.current || 0, 0, 1)
-    const p = raw < 0.14 ? 0 : THREE.MathUtils.smoothstep((raw - 0.14) / 0.86, 0, 1)
-    desired.copy(cameraPath.getPointAt(p))
-    desiredTarget.copy(targetPath.getPointAt(p))
-    desired.x += pointer.x * 0.14
-    desired.y += pointer.y * 0.05
-    camera.position.lerp(desired, 0.055)
-    target.lerp(desiredTarget, 0.07)
+  useFrame((_, delta) => {
+    const view = activeIndex >= 0 ? zoneViews[activeIndex] : heroView
+    desired.copy(view.camera)
+    desiredTarget.copy(view.target)
+
+    // Delikatny parallax zostaje, ale nie odciąga kamery od wybranego budynku.
+    desired.x += pointer.x * (activeIndex >= 0 ? 0.07 : 0.14)
+    desired.y += pointer.y * (activeIndex >= 0 ? 0.035 : 0.05)
+
+    // Ruch jest płynny niezależnie od FPS i po kliknięciu faktycznie robi "zoom-in" na obszar.
+    const cameraEase = 1 - Math.exp(-5.2 * delta)
+    const targetEase = 1 - Math.exp(-6.4 * delta)
+    camera.position.lerp(desired, cameraEase)
+    target.lerp(desiredTarget, targetEase)
     camera.lookAt(target)
   })
   return null
@@ -503,7 +516,7 @@ function Scene({ progressRef, activeIndex, hoveredIndex, setHoveredIndex, onSele
           />
         ))}
       </group>
-      <CameraRig progressRef={progressRef} />
+      <CameraRig activeIndex={activeIndex} />
     </>
   )
 }
