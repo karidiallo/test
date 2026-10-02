@@ -38,7 +38,7 @@ export const symptoms = [
     id: 'unclear',
     label: 'Nie wiem, od czego zacząć',
     short: 'Nie wiem, od czego zacząć',
-    description: 'SEO, reklamy, media społecznościowe, strona, oferta… każdy proponuje coś innego. Potrzebujesz ustalić, co naprawdę powinno być pierwsze.',
+    description: 'SEO, reklamy, social media, strona, oferta… każdy proponuje coś innego. Potrzebujesz ustalić, co naprawdę powinno być pierwsze.',
     focus: 0.62,
   },
   {
@@ -103,7 +103,7 @@ export const diagnosis = {
   stages: [
     { name: 'Widoczność', status: 'Wystarczająca', score: '72%', note: 'Firma jest znajdowana. To nie tutaj dziś znika największa część potencjału.' },
     { name: 'Strona i oferta', status: 'Do poprawy', score: '54%', note: 'Wartość jest obecna, ale klient musi zbyt długo szukać powodu do wyboru.' },
-    { name: 'Media społecznościowe i treści', status: 'Wspierające', score: '63%', note: 'Treści pomagają budować kontekst, ale nie domykają głównego problemu.' },
+    { name: 'Social Media i Treści', status: 'Wspierające', score: '63%', note: 'Treści pomagają budować kontekst, ale nie domykają głównego problemu.' },
     { name: 'Zaufanie', status: 'Silny sygnał', score: '58%', note: 'Dowody zaufania są obecne, lecz pojawia się za późno i nie pracuje wystarczająco mocno na decyzję.' },
     { name: 'Konwersja', status: 'Wąskie gardło', score: '31%', note: 'Największa strata następuje między zrozumieniem oferty a rozpoczęciem kontaktu.' },
   ],
@@ -166,7 +166,7 @@ export const toolGroups = [
 export const industries = [
   { name: 'Medycyna Estetyczna', tag: 'Usługi + Zaufanie' },
   { name: 'Stomatologia', tag: 'Lokalność + Decyzja' },
-  { name: 'Uroda', tag: 'Media Społecznościowe + Lokalność' },
+  { name: 'Uroda', tag: 'Social Media + Lokalność' },
   { name: 'Nieruchomości', tag: 'Pozyskiwanie Klientów' },
   { name: 'Kancelarie', tag: 'Eksperckość + Zaufanie' },
   { name: 'Usługi Lokalne', tag: 'Google + Konwersja' },
@@ -268,7 +268,7 @@ export const team = {
       initials: 'A',
       name: 'Anna',
       role: 'Menedżerka Mediów Społecznościowych',
-      bio: 'Media społecznościowe i treści z perspektywy zaufania, spójności marki i tego, czy treści pomagają klientowi przejść do kolejnego kroku.',
+      bio: 'Social media i treści z perspektywy zaufania, spójności marki i tego, czy treści pomagają klientowi przejść do kolejnego kroku.',
       photo: '',
     },
   ],
@@ -382,7 +382,7 @@ export const faqs = [
     a: 'To nie blokuje startu. Możemy zacząć od publicznie dostępnych danych, rynku, widoczności, komunikacji i ścieżki klienta. Poziom pewności wniosków pokazujemy wprost.',
   },
   {
-    q: 'Czy analizujecie SEO, reklamy, media społecznościowe i stronę?',
+    q: 'Czy analizujecie SEO, reklamy, social media i stronę?',
     a: 'Tak — jako elementy całej drogi klienta. Nie zakładamy jednak z góry, że któryś z tych kanałów jest problemem albo rozwiązaniem.',
   },
   {
