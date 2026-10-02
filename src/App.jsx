@@ -527,9 +527,9 @@ function SampleMap() {
 
 function Principle() {
   const points = [
-    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, reklam, mediów społecznościowych albo nowej strony. Najpierw ustalamy, gdzie naprawdę zatrzymuje się wynik.'],
-    ['02', 'Decyzja przed wydatkiem', 'Problem, dowody i priorytet są pierwsze. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
-    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem, freelancerem, obecną agencją albo innym wykonawcą.'],
+    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, reklam, mediów społecznościowych albo nowej strony. Najpierw ustalamy, co naprawdę ogranicza wynik.'],
+    ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem i priorytet. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
+    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem albo dowolnym wykonawcą.'],
   ]
 
   return (
