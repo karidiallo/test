@@ -9361,3 +9361,63 @@ footer > span { font-size: 11px !important; }
   .offer-v70-nav__item::after,
   .offer-v70-cta { animation: none !important; transition: none !important; }
 }
+
+/* =========================================================
+   V71 — stronger product-name hierarchy in Offer
+   Scope: Offer section only
+   ========================================================= */
+
+/* Product names in the 4-option selector should read as headings,
+   while the question below becomes supporting copy. */
+.offer-v70-nav__copy {
+  gap: 8px;
+}
+
+.offer-v70-nav__copy b {
+  color: inherit;
+  font: 650 clamp(18px, 1.35vw, 22px)/1.02 var(--display) !important;
+  letter-spacing: -.035em !important;
+  text-transform: none !important;
+}
+
+.offer-v70-nav__copy strong {
+  max-width: 21ch;
+  font: 520 14px/1.28 var(--body) !important;
+  letter-spacing: -.012em !important;
+  opacity: .76;
+}
+
+.offer-v70-nav__price {
+  font-size: 17px !important;
+  line-height: 1;
+}
+
+/* The selected product name inside the large detail panel is also
+   a real heading instead of tiny metadata. */
+.offer-v70-panel__topline {
+  padding-bottom: 26px;
+}
+
+.offer-v70-panel__topline > span {
+  font: 650 clamp(18px, 1.45vw, 23px)/1 var(--display) !important;
+  letter-spacing: -.028em !important;
+  text-transform: none;
+}
+
+.offer-v70-panel__topline b {
+  font-size: 10px;
+}
+
+@media (max-width: 760px) {
+  .offer-v70-nav__copy b {
+    font-size: 20px !important;
+  }
+
+  .offer-v70-nav__copy strong {
+    font-size: 13px !important;
+  }
+
+  .offer-v70-panel__topline > span {
+    font-size: 20px !important;
+  }
+}
