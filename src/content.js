@@ -53,21 +53,21 @@ export const symptoms = [
 export const processSteps = [
   {
     no: '01',
-    title: 'Pokazujesz nam firmę',
-    accent: 'firmę',
-    copy: 'Na start wystarczy strona i krótki opis sytuacji. Jeśli masz dane z GA4, Google, reklam lub CRM — wykorzystamy je tam, gdzie pomagają podjąć pewniejszą decyzję.',
+    title: 'Zaczynamy od Twojej sytuacji',
+    accent: 'Twojej sytuacji',
+    copy: 'Na start wystarczy strona i krótki opis tego, co dziś nie działa tak, jak powinno. Jeśli masz dane z Google, Analytics, reklam lub CRM, wykorzystamy je, żeby lepiej zrozumieć sytuację.',
   },
   {
     no: '02',
     title: 'Sprawdzamy, gdzie tracisz klientów',
     accent: 'tracisz klientów',
-    copy: 'Analizujemy drogę od znalezienia firmy do kontaktu lub zakupu. Sprawdzamy m.in. widoczność, ofertę, stronę, zaufanie, kanały pozyskania i konwersję.',
+    copy: 'Analizujemy drogę od znalezienia firmy do kontaktu lub zakupu i szukamy miejsc, które mogą wpływać na decyzję klienta.',
   },
   {
     no: '03',
     title: 'Ustalamy, co jest najważniejsze',
     accent: 'najważniejsze',
-    copy: 'Nie dostajesz listy 30 rzeczy do poprawy. Wskazujemy, co dziś najbardziej ogranicza wynik i które działania powinny mieć pierwszeństwo.',
+    copy: 'Nie dostajesz listy 30 rzeczy do poprawy. Wskazujemy, co dziś najbardziej ogranicza wynik i co powinno mieć pierwszeństwo.',
   },
   {
     no: '04',

@@ -223,7 +223,7 @@ function Process() {
         <div className="process-intro">
           <div className="eyebrow">JAK POWSTAJE MAPA</div>
           <h2>Od firmy do decyzji <span className="accent-text">w czterech krokach.</span></h2>
-          <p>Nie zaczynamy od rekomendowania usług. Najpierw zawężamy problem, sprawdzamy dowody i ustalamy właściwą kolejność działań.</p>
+          <p>Nie zaczynamy od rekomendowania usług. Najpierw zawężamy problem, sprawdzamy dane i ustalamy właściwą kolejność działań.</p>
         </div>
         <div className="process-timeline">
           {processSteps.map((step) => (
