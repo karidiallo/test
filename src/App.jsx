@@ -629,7 +629,7 @@ function Industries() {
         <div className="industries-atlas-head">
           <div className="eyebrow">DLA KOGO</div>
           <div className="industries-atlas-head__copy">
-            <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
+            <h2>Dla firm, które chcą wiedzieć, <span className="accent-text">gdzie tracą klientów.</span></h2>
             <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
           </div>
         </div>
