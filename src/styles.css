@@ -8808,3 +8808,18 @@ footer > span { font-size: 11px !important; }
   .industry-lens::after,
   .industry-lens__pulse { transition: none !important; animation: none !important; }
 }
+
+/* =========================================================
+   V67 — OFFER PRICE ALIGNMENT
+   Align the active offer price with the product heading on desktop.
+   ========================================================= */
+@media (min-width: 821px) {
+  .offer-focus-title {
+    align-items: start !important;
+  }
+
+  .offer-focus-title > strong {
+    align-self: start !important;
+    margin-top: 2px !important;
+  }
+}
