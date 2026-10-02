@@ -96,13 +96,13 @@ function Story({ progressRef }) {
     },
     {
       no: 'STRONA I OFERTA',
-      title: <>Masz ruch. <span className="accent-text">Ale czy strona pomaga Ci zdobywać klientów?</span></>,
+      title: <>Masz ruch. <span className="accent-text">Ale czy strona prowadzi ludzi do kontaktu?</span></>,
       copy: 'Sprawdzamy, co dzieje się po wejściu na stronę — od pierwszego wrażenia po decyzję o kontakcie. Wskazujemy miejsca, które mogą odbierać Ci zapytania.',
       proof: 'Oferta · Komunikacja · UX · Wezwanie Do Działania · Strona Docelowa',
     },
     {
       no: 'SOCIAL MEDIA I TREŚCI',
-      title: <>Publikujesz regularnie. <span className="accent-text">Czy treści pomagają Ci zdobywać klientów?</span></>,
+      title: <>Publikujesz regularnie. <span className="accent-text">Ale czy Twoje treści przyciągają właściwe osoby?</span></>,
       copy: 'Sprawdzamy, czy Twoje treści przyciągają właściwe osoby, budują zainteresowanie ofertą i prowadzą je bliżej decyzji o kontakcie.',
       proof: 'Social Media · Treści · Dowody Zaufania · Droga Do Kontaktu',
     },
