@@ -605,19 +605,46 @@ function Evidence() {
 }
 
 function Industries() {
+  const [activeIndustry, setActiveIndustry] = useState(0)
+
   return (
-    <section className="industries" id="industries">
-      <div className="section-shell industries-layout industries-layout--simple">
-        <div className="industries-copy">
+    <section className="industries industries--interactive" id="industries">
+      <div className="section-shell industries-layout industries-layout--interactive">
+        <div className="industries-copy industries-copy--interactive">
           <div className="eyebrow">DLA KOGO</div>
-          <h2>DigitalMap sprawdzi się szczególnie tam, <span className="accent-text">gdzie klient ma kilka dróg do wyboru.</span></h2>
-          <p>Pracujemy z firmami usługowymi, lokalnymi, eksperckimi i cyfrowymi — wszędzie tam, gdzie na wynik wpływa więcej niż jeden element marketingu.</p>
+          <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
+          <p>Wybierz branżę, żeby zobaczyć moment decyzji, który najczęściej warto sprawdzić.</p>
           <a href="#scan" className="text-link">Nie widzisz swojej branży? Sprawdź firmę <Arrow /></a>
         </div>
-        <div className="industry-grid industry-grid--simple">
-          {industries.map((industry) => (
-            <article key={industry.name}><h3>{industry.name}</h3></article>
-          ))}
+
+        <div className="industry-accordion" role="list" aria-label="Branże, dla których sprawdza się DigitalMap">
+          {industries.map((industry, index) => {
+            const isOpen = activeIndustry === index
+            const no = String(index + 1).padStart(2, '0')
+
+            return (
+              <article className={`industry-row ${isOpen ? 'is-open' : ''}`} key={industry.name} role="listitem">
+                <button
+                  type="button"
+                  className="industry-row__trigger"
+                  aria-expanded={isOpen}
+                  onClick={() => setActiveIndustry(isOpen ? -1 : index)}
+                >
+                  <span className="industry-row__no">{no}</span>
+                  <h3>{industry.name}</h3>
+                  <span className="industry-row__toggle" aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                </button>
+
+                <div className="industry-row__reveal" aria-hidden={!isOpen}>
+                  <div className="industry-row__reveal-inner">
+                    <span>KLUCZOWY MOMENT DECYZJI</span>
+                    <p>{industry.decision}</p>
+                    <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>

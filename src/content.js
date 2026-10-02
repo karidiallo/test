@@ -164,18 +164,18 @@ export const toolGroups = [
 ]
 
 export const industries = [
-  { name: 'Medycyna Estetyczna', tag: 'Usługi + Zaufanie' },
-  { name: 'Stomatologia', tag: 'Lokalność + Decyzja' },
-  { name: 'Uroda', tag: 'Social Media + Lokalność' },
-  { name: 'Nieruchomości', tag: 'Pozyskiwanie Klientów' },
-  { name: 'Kancelarie', tag: 'Eksperckość + Zaufanie' },
-  { name: 'Usługi Lokalne', tag: 'Google + Konwersja' },
-  { name: 'Handel Internetowy', tag: 'Ruch + Konwersja' },
-  { name: 'SaaS i Produkty Cyfrowe', tag: 'Produkt + Pozyskanie' },
-  { name: 'Eksperci i Edukacja', tag: 'Autorytet + Zapytania' },
-  { name: 'Hotele i Gastronomia', tag: 'Lokalność + Rezerwacje' },
-  { name: 'Motoryzacja', tag: 'Lokalność + Zapytania' },
-  { name: 'Usługi B2B', tag: 'Proces Sprzedaży + Pozycjonowanie' },
+  { name: 'Kliniki i medycyna estetyczna', decision: 'Czy klient widzi wystarczająco dużo konkretu i zaufania, żeby umówić konsultację zamiast wrócić do porównywania klinik?' },
+  { name: 'Stomatologia', decision: 'Czy lokalna widoczność, opinie i oferta prowadzą pacjenta od wyszukania usługi do umówienia wizyty?' },
+  { name: 'Beauty i wellness', decision: 'Czy zainteresowanie budowane w social media i lokalnie zamienia się w rezerwację, a nie kończy na obserwowaniu profilu?' },
+  { name: 'Nieruchomości', decision: 'Czy prezentacja oferty i sposób kontaktu dają klientowi wystarczający powód, żeby wysłać zapytanie właśnie do Ciebie?' },
+  { name: 'Prawo', decision: 'Czy eksperckość i wiarygodność są czytelne na tyle szybko, żeby klient zdecydował się na pierwszy kontakt?' },
+  { name: 'Usługi lokalne', decision: 'Czy klient może szybko Cię znaleźć, zrozumieć ofertę i przejść do kontaktu bez niepotrzebnego tarcia?' },
+  { name: 'E-commerce', decision: 'Czy ruch przechodzi płynnie od produktu do koszyka i zakupu, czy tracisz sprzedaż na którymś etapie?' },
+  { name: 'SaaS i produkty cyfrowe', decision: 'Czy użytkownik rozumie wartość produktu wystarczająco szybko, żeby przejść do demo, wersji próbnej lub zakupu?' },
+  { name: 'Eksperci i firmy usługowe', decision: 'Czy marka pokazuje wartość i wiarygodność zanim klient zacznie porównywać głównie cenę?' },
+  { name: 'Hotele i gastronomia', decision: 'Czy widoczność, opinie i oferta prowadzą od znalezienia miejsca do rezerwacji bez zbędnych kroków?' },
+  { name: 'Motoryzacja', decision: 'Czy po znalezieniu firmy klient od razu wie, dlaczego warto zadzwonić, umówić wizytę lub wysłać zapytanie?' },
+  { name: 'B2B', decision: 'Czy strona i komunikacja pomagają osobie decyzyjnej szybko zrozumieć wartość i przejść do rozmowy?' },
 ]
 
 export const projects = [
