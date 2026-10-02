@@ -5626,8 +5626,13 @@ footer > span { font-size: 11px !important; }
 }
 
 .offer-support-card > span {
-  font-size: 15px !important;
-  line-height: 1.35 !important;
+  display: block !important;
+  max-width: 32ch;
+  font-family: var(--display) !important;
+  font-size: 23px !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.025em !important;
+  font-weight: 680 !important;
 }
 
 .offer-support-card p {
