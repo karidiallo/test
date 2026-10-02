@@ -69,8 +69,8 @@ function Header() {
     <header className="header">
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
-        <a href="#z-jakim-problemem-przychodzisz">Problem</a>
-        <a href="#jak-powstaje-mapa">Jak działamy</a>
+        <a href="#problem">Problem</a>
+        <a href="#jak-działamy">Jak działamy</a>
         <a href="#przykladowa-mapa">Mapa</a>
         <a href="#dla-kogo">Dla kogo</a>
         <a href="#oferta">Oferta</a>
