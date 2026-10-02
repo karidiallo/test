@@ -457,18 +457,26 @@ function CameraRig({ activeIndex }) {
     target: new THREE.Vector3(WORLD_X + 0.45, -0.48, 0),
   }), [])
 
-  const zoneViews = useMemo(() => zones.map((zone, index) => ({
-    camera: new THREE.Vector3(
-      WORLD_X + zone.pos[0] + (index % 2 ? 2.2 : 2.5),
-      index === 0 ? 2.58 : 2.46 + index * 0.025,
-      zone.pos[1] + (index === 0 ? 3.02 : 3.12),
-    ),
-    target: new THREE.Vector3(
-      WORLD_X + zone.pos[0],
-      index === 0 ? 0.02 : -0.08,
-      zone.pos[1],
-    ),
-  })), [])
+  const zoneViews = useMemo(() => zones.map((zone, index) => {
+    // Fokus ma przybliżać wybrany obszar, ale nadal pokazywać go w kontekście mapy.
+    // Pierwsza wersja była zbyt ciasna: budynek wypełniał ekran i wpadał pod sticky header.
+    const xOffset = index === 0 ? 4.25 : (index % 2 ? 3.85 : 4.05)
+    const y = index === 0 ? 3.72 : 3.48 + index * 0.025
+    const zOffset = index === 0 ? 4.85 : 4.45
+
+    return {
+      camera: new THREE.Vector3(
+        WORLD_X + zone.pos[0] + xOffset,
+        y,
+        zone.pos[1] + zOffset,
+      ),
+      target: new THREE.Vector3(
+        WORLD_X + zone.pos[0] + (index === 0 ? 0.08 : 0),
+        index === 0 ? 0.48 : 0.22,
+        zone.pos[1],
+      ),
+    }
+  }), [])
 
   useFrame((_, delta) => {
     const view = activeIndex >= 0 ? zoneViews[activeIndex] : heroView
