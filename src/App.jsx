@@ -91,7 +91,7 @@ function Story({ progressRef }) {
     {
       no: 'WIDOCZNOŚĆ',
       title: <>Czy klienci trafiają do Ciebie <span className="accent-text">wtedy, kiedy naprawdę Cię potrzebują?</span></>,
-      copy: 'Sprawdzamy, czy Twoja firma pojawia się tam, gdzie potencjalni klienci naprawdę szukają rozwiązania — w Google, Maps, reklamach i wyszukiwaniu AI. Pokazujemy, gdzie tracisz widoczność i co może zwiększyć liczbę wartościowych wejść.',
+      copy: 'DigitalMap pokazuje, co widzi potencjalny klient, zanim zdecyduje się na kontakt — i gdzie po drodze tracisz jego uwagę lub zaufanie.',
       proof: 'Google · SEO · Mapy Google · Reklamy · Wyszukiwanie AI',
     },
     {
