@@ -70,8 +70,8 @@ function Header() {
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
         <a href="#system">Problem</a>
-        <a href="#sample">Mapa</a>
         <a href="#process">Jak działamy</a>
+        <a href="#sample">Mapa</a>
         <a href="#industries">Dla kogo</a>
         <a href="#offer">Oferta</a>
         <a href="#work">Realizacje</a>
@@ -887,8 +887,8 @@ export default function App() {
       <main>
         <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
         <Problems />
-        <SampleMap />
         <Process />
+        <SampleMap />
         <Principle />
         <Method />
         <Evidence />
