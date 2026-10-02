@@ -90,7 +90,7 @@ function Story({ progressRef }) {
   const stages = [
     {
       no: 'WIDOCZNOŚĆ',
-      title: <>Czy Twoja firma jest <span className="accent-text">widoczna wtedy, kiedy klient szuka?</span></>,
+      title: <>Czy klienci trafiają do Ciebie <span className="accent-text">wtedy, kiedy naprawdę Cię potrzebują?</span></>,
       copy: 'Sprawdzamy, czy Twoja firma pojawia się tam, gdzie potencjalni klienci naprawdę szukają rozwiązania — w Google, Maps, reklamach i wyszukiwaniu AI. Pokazujemy, gdzie tracisz widoczność i co może zwiększyć liczbę wartościowych wejść.',
       proof: 'Google · SEO · Mapy Google · Reklamy · Wyszukiwanie AI',
     },
