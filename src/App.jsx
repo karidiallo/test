@@ -559,21 +559,20 @@ function Principle() {
 }
 
 function Method() {
-  const tools = ['GA4', 'Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'Wyszukiwanie AI']
+  const tools = ['GA4', 'Google Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'wyszukiwanie AI']
 
   return (
     <section className="method-v6 method-v6--simple" id="method">
       <div className="section-shell method-simple-shell">
         <div className="method-simple-copy">
           <div className="eyebrow">METODA</div>
-          <h2>Nie opieramy rekomendacji <span className="accent-text">na jednym narzędziu.</span></h2>
-          <p>Łączymy dane o ruchu, wyszukiwaniu, reklamach, konkurencji, stronie i zachowaniu klientów. Narzędzia są źródłem informacji — nie gotowej odpowiedzi.</p>
-          <strong>Najważniejsze jest to, co wynika z danych dla Twojej firmy i co warto zrobić jako następny krok.</strong>
+          <h2>Dane nie podejmują decyzji. <span className="accent-text">Pomagają ją podjąć.</span></h2>
+          <p>Korzystamy z różnych źródeł danych, ale żadne z nich nie daje gotowej odpowiedzi. Łączymy informacje i interpretujemy je w kontekście Twojej firmy, żeby ustalić, co naprawdę ogranicza wynik i co powinno wydarzyć się dalej.</p>
+          <strong>Nie dostajesz raportu z narzędzia. Dostajesz interpretację, priorytet i następny krok.</strong>
         </div>
-        <div className="method-simple-tools" aria-label="Przykładowe źródła danych i narzędzia">
+        <div className="method-simple-tools" aria-label="Przykładowe źródła danych">
           <span>PRZYKŁADOWE ŹRÓDŁA DANYCH</span>
           <div>{tools.map((tool) => <b key={tool}>{tool}</b>)}</div>
-          <small>Dobieramy źródła do sytuacji firmy. Nie sprzedajemy raportu z narzędzia — sprzedajemy interpretację i plan działania.</small>
         </div>
       </div>
     </section>
