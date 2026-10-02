@@ -70,8 +70,8 @@ function Header() {
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
         <a href="#system">Problem</a>
-        <a href="#process">Jak działamy</a>
         <a href="#sample">Mapa</a>
+        <a href="#process">Jak działamy</a>
         <a href="#industries">Dla kogo</a>
         <a href="#offer">Oferta</a>
         <a href="#work">Realizacje</a>
@@ -243,53 +243,79 @@ function Problems() {
   const visibleProblems = symptoms.filter((item) => item.id !== 'other')
   const [activeProblem, setActiveProblem] = useState(0)
   const active = visibleProblems[activeProblem]
+  const sourceMap = {
+    acquisition: ['Widoczność', 'Social Media', 'Oferta', 'Konwersja'],
+    conversion: ['Oferta', 'Strona', 'Zaufanie', 'Konwersja'],
+    ads: ['Reklamy', 'Strona', 'Oferta', 'Konwersja'],
+    website: ['Oferta', 'UX', 'Zaufanie', 'Kontakt'],
+    competition: ['Widoczność', 'Oferta', 'Zaufanie', 'Treści'],
+    unclear: ['Widoczność', 'Reklamy', 'Oferta', 'Konwersja'],
+  }
+  const sources = sourceMap[active.id] || ['Widoczność', 'Oferta', 'Zaufanie', 'Konwersja']
 
   return (
-    <section className="problems-section problems-section--compact" id="system">
-      <div className="section-shell problems-compact-shell">
-        <div className="problems-compact-head">
-          <div>
-            <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
-            <h2>Wybierz sytuację, która <span className="accent-text">najbardziej przypomina Twoją.</span></h2>
-          </div>
-          <div className="problem-head-active" key={active.id} aria-live="polite">
-            <span className="problem-head-active-kicker">TWOJA SYTUACJA</span>
-            <h3>{active.label}</h3>
-          </div>
+    <section className="problems-section problems-section--diagnostic" id="system">
+      <div className="section-shell problems-diagnostic-shell">
+        <div className="problems-diagnostic-intro">
+          <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
+          <h2>Co dziś najbardziej <span className="accent-text">ogranicza Twój marketing?</span></h2>
+          <p>Nie musisz wiedzieć, czy problemem jest SEO, reklama, oferta czy strona.</p>
         </div>
 
-        <div className="problem-tabs" role="tablist" aria-label="Najczęstsze problemy marketingowe">
-          {visibleProblems.map((item, index) => (
-            <button
-              type="button"
-              role="tab"
-              aria-selected={index === activeProblem}
-              key={item.id}
-              className={`problem-tab ${index === activeProblem ? 'is-active' : ''}`}
-              onMouseEnter={() => setActiveProblem(index)}
-              onFocus={() => setActiveProblem(index)}
-              onClick={() => setActiveProblem(index)}
-            >
-              <span>{item.label}</span>
-              <i aria-hidden="true" />
-            </button>
-          ))}
-        </div>
-
-        <div className="problem-stage" role="tabpanel" aria-live="polite">
-          <div className="problem-stage-index">{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</div>
-          <div className="problem-stage-content" key={active.id}>
-            <div className="problem-stage-detail">
-              <p>{active.description}</p>
-              <a href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
+        <div className="problem-diagnostic-console">
+          <div className="problem-signal-list" role="tablist" aria-label="Najczęstsze problemy marketingowe">
+            <div className="problem-signal-caption">
+              <span>Wybierz sytuację</span>
+              <span>{String(visibleProblems.length).padStart(2, '0')} możliwości</span>
             </div>
+
+            {visibleProblems.map((item, index) => (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={index === activeProblem}
+                key={item.id}
+                className={`problem-signal ${index === activeProblem ? 'is-active' : ''}`}
+                onMouseEnter={() => setActiveProblem(index)}
+                onFocus={() => setActiveProblem(index)}
+                onClick={() => setActiveProblem(index)}
+              >
+                <span className="problem-signal-no">{String(index + 1).padStart(2, '0')}</span>
+                <span className="problem-signal-label">{item.label}</span>
+                <span className="problem-signal-arrow" aria-hidden="true">↗</span>
+              </button>
+            ))}
           </div>
-          <div className="problem-stage-progress" aria-hidden="true">
-            <span style={{ width: `${((activeProblem + 1) / visibleProblems.length) * 100}%` }} />
+
+          <div className="problem-diagnostic-result" role="tabpanel" aria-live="polite">
+            <div className="problem-result-topline">
+              <span>ANALIZA SYGNAŁU</span>
+              <span>{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</span>
+            </div>
+
+            <div className="problem-result-body" key={active.id}>
+              <div className="problem-result-status"><i aria-hidden="true" /> WYBRANA SYTUACJA</div>
+              <h3>{active.label}</h3>
+              <p>{active.description}</p>
+
+              <div className="problem-source-block">
+                <span className="problem-source-label">Najczęstsze źródła tego problemu</span>
+                <div className="problem-source-map" aria-label="Obszary, które sprawdzamy w pierwszej kolejności">
+                  {sources.map((source, index) => (
+                    <span className="problem-source-node" key={source} style={{ '--source-i': index }}>
+                      <i aria-hidden="true" />
+                      {source}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <a className="problem-result-cta" href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
+            </div>
+
+            <div className="problem-diagnostic-scan" aria-hidden="true" />
           </div>
         </div>
-
-        <p className="problems-helper-copy">Nie musisz wiedzieć, czy potrzebujesz SEO, reklam, nowej strony czy zmian w ofercie. Zacznij od tego, co dziś nie działa tak, jak powinno.</p>
       </div>
     </section>
   )
@@ -861,8 +887,8 @@ export default function App() {
       <main>
         <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
         <Problems />
-        <Process />
         <SampleMap />
+        <Process />
         <Principle />
         <Method />
         <Evidence />
