@@ -69,14 +69,14 @@ function Header() {
     <header className="header">
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
-        <a href="#system">Problem</a>
-        <a href="#process">Jak działamy</a>
-        <a href="#sample">Mapa</a>
-        <a href="#industries">Dla kogo</a>
-        <a href="#offer">Oferta</a>
-        <a href="#work">Realizacje</a>
+        <a href="#z-jakim-problemem-przychodzisz">Problem</a>
+        <a href="#jak-powstaje-mapa">Jak działamy</a>
+        <a href="#przykladowa-mapa">Mapa</a>
+        <a href="#dla-kogo">Dla kogo</a>
+        <a href="#oferta">Oferta</a>
+        <a href="#realizacje">Realizacje</a>
       </nav>
-      <a className="header-cta" href="#scan">Sprawdź swoją firmę <Arrow /></a>
+      <a className="header-cta" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
     </header>
   )
 }
@@ -162,7 +162,7 @@ function Story({ progressRef }) {
   const stage = activeStage >= 0 ? stages[activeStage] : null
 
   return (
-    <section className="story story--strategy-map story--fixed-narrative" id="top" ref={storyRef}>
+    <section className="story story--strategy-map story--fixed-narrative" id="start" ref={storyRef}>
       <div className="story-canvas-wrap">
         <LivingMap progressRef={progressRef} onSelectZone={goToZone} />
 
@@ -177,7 +177,7 @@ function Story({ progressRef }) {
                 label={stage.no === 'KONWERSJA' ? 'ŚCIEŻKA DO SPRZEDAŻY' : 'CO SPRAWDZAMY'}
                 emphasizeLast={stage.no === 'KONWERSJA'}
               />
-              {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#scan">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
+              {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#sprawdz-swoja-firme">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
             </article>
           ) : (
             <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
@@ -190,8 +190,8 @@ function Story({ progressRef }) {
               </h1>
               <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
               <div className="hero-actions">
-                <a className="button button--dark" href="#scan">Sprawdź swoją firmę <Arrow /></a>
-                <a className="button button--hero-secondary" href="#sample">Zobacz przykładową Mapę <Arrow /></a>
+                <a className="button button--dark" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
+                <a className="button button--hero-secondary" href="#przykladowa-mapa">Zobacz przykładową Mapę <Arrow /></a>
               </div>
               <div className="micro-proof">
                 <span><i className="micro-proof-icon"><MicroIcon type="free" /></i>Mini Mapa 0 zł</span>
@@ -218,7 +218,7 @@ function Story({ progressRef }) {
 
 function Process() {
   return (
-    <section className="process-section" id="process">
+    <section className="process-section" id="jak-powstaje-mapa">
       <div className="section-shell process-layout">
         <div className="process-intro">
           <div className="eyebrow">JAK POWSTAJE MAPA</div>
@@ -254,7 +254,7 @@ function Problems() {
   const sources = sourceMap[active.id] || ['Widoczność', 'Oferta', 'Zaufanie', 'Konwersja']
 
   return (
-    <section className="problems-section problems-section--diagnostic" id="system">
+    <section className="problems-section problems-section--diagnostic" id="z-jakim-problemem-przychodzisz">
       <div className="section-shell problems-diagnostic-shell">
         <div className="problems-diagnostic-intro">
           <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
@@ -310,7 +310,7 @@ function Problems() {
                 </div>
               </div>
 
-              <a className="problem-result-cta" href="#scan">Sprawdź ten problem w swojej firmie <Arrow /></a>
+              <a className="problem-result-cta" href="#sprawdz-swoja-firme">Sprawdź ten problem w swojej firmie <Arrow /></a>
             </div>
 
             <div className="problem-diagnostic-scan" aria-hidden="true" />
@@ -425,7 +425,7 @@ function SampleMap() {
   const selected = areas.find((area) => area.id === activeArea) ?? areas[0]
 
   return (
-    <section className="sample-section sample-section--atlas" id="sample">
+    <section className="sample-section sample-section--atlas" id="przykladowa-mapa">
       <div className="section-shell">
         <div className="section-heading section-heading--split sample-heading sample-heading--atlas">
           <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
@@ -517,7 +517,7 @@ function SampleMap() {
 
           <div className="sample-atlas-footer">
             <p><strong>Nie dostajesz ośmiu osobnych raportów.</strong> Dostajesz jedną Mapę, która pokazuje, gdzie jest największa strata i co powinno wydarzyć się najpierw.</p>
-            <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
+            <a href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
           </div>
         </div>
       </div>
@@ -533,7 +533,7 @@ function Principle() {
   ]
 
   return (
-    <section className="principle principle--v7">
+    <section className="principle principle--v7" id="dlaczego-digitalmap">
       <div className="principle-inner">
         <div className="principle-kicker-row">
           <div className="eyebrow">DLACZEGO DIGITALMAP</div>
@@ -562,7 +562,7 @@ function Method() {
   const tools = ['GA4', 'Google Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'wyszukiwanie AI']
 
   return (
-    <section className="method-v6 method-v6--simple" id="method">
+    <section className="method-v6 method-v6--simple" id="metoda">
       <div className="section-shell method-simple-shell">
         <div className="method-simple-copy">
           <div className="eyebrow">METODA</div>
@@ -590,7 +590,7 @@ function Evidence() {
   ]
 
   return (
-    <section className="section evidence-section" id="scope">
+    <section className="section evidence-section" id="zakres-diagnozy">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
           <div className="eyebrow">ZAKRES DIAGNOZY</div>
@@ -624,12 +624,12 @@ function Industries() {
   const activeFocus = focusAreas[activeIndustry] || focusAreas[0]
 
   return (
-    <section className="industries industries--atlas" id="industries">
+    <section className="industries industries--atlas" id="dla-kogo">
       <div className="section-shell industries-atlas-shell">
         <div className="industries-atlas-head">
           <div className="eyebrow">DLA KOGO</div>
           <div className="industries-atlas-head__copy">
-            <h2>Dla firm, które chcą wiedzieć <span className="accent-text">gdzie tracą klientów.</span></h2>
+            <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
             <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
           </div>
         </div>
@@ -687,14 +687,14 @@ function Industries() {
                 ))}
               </div>
 
-              <a href="#scan" className="industry-lens__cta">Sprawdź swoją firmę <Arrow /></a>
+              <a href="#sprawdz-swoja-firme" className="industry-lens__cta">Sprawdź swoją firmę <Arrow /></a>
             </div>
           </aside>
         </div>
 
         <div className="industries-atlas-foot">
           <span>Nie widzisz swojej branży?</span>
-          <a href="#scan">Sprawdź firmę <Arrow /></a>
+          <a href="#sprawdz-swoja-firme">Sprawdź firmę <Arrow /></a>
         </div>
       </div>
     </section>
@@ -703,7 +703,7 @@ function Industries() {
 
 function Work() {
   return (
-    <section className="work" id="work">
+    <section className="work" id="realizacje">
       <div className="section-shell">
         <div className="section-heading section-heading--split work-heading">
           <div className="eyebrow">WYBRANE REALIZACJE</div>
@@ -740,7 +740,7 @@ function Work() {
 
 function Team() {
   return (
-    <section className="team" id="team">
+    <section className="team" id="zespol">
       <div className="section-shell">
         <div className="team-heading">
           <div className="eyebrow">ZESPÓŁ</div>
@@ -776,7 +776,7 @@ function Offer({ onChoose }) {
   }
 
   return (
-    <section className="offer-v6" id="offer">
+    <section className="offer-v6" id="oferta">
       <div className="section-shell">
         <div className="offer-v6-head">
           <div className="eyebrow">OFERTA</div>
@@ -815,7 +815,7 @@ function Offer({ onChoose }) {
             {offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
             <div className="offer-cta-row">
               <div className="offer-cta-context"><span>WYBRANY ZAKRES</span><strong>{offer.name}</strong><small>Najpierw diagnoza. Wdrożenie jest osobną decyzją.</small></div>
-              <a className="offer-main-cta" href="#scan" onClick={() => onChoose(offer)}><span>Wybieram tę Mapę</span><i aria-hidden="true">↗</i></a>
+              <a className="offer-main-cta" href="#sprawdz-swoja-firme" onClick={() => onChoose(offer)}><span>Wybieram tę Mapę</span><i aria-hidden="true">↗</i></a>
             </div>
           </article>
         </div>
@@ -824,7 +824,7 @@ function Offer({ onChoose }) {
           <article className="offer-support-card">
             <span>Nie wiesz, którą Mapę wybrać?</span>
             <p>Nie musisz tego oceniać samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa albo krótszy zakres, powiemy to wprost.</p>
-            <a href="#scan">Pomóżcie mi wybrać <Arrow /></a>
+            <a href="#sprawdz-swoja-firme">Pomóżcie mi wybrać <Arrow /></a>
           </article>
           <article className="offer-support-card offer-support-card--dark">
             <span>Masz już agencję, niezależnego specjalistę albo własny zespół marketingowy?</span>
@@ -853,7 +853,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
   }
 
   return (
-    <section className="scan" id="scan">
+    <section className="scan" id="sprawdz-swoja-firme">
       <div className="scan-shell">
         <div className="scan-copy">
           <div className="eyebrow">ZACZNIJ OD FIRMY</div>
@@ -903,14 +903,14 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
 
 function FAQ() {
   return (
-    <section className="faq-section" id="faq">
+    <section className="faq-section" id="najczestsze-pytania">
       <div className="section-shell">
         <div className="faq-layout-premium">
           <aside className="faq-intro-panel">
             <div className="eyebrow">NAJCZĘSTSZE PYTANIA / PRZED DECYZJĄ</div>
             <h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2>
             <p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz. Odpowiedzi mają pomóc Ci szybko ocenić, czy DigitalMap pasuje do sytuacji Twojej firmy.</p>
-            <a href="#scan" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
+            <a href="#sprawdz-swoja-firme" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
           </aside>
           <div className="faq-list-v14 faq-list-premium">
             {faqs.map((item, index) => (
@@ -923,7 +923,7 @@ function FAQ() {
         </div>
         <div className="final-cta-v14 final-cta-premium">
           <div className="final-cta-copy"><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
-          <div className="final-cta-actions"><a className="button button--primary-light" href="#scan">Sprawdź swoją firmę <Arrow /></a><a className="button button--outline-light" href="#offer">Zobacz zakres i ofertę</a></div>
+          <div className="final-cta-actions"><a className="button button--primary-light" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a><a className="button button--outline-light" href="#oferta">Zobacz zakres i ofertę</a></div>
         </div>
       </div>
     </section>
@@ -932,16 +932,16 @@ function FAQ() {
 
 function Footer() {
   return (
-    <footer className="site-footer" id="footer">
+    <footer className="site-footer" id="stopka">
       <div className="footer-grid">
         <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
-        <div className="footer-column"><h3>Oferta</h3><a href="#offer">Mini Mapa</a><a href="#offer">Mapa Podstawowa</a><a href="#offer">Mapa Strategiczna</a><a href="#offer">Mapa AI</a><a href="#offer">Wdrożenie / Monitorowanie</a></div>
-        <div className="footer-column"><h3>Firma</h3><a href="#process">Jak działamy</a><a href="#industries">Dla kogo</a><a href="#work">Realizacje</a><a href="#team">Zespół</a><a href="#method">Metoda</a><a href="#faq">Najczęstsze Pytania</a></div>
-        <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#scan">Formularz</a></div>
+        <div className="footer-column"><h3>Oferta</h3><a href="#oferta">Mini Mapa</a><a href="#oferta">Mapa Podstawowa</a><a href="#oferta">Mapa Strategiczna</a><a href="#oferta">Mapa AI</a><a href="#oferta">Wdrożenie / Monitorowanie</a></div>
+        <div className="footer-column"><h3>Firma</h3><a href="#jak-powstaje-mapa">Jak działamy</a><a href="#dla-kogo">Dla kogo</a><a href="#realizacje">Realizacje</a><a href="#zespol">Zespół</a><a href="#metoda">Metoda</a><a href="#najczestsze-pytania">Najczęstsze Pytania</a></div>
+        <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#sprawdz-swoja-firme">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
       </div>
       <div className="footer-slogan"><span className="footer-slogan-line">Najpierw diagnoza. Potem decyzja.</span><span className="footer-slogan-line footer-slogan-line--accent">Dopiero później wydatek.</span></div>
-      <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#top">Wróć na górę ↑</a></div>
+      <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#start">Wróć na górę ↑</a></div>
     </footer>
   )
 }
