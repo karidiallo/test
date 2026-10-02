@@ -606,45 +606,95 @@ function Evidence() {
 
 function Industries() {
   const [activeIndustry, setActiveIndustry] = useState(0)
+  const active = industries[activeIndustry] || industries[0]
+  const focusAreas = [
+    ['Widoczność', 'Zaufanie', 'Kontakt'],
+    ['Google', 'Opinie', 'Rezerwacja'],
+    ['Social Media', 'Zaufanie', 'Rezerwacja'],
+    ['Oferta', 'Prezentacja', 'Zapytanie'],
+    ['Eksperckość', 'Zaufanie', 'Kontakt'],
+    ['Lokalność', 'Oferta', 'Kontakt'],
+    ['Ruch', 'Produkt', 'Zakup'],
+    ['Komunikacja', 'Wartość', 'Demo'],
+    ['Pozycjonowanie', 'Zaufanie', 'Zapytanie'],
+    ['Widoczność', 'Opinie', 'Rezerwacja'],
+    ['Lokalność', 'Oferta', 'Kontakt'],
+    ['Komunikacja', 'Dowody', 'Rozmowa'],
+  ]
+  const activeFocus = focusAreas[activeIndustry] || focusAreas[0]
 
   return (
-    <section className="industries industries--interactive" id="industries">
-      <div className="section-shell industries-layout industries-layout--interactive">
-        <div className="industries-copy industries-copy--interactive">
+    <section className="industries industries--atlas" id="industries">
+      <div className="section-shell industries-atlas-shell">
+        <div className="industries-atlas-head">
           <div className="eyebrow">DLA KOGO</div>
-          <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
-          <p>Wybierz branżę, żeby zobaczyć moment decyzji, który najczęściej warto sprawdzić.</p>
-          <a href="#scan" className="text-link">Nie widzisz swojej branży? Sprawdź firmę <Arrow /></a>
+          <div className="industries-atlas-head__copy">
+            <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
+            <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
+          </div>
         </div>
 
-        <div className="industry-accordion" role="list" aria-label="Branże, dla których sprawdza się DigitalMap">
-          {industries.map((industry, index) => {
-            const isOpen = activeIndustry === index
-            const no = String(index + 1).padStart(2, '0')
-
-            return (
-              <article className={`industry-row ${isOpen ? 'is-open' : ''}`} key={industry.name} role="listitem">
+        <div className="industries-atlas-grid">
+          <div className="industry-index" role="list" aria-label="Branże, dla których sprawdza się DigitalMap">
+            {industries.map((industry, index) => {
+              const isActive = activeIndustry === index
+              const no = String(index + 1).padStart(2, '0')
+              return (
                 <button
                   type="button"
-                  className="industry-row__trigger"
-                  aria-expanded={isOpen}
-                  onClick={() => setActiveIndustry(isOpen ? -1 : index)}
+                  className={`industry-index__item ${isActive ? 'is-active' : ''}`}
+                  key={industry.name}
+                  role="listitem"
+                  aria-pressed={isActive}
+                  onMouseEnter={() => setActiveIndustry(index)}
+                  onFocus={() => setActiveIndustry(index)}
+                  onClick={() => setActiveIndustry(index)}
                 >
-                  <span className="industry-row__no">{no}</span>
-                  <h3>{industry.name}</h3>
-                  <span className="industry-row__toggle" aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                  <span className="industry-index__no">{no}</span>
+                  <span className="industry-index__name">{industry.name}</span>
+                  <span className="industry-index__arrow" aria-hidden="true">↗</span>
                 </button>
+              )
+            })}
+          </div>
 
-                <div className="industry-row__reveal" aria-hidden={!isOpen}>
-                  <div className="industry-row__reveal-inner">
-                    <span>KLUCZOWY MOMENT DECYZJI</span>
-                    <p>{industry.decision}</p>
-                    <a href="#scan">Sprawdź swoją firmę <Arrow /></a>
-                  </div>
-                </div>
-              </article>
-            )
-          })}
+          <aside className="industry-lens" aria-live="polite">
+            <div className="industry-lens__visual" aria-hidden="true">
+              <span className="industry-lens__orbit industry-lens__orbit--one" />
+              <span className="industry-lens__orbit industry-lens__orbit--two" />
+              <span className="industry-lens__orbit industry-lens__orbit--three" />
+              <span className="industry-lens__pulse" />
+              <span className="industry-lens__axis industry-lens__axis--x" />
+              <span className="industry-lens__axis industry-lens__axis--y" />
+            </div>
+
+            <div className="industry-lens__topline">
+              <span>WYBRANY BIZNES</span>
+              <b>{String(activeIndustry + 1).padStart(2, '0')} / {String(industries.length).padStart(2, '0')}</b>
+            </div>
+
+            <div className="industry-lens__content" key={activeIndustry}>
+              <h3>{active.name}</h3>
+              <div className="industry-lens__label">KLUCZOWY MOMENT DECYZJI</div>
+              <p>{active.decision}</p>
+
+              <div className="industry-lens__route" aria-label="Obszary, które warto sprawdzić">
+                {activeFocus.map((item, index) => (
+                  <span key={item}>
+                    <i>{String(index + 1).padStart(2, '0')}</i>
+                    <b>{item}</b>
+                  </span>
+                ))}
+              </div>
+
+              <a href="#scan" className="industry-lens__cta">Sprawdź swoją firmę <Arrow /></a>
+            </div>
+          </aside>
+        </div>
+
+        <div className="industries-atlas-foot">
+          <span>Nie widzisz swojej branży?</span>
+          <a href="#scan">Sprawdź firmę <Arrow /></a>
         </div>
       </div>
     </section>

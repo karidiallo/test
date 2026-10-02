@@ -8423,3 +8423,388 @@ footer > span { font-size: 11px !important; }
   .industry-row__reveal,
   .industry-row__reveal-inner { transition: none !important; }
 }
+
+/* =========================================================
+   V66 — Dla kogo: dark interactive industry atlas
+   ========================================================= */
+.industries--atlas {
+  position: relative;
+  overflow: hidden;
+  padding: 118px 0 124px;
+  background:
+    radial-gradient(circle at 82% 28%, rgba(168, 54, 89, .14), transparent 24%),
+    radial-gradient(circle at 8% 85%, rgba(217, 130, 89, .07), transparent 27%),
+    #151210;
+  color: #fff;
+  isolation: isolate;
+}
+
+.industries--atlas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .17;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 24%, #000 100%);
+}
+
+.industries-atlas-shell { position: relative; z-index: 1; }
+
+.industries-atlas-head {
+  display: grid;
+  grid-template-columns: minmax(130px, .28fr) minmax(0, 1fr);
+  gap: clamp(34px, 5vw, 78px);
+  align-items: start;
+  margin-bottom: 54px;
+}
+
+.industries--atlas .eyebrow {
+  margin-top: 9px;
+  color: rgba(255,255,255,.42);
+}
+
+.industries-atlas-head__copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, .42fr);
+  gap: clamp(36px, 5vw, 76px);
+  align-items: end;
+}
+
+.industries-atlas-head__copy h2 {
+  max-width: 920px;
+  margin: 0;
+  color: #f7f2ed;
+  font: 520 clamp(38px, 4vw, 62px)/.96 var(--display);
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+
+.industries-atlas-head__copy p {
+  max-width: 360px;
+  margin: 0 0 5px;
+  color: rgba(255,255,255,.5);
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+.industries-atlas-grid {
+  display: grid;
+  grid-template-columns: minmax(520px, 1.08fr) minmax(380px, .92fr);
+  gap: clamp(36px, 5vw, 74px);
+  align-items: start;
+}
+
+.industry-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 34px;
+  border-top: 1px solid rgba(255,255,255,.11);
+}
+
+.industry-index__item {
+  position: relative;
+  width: 100%;
+  min-height: 58px;
+  padding: 0 8px 0 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  background: transparent;
+  color: rgba(255,255,255,.68);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 20px;
+  gap: 9px;
+  align-items: center;
+  text-align: left;
+  transition: color .24s ease, padding-left .28s cubic-bezier(.2,.8,.2,1), background .24s ease;
+}
+
+.industry-index__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #bc4669, #e2a071);
+  transition: width .38s cubic-bezier(.2,.8,.2,1);
+}
+
+.industry-index__item:hover,
+.industry-index__item:focus-visible,
+.industry-index__item.is-active {
+  color: #fff;
+  padding-left: 8px;
+}
+
+.industry-index__item:hover::before,
+.industry-index__item:focus-visible::before,
+.industry-index__item.is-active::before { width: 100%; }
+
+.industry-index__item:focus-visible { outline: none; background: rgba(255,255,255,.025); }
+
+.industry-index__no {
+  color: rgba(255,255,255,.28);
+  font: 800 8px/1 var(--body);
+  letter-spacing: .14em;
+  transition: color .24s ease;
+}
+
+.industry-index__item.is-active .industry-index__no { color: #e28ba4; }
+
+.industry-index__name {
+  font: 540 clamp(15px, 1.2vw, 18px)/1.12 var(--display);
+  letter-spacing: -.025em;
+}
+
+.industry-index__arrow {
+  color: rgba(255,255,255,.18);
+  font-size: 13px;
+  transform: translate(-5px, 5px);
+  opacity: 0;
+  transition: opacity .22s ease, transform .28s ease, color .22s ease;
+}
+
+.industry-index__item:hover .industry-index__arrow,
+.industry-index__item:focus-visible .industry-index__arrow,
+.industry-index__item.is-active .industry-index__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: #e28ba4;
+}
+
+.industry-lens {
+  position: sticky;
+  top: 112px;
+  overflow: hidden;
+  min-height: 432px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018) 55%, rgba(255,255,255,.035)),
+    rgba(25,20,18,.76);
+  box-shadow: 0 30px 90px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter: blur(16px);
+}
+
+.industry-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,.025) 50%, transparent 56%);
+  transform: translateX(-120%);
+  animation: industrySheen 8s ease-in-out infinite;
+}
+
+.industry-lens__visual {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  right: -78px;
+  top: -102px;
+  opacity: .68;
+  pointer-events: none;
+}
+
+.industry-lens__orbit,
+.industry-lens__pulse,
+.industry-lens__axis {
+  position: absolute;
+  display: block;
+}
+
+.industry-lens__orbit {
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(225,139,164,.20);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.industry-lens__orbit--one { width: 90px; height: 90px; }
+.industry-lens__orbit--two { width: 174px; height: 174px; }
+.industry-lens__orbit--three { width: 262px; height: 262px; border-color: rgba(225,139,164,.10); }
+
+.industry-lens__pulse {
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d45a7d;
+  box-shadow: 0 0 0 10px rgba(212,90,125,.08), 0 0 34px rgba(212,90,125,.45);
+  transform: translate(-50%, -50%);
+  animation: industryPulse 2.4s ease-in-out infinite;
+}
+
+.industry-lens__axis--x { left: 22px; right: 22px; top: 50%; height: 1px; background: rgba(255,255,255,.05); }
+.industry-lens__axis--y { top: 22px; bottom: 22px; left: 50%; width: 1px; background: rgba(255,255,255,.05); }
+
+.industry-lens__topline {
+  position: relative;
+  z-index: 2;
+  min-height: 52px;
+  padding: 0 22px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255,255,255,.34);
+  font: 800 8px/1 var(--body);
+  letter-spacing: .13em;
+}
+
+.industry-lens__topline b { color: rgba(255,255,255,.62); font-weight: 800; }
+
+.industry-lens__content {
+  position: relative;
+  z-index: 2;
+  padding: 34px 30px 30px;
+  animation: industryReveal .42s cubic-bezier(.2,.75,.2,1) both;
+}
+
+.industry-lens__content h3 {
+  max-width: 430px;
+  margin: 0 0 30px;
+  color: #fff;
+  font: 540 clamp(28px, 3vw, 42px)/.98 var(--display);
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.industry-lens__label {
+  margin-bottom: 10px;
+  color: #dd809c;
+  font: 800 8px/1 var(--body);
+  letter-spacing: .13em;
+}
+
+.industry-lens__content > p {
+  max-width: 510px;
+  min-height: 66px;
+  margin: 0;
+  color: rgba(255,255,255,.68);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.industry-lens__route {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 25px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.industry-lens__route span {
+  min-width: 0;
+  padding: 14px 12px 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.industry-lens__route span + span {
+  padding-left: 12px;
+  border-left: 1px solid rgba(255,255,255,.08);
+}
+
+.industry-lens__route i {
+  color: rgba(255,255,255,.26);
+  font: 800 7px/1 var(--body);
+  letter-spacing: .12em;
+}
+
+.industry-lens__route b {
+  overflow: hidden;
+  color: rgba(255,255,255,.84);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+}
+
+.industry-lens__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 24px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255,255,255,.34);
+  color: #fff;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  transition: color .22s ease, border-color .22s ease, gap .22s ease;
+}
+
+.industry-lens__cta:hover { color: #ef9ab2; border-bottom-color: #ef9ab2; gap: 13px; }
+
+.industries-atlas-foot {
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  color: rgba(255,255,255,.38);
+  font-size: 10px;
+}
+
+.industries-atlas-foot a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 750;
+}
+
+@keyframes industryReveal {
+  from { opacity: 0; transform: translateY(10px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes industryPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(.88); opacity: .75; }
+  50% { transform: translate(-50%, -50%) scale(1.14); opacity: 1; }
+}
+
+@keyframes industrySheen {
+  0%, 72% { transform: translateX(-120%); opacity: 0; }
+  78% { opacity: 1; }
+  92%, 100% { transform: translateX(120%); opacity: 0; }
+}
+
+@media (max-width: 1080px) {
+  .industries-atlas-head,
+  .industries-atlas-head__copy,
+  .industries-atlas-grid { grid-template-columns: 1fr; }
+  .industries-atlas-head__copy { gap: 18px; }
+  .industries-atlas-head__copy p { max-width: 620px; }
+  .industry-lens { position: relative; top: auto; }
+}
+
+@media (max-width: 720px) {
+  .industries--atlas { padding: 88px 0 92px; }
+  .industries-atlas-head { gap: 18px; margin-bottom: 36px; }
+  .industries-atlas-head__copy h2 { font-size: 40px !important; }
+  .industry-index { grid-template-columns: 1fr; }
+  .industry-index__item { min-height: 54px; }
+  .industry-index__name { font-size: 16px; }
+  .industry-lens { min-height: 0; border-radius: 18px; }
+  .industry-lens__content { padding: 28px 20px 24px; }
+  .industry-lens__content h3 { font-size: 32px !important; }
+  .industry-lens__route b { font-size: 9px; }
+  .industries-atlas-foot { justify-content: flex-start; flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industry-index__item,
+  .industry-index__item::before,
+  .industry-index__arrow,
+  .industry-lens__content,
+  .industry-lens::after,
+  .industry-lens__pulse { transition: none !important; animation: none !important; }
+}
