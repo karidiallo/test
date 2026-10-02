@@ -69,8 +69,8 @@ function Header() {
     <header className="header">
       <TopographicLogo />
       <nav aria-label="Główna nawigacja">
-        <a href="#problem">Problem</a>
-        <a href="#jak-dzialamy">Jak działamy</a>
+        <a href="#z-jakim-problemem-przychodzisz">Problem</a>
+        <a href="#jak-powstaje-mapa">Jak działamy</a>
         <a href="#przykladowa-mapa">Mapa</a>
         <a href="#dla-kogo">Dla kogo</a>
         <a href="#oferta">Oferta</a>
@@ -629,7 +629,7 @@ function Industries() {
         <div className="industries-atlas-head">
           <div className="eyebrow">DLA KOGO</div>
           <div className="industries-atlas-head__copy">
-            <h2>Dla firm, które chcą wiedzieć, <span className="accent-text">gdzie tracą klientów.</span></h2>
+            <h2>DigitalMap sprawdza się szczególnie w biznesach, w których klient porównuje kilka możliwości, <span className="accent-text">zanim zdecyduje się na kontakt.</span></h2>
             <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
           </div>
         </div>
@@ -770,69 +770,117 @@ function Offer({ onChoose }) {
   const [activeOffer, setActiveOffer] = useState('strategic')
   const offer = useMemo(() => offers.find((item) => item.id === activeOffer) || offers[0], [activeOffer])
 
-  function choose(item) {
-    setActiveOffer(item.id)
-    onChoose(item)
-  }
-
   return (
-    <section className="offer-v6" id="oferta">
+    <section className="offer-v70" id="oferta">
       <div className="section-shell">
-        <div className="offer-v6-head">
+        <div className="offer-v70-head">
           <div className="eyebrow">OFERTA</div>
-          <div><h2>Nie wybieraj usługi w ciemno. <span className="accent-text">Wybierz zakres diagnozy.</span></h2><p>Od pierwszego sygnału po pełną analizę procesu pozyskania klienta. Każdy poziom odpowiada na inne pytanie i kończy się konkretnym następnym krokiem.</p></div>
+          <div>
+            <h2>Najpierw ustal, <span className="accent-text">czego naprawdę potrzebujesz.</span></h2>
+            <p>Nie zaczynamy od wyboru usługi. Zaczynamy od pytania, na które potrzebujesz odpowiedzi.</p>
+          </div>
         </div>
 
-        <div className="offer-chooser">
-          <div className="offer-selector">
-            {offers.map((item) => (
-              <button key={item.id} className={activeOffer === item.id ? 'active' : ''} onClick={() => choose(item)}>
-                <div className="offer-selector-main"><strong>{item.name}</strong><small>{item.label}</small></div>
-                <div className="offer-selector-meta"><b>{item.price}</b><i>↗</i></div>
+        <div className="offer-v70-question-label">
+          <span>WYBIERZ PYTANIE, NA KTÓRE CHCESZ ODPOWIEDZI</span>
+          <small>{String(offers.findIndex((item) => item.id === activeOffer) + 1).padStart(2, '0')} / {String(offers.length).padStart(2, '0')}</small>
+        </div>
+
+        <div className="offer-v70-nav" role="tablist" aria-label="Wybierz zakres Mapy">
+          {offers.map((item, index) => {
+            const active = item.id === activeOffer
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                className={`offer-v70-nav__item ${active ? 'is-active' : ''}`}
+                onClick={() => setActiveOffer(item.id)}
+                onMouseEnter={() => setActiveOffer(item.id)}
+                onFocus={() => setActiveOffer(item.id)}
+              >
+                <span className="offer-v70-nav__no">{String(index + 1).padStart(2, '0')}</span>
+                <span className="offer-v70-nav__copy">
+                  <b>{item.name}</b>
+                  <strong>{item.question}</strong>
+                </span>
+                <span className="offer-v70-nav__price">{item.price}</span>
+                <i aria-hidden="true">↗</i>
               </button>
-            ))}
+            )
+          })}
+        </div>
+
+        <article className="offer-v70-panel" key={offer.id}>
+          <div className="offer-v70-panel__glow" aria-hidden="true" />
+          <div className="offer-v70-panel__topline">
+            <span>{offer.name.toUpperCase()}</span>
+            {offer.featured && <b>NAJCZĘŚCIEJ WYBIERANA</b>}
           </div>
 
-          <article className="offer-focus-card">
-            <div className="offer-focus-top"><span>{offer.label}</span>{offer.featured && <b>NAJCZĘŚCIEJ WYBIERANA</b>}</div>
-            <div className="offer-focus-title"><div><h3>{offer.name}</h3><p>{offer.copy}</p></div><strong>{offer.price}</strong></div>
-            <div className="offer-fit-grid">
-              <div><span>DLA KOGO</span><strong>{offer.audience}</strong></div>
-              <div><span>NAJLEPSZA, GDY</span><strong>{offer.bestFor}</strong></div>
-              <div><span>WYNIK</span><strong>{offer.result}</strong></div>
+          <div className="offer-v70-panel__hero">
+            <div className="offer-v70-panel__intro">
+              <h3>{offer.question}</h3>
+              <p>{offer.copy}</p>
             </div>
-            <div className="offer-deliverables">
+            <strong className="offer-v70-panel__price">{offer.price}</strong>
+          </div>
+
+          <div className="offer-v70-choose-if">
+            <span>WYBIERZ, JEŚLI</span>
+            <p>{offer.chooseIf}</p>
+          </div>
+
+          <div className="offer-v70-details">
+            <div className="offer-v70-audience">
+              <span>DLA KOGO</span>
+              <p>{offer.audience}</p>
+            </div>
+
+            <div className="offer-v70-includes">
               <span>CO DOSTAJESZ</span>
-              <div className="offer-deliverables-grid">
-                {offer.includes.map((item) => (
-                  <article key={item} className="offer-deliverable">
-                    <i>✓</i>
+              <div className="offer-v70-includes__grid">
+                {offer.includes.map((item, index) => (
+                  <div className="offer-v70-includes__item" key={item}>
+                    <i>{String(index + 1).padStart(2, '0')}</i>
                     <strong>{item}</strong>
-                  </article>
+                  </div>
                 ))}
               </div>
             </div>
-            {offer.anchor && <div className="offer-value-anchor">{offer.anchor}</div>}
-            <div className="offer-cta-row">
-              <div className="offer-cta-context"><span>WYBRANY ZAKRES</span><strong>{offer.name}</strong><small>Najpierw diagnoza. Wdrożenie jest osobną decyzją.</small></div>
-              <a className="offer-main-cta" href="#sprawdz-swoja-firme" onClick={() => onChoose(offer)}><span>Wybieram tę Mapę</span><i aria-hidden="true">↗</i></a>
-            </div>
-          </article>
-        </div>
+          </div>
 
-        <div className="offer-support-grid">
-          <article className="offer-support-card">
-            <span>Nie wiesz, którą Mapę wybrać?</span>
-            <p>Nie musisz tego oceniać samodzielnie. Zostaw firmę i objaw — jeśli wystarczy bezpłatna Mini Mapa albo krótszy zakres, powiemy to wprost.</p>
-            <a href="#sprawdz-swoja-firme">Pomóżcie mi wybrać <Arrow /></a>
-          </article>
-          <article className="offer-support-card offer-support-card--dark">
-            <span>Masz już agencję, niezależnego specjalistę albo własny zespół marketingowy?</span>
-            <p>DigitalMap działa także jako niezależne drugie spojrzenie. Chodzi o to, żebyś wiedział, gdzie naprawdę jest problem, co jest priorytetem i jakie działanie ma sens jako następne.</p>
-            <strong>Przed: „może więcej reklam?” → Po Mapie: teraz / później / nie teraz.</strong>
-          </article>
+          <div className="offer-v70-result">
+            <div>
+              <span>PO TEJ MAPIE</span>
+              <strong>{offer.result}</strong>
+            </div>
+            <a
+              className="offer-v70-cta"
+              href="#sprawdz-swoja-firme"
+              onClick={() => onChoose(offer)}
+            >
+              {offer.cta} <Arrow />
+            </a>
+          </div>
+        </article>
+
+        <div className="offer-v70-after">
+          <div className="offer-v70-after__copy">
+            <div className="eyebrow">PO DIAGNOZIE</div>
+            <h3>Wiesz już, co robić. <span>Teraz możesz to wdrożyć.</span></h3>
+            <p>Rekomendacje możesz wdrożyć samodzielnie, z własnym zespołem, z innym wykonawcą albo z DigitalMap.</p>
+            <strong>Zakres wdrożenia wynika z diagnozy — nie jest ustalany z góry.</strong>
+          </div>
+
+          <div className="offer-v70-after__route" aria-label="Możliwe drogi wdrożenia po diagnozie">
+            <div><i>01</i><span>Samodzielnie</span></div>
+            <div><i>02</i><span>Własny zespół</span></div>
+            <div><i>03</i><span>Inny wykonawca</span></div>
+            <div className="is-accent"><i>04</i><span>DigitalMap</span></div>
+          </div>
         </div>
-        <div className="offer-cost-note">Mapa ma pomóc lepiej wydać większy budżet na stronę, SEO, kampanie, treści albo wdrożenie. Dlatego najpierw ustalamy problem, a dopiero później rekomendujemy rozwiązanie.</div>
       </div>
     </section>
   )
@@ -935,7 +983,7 @@ function Footer() {
     <footer className="site-footer" id="stopka">
       <div className="footer-grid">
         <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
-        <div className="footer-column"><h3>Oferta</h3><a href="#oferta">Mini Mapa</a><a href="#oferta">Mapa Podstawowa</a><a href="#oferta">Mapa Strategiczna</a><a href="#oferta">Mapa AI</a><a href="#oferta">Wdrożenie / Monitorowanie</a></div>
+        <div className="footer-column"><h3>Oferta</h3><a href="#oferta">Mini Mapa</a><a href="#oferta">Mapa Start</a><a href="#oferta">Mapa Strategiczna</a><a href="#oferta">Mapa AI</a><a href="#oferta">Po diagnozie</a></div>
         <div className="footer-column"><h3>Firma</h3><a href="#jak-powstaje-mapa">Jak działamy</a><a href="#dla-kogo">Dla kogo</a><a href="#realizacje">Realizacje</a><a href="#zespol">Zespół</a><a href="#metoda">Metoda</a><a href="#najczestsze-pytania">Najczęstsze Pytania</a></div>
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#sprawdz-swoja-firme">Formularz</a></div>
         <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
