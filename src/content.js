@@ -343,7 +343,7 @@ export const offers = [
     code: '04',
     name: 'Mapa AI',
     question: 'Jak AI widzi Twoją firmę?',
-    price: '299 zł',
+    price: '149 zł',
     copy: 'Specjalistyczna analiza tego, jak systemy AI przedstawiają Twoją firmę, jej ofertę i pozycję na tle konkurencji.',
     chooseIf: 'Chcesz sprawdzić, jak Twoją firmę przedstawiają systemy AI.',
     audience: 'Dla firm, które chcą sprawdzić swoją obecność w odpowiedziach ChatGPT, Gemini, Claude i innych systemów AI.',
