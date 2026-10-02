@@ -581,12 +581,12 @@ function Method() {
 
 function Evidence() {
   const items = [
-    ['01', 'Strona i oferta', 'Czy klient szybko rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
-    ['02', 'Google i lokalność', 'Czy firma jest widoczna tam, gdzie klient jej szuka — i jak wygląda obok konkurencji?'],
-    ['03', 'Social Media i Treści', 'Czy treści zwiększają zaufanie i prowadzą do kolejnego kroku?'],
-    ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy ruch ma odpowiednią intencję?'],
-    ['05', 'Reklamy', 'Czy wydawany budżet prowadzi do jakościowych zapytań i gdzie po drodze tracony jest wynik?'],
-    ['06', 'Zaufanie i reputacja', 'Czy klient ma wystarczające dowody, aby podjąć decyzję?'],
+    ['01', 'Strona i oferta', 'Czy klient od razu rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
+    ['02', 'Google i lokalność', 'Czy klient znajdzie Cię, kiedy szuka właśnie takiej usługi — i co zobaczy, gdy już Cię znajdzie?'],
+    ['03', 'Social Media i Treści', 'Czy Twoje treści zwiększają zainteresowanie ofertą, budują zaufanie i prowadzą do kolejnego kroku?'],
+    ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy docierają osoby rzeczywiście zainteresowane ofertą?'],
+    ['05', 'Reklamy', 'Czy budżet reklamowy prowadzi do wartościowych zapytań i gdzie można poprawić wynik?'],
+    ['06', 'Zaufanie i reputacja', 'Co klient widzi przed kontaktem z firmą — i czy to wystarcza, żeby wybrał właśnie Ciebie?'],
   ]
 
   return (
