@@ -1545,49 +1545,23 @@ function Work() {
 
               <div className="work-preview">
 
-                {(project.name === 'CostWarden' ? costWardenPreview : project.image) ? <img src={project.name === 'CostWarden' ? costWardenPreview : project.image} alt={`Podgląd realizacji ${project.name}`} /> : (
-
-                  <div className={`browser-mock ${project.name === 'GymWrld' ? 'browser-mock--gymwrld' : ''}`} aria-hidden="true">
-
-                    <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
-
-                    {project.name === 'GymWrld' ? (
-                    <div className="browser-page browser-page--gymwrld">
-                      <div className="gymwrld-site-nav">
-                        <div className="gymwrld-site-brand"><span>G</span><b>GymWrld</b></div>
-                        <div className="gymwrld-site-links"><span>Plan</span><span>Postępy</span><span>Profil</span></div>
-                        <div className="gymwrld-site-avatar">KD</div>
-                      </div>
-
-                      <div className="gymwrld-site-hero">
-                        <div className="gymwrld-site-copy">
-                          <div className="gymwrld-site-kicker">TWÓJ PLAN / DZISIAJ</div>
-                          <h4>Trening, który dopasowuje się do Ciebie.</h4>
-                          <p>Plan dnia, progres i kolejne wyzwanie w jednym miejscu.</p>
-                          <div className="gymwrld-site-actions"><span>Zacznij trening</span><i>↗</i></div>
-                        </div>
-
-                        <div className="gymwrld-site-dashboard">
-                          <div className="gymwrld-dashboard-top"><span>DZISIEJSZY TRENING</span><b>42 min</b></div>
-                          <div className="gymwrld-workout-card"><div><span>GÓRA CIAŁA</span><strong>Push / Strength</strong></div><em>68%</em></div>
-                          <div className="gymwrld-progress-line"><i /></div>
-                          <div className="gymwrld-dashboard-stats">
-                            <div><span>Seria</span><b>12 dni</b></div>
-                            <div><span>Poziom</span><b>07</b></div>
-                            <div><span>Cel</span><b>4 / 5</b></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="gymwrld-site-footer"><span><i /> Następny trening gotowy</span><b>+ 320 XP</b></div>
-                    </div>
-                  ) : (
-                    <div className="browser-page"><div className="browser-kicker">{project.type}</div><strong>{project.name}</strong><div className="browser-lines"><i /><i /><i /></div><div className="browser-cta" /></div>
-                  )}
-
-                  </div>
-
-                )}
+                {project.name === 'CostWarden' ? (
+                  <div className="browser-mock browser-mock--costwarden">
+                    <div className="browser-bar browser-bar--costwarden">
+                      <i /><i /><i /><span>costwarden.ai</span>
+                    </div>
+                    <div className="browser-page browser-page--costwarden">
+                      <img src={costWardenPreview} alt="Podgląd strony CostWarden" />
+                    </div>
+                  </div>
+                ) : project.image ? (
+                  <img src={project.image} alt={`Podgląd realizacji ${project.name}`} />
+                ) : (
+                  <div className="browser-mock" aria-hidden="true">
+                    <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
+                    <div className="browser-page"><div className="browser-kicker">{project.type}</div><strong>{project.name}</strong><div className="browser-lines"><i /><i /><i /></div><div className="browser-cta" /></div>
+                  </div>
+                )}
 
               </div>
 
