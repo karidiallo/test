@@ -257,13 +257,6 @@ export const team = {
       bio: 'Warstwa techniczna stron, rozwój techniczny, wydajność i techniczne SEO — czyli miejsca, w których ograniczenie może wynikać z samego produktu cyfrowego.',
       photo: '',
     },
-      {
-      initials: 'P',
-      name: 'Paulina',
-      role: 'Marketing',
-      bio: 'Warstwa techniczna stron, rozwój techniczny, wydajność i techniczne SEO — czyli miejsca, w których ograniczenie może wynikać z samego produktu cyfrowego.',
-      photo: '',
-    },
     {
       initials: 'M',
       name: 'Michał',
