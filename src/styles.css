@@ -9421,3 +9421,22 @@ footer > span { font-size: 11px !important; }
     font-size: 20px !important;
   }
 }
+
+/* V74 — Featured realization preview: preserve the full 16:9 project screenshot */
+.work-card--featured .work-preview {
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  background: #0b0a0d;
+}
+
+.work-card--featured .work-preview > img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 760px) {
+  .work-card--featured .work-preview {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
