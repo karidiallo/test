@@ -7339,20 +7339,20 @@ footer > span { font-size: 11px !important; }
 }
 
 .sample-atlas-route__glow {
-  opacity: .22;
+  opacity: .07;
   filter: url(#atlasRouteGlow);
 }
 
 .sample-atlas-route__glow path {
-  stroke-width: 5.5px;
+  stroke-width: 3.2px;
 }
 
 .sample-atlas-route__line {
-  opacity: .82;
+  opacity: .48;
 }
 
 .sample-atlas-route__line path {
-  stroke-width: 1.55px;
+  stroke-width: 1.05px;
 }
 
 
@@ -7368,7 +7368,8 @@ footer > span { font-size: 11px !important; }
   display: flex;
   align-items: center;
   gap: 10px;
-  transform: translate(-50%, -50%);
+  /* x/y opisują środek właściwego punktu mapy, nie środek całego przycisku z etykietą */
+  transform: translate(-17px, -50%);
   background: transparent;
   color: #29231f;
   text-align: left;

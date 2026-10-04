@@ -143,9 +143,6 @@ function Header() {
       <nav aria-label="Główna nawigacja">
 
         <a href="#z-jakim-problemem-przychodzisz">Problem</a>
-
-        <a href="#jak-powstaje-mapa">Jak działamy</a>
-
         <a href="#przykladowa-mapa">Mapa</a>
 
         <a href="#dla-kogo">Dla kogo</a>
@@ -924,21 +921,19 @@ function SampleMap() {
                 </defs>
 
                 <g className="sample-atlas-route__glow" fill="none" stroke="url(#atlasRouteGradient)" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 22 Q25 14 36 14 Q49 14 62 20 Q73 18 83 13" />
-                  <path d="M14 22 Q13 45 17 67 Q31 61 45 52 Q57 55 70 63 Q79 70 84 82" />
-                  <path d="M36 14 Q42 31 45 52" />
-                  <path d="M62 20 Q57 37 45 52" />
-                  <path d="M83 13 Q79 41 70 63" />
-                  <path d="M62 20 Q67 41 70 63" />
+                  <path d="M14 22 Q24 16 36 14 Q49 15 62 20 Q72 18 83 13" />
+                  <path d="M14 22 Q13 45 17 67 Q30 62 45 52 Q58 55 70 63 Q79 70 84 82" />
+                  <path d="M36 14 Q40 32 45 52" />
+                  <path d="M62 20 Q56 37 45 52" />
+                  <path d="M83 13 Q80 40 70 63" />
                 </g>
 
                 <g className="sample-atlas-route__line" fill="none" stroke="url(#atlasRouteGradient)" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 22 Q25 14 36 14 Q49 14 62 20 Q73 18 83 13" />
-                  <path d="M14 22 Q13 45 17 67 Q31 61 45 52 Q57 55 70 63 Q79 70 84 82" />
-                  <path d="M36 14 Q42 31 45 52" />
-                  <path d="M62 20 Q57 37 45 52" />
-                  <path d="M83 13 Q79 41 70 63" />
-                  <path d="M62 20 Q67 41 70 63" />
+                  <path d="M14 22 Q24 16 36 14 Q49 15 62 20 Q72 18 83 13" />
+                  <path d="M14 22 Q13 45 17 67 Q30 62 45 52 Q58 55 70 63 Q79 70 84 82" />
+                  <path d="M36 14 Q40 32 45 52" />
+                  <path d="M62 20 Q56 37 45 52" />
+                  <path d="M83 13 Q80 40 70 63" />
                 </g>
               </svg>
 
