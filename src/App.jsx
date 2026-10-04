@@ -906,32 +906,16 @@ function SampleMap() {
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
                 aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  inset: '7% 8% 10% 8%',
-                  width: '84%',
-                  height: '83%',
-                  overflow: 'visible',
-                  pointerEvents: 'none',
-                  zIndex: 1,
-                  opacity: 0.98,
-                }}
               >
                 <defs>
-                  <linearGradient id="atlasRouteGradient" x1="8" y1="10" x2="92" y2="84" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#ff9b74" />
-                    <stop offset="38%" stopColor="#ff6f86" />
-                    <stop offset="72%" stopColor="#ea4f88" />
-                    <stop offset="100%" stopColor="#ff8a52" />
+                  <linearGradient id="atlasRouteGradient" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#f59a72" />
+                    <stop offset="42%" stopColor="#ff6f7f" />
+                    <stop offset="72%" stopColor="#d93f73" />
+                    <stop offset="100%" stopColor="#ef7f56" />
                   </linearGradient>
-                  <linearGradient id="atlasRouteGradientSoft" x1="8" y1="10" x2="92" y2="84" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="rgba(255,155,116,0.55)" />
-                    <stop offset="38%" stopColor="rgba(255,111,134,0.48)" />
-                    <stop offset="72%" stopColor="rgba(234,79,136,0.42)" />
-                    <stop offset="100%" stopColor="rgba(255,138,82,0.38)" />
-                  </linearGradient>
-                  <filter id="atlasRouteGlow" x="-25%" y="-25%" width="150%" height="150%">
-                    <feGaussianBlur stdDeviation="1.8" result="blur" />
+                  <filter id="atlasRouteGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="1.25" result="blur" />
                     <feMerge>
                       <feMergeNode in="blur" />
                       <feMergeNode in="SourceGraphic" />
@@ -939,79 +923,22 @@ function SampleMap() {
                   </filter>
                 </defs>
 
-                <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path
-                    d="M14 22 Q25 16 36 14 Q49 14 62 20 Q73 18 83 13"
-                    stroke="url(#atlasRouteGradientSoft)"
-                    strokeWidth="3.8"
-                    filter="url(#atlasRouteGlow)"
-                    opacity="0.5"
-                  />
-                  <path
-                    d="M14 22 Q16 48 17 67 Q31 60 45 52 Q58 56 70 63 Q80 70 84 82"
-                    stroke="url(#atlasRouteGradientSoft)"
-                    strokeWidth="3.8"
-                    filter="url(#atlasRouteGlow)"
-                    opacity="0.5"
-                  />
-                  <path
-                    d="M36 14 Q41 30 45 52"
-                    stroke="url(#atlasRouteGradientSoft)"
-                    strokeWidth="3.5"
-                    filter="url(#atlasRouteGlow)"
-                    opacity="0.42"
-                  />
-                  <path
-                    d="M62 20 Q55 36 45 52"
-                    stroke="url(#atlasRouteGradientSoft)"
-                    strokeWidth="3.5"
-                    filter="url(#atlasRouteGlow)"
-                    opacity="0.42"
-                  />
-                  <path
-                    d="M70 63 Q76 72 84 82"
-                    stroke="url(#atlasRouteGradientSoft)"
-                    strokeWidth="3.5"
-                    filter="url(#atlasRouteGlow)"
-                    opacity="0.42"
-                  />
-
-                  <path
-                    d="M14 22 Q25 16 36 14 Q49 14 62 20 Q73 18 83 13"
-                    stroke="url(#atlasRouteGradient)"
-                    strokeWidth="1.8"
-                  />
-                  <path
-                    d="M14 22 Q16 48 17 67 Q31 60 45 52 Q58 56 70 63 Q80 70 84 82"
-                    stroke="url(#atlasRouteGradient)"
-                    strokeWidth="1.8"
-                  />
-                  <path
-                    d="M36 14 Q41 30 45 52"
-                    stroke="url(#atlasRouteGradient)"
-                    strokeWidth="1.6"
-                  />
-                  <path
-                    d="M62 20 Q55 36 45 52"
-                    stroke="url(#atlasRouteGradient)"
-                    strokeWidth="1.6"
-                  />
-                  <path
-                    d="M70 63 Q76 72 84 82"
-                    stroke="url(#atlasRouteGradient)"
-                    strokeWidth="1.6"
-                  />
+                <g className="sample-atlas-route__glow" fill="none" stroke="url(#atlasRouteGradient)" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 22 Q25 14 36 14 Q49 14 62 20 Q73 18 83 13" />
+                  <path d="M14 22 Q13 45 17 67 Q31 61 45 52 Q57 55 70 63 Q79 70 84 82" />
+                  <path d="M36 14 Q42 31 45 52" />
+                  <path d="M62 20 Q57 37 45 52" />
+                  <path d="M83 13 Q79 41 70 63" />
+                  <path d="M62 20 Q67 41 70 63" />
                 </g>
 
-                <g fill="url(#atlasRouteGradient)" opacity="0.92">
-                  <circle cx="14" cy="22" r="0.8" />
-                  <circle cx="36" cy="14" r="0.8" />
-                  <circle cx="62" cy="20" r="0.8" />
-                  <circle cx="83" cy="13" r="0.8" />
-                  <circle cx="17" cy="67" r="0.8" />
-                  <circle cx="45" cy="52" r="0.95" />
-                  <circle cx="70" cy="63" r="0.8" />
-                  <circle cx="84" cy="82" r="0.9" />
+                <g className="sample-atlas-route__line" fill="none" stroke="url(#atlasRouteGradient)" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 22 Q25 14 36 14 Q49 14 62 20 Q73 18 83 13" />
+                  <path d="M14 22 Q13 45 17 67 Q31 61 45 52 Q57 55 70 63 Q79 70 84 82" />
+                  <path d="M36 14 Q42 31 45 52" />
+                  <path d="M62 20 Q57 37 45 52" />
+                  <path d="M83 13 Q79 41 70 63" />
+                  <path d="M62 20 Q67 41 70 63" />
                 </g>
               </svg>
 
