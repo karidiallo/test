@@ -2009,7 +2009,7 @@ function Footer() {
 
         <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#sprawdz-swoja-firme">Formularz</a></div>
 
-        <div className="footer-column footer-formal"><h3>Formalności</h3><span>Polityka prywatności</span><span>Regulamin</span><span>Cookies</span><small>Dokumenty formalne podłączymy przed publikacją produkcyjną.</small></div>
+        <div className="footer-column footer-formal"><h3>Formalności</h3><a href={`${import.meta.env.BASE_URL}polityka-prywatnosci/`}>Polityka prywatności</a><a href={`${import.meta.env.BASE_URL}regulamin/`}>Regulamin</a><a href={`${import.meta.env.BASE_URL}cookies/`}>Cookies</a></div>
 
       </div>
 
