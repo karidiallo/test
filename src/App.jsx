@@ -9,6 +9,8 @@ import { LivingMap } from './components/LivingMap.jsx'
 import { TopographicLogo } from './components/TopographicLogo.jsx'
 
 import costWardenPreview from './assets/costwarden-preview.png'
+import annaBagrowskaPreview from './assets/anna-bagrowska-preview.webp'
+import './v90-overrides.css'
 
 import { faqs, industries, offers, processSteps, projects, symptoms, team } from './content.js'
 
@@ -1470,15 +1472,24 @@ function Work() {
                 {project.name === 'CostWarden' ? (
                   <div className="browser-mock browser-mock--costwarden">
                     <div className="browser-bar browser-bar--costwarden">
-                      <i /><i /><i /><span>costwarden.ai</span>
+                      <i /><i /><i /><span>costwarden.co</span>
                     </div>
                     <div className="browser-page browser-page--costwarden">
                       <img src={costWardenPreview} alt="Podgląd strony CostWarden" />
                     </div>
                   </div>
-                ) : project.image ? (
-                  <img src={project.image} alt={`Podgląd realizacji ${project.name}`} />
-                ) : (
+                              ) : project.name === 'Anna Bagrowska / Psycholog' ? (
+                <div className="browser-mock browser-mock--anna">
+                  <div className="browser-bar browser-bar--anna">
+                    <i /><i /><i /><span>Psycholożka Poznania</span>
+                  </div>
+                  <div className="browser-page browser-page--anna">
+                    <img src={annaBagrowskaPreview} alt="Podgląd strony Psycholożka Poznania — Anna Bagrowska" />
+                  </div>
+                </div>
+              ) : project.image ? (
+                <img src={project.image} alt={`Podgląd realizacji ${project.name}`} />
+              ) : (
                   <div className="browser-mock" aria-hidden="true">
                     <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
                     <div className="browser-page"><div className="browser-kicker">{project.type}</div><strong>{project.name}</strong><div className="browser-lines"><i /><i /><i /></div><div className="browser-cta" /></div>
@@ -1514,57 +1525,81 @@ function Work() {
 
 
 function Team() {
+  const kariCard = {
+    initials: 'K',
+    name: 'Kari',
+    role: 'Co-Founder | Marketing',
+    bio: 'Współtworzy kierunek DigitalMap, odpowiada za marketing i prowadzi klienta przez proces od pierwszego kontaktu do dostarczenia rekomendacji.',
+    photo: '',
+    featured: true,
+  }
 
-  return (
+  const evaCard = {
+    initials: 'E',
+    name: 'Eva',
+    role: 'SEO | Link Building',
+    bio: 'SEO i link building — autorytet domeny, profil linków i widoczność organiczna.',
+    photo: '',
+  }
 
-    <section className="team" id="zespol">
+  const mattCard = {
+    initials: 'M',
+    name: 'Matt',
+    role: 'SEO',
+    bio: 'SEO — struktura serwisu, intencje wyszukiwania i treści.',
+    photo: '',
+  }
 
-      <div className="section-shell">
+  let members = team.members.map((member) => {
+    if (member.name === 'Kari') return { ...member, ...kariCard }
+    if (member.name === 'Eva') return { ...member, ...evaCard }
+    if (member.name === 'Matt') return { ...member, ...mattCard }
+    return member
+  })
 
-        <div className="team-heading">
+  if (!members.some((member) => member.name === 'Kari')) {
+    const founderIndex = members.findIndex(
+      (member) => member.featured || /founder/i.test(member.role || ''),
+    )
+    members.splice(Math.max(founderIndex + 1, 1), 0, kariCard)
+  }
 
-          <div className="eyebrow">ZESPÓŁ</div>
+  if (!members.some((member) => member.name === 'Eva')) members.push(evaCard)
+  if (!members.some((member) => member.name === 'Matt')) members.push(mattCard)
 
-          <div><h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2><p>Strategia, marketing, rozwój stron, płatne pozyskanie i social media pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p></div>
+  return (
+    <section className="team" id="zespol">
+      <div className="section-shell">
+        <div className="team-heading">
+          <div className="eyebrow">ZESPÓŁ</div>
+          <div>
+            <h2>Diagnoza wymaga <span className="accent-text">więcej niż jednej perspektywy.</span></h2>
+            <p>Strategia, marketing, rozwój stron, płatne pozyskanie i social media pokazują różne fragmenty drogi klienta. Łączymy je po to, żeby rekomendacja wynikała z całego procesu — nie z kompetencji jednego działu.</p>
+          </div>
+        </div>
 
-        </div>
+        <div className="team-members team-members--text-only">
+          {members.map((member, index) => (
+            <article className={`team-member team-member--text ${member.featured ? 'team-member--featured' : ''}`} key={member.name}>
+              <div className="team-member-card-top">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div className="team-member-role">{member.role}</div>
+              </div>
+              <h3>{member.name}</h3>
+              <div className="team-member-scope-label">Zakres działań</div>
+              <p>{member.bio}</p>
+            </article>
+          ))}
+        </div>
 
-
-
-        <div className="team-members team-members--text-only">
-
-          {team.members.map((member, index) => (
-
-            <article className={`team-member team-member--text ${member.featured ? 'team-member--featured' : ''}`} key={member.name}>
-
-              <div className="team-member-card-top">
-
-                <span>0{index + 1}</span>
-
-                <div className="team-member-role">{member.role}</div>
-
-              </div>
-
-              <h3>{member.name}</h3>
-
-              <div className="team-member-scope-label">Zakres działań</div>
-
-              <p>{member.bio}</p>
-
-            </article>
-
-          ))}
-
-        </div>
-
-        <div className="team-trustline"><span>Jedna diagnoza.</span><span>Wspólny kierunek.</span><span>Jasna odpowiedzialność za rekomendację.</span></div>
-
-      </div>
-
-    </section>
-
-  )
-
+        <div className="team-trustline">
+          <span>Jedna diagnoza.</span>
+          <span>Wspólny kierunek.</span>
+          <span>Jasna odpowiedzialność za rekomendację.</span>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 
