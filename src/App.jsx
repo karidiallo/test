@@ -1525,47 +1525,50 @@ function Work() {
 
 
 function Team() {
-  const kariCard = {
-    initials: 'K',
-    name: 'Kari',
-    role: 'Co-Founder | Marketing',
-    bio: 'Współtworzy kierunek DigitalMap, odpowiada za marketing i prowadzi klienta przez proces od pierwszego kontaktu do dostarczenia rekomendacji.',
-    photo: '',
+  const existing = Object.fromEntries(team.members.map((member) => [member.name, member]))
+
+  const founder = {
+    ...(existing.Bartosz || {}),
+    initials: existing.Bartosz?.initials || 'B',
+    name: 'Bartosz',
+    role: existing.Bartosz?.role || 'Founder',
+    bio: existing.Bartosz?.bio || 'Kierunek firmy, perspektywa biznesowa i odpowiedzialność za to, żeby końcowa rekomendacja prowadziła do konkretnej decyzji.',
     featured: true,
   }
 
-  const evaCard = {
-    initials: 'E',
-    name: 'Eva',
-    role: 'SEO | Link Building',
-    bio: 'SEO i link building — autorytet domeny, profil linków i widoczność organiczna.',
-    photo: '',
+  const kari = {
+    ...(existing.Kari || {}),
+    initials: 'K',
+    name: 'Kari',
+    role: 'Co-Founder | Marketing',
+    bio: 'Współtworzy kierunek DigitalMap i odpowiada za marketing oraz prowadzenie klienta przez proces.',
+    featured: true,
   }
 
-  const mattCard = {
-    initials: 'M',
-    name: 'Matt',
-    role: 'SEO',
-    bio: 'SEO — struktura serwisu, intencje wyszukiwania i treści.',
-    photo: '',
+  const specialistDefaults = {
+    Kasia: { initials: 'K', role: 'Sales | Customer Delivery' },
+    Oliwia: { initials: 'O', role: 'Marketing' },
+    Michał: { initials: 'M', role: 'Web Dev | Tech SEO' },
+    Eva: { initials: 'E', role: 'SEO | Link Building', bio: 'SEO i link building — autorytet domeny, profil linków i widoczność organiczna.' },
+    Kacper: { initials: 'K', role: 'Web Dev | Design' },
+    Natalia: { initials: 'N', role: 'Zespół DigitalMap' },
+    Paulina: { initials: 'P', role: 'Marketing' },
+    Matt: { initials: 'M', role: 'SEO', bio: 'SEO — struktura serwisu, intencje wyszukiwania i treści.' },
   }
 
-  let members = team.members.map((member) => {
-    if (member.name === 'Kari') return { ...member, ...kariCard }
-    if (member.name === 'Eva') return { ...member, ...evaCard }
-    if (member.name === 'Matt') return { ...member, ...mattCard }
-    return member
-  })
+  const specialistNames = ['Kasia', 'Oliwia', 'Michał', 'Eva', 'Kacper', 'Natalia', 'Paulina', 'Matt']
 
-  if (!members.some((member) => member.name === 'Kari')) {
-    const founderIndex = members.findIndex(
-      (member) => member.featured || /founder/i.test(member.role || ''),
-    )
-    members.splice(Math.max(founderIndex + 1, 1), 0, kariCard)
-  }
+  const specialists = specialistNames.map((name) => ({
+    ...specialistDefaults[name],
+    ...(existing[name] || {}),
+    name,
+    initials: existing[name]?.initials || specialistDefaults[name].initials,
+    role: specialistDefaults[name].role,
+    bio: existing[name]?.bio || specialistDefaults[name].bio || '',
+    featured: false,
+  }))
 
-  if (!members.some((member) => member.name === 'Eva')) members.push(evaCard)
-  if (!members.some((member) => member.name === 'Matt')) members.push(mattCard)
+  const members = [founder, kari, ...specialists]
 
   return (
     <section className="team" id="zespol">
@@ -1586,8 +1589,10 @@ function Team() {
                 <div className="team-member-role">{member.role}</div>
               </div>
               <h3>{member.name}</h3>
-              <div className="team-member-scope-label">Zakres działań</div>
-              <p>{member.bio}</p>
+              {member.bio && <>
+                <div className="team-member-scope-label">Zakres działań</div>
+                <p>{member.bio}</p>
+              </>}
             </article>
           ))}
         </div>
