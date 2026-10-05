@@ -241,3 +241,75 @@
     max-width: 700px !important;
   }
 }
+
+/* V95 — hard fix for FAQ open/hover contrast */
+
+/* Reset every closed row first so previous FAQ rules cannot leak into it. */
+section.faq-section .faq-list-v14.faq-list-premium > details {
+  position: relative;
+  background: transparent !important;
+  color: #1d1815 !important;
+}
+
+/* Stronger selector than the old details[open] / nth-child rules. */
+section.faq-section .faq-list-v14.faq-list-premium > details:hover,
+section.faq-section .faq-list-v14.faq-list-premium > details[open],
+section.faq-section .faq-list-v14.faq-list-premium > details:focus-within {
+  background: #1d1815 !important;
+  background-color: #1d1815 !important;
+  background-image: none !important;
+  color: #fffaf5 !important;
+  border-bottom-color: rgba(255,255,255,.12) !important;
+}
+
+/* Make the clickable row itself dark too, so there is no white flash / white strip. */
+section.faq-section .faq-list-v14.faq-list-premium > details:hover > summary,
+section.faq-section .faq-list-v14.faq-list-premium > details[open] > summary,
+section.faq-section .faq-list-v14.faq-list-premium > details:focus-within > summary,
+section.faq-section .faq-list-v14.faq-list-premium > details > summary:active {
+  background: #1d1815 !important;
+  background-color: #1d1815 !important;
+  color: #fffaf5 !important;
+}
+
+/* Answer area explicitly inherits the same dark surface. */
+section.faq-section .faq-list-v14.faq-list-premium > details[open] > p,
+section.faq-section .faq-list-v14.faq-list-premium > details:hover > p,
+section.faq-section .faq-list-v14.faq-list-premium > details:focus-within > p {
+  background: #1d1815 !important;
+  color: rgba(255,255,255,.72) !important;
+}
+
+/* Number + icon need their own forced contrast because the base CSS uses pink !important. */
+section.faq-section .faq-list-v14.faq-list-premium > details:hover .faq-number,
+section.faq-section .faq-list-v14.faq-list-premium > details[open] .faq-number,
+section.faq-section .faq-list-v14.faq-list-premium > details:focus-within .faq-number {
+  color: rgba(255,255,255,.74) !important;
+}
+
+section.faq-section .faq-list-v14.faq-list-premium > details:hover summary i,
+section.faq-section .faq-list-v14.faq-list-premium > details[open] summary i,
+section.faq-section .faq-list-v14.faq-list-premium > details:focus-within summary i {
+  background: rgba(255,255,255,.10) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+
+section.faq-section .faq-list-v14.faq-list-premium > details[open] summary i {
+  transform: rotate(45deg);
+}
+
+/* Closed rows remain clean/light. */
+section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:hover):not(:focus-within) > summary {
+  background: transparent !important;
+  color: #1d1815 !important;
+}
+
+section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:hover):not(:focus-within) .faq-number {
+  color: #c02a59 !important;
+}
+
+section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:hover):not(:focus-within) summary i {
+  background: rgba(167,25,77,.07) !important;
+  color: #b22855 !important;
+}
