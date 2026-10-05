@@ -92,3 +92,57 @@
     min-height: 0 !important;
   }
 }
+
+
+/* V91 — exact DigitalMap roster */
+@media (min-width: 1100px) {
+  .team-members.team-members--text-only {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  .team-members--text-only .team-member,
+  .team-members--text-only .team-member--featured {
+    grid-column: span 1 !important;
+    min-height: 220px !important;
+  }
+
+  .team-members--text-only .team-member--featured {
+    min-height: 240px !important;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1099px) {
+  .team-members.team-members--text-only {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+
+/* V93 — founder states + white founder metadata */
+.team-members--text-only .team-member--featured,
+.team-members--text-only .team-member--featured:hover,
+.team-members--text-only .team-member--featured:focus,
+.team-members--text-only .team-member--featured:focus-within,
+.team-members--text-only .team-member--featured:active {
+  background: #1b1715 !important;
+  color: #fff !important;
+  border-color: #1b1715 !important;
+  box-shadow: none !important;
+}
+
+.team-members--text-only .team-member--featured:hover {
+  transform: translateY(-4px);
+}
+
+.team-members--text-only .team-member--featured .team-member-card-top > span,
+.team-members--text-only .team-member--featured .team-member-role {
+  color: #fff !important;
+}
+
+.team-members--text-only .team-member--featured h3 {
+  color: #fff !important;
+}
+
+.team-members--text-only .team-member--featured p {
+  color: rgba(255,255,255,.66) !important;
+}

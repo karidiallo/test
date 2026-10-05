@@ -1541,21 +1541,52 @@ function Team() {
     initials: 'K',
     name: 'Kari',
     role: 'Co-Founder | Marketing',
-    bio: 'Współtworzy kierunek DigitalMap i odpowiada za marketing oraz prowadzenie klienta przez proces.',
+    bio: 'Współtworzy kierunek DigitalMap i odpowiada za marketing, komunikację oraz doświadczenie klienta w procesie.',
     featured: true,
   }
 
   const specialistDefaults = {
-    Kasia: { initials: 'K', role: 'Sales | Customer Delivery' },
-    Oliwia: { initials: 'O', role: 'Marketing' },
-    Michał: { initials: 'M', role: 'Web Dev | Tech SEO' },
-    Eva: { initials: 'E', role: 'SEO | Link Building', bio: 'SEO i link building — autorytet domeny, profil linków i widoczność organiczna.' },
-    Kacper: { initials: 'K', role: 'Web Dev | Design' },
-    Natalia: { initials: 'N', role: 'Zespół DigitalMap' },
-    Paulina: { initials: 'P', role: 'Marketing' },
-    Matt: { initials: 'M', role: 'SEO', bio: 'SEO — struktura serwisu, intencje wyszukiwania i treści.' },
+    Kasia: {
+      initials: 'K',
+      role: 'Sales | Customer Delivery',
+      bio: 'Prowadzi klientów od pierwszej rozmowy przez ustalenie potrzeb po sprawne przekazanie i domknięcie procesu. Dba o jasny zakres, komunikację i kolejne kroki.',
+    },
+    Oliwia: {
+      initials: 'O',
+      role: 'Marketing',
+      bio: 'Wspiera strategię komunikacji, content i działania marketingowe marki. Pilnuje spójności przekazu i tego, żeby marketing prowadził odbiorcę do kolejnego kroku.',
+    },
+    Michał: {
+      initials: 'M',
+      role: 'Web Dev | Tech SEO',
+      bio: 'Łączy development z technicznym SEO. Odpowiada za wydajność, strukturę, indeksowalność i techniczne elementy serwisu wpływające na widoczność i konwersję.',
+    },
+    Eva: {
+      initials: 'E',
+      role: 'SEO | Link Building',
+      bio: 'Odpowiada za off-site SEO, profil linków i budowanie autorytetu domeny. Analizuje jakość źródeł i możliwości wzmacniania pozycji marki w wynikach wyszukiwania.',
+    },
+    Kacper: {
+      initials: 'K',
+      role: 'Web Dev | Design',
+      bio: 'Projektuje i rozwija strony, łącząc estetykę z użytecznością i konwersją. Przekłada wnioski z diagnozy na rozwiązania, które dobrze wyglądają i dobrze działają.',
+    },
+    Natalia: {
+      initials: 'N',
+      role: 'Marketing',
+      bio: 'Wspiera działania marketingowe i komunikację marki w kanałach digital. Dba o spójność kampanii, treści i kontaktu z odbiorcą na różnych etapach ścieżki.',
+    },
+    Paulina: {
+      initials: 'P',
+      role: 'Sales',
+      bio: 'Wspiera sprzedaż od kwalifikacji zapytania po rozmowę o właściwym zakresie współpracy. Dba o to, żeby klient rozumiał wartość, zakres i kolejny krok.',
+    },
+    Matt: {
+      initials: 'M',
+      role: 'SEO',
+      bio: 'Pracuje nad widocznością organiczną od analizy intencji po strukturę i treści. Wskazuje, gdzie SEO traci potencjał i które zmiany mogą przynieść największy efekt.',
+    },
   }
-
   const specialistNames = ['Kasia', 'Oliwia', 'Michał', 'Eva', 'Kacper', 'Natalia', 'Paulina', 'Matt']
 
   const specialists = specialistNames.map((name) => ({
@@ -1564,7 +1595,7 @@ function Team() {
     name,
     initials: existing[name]?.initials || specialistDefaults[name].initials,
     role: specialistDefaults[name].role,
-    bio: existing[name]?.bio || specialistDefaults[name].bio || '',
+    bio: specialistDefaults[name].bio,
     featured: false,
   }))
 
