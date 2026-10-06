@@ -1195,51 +1195,114 @@ function Method() {
 
 
 function Evidence() {
+  const items = [
+    {
+      no: '01',
+      title: 'Strona i oferta',
+      question: 'Czy klient od razu rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?',
+      signal: 'DECYZJA NA STRONIE',
+      checks: ['Oferta', 'UX', 'CTA'],
+    },
+    {
+      no: '02',
+      title: 'Google i lokalność',
+      question: 'Czy klient znajdzie Cię, kiedy szuka właśnie takiej usługi — i co zobaczy, gdy już Cię znajdzie?',
+      signal: 'MOMENT WYSZUKIWANIA',
+      checks: ['Google', 'Mapy', 'Local SEO'],
+    },
+    {
+      no: '03',
+      title: 'Social Media i Treści',
+      question: 'Czy Twoje treści zwiększają zainteresowanie ofertą, budują zaufanie i prowadzą do kolejnego kroku?',
+      signal: 'ZAINTERESOWANIE',
+      checks: ['Treści', 'Profil', 'Ścieżka'],
+    },
+    {
+      no: '04',
+      title: 'Widoczność i ruch',
+      question: 'Skąd przychodzą potencjalni klienci i czy docierają osoby rzeczywiście zainteresowane ofertą?',
+      signal: 'JAKOŚĆ RUCHU',
+      checks: ['SEO', 'Źródła ruchu', 'Intencja'],
+    },
+    {
+      no: '05',
+      title: 'Reklamy',
+      question: 'Czy budżet reklamowy prowadzi do wartościowych zapytań i gdzie można poprawić wynik?',
+      signal: 'EFEKTYWNOŚĆ BUDŻETU',
+      checks: ['Google Ads', 'Meta', 'Konwersja'],
+    },
+    {
+      no: '06',
+      title: 'Zaufanie i reputacja',
+      question: 'Co klient widzi przed kontaktem z firmą — i czy to wystarcza, żeby wybrał właśnie Ciebie?',
+      signal: 'WIARYGODNOŚĆ',
+      checks: ['Opinie', 'Case Study', 'Reputacja'],
+    },
+  ]
 
-  const items = [
+  const [activeIndex, setActiveIndex] = useState(0)
+  const active = items[activeIndex]
 
-    ['01', 'Strona i oferta', 'Czy klient od razu rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?'],
+  return (
+    <section className="section evidence-section evidence-section--interactive" id="zakres-diagnozy">
+      <div className="section-shell">
+        <div className="section-heading section-heading--split">
+          <div className="eyebrow">ZAKRES DIAGNOZY</div>
+          <div>
+            <h2>Patrzymy na całą drogę klienta, <span className="accent-text">nie jeden kanał.</span></h2>
+            <p>Nie szukamy największej liczby błędów. Szukamy elementu, który dziś najbardziej ogranicza wynik.</p>
+          </div>
+        </div>
 
-    ['02', 'Google i lokalność', 'Czy klient znajdzie Cię, kiedy szuka właśnie takiej usługi — i co zobaczy, gdy już Cię znajdzie?'],
+        <div className="evidence-lab">
+          <div className="evidence-lab__topline">
+            <span>6 obszarów jednej decyzji</span>
+            <span>Wybierz obszar, żeby zobaczyć perspektywę diagnozy ↓</span>
+          </div>
 
-    ['03', 'Social Media i Treści', 'Czy Twoje treści zwiększają zainteresowanie ofertą, budują zaufanie i prowadzą do kolejnego kroku?'],
+          <div className="evidence-grid evidence-grid--interactive">
+            {items.map((item, index) => (
+              <button
+                key={item.no}
+                type="button"
+                className={`evidence-card ${activeIndex === index ? 'is-active' : ''}`}
+                onClick={() => setActiveIndex(index)}
+                onMouseEnter={() => setActiveIndex(index)}
+                onFocus={() => setActiveIndex(index)}
+                aria-pressed={activeIndex === index}
+              >
+                <span className="evidence-card__number">{item.no}</span>
+                <span className="evidence-card__signal">{item.signal}</span>
+                <span className="evidence-card__arrow">↗</span>
+                <strong>{item.title}</strong>
+                <small>{item.checks.join(' · ')}</small>
+              </button>
+            ))}
+          </div>
 
-    ['04', 'Widoczność i ruch', 'Skąd przychodzą potencjalni klienci i czy docierają osoby rzeczywiście zainteresowane ofertą?'],
+          <div className="evidence-readout" key={active.no}>
+            <div className="evidence-readout__index">
+              <span>{active.no}</span>
+              <i>AKTYWNY OBSZAR</i>
+            </div>
 
-    ['05', 'Reklamy', 'Czy budżet reklamowy prowadzi do wartościowych zapytań i gdzie można poprawić wynik?'],
+            <div className="evidence-readout__main">
+              <span>{active.signal}</span>
+              <h3>{active.title}</h3>
+              <p>{active.question}</p>
+            </div>
 
-    ['06', 'Zaufanie i reputacja', 'Co klient widzi przed kontaktem z firmą — i czy to wystarcza, żeby wybrał właśnie Ciebie?'],
-
-  ]
-
-
-
-  return (
-
-    <section className="section evidence-section" id="zakres-diagnozy">
-
-      <div className="section-shell">
-
-        <div className="section-heading section-heading--split">
-
-          <div className="eyebrow">ZAKRES DIAGNOZY</div>
-
-          <div><h2>Patrzymy na całą drogę klienta, <span className="accent-text">nie jeden kanał.</span></h2><p>Nie szukamy największej liczby błędów. Szukamy elementu, który dziś najbardziej ogranicza wynik.</p></div>
-
-        </div>
-
-        <div className="evidence-grid evidence-grid--hover">
-
-          {items.map(([no, title, copy]) => <article key={no}><span>{no}</span><div className="evidence-arrow">↗</div><h3>{title}</h3><p>{copy}</p></article>)}
-
-        </div>
-
-      </div>
-
-    </section>
-
-  )
-
+            <div className="evidence-readout__checks">
+              <span>SPRAWDZAMY M.IN.</span>
+              <div>
+                {active.checks.map((check) => <i key={check}>{check}</i>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 
