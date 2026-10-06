@@ -1130,3 +1130,304 @@ section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:ho
     font-size: 13px;
   }
 }
+
+/* V99 — move route selection above + simplify lead form */
+
+/* ===== FINAL CTA: route selector instead of two generic buttons ===== */
+.final-cta-premium--routes {
+  grid-template-columns: minmax(0, 1.08fr) minmax(420px, .92fr) !important;
+  gap: clamp(44px, 5vw, 82px) !important;
+  align-items: center !important;
+}
+
+.final-cta-premium--routes .final-cta-copy {
+  align-self: center;
+}
+
+.final-cta-premium--routes .final-cta-copy h3 {
+  max-width: 850px;
+}
+
+.final-route-picker {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.final-route-picker__head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 2px;
+}
+
+.final-route-picker__head > span {
+  color: #f2a0b7;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .13em;
+}
+
+.final-route-picker__head > small {
+  color: rgba(255,255,255,.45);
+  font-size: 9px;
+}
+
+.final-route-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.final-route-card {
+  position: relative;
+  min-height: 142px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 15px;
+  background: rgba(255,255,255,.055);
+  color: #fffaf6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  isolation: isolate;
+  transition:
+    transform .25s cubic-bezier(.2,.75,.2,1),
+    background-color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.final-route-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(242,131,157,.18), transparent 33%),
+    linear-gradient(115deg, transparent 18%, rgba(255,255,255,.07), transparent 72%);
+  transition: opacity .28s ease;
+}
+
+.final-route-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,.095);
+  border-color: rgba(255,255,255,.31);
+  box-shadow: 0 18px 34px rgba(0,0,0,.13);
+}
+
+.final-route-card:hover::before {
+  opacity: 1;
+}
+
+.final-route-card.is-featured {
+  background: #fffaf6;
+  color: #1d1815;
+  border-color: #fffaf6;
+  box-shadow: 0 12px 26px rgba(0,0,0,.10);
+}
+
+.final-route-card.is-featured::before {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(219,49,91,.16), transparent 32%),
+    linear-gradient(115deg, transparent 18%, rgba(255,255,255,.72), transparent 72%);
+}
+
+.final-route-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.final-route-card__meta i {
+  color: #f2a0b7;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.final-route-card.is-featured .final-route-card__meta i {
+  color: #b72754;
+}
+
+.final-route-card__meta b {
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.final-route-card > strong {
+  margin-top: 22px;
+  font: 560 21px/1 var(--display);
+  letter-spacing: -.035em;
+}
+
+.final-route-card > small {
+  margin-top: 6px;
+  color: inherit;
+  opacity: .56;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.final-route-card > em {
+  margin-top: auto;
+  padding-top: 14px;
+  color: #f2a0b7;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 760;
+}
+
+.final-route-card.is-featured > em {
+  color: #a92e55;
+}
+
+.final-route-card > em span {
+  display: inline-block;
+  margin-left: 3px;
+  transition: transform .22s ease;
+}
+
+.final-route-card:hover > em span {
+  transform: translate(2px,-2px);
+}
+
+
+/* ===== FORM: remove visual overload from the left column ===== */
+.scan-route-overview,
+.scan-journey {
+  display: none !important;
+}
+
+.scan-compact-meta {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+
+.scan-compact-meta span {
+  position: relative;
+  color: rgba(255,255,255,.44);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+
+.scan-compact-meta span:not(:last-child)::after {
+  content: "·";
+  position: absolute;
+  right: -10px;
+  color: rgba(255,255,255,.18);
+}
+
+/* Compact progress sits INSIDE the form card, not as another large left-side component. */
+.scan-progress-compact {
+  margin: -5px 0 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(29,24,21,.08);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.scan-progress-compact button {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #aaa29a;
+  display: grid;
+  grid-template-columns: 23px minmax(0,1fr);
+  gap: 7px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scan-progress-compact button:disabled {
+  cursor: default;
+  opacity: .46;
+}
+
+.scan-progress-compact button > span {
+  width: 23px;
+  height: 23px;
+  border: 1px solid rgba(29,24,21,.12);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 7px;
+  font-weight: 850;
+  transition: all .2s ease;
+}
+
+.scan-progress-compact button > b {
+  overflow: hidden;
+  font-size: 9px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scan-progress-compact button.is-current {
+  color: #1d1815;
+}
+
+.scan-progress-compact button.is-current > span {
+  background: #1d1815;
+  border-color: #1d1815;
+  color: #fff;
+}
+
+.scan-progress-compact button.is-complete {
+  color: #a72f56;
+}
+
+.scan-progress-compact button.is-complete > span {
+  border-color: rgba(167,47,86,.26);
+  background: rgba(167,47,86,.07);
+  color: #a72f56;
+}
+
+.scan-card--journey {
+  min-height: 640px !important;
+}
+
+/* When route selection is the current form step, keep the good selector the user liked. */
+.scan-card--journey .path-choice-grid {
+  margin-top: 20px;
+}
+
+/* ===== responsive ===== */
+@media (max-width: 1120px) {
+  .final-cta-premium--routes {
+    grid-template-columns: 1fr !important;
+  }
+
+  .final-route-picker {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .final-route-picker__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-route-card {
+    min-height: 118px;
+  }
+
+  .scan-progress-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 12px;
+  }
+
+  .scan-card--journey {
+    min-height: 0 !important;
+  }
+}

@@ -2006,43 +2006,37 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
           <h2>Pokaż nam firmę. <span className="accent-text">Nie musisz wiedzieć, czego potrzebujesz.</span></h2>
           <p>Najpierw wybierz zakres, później pokaż nam firmę i problem. Na końcu zostaw kontakt — wszystko możesz jeszcze zmienić przed wysłaniem.</p>
 
-          <button
-            className={`scan-route-overview ${selectedPath ? 'has-selection' : ''}`}
-            type="button"
-            onClick={() => setStep(0)}
-          >
-            <span>WYBRANA ŚCIEŻKA</span>
-            <strong>{selectedPath?.name || 'Wybierz ścieżkę w formularzu'}</strong>
-            <small>{selectedPath ? selectedPath.price : 'Bez domyślnego wyboru'}</small>
-            <i>{selectedPath ? 'Zmień ↗' : 'Wybierz ↗'}</i>
-          </button>
-
-          <nav className="scan-journey" aria-label="Postęp formularza">
-            {journey.map((item, index) => {
-              const complete = index < step
-              const current = index === step
-              const available = canOpenJourneyStep(index)
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`${complete ? 'is-complete' : ''} ${current ? 'is-current' : ''}`}
-                  disabled={!available}
-                  onClick={() => available && setStep(index)}
-                >
-                  <span className="scan-journey__node">{complete ? '✓' : item.number}</span>
-                  <span className="scan-journey__copy">
-                    <b>{item.label}</b>
-                    <small>{item.value}</small>
-                  </span>
-                  <i>↗</i>
-                </button>
-              )
-            })}
-          </nav>
+          <div className="scan-compact-meta">
+            <span>4 kroki</span>
+            <span>2–3 min</span>
+            <span>Bez zobowiązań</span>
+          </div>
         </div>
 
         <form className="scan-card scan-card--v6 scan-card--journey" onSubmit={submit}>
+          {!done && (
+            <div className="scan-progress-compact" aria-label="Postęp formularza">
+              {journey.map((item, index) => {
+                const complete = index < step
+                const current = index === step
+                const available = canOpenJourneyStep(index)
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`${complete ? 'is-complete' : ''} ${current ? 'is-current' : ''}`}
+                    disabled={!available}
+                    onClick={() => available && setStep(index)}
+                    aria-label={`${item.number}. ${item.label}`}
+                  >
+                    <span>{complete ? '✓' : item.number}</span>
+                    <b>{item.label}</b>
+                  </button>
+                )
+              })}
+            </div>
+          )}
           <input type="hidden" name="sciezka" value={selectedPath?.name || ''} />
           <input type="hidden" name="cena" value={selectedPath?.price || ''} />
           <input type="hidden" name="firma" value={company} />
@@ -2054,7 +2048,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
           {!done && step === 0 && <>
             <span className="form-kicker">KROK 01 / WYBIERZ ŚCIEŻKĘ</span>
             <h3>Od czego chcesz zacząć?</h3>
-            <p className="path-choice-intro">Nie przypisujemy Ci domyślnego produktu. Wybierz zakres teraz — możesz go zmienić także na ostatnim kroku.</p>
+            <p className="path-choice-intro">Jeśli nie wybrałaś ścieżki wyżej, możesz zrobić to tutaj. Zmienisz ją również przed wysłaniem.</p>
 
             <div className="path-choice-grid">
               {offers.map((item) => (
@@ -2197,77 +2191,64 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
 
 
 
-function FAQ() {
+function FAQ({ onChoose }) {
+  return (
+    <section className="faq-section" id="najczestsze-pytania">
+      <div className="section-shell">
+        <div className="faq-layout-premium">
+          <aside className="faq-intro-panel">
+            <div className="eyebrow">NAJCZĘSTSZE PYTANIA / PRZED DECYZJĄ</div>
+            <h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2>
+            <p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz. Odpowiedzi mają pomóc Ci szybko ocenić, czy DigitalMap pasuje do sytuacji Twojej firmy.</p>
+            <a href="#sprawdz-swoja-firme" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
+          </aside>
 
-  return (
+          <div className="faq-list-v14 faq-list-premium">
+            {faqs.map((item, index) => (
+              <details key={item.q}>
+                <summary><span className="faq-number">{String(index + 1).padStart(2, '0')}</span><span>{item.q}</span><i>+</i></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
 
-    <section className="faq-section" id="najczestsze-pytania">
-
-      <div className="section-shell">
-
-        <div className="faq-layout-premium">
-
-          <aside className="faq-intro-panel">
-
-            <div className="eyebrow">NAJCZĘSTSZE PYTANIA / PRZED DECYZJĄ</div>
-
-            <h2>Najważniejsze pytania <span className="accent-text">przed zakupem Mapy.</span></h2>
-
-            <p>Bez ukrytych zobowiązań i bez zgadywania, co właściwie kupujesz. Odpowiedzi mają pomóc Ci szybko ocenić, czy DigitalMap pasuje do sytuacji Twojej firmy.</p>
-
-            <a href="#sprawdz-swoja-firme" className="faq-intro-link">Nie widzisz swojego pytania? Napisz nam <Arrow /></a>
-
-          </aside>
-
-          <div className="faq-list-v14 faq-list-premium">
-
-            {faqs.map((item, index) => (
-
-              <details key={item.q}>
-
-                <summary><span className="faq-number">{String(index + 1).padStart(2, '0')}</span><span>{item.q}</span><i>+</i></summary>
-
-                <p>{item.a}</p>
-
-              </details>
-
-            ))}
-
-          </div>
-
-        </div>
-
-        <div className="final-cta-v14 final-cta-premium">
-
-          <div className="final-cta-copy"><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
-
-          <div className="final-cta-actions final-cta-actions--v98">
-            <a className="final-action final-action--primary" href="#sprawdz-swoja-firme">
-              <span className="final-action__copy">
-                <small>ZACZNIJ BEZPŁATNIE</small>
-                <strong>Sprawdź swoją firmę</strong>
-                <em>Mini Mapa · 0 zł</em>
-              </span>
-              <span className="final-action__icon" aria-hidden="true">↗</span>
-            </a>
-            <a className="final-action final-action--secondary" href="#oferta">
-              <span className="final-action__copy">
-                <small>PORÓWNAJ OPCJE</small>
-                <strong>Zobacz zakres i ofertę</strong>
-                <em>4 ścieżki diagnozy</em>
-              </span>
-              <span className="final-action__icon" aria-hidden="true">→</span>
-            </a>
+        <div className="final-cta-v14 final-cta-premium final-cta-premium--routes">
+          <div className="final-cta-copy">
+            <span>NAJPIERW DIAGNOZA</span>
+            <h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3>
+            <p>Wybierz, od jakiego poziomu diagnozy chcesz zacząć. Jeśli nie masz pewności, Mini Mapa jest bezpłatnym punktem wejścia.</p>
           </div>
 
-        </div>
+          <div className="final-route-picker">
+            <div className="final-route-picker__head">
+              <span>OD CZEGO CHCESZ ZACZĄĆ?</span>
+              <small>Wybierz ścieżkę → przejdź do formularza</small>
+            </div>
 
-      </div>
-
-    </section>
-
-  )
-
+            <div className="final-route-picker__grid">
+              {offers.map((item) => (
+                <a
+                  key={item.id}
+                  href="#sprawdz-swoja-firme"
+                  className={`final-route-card ${item.featured ? 'is-featured' : ''}`}
+                  onClick={() => onChoose(item)}
+                >
+                  <span className="final-route-card__meta">
+                    <i>{item.code}</i>
+                    <b>{item.price}</b>
+                  </span>
+                  <strong>{item.name}</strong>
+                  <small>{item.question}</small>
+                  <em>Wybierz <span>↗</span></em>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 
@@ -2356,7 +2337,7 @@ export default function App() {
 
         <Team />
 
-        <FAQ />
+        <FAQ onChoose={setSelectedOffer} />
 
         <ScanForm selectedOffer={selectedOffer} selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
 
