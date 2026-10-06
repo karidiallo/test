@@ -1200,51 +1200,44 @@ function Evidence() {
       no: '01',
       title: 'Strona i oferta',
       question: 'Czy klient od razu rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?',
-      signal: 'DECYZJA NA STRONIE',
-      checks: ['Oferta', 'UX', 'CTA'],
+      detail: 'Hierarchia informacji, komunikat wartości, oferta, CTA i momenty, w których użytkownik może zgubić intencję.',
     },
     {
       no: '02',
       title: 'Google i lokalność',
       question: 'Czy klient znajdzie Cię, kiedy szuka właśnie takiej usługi — i co zobaczy, gdy już Cię znajdzie?',
-      signal: 'MOMENT WYSZUKIWANIA',
-      checks: ['Google', 'Mapy', 'Local SEO'],
+      detail: 'Widoczność w Google, profil firmy, wyniki lokalne, spójność informacji i pierwsze sygnały zaufania.',
     },
     {
       no: '03',
       title: 'Social Media i Treści',
       question: 'Czy Twoje treści zwiększają zainteresowanie ofertą, budują zaufanie i prowadzą do kolejnego kroku?',
-      signal: 'ZAINTERESOWANIE',
-      checks: ['Treści', 'Profil', 'Ścieżka'],
+      detail: 'Profil, sposób komunikacji, tematy treści, powtarzalność przekazu i przejście od zainteresowania do działania.',
     },
     {
       no: '04',
       title: 'Widoczność i ruch',
       question: 'Skąd przychodzą potencjalni klienci i czy docierają osoby rzeczywiście zainteresowane ofertą?',
-      signal: 'JAKOŚĆ RUCHU',
-      checks: ['SEO', 'Źródła ruchu', 'Intencja'],
+      detail: 'Źródła ruchu, intencja użytkowników, SEO i jakość wejść — nie tylko sama liczba odwiedzin.',
     },
     {
       no: '05',
       title: 'Reklamy',
       question: 'Czy budżet reklamowy prowadzi do wartościowych zapytań i gdzie można poprawić wynik?',
-      signal: 'EFEKTYWNOŚĆ BUDŻETU',
-      checks: ['Google Ads', 'Meta', 'Konwersja'],
+      detail: 'Kampanie, koszt pozyskania uwagi, jakość ruchu, landing page i przejście od kliknięcia do zapytania.',
     },
     {
       no: '06',
       title: 'Zaufanie i reputacja',
       question: 'Co klient widzi przed kontaktem z firmą — i czy to wystarcza, żeby wybrał właśnie Ciebie?',
-      signal: 'WIARYGODNOŚĆ',
-      checks: ['Opinie', 'Case Study', 'Reputacja'],
+      detail: 'Opinie, case study, dowody społeczne, spójność marki i wszystko, co wpływa na poczucie bezpieczeństwa przed kontaktem.',
     },
   ]
 
-  const [activeIndex, setActiveIndex] = useState(0)
-  const active = items[activeIndex]
+  const [selectedIndex, setSelectedIndex] = useState(null)
 
   return (
-    <section className="section evidence-section evidence-section--interactive" id="zakres-diagnozy" data-version="v102-interactive-evidence">
+    <section className="section evidence-section evidence-section--editorial" id="zakres-diagnozy">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
           <div className="eyebrow">ZAKRES DIAGNOZY</div>
@@ -1254,51 +1247,35 @@ function Evidence() {
           </div>
         </div>
 
-        <div className="evidence-lab">
-          <div className="evidence-lab__topline">
-            <span>6 obszarów jednej decyzji</span>
-            <span>Wybierz obszar, żeby zobaczyć perspektywę diagnozy ↓</span>
-          </div>
+        <div className="evidence-editorial-grid">
+          {items.map((item, index) => {
+            const isOpen = selectedIndex === index
 
-          <div className="evidence-grid evidence-grid--interactive">
-            {items.map((item, index) => (
+            return (
               <button
                 key={item.no}
                 type="button"
-                className={`evidence-card ${activeIndex === index ? 'is-active' : ''}`}
-                onClick={() => setActiveIndex(index)}
-                onMouseEnter={() => setActiveIndex(index)}
-                onFocus={() => setActiveIndex(index)}
-                aria-pressed={activeIndex === index}
+                className={`evidence-editorial-card ${isOpen ? 'is-open' : ''}`}
+                onClick={() => setSelectedIndex(isOpen ? null : index)}
+                aria-pressed={isOpen}
               >
-                <span className="evidence-card__number">{item.no}</span>
-                <span className="evidence-card__signal">{item.signal}</span>
-                <span className="evidence-card__arrow">↗</span>
-                <strong>{item.title}</strong>
-                <small>{item.checks.join(' · ')}</small>
+                <span className="evidence-editorial-card__top">
+                  <i>{item.no}</i>
+                  <span>{isOpen ? 'Zamknij' : 'Zobacz zakres'} <b>↗</b></span>
+                </span>
+
+                <span className="evidence-editorial-card__body">
+                  <strong>{item.title}</strong>
+                  <p>{item.question}</p>
+                </span>
+
+                <span className="evidence-editorial-card__detail">
+                  <em>Sprawdzamy</em>
+                  <p>{item.detail}</p>
+                </span>
               </button>
-            ))}
-          </div>
-
-          <div className="evidence-readout" key={active.no}>
-            <div className="evidence-readout__index">
-              <span>{active.no}</span>
-              <i>AKTYWNY OBSZAR</i>
-            </div>
-
-            <div className="evidence-readout__main">
-              <span>{active.signal}</span>
-              <h3>{active.title}</h3>
-              <p>{active.question}</p>
-            </div>
-
-            <div className="evidence-readout__checks">
-              <span>SPRAWDZAMY M.IN.</span>
-              <div>
-                {active.checks.map((check) => <i key={check}>{check}</i>)}
-              </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>
