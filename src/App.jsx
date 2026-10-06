@@ -1894,7 +1894,12 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (!selectedOffer) return
+    if (!selectedOffer) {
+      setSelectedPath(null)
+      setStep(0)
+      return
+    }
+
     setSelectedPath(selectedOffer)
     setStep((current) => (current === 0 ? 1 : current))
   }, [selectedOffer])
@@ -2220,30 +2225,42 @@ function FAQ({ onChoose }) {
             <p>Wybierz, od jakiego poziomu diagnozy chcesz zacząć. Jeśli nie masz pewności, Mini Mapa jest bezpłatnym punktem wejścia.</p>
           </div>
 
-          <div className="final-route-picker">
-            <div className="final-route-picker__head">
-              <span>OD CZEGO CHCESZ ZACZĄĆ?</span>
-              <small>Wybierz ścieżkę → przejdź do formularza</small>
-            </div>
+          <div className="final-route-actions">
+            <a
+              href="#sprawdz-swoja-firme"
+              className="final-route-action final-route-action--primary"
+              onClick={() => onChoose(offers.find((item) => item.name === 'Mini Mapa'))}
+            >
+              <span className="final-route-action__eyebrow">NAJPROSTSZY START</span>
+              <span className="final-route-action__main">
+                <strong>Zacznij od Mini Mapy</strong>
+                <b>0 zł</b>
+              </span>
+              <span className="final-route-action__foot">
+                <small>Sprawdzimy, gdzie może być problem.</small>
+                <i>↗</i>
+              </span>
+            </a>
 
-            <div className="final-route-picker__grid">
-              {offers.map((item) => (
-                <a
-                  key={item.id}
-                  href="#sprawdz-swoja-firme"
-                  className={`final-route-card ${item.featured ? 'is-featured' : ''}`}
-                  onClick={() => onChoose(item)}
-                >
-                  <span className="final-route-card__meta">
-                    <i>{item.code}</i>
-                    <b>{item.price}</b>
-                  </span>
-                  <strong>{item.name}</strong>
-                  <small>{item.question}</small>
-                  <em>Wybierz <span>↗</span></em>
-                </a>
-              ))}
-            </div>
+            <a
+              href="#sprawdz-swoja-firme"
+              className="final-route-action final-route-action--secondary"
+              onClick={() => onChoose(null)}
+            >
+              <span className="final-route-action__eyebrow">MASZ KONKRETNY CEL?</span>
+              <span className="final-route-action__main">
+                <strong>Wybierz inną ścieżkę</strong>
+                <b>3 opcje</b>
+              </span>
+              <span className="final-route-action__foot">
+                <small>Start · Strategiczna · AI</small>
+                <i>→</i>
+              </span>
+            </a>
+
+            <p className="final-route-actions__note">
+              Nie musisz decydować teraz. W formularzu możesz jeszcze zmienić wybór.
+            </p>
           </div>
         </div>
       </div>
