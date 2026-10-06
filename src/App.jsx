@@ -13,6 +13,7 @@ import annaBagrowskaPreview from './assets/anna-bagrowska-preview.webp'
 import './v90-overrides.css'
 
 import { faqs, industries, offers, processSteps, projects, symptoms, team } from './content.js'
+import { FORMSPREE_ENDPOINT } from './formConfig.js'
 
 
 
@@ -1881,127 +1882,317 @@ function Offer({ onChoose }) {
 
 
 function ScanForm({ selectedSymptom, selectedOffer }) {
-
-  const [step, setStep] = useState(0)
-
-  const [company, setCompany] = useState('')
-
-  const [email, setEmail] = useState('')
-
-  const [note, setNote] = useState('')
-
-  const [done, setDone] = useState(false)
-
-
-
-  function submit(e) {
-
-    e.preventDefault()
-
-    if (step === 0 && company.trim()) setStep(1)
-
-    else if (step === 1) setStep(2)
-
-    else if (step === 2 && email.includes('@')) setDone(true)
-
-  }
-
-
-
-  return (
-
-    <section className="scan" id="sprawdz-swoja-firme">
-
-      <div className="scan-shell">
-
-        <div className="scan-copy">
-
-          <div className="eyebrow">ZACZNIJ OD FIRMY</div>
-
-          <h2>Pokaż nam firmę. <span className="accent-text">Nie musisz wiedzieć, czego potrzebujesz.</span></h2>
-
-          <p>Podaj domenę lub nazwę firmy, wybierz problem i zostaw kontakt. Jeśli nie masz strony, nadal możemy zacząć od rynku, widoczności i publicznie dostępnych sygnałów.</p>
-
-          <div className="scan-selected"><span>WYBRANA ŚCIEŻKA</span><strong>{selectedOffer?.name || 'Mini Mapa'}</strong><small>{selectedOffer?.price || '0 zł'}</small></div>
-
-          <div className="scan-steps"><span className={step >= 0 ? 'active' : ''}>01 FIRMA</span><span className={step >= 1 ? 'active' : ''}>02 PROBLEM</span><span className={step >= 2 ? 'active' : ''}>03 KONTAKT</span></div>
-
-        </div>
-
-
-
-        <form className="scan-card scan-card--v6" onSubmit={submit}>
-
-          {!done && step === 0 && <>
-
-            <span className="form-kicker">KROK 01 / FIRMA</span>
-
-            <h3>Gdzie Twoja firma może tracić klientów?</h3>
-
-            <label>Nazwa firmy albo domena</label>
-
-            <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="twojafirma.pl lub Nazwa Firmy" />
-
-            <p className="field-help">Nie masz jeszcze strony? To nie problem. Wpisz nazwę firmy — zaczniemy od rynku, widoczności, oferty i publicznie dostępnych sygnałów.</p>
-
-            <button type="submit">Dalej: pokaż problem <Arrow /></button>
-
-          </>}
-
-
-
-          {!done && step === 1 && <>
-
-            <span className="form-kicker">KROK 02 / PROBLEM</span>
-
-            <h3>Co dziś najbardziej ogranicza wynik?</h3>
-
-            <div className="form-options form-options--v6">
-
-              {symptoms.map((item) => <button key={item.id} type="button" className={selectedSymptom.id === item.id ? 'active' : ''} onClick={() => { selectedSymptom.set(item); setStep(2) }}><span>{item.label}</span><i>↗</i></button>)}
-
-            </div>
-
-            <button className="form-back" type="button" onClick={() => setStep(0)}>← Wróć</button>
-
-          </>}
-
-
-
-          {!done && step === 2 && <>
-
-            <span className="form-kicker">KROK 03 / KONTAKT</span>
-
-            <h3>Gdzie wysłać wynik?</h3>
-
-            <div className="domain-confirm"><span>{company}</span><b>{selectedSymptom.value.short}</b></div>
-
-            <label>E-mail</label>
-
-            <input autoFocus type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ty@firma.pl" />
-
-            <label className="optional-label">Dodatkowy kontekst <span>opcjonalnie</span></label>
-
-            <textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Np. reklamy kosztują coraz więcej, ale liczba zapytań nie rośnie..." />
-
-            <button type="submit">Wyślij firmę do analizy <Arrow /></button>
-
-            <small>Dane wykorzystamy wyłącznie do odpowiedzi w sprawie wybranej Mapy.</small>
-
-          </>}
-
-
-
-          {done && <div className="form-success"><span>✓</span><h3>Dzięki. Mamy to.</h3><p>Firma, problem i kontakt wystarczą, żeby zacząć od pierwszych sygnałów. Odpowiedź dostaniesz na podany e-mail — bez obietnicy sztucznego terminu, którego nie możemy konsekwentnie utrzymać.</p><button type="button" onClick={() => { setDone(false); setStep(0); setCompany(''); setEmail(''); setNote('') }}>Sprawdź inną firmę</button></div>}
-
-        </form>
-
-      </div>
-
-    </section>
-
-  )
-
+  const [step, setStep] = useState(0)
+  const [selectedPath, setSelectedPath] = useState(null)
+  const [problem, setProblem] = useState(null)
+  const [company, setCompany] = useState('')
+  const [email, setEmail] = useState('')
+  const [note, setNote] = useState('')
+  const [editingPath, setEditingPath] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    if (!selectedOffer) return
+    setSelectedPath(selectedOffer)
+    setStep((current) => (current === 0 ? 1 : current))
+  }, [selectedOffer])
+
+  const journey = [
+    { id: 0, number: '01', label: 'Ścieżka', value: selectedPath?.name || 'Wybierz zakres' },
+    { id: 1, number: '02', label: 'Firma', value: company || 'Nazwa lub domena' },
+    { id: 2, number: '03', label: 'Problem', value: problem?.label || 'Co ogranicza wynik?' },
+    { id: 3, number: '04', label: 'Kontakt', value: email || 'Gdzie odpisać?' },
+  ]
+
+  function canOpenJourneyStep(target) {
+    if (target === 0) return true
+    if (target === 1) return Boolean(selectedPath)
+    if (target === 2) return Boolean(selectedPath && company.trim())
+    if (target === 3) return Boolean(selectedPath && company.trim() && problem)
+    return false
+  }
+
+  function choosePath(item, stayOnContact = false) {
+    setSelectedPath(item)
+    setSubmitError('')
+    if (stayOnContact) {
+      setEditingPath(false)
+    } else {
+      setStep(1)
+    }
+  }
+
+  function chooseProblem(item) {
+    setProblem(item)
+    selectedSymptom.set(item)
+    setSubmitError('')
+    setStep(3)
+  }
+
+  async function submit(e) {
+    e.preventDefault()
+    setSubmitError('')
+
+    if (step === 1) {
+      if (company.trim()) setStep(2)
+      return
+    }
+
+    if (step !== 3) return
+
+    if (!selectedPath) {
+      setSubmitError('Wybierz ścieżkę, zanim wyślesz zgłoszenie.')
+      setStep(0)
+      return
+    }
+
+    if (!problem) {
+      setSubmitError('Wybierz problem, który dziś najbardziej ogranicza wynik.')
+      setStep(2)
+      return
+    }
+
+    if (!email.includes('@')) {
+      setSubmitError('Podaj poprawny adres e-mail.')
+      return
+    }
+
+    if (!FORMSPREE_ENDPOINT || FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+      setSubmitError('Formularz jest gotowy, ale trzeba jeszcze wkleić endpoint Formspree w src/formConfig.js.')
+      return
+    }
+
+    const formData = new FormData(e.currentTarget)
+    setSubmitting(true)
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      })
+
+      if (!response.ok) {
+        throw new Error('Formspree rejected the submission')
+      }
+
+      setDone(true)
+    } catch (error) {
+      setSubmitError('Nie udało się wysłać zgłoszenia. Spróbuj ponownie albo napisz na kontakt@digitalmap.pl.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  function resetForm() {
+    setDone(false)
+    setStep(0)
+    setSelectedPath(null)
+    setProblem(null)
+    setCompany('')
+    setEmail('')
+    setNote('')
+    setEditingPath(false)
+    setSubmitError('')
+  }
+
+  return (
+    <section className="scan" id="sprawdz-swoja-firme">
+      <div className="scan-shell">
+        <div className="scan-copy">
+          <div className="eyebrow">ZACZNIJ OD FIRMY</div>
+          <h2>Pokaż nam firmę. <span className="accent-text">Nie musisz wiedzieć, czego potrzebujesz.</span></h2>
+          <p>Najpierw wybierz zakres, później pokaż nam firmę i problem. Na końcu zostaw kontakt — wszystko możesz jeszcze zmienić przed wysłaniem.</p>
+
+          <button
+            className={`scan-route-overview ${selectedPath ? 'has-selection' : ''}`}
+            type="button"
+            onClick={() => setStep(0)}
+          >
+            <span>WYBRANA ŚCIEŻKA</span>
+            <strong>{selectedPath?.name || 'Wybierz ścieżkę w formularzu'}</strong>
+            <small>{selectedPath ? selectedPath.price : 'Bez domyślnego wyboru'}</small>
+            <i>{selectedPath ? 'Zmień ↗' : 'Wybierz ↗'}</i>
+          </button>
+
+          <nav className="scan-journey" aria-label="Postęp formularza">
+            {journey.map((item, index) => {
+              const complete = index < step
+              const current = index === step
+              const available = canOpenJourneyStep(index)
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`${complete ? 'is-complete' : ''} ${current ? 'is-current' : ''}`}
+                  disabled={!available}
+                  onClick={() => available && setStep(index)}
+                >
+                  <span className="scan-journey__node">{complete ? '✓' : item.number}</span>
+                  <span className="scan-journey__copy">
+                    <b>{item.label}</b>
+                    <small>{item.value}</small>
+                  </span>
+                  <i>↗</i>
+                </button>
+              )
+            })}
+          </nav>
+        </div>
+
+        <form className="scan-card scan-card--v6 scan-card--journey" onSubmit={submit}>
+          <input type="hidden" name="sciezka" value={selectedPath?.name || ''} />
+          <input type="hidden" name="cena" value={selectedPath?.price || ''} />
+          <input type="hidden" name="firma" value={company} />
+          <input type="hidden" name="problem" value={problem?.label || ''} />
+          <input type="hidden" name="problem_krotko" value={problem?.short || ''} />
+          <input type="hidden" name="zrodlo" value="DigitalMap — formularz strony" />
+          <input className="form-honeypot" type="text" name="_gotcha" tabIndex="-1" autoComplete="off" aria-hidden="true" />
+
+          {!done && step === 0 && <>
+            <span className="form-kicker">KROK 01 / WYBIERZ ŚCIEŻKĘ</span>
+            <h3>Od czego chcesz zacząć?</h3>
+            <p className="path-choice-intro">Nie przypisujemy Ci domyślnego produktu. Wybierz zakres teraz — możesz go zmienić także na ostatnim kroku.</p>
+
+            <div className="path-choice-grid">
+              {offers.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`path-choice ${selectedPath?.id === item.id ? 'is-selected' : ''}`}
+                  onClick={() => choosePath(item)}
+                >
+                  <span className="path-choice__top">
+                    <i>{item.code}</i>
+                    <b>{item.price}</b>
+                  </span>
+                  <strong>{item.name}</strong>
+                  <small>{item.question}</small>
+                  <em>Wybierz ↗</em>
+                </button>
+              ))}
+            </div>
+          </>}
+
+          {!done && step === 1 && <>
+            <span className="form-kicker">KROK 02 / FIRMA</span>
+            <h3>Gdzie Twoja firma może tracić klientów?</h3>
+            <label>Nazwa firmy albo domena</label>
+            <input
+              autoFocus
+              name="company_visible"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="twojafirma.pl lub Nazwa Firmy"
+            />
+            <p className="field-help">Nie masz jeszcze strony? Wpisz nazwę firmy — możemy zacząć od rynku, widoczności, oferty i publicznie dostępnych sygnałów.</p>
+            <button type="submit">Dalej: wybierz problem <Arrow /></button>
+            <button className="form-back" type="button" onClick={() => setStep(0)}>← Zmień ścieżkę</button>
+          </>}
+
+          {!done && step === 2 && <>
+            <span className="form-kicker">KROK 03 / PROBLEM</span>
+            <h3>Co dziś najbardziej ogranicza wynik?</h3>
+            <div className="form-options form-options--v6">
+              {symptoms.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={problem?.id === item.id ? 'active' : ''}
+                  onClick={() => chooseProblem(item)}
+                >
+                  <span>{item.label}</span>
+                  <i>↗</i>
+                </button>
+              ))}
+            </div>
+            <button className="form-back" type="button" onClick={() => setStep(1)}>← Wróć do firmy</button>
+          </>}
+
+          {!done && step === 3 && <>
+            <span className="form-kicker">KROK 04 / KONTAKT</span>
+            <h3>Gdzie wysłać wynik?</h3>
+
+            <div className="contact-route">
+              <div>
+                <span>WYBRANA ŚCIEŻKA</span>
+                <strong>{selectedPath?.name}</strong>
+                <small>{selectedPath?.price}</small>
+              </div>
+              <button type="button" onClick={() => setEditingPath((value) => !value)}>
+                {editingPath ? 'Zamknij' : 'Zmień ścieżkę'}
+              </button>
+            </div>
+
+            {editingPath && (
+              <div className="path-choice-grid path-choice-grid--compact">
+                {offers.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`path-choice ${selectedPath?.id === item.id ? 'is-selected' : ''}`}
+                    onClick={() => choosePath(item, true)}
+                  >
+                    <span className="path-choice__top">
+                      <i>{item.code}</i>
+                      <b>{item.price}</b>
+                    </span>
+                    <strong>{item.name}</strong>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className="contact-summary">
+              <button type="button" onClick={() => setStep(1)}>
+                <span>FIRMA</span><strong>{company}</strong><i>Zmień</i>
+              </button>
+              <button type="button" onClick={() => setStep(2)}>
+                <span>PROBLEM</span><strong>{problem?.short || problem?.label}</strong><i>Zmień</i>
+              </button>
+            </div>
+
+            <label>E-mail</label>
+            <input
+              autoFocus
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="ty@firma.pl"
+              required
+            />
+
+            <label className="optional-label">Dodatkowy kontekst <span>opcjonalnie</span></label>
+            <textarea
+              name="kontekst"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Np. reklamy kosztują coraz więcej, ale liczba zapytań nie rośnie..."
+            />
+
+            {submitError && <div className="form-submit-error" role="alert">{submitError}</div>}
+
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Wysyłamy zgłoszenie…' : <>Wyślij firmę do analizy <Arrow /></>}
+            </button>
+            <small>Dane wykorzystamy wyłącznie do odpowiedzi w sprawie wybranej Mapy.</small>
+          </>}
+
+          {done && (
+            <div className="form-success">
+              <span>✓</span>
+              <h3>Dzięki. Mamy to.</h3>
+              <p>Zgłoszenie zostało wysłane. Mamy wybraną ścieżkę, firmę, problem i Twój kontakt — wrócimy na podany adres e-mail.</p>
+              <button type="button" onClick={resetForm}>Sprawdź inną firmę</button>
+            </div>
+          )}
+        </form>
+      </div>
+    </section>
+  )
 }
 
 
@@ -2050,7 +2241,24 @@ function FAQ() {
 
           <div className="final-cta-copy"><span>NAJPIERW DIAGNOZA</span><h3>Zanim wydasz więcej na marketing, upewnij się, że rozwiązujesz właściwy problem.</h3><p>Zacznij od bezpłatnej Mini Mapy albo wybierz Mapę Strategiczną, jeśli potrzebujesz diagnozy całego procesu i konkretnego planu działania.</p></div>
 
-          <div className="final-cta-actions"><a className="button button--primary-light" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a><a className="button button--outline-light" href="#oferta">Zobacz zakres i ofertę</a></div>
+          <div className="final-cta-actions final-cta-actions--v98">
+            <a className="final-action final-action--primary" href="#sprawdz-swoja-firme">
+              <span className="final-action__copy">
+                <small>ZACZNIJ BEZPŁATNIE</small>
+                <strong>Sprawdź swoją firmę</strong>
+                <em>Mini Mapa · 0 zł</em>
+              </span>
+              <span className="final-action__icon" aria-hidden="true">↗</span>
+            </a>
+            <a className="final-action final-action--secondary" href="#oferta">
+              <span className="final-action__copy">
+                <small>PORÓWNAJ OPCJE</small>
+                <strong>Zobacz zakres i ofertę</strong>
+                <em>4 ścieżki diagnozy</em>
+              </span>
+              <span className="final-action__icon" aria-hidden="true">→</span>
+            </a>
+          </div>
 
         </div>
 
@@ -2104,7 +2312,7 @@ export default function App() {
 
   const [selectedSymptomValue, setSelectedSymptomValue] = useState(symptoms[1])
 
-  const [selectedOffer, setSelectedOffer] = useState(offers.find((item) => item.featured) || offers[0])
+  const [selectedOffer, setSelectedOffer] = useState(null)
 
 
 
