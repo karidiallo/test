@@ -1244,7 +1244,7 @@ function Evidence() {
   const active = items[activeIndex]
 
   return (
-    <section className="section evidence-section evidence-section--interactive" id="zakres-diagnozy">
+    <section className="section evidence-section evidence-section--interactive" id="zakres-diagnozy" data-version="v102-interactive-evidence">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
           <div className="eyebrow">ZAKRES DIAGNOZY</div>
