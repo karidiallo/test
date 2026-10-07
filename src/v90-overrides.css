@@ -2799,3 +2799,894 @@ section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:ho
     border-radius: 12px 12px 7px 7px;
   }
 }
+
+/* =========================================================
+   V108 — MOBILE RESPONSIVE PASS
+   Hero first, then major section/layout fixes.
+   ========================================================= */
+
+.header-mobile-toggle,
+.header-mobile-panel {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .section-shell,
+  .principle-inner,
+  .scan-shell {
+    width: min(100% - 36px, 100%) !important;
+  }
+
+  .section-heading--split,
+  .work-heading,
+  .team-heading,
+  .offer-v70-head,
+  .process-layout,
+  .method-simple-shell,
+  .industries-atlas-head,
+  .industries-atlas-head__copy,
+  .industries-atlas-grid,
+  .faq-layout-premium,
+  .scan-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .section-heading--split,
+  .work-heading,
+  .team-heading {
+    gap: 24px !important;
+  }
+
+  .scan-copy,
+  .industries-copy--interactive,
+  .faq-intro-panel {
+    position: static !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  body {
+    min-width: 0;
+  }
+
+  /* ---------- MOBILE HEADER ---------- */
+  .header {
+    top: 10px !important;
+    width: calc(100% - 20px) !important;
+    height: 58px !important;
+    padding: 0 10px 0 13px !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 10px !important;
+    border-radius: 15px !important;
+    z-index: 100 !important;
+  }
+
+  .header .header-desktop-nav,
+  .header > .header-cta {
+    display: none !important;
+  }
+
+  .header-mobile-toggle {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 11px;
+    background: #1b1715;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .header-mobile-toggle span {
+    width: 17px;
+    height: 1.5px;
+    border-radius: 999px;
+    background: #fff;
+    transition: transform .22s ease, opacity .22s ease;
+  }
+
+  .header.is-menu-open .header-mobile-toggle span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  .header.is-menu-open .header-mobile-toggle span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  .header-mobile-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    padding: 10px;
+    border: 1px solid rgba(37,30,26,.10);
+    border-radius: 16px;
+    background: rgba(250,248,244,.98);
+    box-shadow: 0 22px 54px rgba(40,29,23,.14);
+    backdrop-filter: blur(20px);
+  }
+
+  .header.is-menu-open .header-mobile-panel {
+    display: block;
+  }
+
+  .header-mobile-panel nav {
+    display: grid !important;
+    gap: 0 !important;
+  }
+
+  .header-mobile-panel nav a {
+    min-height: 48px;
+    padding: 0 9px;
+    border-bottom: 1px solid rgba(37,30,26,.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #27211d !important;
+    text-decoration: none;
+    font-size: 14px !important;
+    font-weight: 650 !important;
+  }
+
+  .header-mobile-panel nav a span {
+    color: #b62e59;
+  }
+
+  .header-mobile-cta {
+    min-height: 52px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: #1b1715;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 750;
+  }
+
+  /* ---------- HERO / STORY ---------- */
+  .story--strategy-map.story--fixed-narrative {
+    overflow: clip !important;
+  }
+
+  .story--fixed-narrative .story-canvas-wrap {
+    height: 100svh !important;
+    min-height: 0 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui {
+    width: 100% !important;
+    padding: 86px 16px 24px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--hero {
+    align-items: flex-start !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--hero::before {
+    width: 100% !important;
+    background:
+      linear-gradient(180deg,
+        rgba(248,244,238,.99) 0%,
+        rgba(248,244,238,.98) 58%,
+        rgba(248,244,238,.84) 76%,
+        rgba(248,244,238,.18) 94%,
+        rgba(248,244,238,0) 100%) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .eyebrow {
+    margin: 0 0 14px !important;
+    max-width: 30ch;
+    font-size: 8px !important;
+    line-height: 1.35 !important;
+    letter-spacing: .15em !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    max-width: 100% !important;
+    margin: 0 !important;
+    font-size: clamp(39px, 11.2vw, 52px) !important;
+    line-height: .94 !important;
+    letter-spacing: -.064em !important;
+    text-wrap: pretty !important;
+  }
+
+  /* Desktop line locks are removed on phones so the title can wrap naturally. */
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-line {
+    display: inline !important;
+    white-space: normal !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-line::after {
+    content: " ";
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-line:last-child::after {
+    content: "";
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-lead {
+    max-width: 40ch !important;
+    margin-top: 18px !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions {
+    width: 100%;
+    margin-top: 20px !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+    width: 100% !important;
+    min-height: 50px !important;
+    padding: 0 16px !important;
+    border-radius: 12px !important;
+    justify-content: space-between !important;
+    font-size: 12px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof {
+    margin-top: 16px !important;
+    gap: 7px 12px !important;
+    line-height: 1.25 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof span,
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof span + span {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof span + span::before {
+    display: none !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof-icon,
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof-icon svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  /* Keep the 3D map as a supporting visual below the copy instead of fighting it. */
+  .story--fixed-narrative .living-map--executive {
+    pointer-events: none !important;
+  }
+
+  .story--fixed-narrative .living-map--executive canvas {
+    opacity: .68 !important;
+    transform: translateY(34%) scale(.78) !important;
+    transform-origin: center center !important;
+    -webkit-mask-image:
+      linear-gradient(180deg, transparent 0%, rgba(0,0,0,.08) 20%, rgba(0,0,0,.72) 42%, #000 62%, #000 100%) !important;
+    mask-image:
+      linear-gradient(180deg, transparent 0%, rgba(0,0,0,.08) 20%, rgba(0,0,0,.72) 42%, #000 62%, #000 100%) !important;
+  }
+
+  /* Narrative stages become readable bottom sheets on mobile. */
+  .story--fixed-narrative .strategy-story-ui--zone {
+    padding: 88px 14px 24px !important;
+    align-items: flex-end !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--zone::before {
+    width: 100% !important;
+    background:
+      linear-gradient(0deg,
+        rgba(248,244,238,.98) 0%,
+        rgba(248,244,238,.94) 54%,
+        rgba(248,244,238,.20) 86%,
+        rgba(248,244,238,0) 100%) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone,
+  .story--fixed-narrative .strategy-story-card--zone {
+    width: 100% !important;
+    max-height: 68svh !important;
+    padding: 20px 18px 18px !important;
+    overflow-y: auto !important;
+    border: 1px solid rgba(35,28,24,.09) !important;
+    border-radius: 18px !important;
+    background: rgba(250,247,242,.94) !important;
+    box-shadow: 0 18px 48px rgba(54,40,32,.10) !important;
+    backdrop-filter: blur(14px) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--zone h2,
+  .story--fixed-narrative .strategy-story-ui--zone .strategy-story-card--zone h2 {
+    max-width: 13ch !important;
+    margin: 10px 0 12px !important;
+    font-size: clamp(34px, 9.5vw, 44px) !important;
+    line-height: .94 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--zone p {
+    margin-top: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  .journey-rail {
+    margin-top: 18px !important;
+    padding-top: 14px !important;
+  }
+
+  .journey-rail__track {
+    grid-template-columns: repeat(5, minmax(92px, 1fr)) !important;
+    overflow-x: auto !important;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .journey-rail__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---------- GLOBAL MOBILE SPACING / TYPOGRAPHY ---------- */
+  .section-shell,
+  .principle-inner,
+  .scan-shell {
+    width: calc(100% - 28px) !important;
+  }
+
+  .process-section,
+  .problems-section,
+  .sample-section,
+  .principle,
+  .method-v6,
+  .evidence-section,
+  .industries--atlas,
+  .offer-v70,
+  .work,
+  .team,
+  .faq-section,
+  .scan {
+    padding-top: 78px !important;
+    padding-bottom: 78px !important;
+  }
+
+  .section-heading--split h2,
+  .work-heading h2,
+  .team-heading h2,
+  .process-intro h2,
+  .problems-diagnostic-intro h2,
+  .method-simple-copy h2,
+  .industries-atlas-head__copy h2,
+  .offer-v70-head h2,
+  .faq-intro-panel h2,
+  .scan-copy h2 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 10.8vw, 50px) !important;
+    line-height: .94 !important;
+    letter-spacing: -.055em !important;
+  }
+
+  .section-heading--split p,
+  .work-heading p,
+  .team-heading p,
+  .process-intro p,
+  .problems-diagnostic-intro p,
+  .method-simple-copy p,
+  .industries-atlas-head__copy p,
+  .offer-v70-head p,
+  .faq-intro-panel > p,
+  .scan-copy p {
+    max-width: 100% !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ---------- PROBLEMS ---------- */
+  .problem-diagnostic-console {
+    display: block !important;
+    min-height: 0 !important;
+    border-radius: 18px !important;
+  }
+
+  .problem-signal-list {
+    padding: 10px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(35,27,23,.09) !important;
+  }
+
+  .problem-signal-list button {
+    min-height: 54px !important;
+    padding: 10px 9px !important;
+  }
+
+  .problem-diagnostic-result {
+    min-height: 0 !important;
+    padding: 22px 18px 24px !important;
+  }
+
+  .problem-result-body h3 {
+    font-size: clamp(32px, 9vw, 42px) !important;
+  }
+
+  .problem-source-map {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process-layout {
+    gap: 34px !important;
+  }
+
+  .process-step {
+    padding-top: 26px !important;
+  }
+
+  .process-step h3 {
+    font-size: 32px !important;
+  }
+
+  /* ---------- SAMPLE MAP ---------- */
+  .sample-heading--atlas {
+    gap: 22px !important;
+  }
+
+  .sample-atlas-shell {
+    border-radius: 18px !important;
+  }
+
+  .sample-atlas-topline {
+    padding: 14px !important;
+  }
+
+  .sample-atlas-layout {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  .sample-atlas-map {
+    min-height: 430px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(27,24,22,.09) !important;
+  }
+
+  .sample-map-node-copy {
+    max-width: 110px !important;
+    font-size: 9px !important;
+  }
+
+  .sample-atlas-detail {
+    padding: 22px 18px 20px !important;
+  }
+
+  .sample-atlas-detail h3 {
+    font-size: 34px !important;
+  }
+
+  /* ---------- PRINCIPLE ---------- */
+  .principle-kicker-row {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .principle--v7 h2 {
+    font-size: clamp(40px, 11vw, 54px) !important;
+  }
+
+  .principle-editorial article {
+    grid-template-columns: 30px 1fr !important;
+    gap: 12px !important;
+  }
+
+  .principle-editorial article > *:last-child {
+    display: none;
+  }
+
+  .principle-editorial h3 {
+    font-size: 28px !important;
+  }
+
+  /* ---------- METHOD ---------- */
+  .method-simple-shell {
+    gap: 28px !important;
+  }
+
+  .method-simple-tools {
+    padding: 20px 16px !important;
+  }
+
+  /* ---------- DIAGNOSTIC MAP ---------- */
+  .diagnostic-map {
+    margin-top: 32px !important;
+    padding: 26px 18px 18px !important;
+    border-radius: 20px !important;
+  }
+
+  .diagnostic-map__copy h3 {
+    font-size: 42px !important;
+  }
+
+  /* ---------- INDUSTRIES ---------- */
+  .industries--atlas {
+    padding-top: 82px !important;
+    padding-bottom: 82px !important;
+  }
+
+  .industries-atlas-head {
+    gap: 16px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .industries-atlas-grid {
+    gap: 24px !important;
+  }
+
+  .industry-index__item {
+    min-height: 50px !important;
+  }
+
+  .industry-lens {
+    min-height: 0 !important;
+  }
+
+  .industry-lens__visual {
+    min-height: 230px !important;
+  }
+
+  .industry-lens__content {
+    padding: 22px 18px !important;
+  }
+
+  /* ---------- OFFER ---------- */
+  .offer-v70 {
+    padding-top: 82px !important;
+    padding-bottom: 82px !important;
+  }
+
+  .offer-v70-head {
+    gap: 16px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .offer-v70-question-label {
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  /* Horizontal selector is easier to scan than four stacked huge cards. */
+  .offer-v70-nav {
+    display: flex !important;
+    width: calc(100% + 14px);
+    margin-right: -14px;
+    padding: 3px 14px 16px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-bottom: 0 !important;
+    scrollbar-width: none;
+  }
+
+  .offer-v70-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .offer-v70-nav__item,
+  .offer-v70-nav__item:nth-child(2) {
+    flex: 0 0 min(78vw, 310px);
+    min-height: 118px !important;
+    border: 1px solid rgba(61,49,41,.12) !important;
+    border-radius: 16px !important;
+    scroll-snap-align: start;
+  }
+
+  .offer-v70-nav__item + .offer-v70-nav__item {
+    margin-left: 9px;
+  }
+
+  .offer-v70-nav__item.is-active {
+    transform: none !important;
+  }
+
+  .offer-v70-panel {
+    min-height: 0 !important;
+    padding: 24px 18px 22px !important;
+    border-radius: 20px !important;
+  }
+
+  .offer-v70-panel__hero {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    padding: 26px 0 22px !important;
+  }
+
+  .offer-v70-panel__intro h3 {
+    font-size: 40px !important;
+  }
+
+  .offer-v70-panel__price {
+    font-size: 44px !important;
+  }
+
+  .offer-v70-details,
+  .offer-v70-choose-if,
+  .offer-v70-result,
+  .offer-v70-after {
+    grid-template-columns: 1fr !important;
+  }
+
+  .offer-v70-includes__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .offer-v70-after {
+    padding: 24px 18px !important;
+  }
+
+  .offer-v70-after__route {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* ---------- WORK ---------- */
+  .work-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .work-card,
+  .work-card--featured {
+    border-radius: 18px !important;
+  }
+
+  .work-preview,
+  .work-card--featured .work-preview {
+    min-height: 0 !important;
+    padding: 14px 10px 18px !important;
+  }
+
+  .browser-mock,
+  .browser-mock--costwarden,
+  .browser-mock--anna,
+  .browser-mock--gymwrld {
+    width: 100% !important;
+    transform: none !important;
+  }
+
+  .work-meta {
+    padding: 20px 17px !important;
+    grid-template-columns: 24px minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .work-case-copy {
+    grid-template-columns: 1fr !important;
+  }
+
+  .work-link {
+    grid-column: 2 !important;
+    justify-self: start !important;
+  }
+
+  /* ---------- TEAM ---------- */
+  .team-members.team-members--text-only {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .team-members--text-only .team-member,
+  .team-members--text-only .team-member--featured {
+    min-height: 0 !important;
+    padding: 20px 18px !important;
+    border-radius: 16px !important;
+  }
+
+  .team-members--text-only .team-member h3 {
+    margin: 24px 0 18px !important;
+    font-size: 34px !important;
+  }
+
+  .team-trustline {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ---------- FAQ + CTA ---------- */
+  .faq-section {
+    padding-top: 82px !important;
+    padding-bottom: 82px !important;
+  }
+
+  .faq-layout-premium {
+    gap: 30px !important;
+  }
+
+  .faq-list-premium {
+    width: 100% !important;
+    border-radius: 18px !important;
+  }
+
+  .faq-list-premium summary {
+    min-height: 70px !important;
+    padding: 16px 14px !important;
+    grid-template-columns: 24px minmax(0,1fr) 30px !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+  }
+
+  .faq-list-premium details > p {
+    margin: 0 14px 20px 46px !important;
+    font-size: 13px !important;
+  }
+
+  .final-cta-premium--routes {
+    padding: 24px 18px !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .final-route-actions {
+    width: 100% !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ---------- FORM ---------- */
+  .scan {
+    padding-top: 82px !important;
+    padding-bottom: 82px !important;
+  }
+
+  .scan-shell {
+    gap: 28px !important;
+  }
+
+  .scan-card--journey {
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 22px 16px !important;
+    border-radius: 18px !important;
+  }
+
+  .scan-progress-compact {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .path-choice-grid,
+  .path-choice-grid--compact,
+  .contact-summary {
+    grid-template-columns: 1fr !important;
+  }
+
+  .path-choice {
+    min-height: 124px !important;
+  }
+
+  .scan-card--v6 input,
+  .scan-card--v6 textarea {
+    font-size: 16px !important;
+  }
+
+  .contact-route {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer {
+    padding-top: 68px !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .footer-slogan {
+    margin-top: 52px !important;
+  }
+
+  .footer-slogan-line {
+    font-size: clamp(37px, 11vw, 52px) !important;
+  }
+
+  .footer-bottom {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+}
+
+/* Very short phones: keep the hero inside the viewport. */
+@media (max-width: 760px) and (max-height: 700px) {
+  .story--fixed-narrative .strategy-story-ui {
+    padding-top: 78px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .eyebrow {
+    display: none !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    font-size: clamp(34px, 9.8vw, 43px) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-lead {
+    margin-top: 12px !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions {
+    margin-top: 14px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-actions .button {
+    min-height: 46px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .micro-proof {
+    margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .section-shell,
+  .principle-inner,
+  .scan-shell {
+    width: calc(100% - 22px) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-ui {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-title-clean {
+    font-size: clamp(37px, 11.3vw, 47px) !important;
+  }
+
+  .story--fixed-narrative .strategy-story-card--hero .hero-lead {
+    font-size: 13.5px !important;
+  }
+
+  .problem-source-map {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sample-atlas-map {
+    min-height: 390px !important;
+  }
+
+  .offer-v70-after__route {
+    grid-template-columns: 1fr !important;
+  }
+
+  .offer-v70-after__route div {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(60,43,35,.12) !important;
+  }
+
+  .offer-v70-after__route div:last-child {
+    border-bottom: 0 !important;
+  }
+}

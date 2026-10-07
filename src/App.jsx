@@ -137,32 +137,49 @@ function JourneyRail({ items, label = 'ŚCIEŻKA KLIENTA', emphasizeLast = false
 
 
 function Header() {
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-  return (
+  const closeMobileMenu = () => setMobileOpen(false)
 
-    <header className="header">
+  return (
+    <header className={`header ${mobileOpen ? 'is-menu-open' : ''}`}>
+      <TopographicLogo />
 
-      <TopographicLogo />
+      <nav className="header-desktop-nav" aria-label="Główna nawigacja">
+        <a href="#z-jakim-problemem-przychodzisz">Problem</a>
+        <a href="#przykladowa-mapa">Mapa</a>
+        <a href="#dla-kogo">Dla kogo</a>
+        <a href="#oferta">Oferta</a>
+        <a href="#realizacje">Realizacje</a>
+      </nav>
 
-      <nav aria-label="Główna nawigacja">
+      <a className="header-cta" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
 
-        <a href="#z-jakim-problemem-przychodzisz">Problem</a>
-        <a href="#przykladowa-mapa">Mapa</a>
+      <button
+        className="header-mobile-toggle"
+        type="button"
+        aria-label={mobileOpen ? 'Zamknij menu' : 'Otwórz menu'}
+        aria-expanded={mobileOpen}
+        onClick={() => setMobileOpen((value) => !value)}
+      >
+        <span />
+        <span />
+      </button>
 
-        <a href="#dla-kogo">Dla kogo</a>
-
-        <a href="#oferta">Oferta</a>
-
-        <a href="#realizacje">Realizacje</a>
-
-      </nav>
-
-      <a className="header-cta" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
-
-    </header>
-
-  )
-
+      <div className="header-mobile-panel" aria-hidden={!mobileOpen}>
+        <nav aria-label="Nawigacja mobilna">
+          <a href="#z-jakim-problemem-przychodzisz" onClick={closeMobileMenu}>Problem <span>↗</span></a>
+          <a href="#przykladowa-mapa" onClick={closeMobileMenu}>Mapa <span>↗</span></a>
+          <a href="#dla-kogo" onClick={closeMobileMenu}>Dla kogo <span>↗</span></a>
+          <a href="#oferta" onClick={closeMobileMenu}>Oferta <span>↗</span></a>
+          <a href="#realizacje" onClick={closeMobileMenu}>Realizacje <span>↗</span></a>
+        </nav>
+        <a className="header-mobile-cta" href="#sprawdz-swoja-firme" onClick={closeMobileMenu}>
+          Sprawdź swoją firmę <Arrow />
+        </a>
+      </div>
+    </header>
+  )
 }
 
 
