@@ -1554,7 +1554,7 @@ function Work() {
                 {project.name === 'CostWarden' ? (
                   <div className="browser-mock browser-mock--costwarden">
                     <div className="browser-bar browser-bar--costwarden">
-                      <i /><i /><i /><span>costwarden.co</span>
+                      <i /><i /><i /><span>CostWarden</span>
                     </div>
                     <div className="browser-page browser-page--costwarden">
                       <img src={costWardenPreview} alt="Podgląd strony CostWarden" />

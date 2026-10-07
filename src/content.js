@@ -1,5 +1,3 @@
-import annaBagrowskaPreview from './assets/anna-bagrowska-preview.webp'
-
 export const symptoms = [
   {
     id: 'acquisition',
@@ -218,21 +216,9 @@ export const projects = [
     result: 'Projekt w realizacji — finalny rezultat będzie można ocenić po publikacji.',
     description: 'Przebudowa strony eksperckiej: komunikacja oferty, struktura treści, UX oraz fundament pod widoczność organiczną.',
     url: '',
-    image: annaBagrowskaPreview,
-  },
-  {
-    index: '04',
-    name: 'Do Poznania',
-    type: 'Strona Docelowa / Przepływ Zapytań',
-    status: 'PRZED PUBLIKACJĄ',
-    scope: 'Strona Docelowa · Formularz · Skrzynka Odbiorcza · Przepływ Zapytań',
-    problem: 'Zbudować prostą drogę od wejścia na stronę docelową do wysłania zapytania.',
-    role: 'Strona docelowa, formularz, obsługa kontaktu i przepływ zapytań.',
-    result: 'Projekt przygotowany do finalnej weryfikacji przed publikacją.',
-    description: 'Strona docelowa z prostą ścieżką kontaktu i obsługą formularza, przygotowany do finalnej weryfikacji przed publikacją.',
-    url: '',
     image: '',
   },
+  
 ]
 
 export const team = {
