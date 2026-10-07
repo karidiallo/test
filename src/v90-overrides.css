@@ -2577,3 +2577,171 @@ section.faq-section .faq-list-v14.faq-list-premium > details:not([open]):not(:ho
     color: #f0a0b6;
   }
 }
+
+/* V105 — balanced premium success state */
+
+.scan-shell.is-done {
+  grid-template-columns: 1fr !important;
+  place-items: center;
+  min-height: 640px;
+}
+
+.scan-shell.is-done .scan-copy {
+  display: none !important;
+}
+
+.scan-card--journey.is-done {
+  width: min(100%, 760px) !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 26px !important;
+  background:
+    radial-gradient(circle at 84% 0%, rgba(197,43,86,.18), transparent 34%),
+    linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.025)) !important;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.05) !important;
+  overflow: hidden;
+}
+
+.scan-card--journey.is-done .scan-progress-compact,
+.scan-card--journey.is-done > input {
+  display: none !important;
+}
+
+.form-success--premium {
+  margin: 0 !important;
+  padding: clamp(42px, 6vw, 72px) !important;
+  text-align: left !important;
+  color: #fff;
+}
+
+.form-success--premium .form-success__mark {
+  width: 48px !important;
+  height: 48px !important;
+  margin: 0 0 28px !important;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  box-shadow: none !important;
+}
+
+.form-success__eyebrow {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 0 12px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #ef9db4 !important;
+  font-size: 9px !important;
+  font-weight: 850;
+  letter-spacing: .14em;
+}
+
+.form-success--premium h3 {
+  margin: 0 0 16px !important;
+  color: #fff !important;
+  font: 560 clamp(44px, 5vw, 66px)/.92 var(--display) !important;
+  letter-spacing: -.06em !important;
+}
+
+.form-success--premium > p {
+  max-width: 590px;
+  margin: 0 !important;
+  color: rgba(255,255,255,.60) !important;
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+}
+
+.form-success--premium > p strong {
+  color: rgba(255,255,255,.90);
+  font-weight: 650;
+}
+
+.form-success__summary {
+  margin-top: 32px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,.11);
+  border-bottom: 1px solid rgba(255,255,255,.11);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-success__summary > span {
+  display: grid;
+  gap: 6px;
+}
+
+.form-success__summary small {
+  color: rgba(255,255,255,.36) !important;
+  font-size: 8px !important;
+  font-weight: 850;
+  letter-spacing: .12em;
+}
+
+.form-success__summary strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-success--premium > button {
+  width: 100% !important;
+  min-height: 58px !important;
+  margin-top: 24px !important;
+  padding: 0 18px 0 20px !important;
+  border: 0 !important;
+  border-radius: 15px !important;
+  background: #fffaf6 !important;
+  color: #1d1815 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  transition:
+    transform .24s cubic-bezier(.2,.75,.2,1),
+    box-shadow .24s ease !important;
+}
+
+.form-success--premium > button i {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1d1815;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  transition: transform .22s ease;
+}
+
+.form-success--premium > button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(0,0,0,.16);
+}
+
+.form-success--premium > button:hover i {
+  transform: translate(2px,-2px);
+}
+
+@media (max-width: 720px) {
+  .scan-shell.is-done {
+    min-height: 0;
+  }
+
+  .form-success--premium {
+    padding: 34px 24px !important;
+  }
+
+  .form-success__summary {
+    grid-template-columns: 1fr;
+  }
+}

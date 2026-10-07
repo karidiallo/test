@@ -2085,7 +2085,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
 
   return (
     <section className="scan" id="sprawdz-swoja-firme">
-      <div className="scan-shell">
+      <div className={`scan-shell ${done ? 'is-done' : ''}`}>
         <div className="scan-copy">
           <div className="eyebrow">ZACZNIJ OD FIRMY</div>
           <h2>Pokaż nam firmę. <span className="accent-text">Nie musisz wiedzieć, czego potrzebujesz.</span></h2>
@@ -2098,7 +2098,7 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
           </div>
         </div>
 
-        <form className="scan-card scan-card--v6 scan-card--journey" onSubmit={submit}>
+        <form className={`scan-card scan-card--v6 scan-card--journey ${done ? 'is-done' : ''}`} onSubmit={submit}>
           {!done && (
             <div className="scan-progress-compact" aria-label="Postęp formularza">
               {journey.map((item, index) => {
@@ -2261,11 +2261,27 @@ function ScanForm({ selectedSymptom, selectedOffer }) {
           </>}
 
           {done && (
-            <div className="form-success">
-              <span>✓</span>
+            <div className="form-success form-success--premium">
+              <span className="form-success__mark">✓</span>
+              <span className="form-success__eyebrow">ZGŁOSZENIE WYSŁANE</span>
               <h3>Dzięki. Mamy to.</h3>
-              <p>Zgłoszenie zostało wysłane. Mamy wybraną ścieżkę, firmę, problem i Twój kontakt — wrócimy na podany adres e-mail.</p>
-              <button type="button" onClick={resetForm}>Sprawdź inną firmę</button>
+              <p>Twoje zgłoszenie jest już po naszej stronie. Wrócimy na <strong>{email}</strong> z odpowiedzią dotyczącą wybranej ścieżki.</p>
+
+              <div className="form-success__summary">
+                <span>
+                  <small>ŚCIEŻKA</small>
+                  <strong>{selectedPath?.name}</strong>
+                </span>
+                <span>
+                  <small>FIRMA</small>
+                  <strong>{company}</strong>
+                </span>
+              </div>
+
+              <button type="button" onClick={resetForm}>
+                <span>Sprawdź inną firmę</span>
+                <i>↗</i>
+              </button>
             </div>
           )}
         </form>
