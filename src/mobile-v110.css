@@ -1,3 +1,18 @@
+/* V111 — desktop safety guard
+   Mobile-only components must never exist visually on desktop. */
+.story-mobile,
+.problems-mobile,
+.sample-mobile {
+  display: none !important;
+}
+
+/* Re-enable only when App explicitly marks the document as mobile. */
+html.dm-mobile .story-mobile,
+html.dm-mobile .problems-mobile,
+html.dm-mobile .sample-mobile {
+  display: block !important;
+}
+
 
 /* =========================================================
    DIGITALMAP V110 — HARD MOBILE SPLIT
