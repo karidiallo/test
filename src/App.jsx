@@ -12,6 +12,7 @@ import costWardenPreview from './assets/costwarden-preview.png'
 import annaBagrowskaPreview from './assets/anna-bagrowska-preview.webp'
 import gymWrldPreview from './assets/gymwrld-preview.webp'
 import './v90-overrides.css'
+import './mobile-v110.css'
 
 import { faqs, industries, offers, processSteps, projects, symptoms, team } from './content.js'
 import { FORMSPREE_ENDPOINT } from './formConfig.js'
@@ -21,10 +22,23 @@ import { FORMSPREE_ENDPOINT } from './formConfig.js'
 gsap.registerPlugin(ScrollTrigger)
 
 
+function isDigitalMapMobile() {
+  if (typeof window === 'undefined') return false
+
+  const viewportNarrow = window.innerWidth <= 860
+  const screenNarrow = typeof window.screen !== 'undefined'
+    ? Math.min(window.screen.width, window.screen.height) <= 860
+    : false
+
+  return viewportNarrow || screenNarrow
+}
+
+
+
 
 function Arrow() {
 
-  return <span aria-hidden="true">↗</span>
+  return <span aria-hidden="true">↗</span>
 
 }
 
@@ -32,57 +46,57 @@ function Arrow() {
 
 function MicroIcon({ type }) {
 
-  if (type === 'contract') {
+  if (type === 'contract') {
 
-    return (
+    return (
 
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 
-        <path d="M7 4.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6A1.5 1.5 0 0 1 7.5 4.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+        <path d="M7 4.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6A1.5 1.5 0 0 1 7.5 4.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
 
-        <path d="M14 4.5V9h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+        <path d="M14 4.5V9h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
 
-        <path d="M9 12.5h6M9 16h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M9 12.5h6M9 16h4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
 
-      </svg>
+      </svg>
 
-    )
+    )
 
-  }
-
-
-
-  if (type === 'card') {
-
-    return (
-
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-
-        <rect x="3.5" y="6" width="17" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
-
-        <path d="M3.5 10h17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-
-        <path d="M7.5 14.5h3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-
-      </svg>
-
-    )
-
-  }
+  }
 
 
 
-  return (
+  if (type === 'card') {
 
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    return (
 
-      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 
-      <path d="M12 8.5v7M8.5 12h7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <rect x="3.5" y="6" width="17" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
 
-    </svg>
+        <path d="M3.5 10h17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
 
-  )
+        <path d="M7.5 14.5h3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+
+      </svg>
+
+    )
+
+  }
+
+
+
+  return (
+
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+
+      <path d="M12 8.5v7M8.5 12h7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+
+    </svg>
+
+  )
 
 }
 
@@ -90,9 +104,9 @@ function MicroIcon({ type }) {
 
 function accentTitle(title, accent) {
 
-  const [before, after = ''] = title.split(accent)
+  const [before, after = ''] = title.split(accent)
 
-  return <>{before}<span className="accent-text">{accent}</span>{after}</>
+  return <>{before}<span className="accent-text">{accent}</span>{after}</>
 
 }
 
@@ -100,37 +114,37 @@ function accentTitle(title, accent) {
 
 function JourneyRail({ items, label = 'ŚCIEŻKA KLIENTA', emphasizeLast = false }) {
 
-  return (
+  return (
 
-    <div className="journey-rail" aria-label={label}>
+    <div className="journey-rail" aria-label={label}>
 
-      <div className="journey-rail__label">{label}</div>
+      <div className="journey-rail__label">{label}</div>
 
-      <div className="journey-rail__track">
+      <div className="journey-rail__track">
 
-        {items.map((item, index) => (
+        {items.map((item, index) => (
 
-          <div
+          <div
 
-            className={`journey-rail__item ${emphasizeLast && index === items.length - 1 ? 'is-active' : ''}`}
+            className={`journey-rail__item ${emphasizeLast && index === items.length - 1 ? 'is-active' : ''}`}
 
-            key={item}
+            key={item}
 
-          >
+          >
 
-            <span className="journey-rail__node" aria-hidden="true" />
+            <span className="journey-rail__node" aria-hidden="true" />
 
-            <b>{item}</b>
+            <b>{item}</b>
 
-          </div>
+          </div>
 
-        ))}
+        ))}
 
-      </div>
+      </div>
 
-    </div>
+    </div>
 
-  )
+  )
 
 }
 
@@ -186,269 +200,337 @@ function Header() {
 
 function Story({ progressRef }) {
 
-  const storyRef = useRef(null)
+  const storyRef = useRef(null)
 
-  const stepRefs = useRef([])
+  const stepRefs = useRef([])
 
-  const cardRef = useRef(null)
+  const cardRef = useRef(null)
 
-  const [activeStage, setActiveStage] = useState(-1)
+  const [activeStage, setActiveStage] = useState(-1)
+  const [mobileStage, setMobileStage] = useState(0)
 
 
 
-  const stages = [
+  const stages = [
 
-    {
+    {
 
-      no: 'WIDOCZNOŚĆ',
+      no: 'WIDOCZNOŚĆ',
 
-      title: <>Czy klienci trafiają do Ciebie <span className="accent-text">wtedy, kiedy naprawdę Cię potrzebują?</span></>,
+      title: <>Czy klienci trafiają do Ciebie <span className="accent-text">wtedy, kiedy naprawdę Cię potrzebują?</span></>,
 
-      copy: 'DigitalMap pokazuje, co widzi potencjalny klient, zanim zdecyduje się na kontakt — i gdzie po drodze tracisz jego uwagę lub zaufanie.',
+      copy: 'DigitalMap pokazuje, co widzi potencjalny klient, zanim zdecyduje się na kontakt — i gdzie po drodze tracisz jego uwagę lub zaufanie.',
 
-      proof: 'Google · SEO · Mapy Google · Reklamy · Wyszukiwanie AI',
+      proof: 'Google · SEO · Mapy Google · Reklamy · Wyszukiwanie AI',
 
-    },
+    },
 
-    {
+    {
 
-      no: 'STRONA I OFERTA',
+      no: 'STRONA I OFERTA',
 
-      title: <>Masz ruch. <span className="accent-text">Ale czy strona prowadzi ludzi do kontaktu?</span></>,
+      title: <>Masz ruch. <span className="accent-text">Ale czy strona prowadzi ludzi do kontaktu?</span></>,
 
-      copy: 'Sprawdzamy, co dzieje się po wejściu na stronę — od pierwszego wrażenia po decyzję o kontakcie. Wskazujemy miejsca, które mogą odbierać Ci zapytania.',
+      copy: 'Sprawdzamy, co dzieje się po wejściu na stronę — od pierwszego wrażenia po decyzję o kontakcie. Wskazujemy miejsca, które mogą odbierać Ci zapytania.',
 
-      proof: 'Oferta · Komunikacja · UX · Wezwanie Do Działania · Strona Docelowa',
+      proof: 'Oferta · Komunikacja · UX · Wezwanie Do Działania · Strona Docelowa',
 
-    },
+    },
 
-    {
+    {
 
-      no: 'SOCIAL MEDIA I TREŚCI',
+      no: 'SOCIAL MEDIA I TREŚCI',
 
-      title: <>Publikujesz regularnie. <span className="accent-text">Ale czy Twoje treści przyciągają właściwe osoby?</span></>,
+      title: <>Publikujesz regularnie. <span className="accent-text">Ale czy Twoje treści przyciągają właściwe osoby?</span></>,
 
-      copy: 'Sprawdzamy, czy Twoje treści przyciągają właściwe osoby, budują zainteresowanie ofertą i prowadzą je bliżej decyzji o kontakcie.',
+      copy: 'Sprawdzamy, czy Twoje treści przyciągają właściwe osoby, budują zainteresowanie ofertą i prowadzą je bliżej decyzji o kontakcie.',
 
-      proof: 'Social Media · Treści · Dowody Zaufania · Droga Do Kontaktu',
+      proof: 'Social Media · Treści · Dowody Zaufania · Droga Do Kontaktu',
 
-    },
+    },
 
-    {
+    {
 
-      no: 'ZAUFANIE',
+      no: 'ZAUFANIE',
 
-      title: <>Klient Cię znalazł. <span className="accent-text">Ale czy Ci zaufa?</span></>,
+      title: <>Klient Cię znalazł. <span className="accent-text">Ale czy Ci zaufa?</span></>,
 
-      copy: 'Sprawdzamy, co buduje wiarygodność Twojej firmy i co widzi klient, zanim zdecyduje się wybrać właśnie Ciebie.',
+      copy: 'Sprawdzamy, co buduje wiarygodność Twojej firmy i co widzi klient, zanim zdecyduje się wybrać właśnie Ciebie.',
 
-      proof: 'Opinie · Case Study · Reputacja · Dowody Zaufania',
+      proof: 'Opinie · Case Study · Reputacja · Dowody Zaufania',
 
-    },
+    },
 
-    {
+    {
 
-      no: 'KONWERSJA',
+      no: 'KONWERSJA',
 
-      title: <>Klient jest zainteresowany. <span className="accent-text">Co decyduje o jego dalszej decyzji?</span></>,
+      title: <>Klient jest zainteresowany. <span className="accent-text">Co decyduje o jego dalszej decyzji?</span></>,
 
-      copy: 'Analizujemy drogę od zainteresowania ofertą do kontaktu i wskazujemy elementy, które mogą mieć wpływ na tę decyzję.',
+      copy: 'Analizujemy drogę od zainteresowania ofertą do kontaktu i wskazujemy elementy, które mogą mieć wpływ na tę decyzję.',
 
-      proof: 'Formularz · Kontakt · Zapytanie · Konsultacja · Sprzedaż',
+      proof: 'Formularz · Kontakt · Zapytanie · Konsultacja · Sprzedaż',
 
-      cta: true,
+      cta: true,
 
-    },
+    },
 
-  ]
+  ]
 
-  useEffect(() => {
+  useEffect(() => {
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (isDigitalMapMobile()) {
+      progressRef.current = 0
+      return
+    }
 
-      progressRef.current = 0.5
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
-      setActiveStage(2)
+      progressRef.current = 0.5
 
-      return
+      setActiveStage(2)
 
-    }
+      return
 
+    }
 
 
-    const trigger = ScrollTrigger.create({
 
-      trigger: storyRef.current,
+    const trigger = ScrollTrigger.create({
 
-      start: 'top top',
+      trigger: storyRef.current,
 
-      end: 'bottom bottom',
+      start: 'top top',
 
-      onUpdate: (self) => {
+      end: 'bottom bottom',
 
-        progressRef.current = self.progress
+      onUpdate: (self) => {
 
-        const breaks = [0.14, 0.31, 0.48, 0.65, 0.82]
+        progressRef.current = self.progress
 
-        let next = -1
+        const breaks = [0.14, 0.31, 0.48, 0.65, 0.82]
 
-        for (let i = breaks.length - 1; i >= 0; i -= 1) {
+        let next = -1
 
-          if (self.progress >= breaks[i]) { next = i; break }
+        for (let i = breaks.length - 1; i >= 0; i -= 1) {
 
-        }
+          if (self.progress >= breaks[i]) { next = i; break }
 
-        setActiveStage((prev) => (prev === next ? prev : next))
+        }
 
-      },
+        setActiveStage((prev) => (prev === next ? prev : next))
 
-    })
+      },
 
+    })
 
 
-    return () => trigger.kill()
 
-  }, [progressRef])
+    return () => trigger.kill()
 
+  }, [progressRef])
 
 
-  useEffect(() => {
 
-    if (!cardRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  useEffect(() => {
 
-    gsap.killTweensOf(cardRef.current)
+    if (!cardRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    gsap.fromTo(
+    gsap.killTweensOf(cardRef.current)
 
-      cardRef.current,
+    gsap.fromTo(
 
-      { autoAlpha: 0.35, y: 14 },
+      cardRef.current,
 
-      { autoAlpha: 1, y: 0, duration: 0.46, ease: 'power2.out', overwrite: true },
+      { autoAlpha: 0.35, y: 14 },
 
-    )
+      { autoAlpha: 1, y: 0, duration: 0.46, ease: 'power2.out', overwrite: true },
 
-  }, [activeStage])
+    )
 
+  }, [activeStage])
 
 
-  function goToZone(index) {
 
-    stepRefs.current[index + 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  function goToZone(index) {
 
-  }
+    stepRefs.current[index + 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
+  }
 
 
-  const stage = activeStage >= 0 ? stages[activeStage] : null
 
+  const stage = activeStage >= 0 ? stages[activeStage] : null
 
 
-  return (
 
-    <section className="story story--strategy-map story--fixed-narrative" id="start" ref={storyRef}>
+  return (
 
-      <div className="story-canvas-wrap">
+    <section className="story story--strategy-map story--fixed-narrative" id="start" ref={storyRef}>
 
-        <LivingMap progressRef={progressRef} onSelectZone={goToZone} />
+      <div className="story-mobile">
+        <div className="story-mobile-hero">
+          <div className="eyebrow">DIGITALMAP / DIAGNOZA PRZED WYDATKIEM</div>
+          <h1>Zanim wydasz więcej na marketing, <span className="accent-text">sprawdź, gdzie Twoja firma traci klientów.</span></h1>
+          <p>DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dostajesz jasny priorytet zamiast kolejnej listy usług.</p>
 
+          <div className="story-mobile-actions">
+            <a href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
+            <a href="#przykladowa-mapa">Zobacz przykładową Mapę <Arrow /></a>
+          </div>
 
+          <div className="story-mobile-trust">
+            <span><MicroIcon type="free" /> Mini Mapa 0 zł</span>
+            <span><MicroIcon type="contract" /> Bez zobowiązań</span>
+            <span><MicroIcon type="card" /> Bez karty</span>
+          </div>
 
-        <div className={`strategy-story-ui ${stage ? 'strategy-story-ui--zone' : 'strategy-story-ui--hero'}`}>
+          <div className="story-mobile-orbit" aria-hidden="true">
+            <i className="story-mobile-orbit__ring story-mobile-orbit__ring--1" />
+            <i className="story-mobile-orbit__ring story-mobile-orbit__ring--2" />
+            <span className="story-mobile-orbit__core" />
+            <span className="story-mobile-orbit__node n1" />
+            <span className="story-mobile-orbit__node n2" />
+            <span className="story-mobile-orbit__node n3" />
+          </div>
+        </div>
 
-          {stage ? (
+        <div className="story-mobile-journey">
+          <div className="story-mobile-journey__head">
+            <span>DROGA KLIENTA</span>
+            <small>Dotknij obszaru</small>
+          </div>
 
-            <article ref={cardRef} className="strategy-story-card strategy-story-card--zone">
+          <div className="story-mobile-tabs" role="tablist" aria-label="Obszary diagnozy">
+            {stages.map((item, index) => (
+              <button
+                key={item.no}
+                type="button"
+                role="tab"
+                aria-selected={mobileStage === index}
+                className={mobileStage === index ? 'is-active' : ''}
+                onClick={() => setMobileStage(index)}
+              >
+                {item.no}
+              </button>
+            ))}
+          </div>
 
-              <div className="eyebrow">{stage.no}</div>
+          <article className="story-mobile-stage" key={mobileStage}>
+            <span className="story-mobile-stage__label">{stages[mobileStage].no}</span>
+            <h2>{stages[mobileStage].title}</h2>
+            <p>{stages[mobileStage].copy}</p>
+            <div className="story-mobile-stage__proof">
+              {stages[mobileStage].proof.split(' · ').map((proof) => <span key={proof}>{proof}</span>)}
+            </div>
+            {stages[mobileStage].cta && (
+              <a href="#sprawdz-swoja-firme">Sprawdź swój proces <Arrow /></a>
+            )}
+          </article>
+        </div>
+      </div>
 
-              <h2>{stage.title}</h2>
+      <div className="story-canvas-wrap">
 
-              <p>{stage.copy}</p>
+        <LivingMap progressRef={progressRef} onSelectZone={goToZone} />
 
-              <JourneyRail
 
-                items={stage.proof.split(' · ')}
 
-                label={stage.no === 'KONWERSJA' ? 'ŚCIEŻKA DO SPRZEDAŻY' : 'CO SPRAWDZAMY'}
+        <div className={`strategy-story-ui ${stage ? 'strategy-story-ui--zone' : 'strategy-story-ui--hero'}`}>
 
-                emphasizeLast={stage.no === 'KONWERSJA'}
+          {stage ? (
 
-              />
+            <article ref={cardRef} className="strategy-story-card strategy-story-card--zone">
 
-              {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#sprawdz-swoja-firme">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
+              <div className="eyebrow">{stage.no}</div>
 
-            </article>
+              <h2>{stage.title}</h2>
 
-          ) : (
+              <p>{stage.copy}</p>
 
-            <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
+              <JourneyRail
 
-              <div className="eyebrow">DIGITALMAP / DIAGNOZA PRZED WYDATKIEM</div>
+                items={stage.proof.split(' · ')}
 
-              <h1 className="hero-title-clean">
+                label={stage.no === 'KONWERSJA' ? 'ŚCIEŻKA DO SPRZEDAŻY' : 'CO SPRAWDZAMY'}
 
-                <span className="hero-title-line">Zanim wydasz</span>
+                emphasizeLast={stage.no === 'KONWERSJA'}
 
-                <span className="hero-title-line">więcej na marketing,</span>
+              />
 
-                <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
+              {stage.cta && <div className="strategy-zone-action"><span>Sprawdź swój proces pozyskania klienta.</span><a className="strategy-zone-cta" href="#sprawdz-swoja-firme">Zacznij od Mini Mapy — 0 zł <Arrow /></a></div>}
 
-                <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
+            </article>
 
-              </h1>
+          ) : (
 
-              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
+            <article ref={cardRef} className="strategy-story-card strategy-story-card--hero">
 
-              <div className="hero-actions">
+              <div className="eyebrow">DIGITALMAP / DIAGNOZA PRZED WYDATKIEM</div>
 
-                <a className="button button--dark" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
+              <h1 className="hero-title-clean">
 
-                <a className="button button--hero-secondary" href="#przykladowa-mapa">Zobacz przykładową Mapę <Arrow /></a>
+                <span className="hero-title-line">Zanim wydasz</span>
 
-              </div>
+                <span className="hero-title-line">więcej na marketing,</span>
 
-              <div className="micro-proof">
+                <span className="hero-title-line hero-title-line--accent">sprawdź, gdzie Twoja firma</span>
 
-                <span><i className="micro-proof-icon"><MicroIcon type="free" /></i>Mini Mapa 0 zł</span>
+                <span className="hero-title-line hero-title-line--accent">traci klientów.</span>
 
-                <span><i className="micro-proof-icon"><MicroIcon type="contract" /></i>Bez zobowiązań</span>
+              </h1>
 
-                <span><i className="micro-proof-icon"><MicroIcon type="card" /></i>Bez karty</span>
+              <p className="hero-lead">DigitalMap analizuje Twoją firmę od strony internetowej, przez opinie i social media, po Google i wyszukiwanie AI. Dzięki temu wiesz, jakie działania marketingowe najlepiej pasują do Twojej firmy i od czego warto zacząć.</p>
 
-              </div>
+              <div className="hero-actions">
 
-            </article>
+                <a className="button button--dark" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
 
-          )}
+                <a className="button button--hero-secondary" href="#przykladowa-mapa">Zobacz przykładową Mapę <Arrow /></a>
 
-        </div>
+              </div>
 
-      </div>
+              <div className="micro-proof">
 
+                <span><i className="micro-proof-icon"><MicroIcon type="free" /></i>Mini Mapa 0 zł</span>
 
+                <span><i className="micro-proof-icon"><MicroIcon type="contract" /></i>Bez zobowiązań</span>
 
-      <div className="story-steps story-scroll-spacers" aria-hidden="true">
+                <span><i className="micro-proof-icon"><MicroIcon type="card" /></i>Bez karty</span>
 
-        {Array.from({ length: 6 }).map((_, index) => (
+              </div>
 
-          <div
+            </article>
 
-            className="story-step story-scroll-spacer"
+          )}
 
-            key={index}
+        </div>
 
-            ref={(el) => { stepRefs.current[index] = el }}
+      </div>
 
-          />
 
-        ))}
 
-      </div>
+      <div className="story-steps story-scroll-spacers" aria-hidden="true">
 
-    </section>
+        {Array.from({ length: 6 }).map((_, index) => (
 
-  )
+          <div
+
+            className="story-step story-scroll-spacer"
+
+            key={index}
+
+            ref={(el) => { stepRefs.current[index] = el }}
+
+          />
+
+        ))}
+
+      </div>
+
+    </section>
+
+  )
 
 }
 
@@ -456,45 +538,45 @@ function Story({ progressRef }) {
 
 function Process() {
 
-  return (
+  return (
 
-    <section className="process-section" id="jak-powstaje-mapa">
+    <section className="process-section" id="jak-powstaje-mapa">
 
-      <div className="section-shell process-layout">
+      <div className="section-shell process-layout">
 
-        <div className="process-intro">
+        <div className="process-intro">
 
-          <div className="eyebrow">JAK POWSTAJE MAPA</div>
+          <div className="eyebrow">JAK POWSTAJE MAPA</div>
 
-          <h2>Od firmy do decyzji <span className="accent-text">w czterech krokach.</span></h2>
+          <h2>Od firmy do decyzji <span className="accent-text">w czterech krokach.</span></h2>
 
-          <p>Nie zaczynamy od rekomendowania usług. Najpierw zawężamy problem, sprawdzamy dane i ustalamy właściwą kolejność działań.</p>
+          <p>Nie zaczynamy od rekomendowania usług. Najpierw zawężamy problem, sprawdzamy dane i ustalamy właściwą kolejność działań.</p>
 
-        </div>
+        </div>
 
-        <div className="process-timeline">
+        <div className="process-timeline">
 
-          {processSteps.map((step) => (
+          {processSteps.map((step) => (
 
-            <article className="process-step" key={step.no}>
+            <article className="process-step" key={step.no}>
 
-              <div className="process-dot" />
+              <div className="process-dot" />
 
-              <h3>{accentTitle(step.title, step.accent)}</h3>
+              <h3>{accentTitle(step.title, step.accent)}</h3>
 
-              <p>{step.copy}</p>
+              <p>{step.copy}</p>
 
-            </article>
+            </article>
 
-          ))}
+          ))}
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -502,163 +584,195 @@ function Process() {
 
 function Problems() {
 
-  const visibleProblems = symptoms.filter((item) => item.id !== 'other')
+  const visibleProblems = symptoms.filter((item) => item.id !== 'other')
 
-  const [activeProblem, setActiveProblem] = useState(0)
+  const [activeProblem, setActiveProblem] = useState(0)
 
-  const active = visibleProblems[activeProblem]
+  const active = visibleProblems[activeProblem]
 
-  const sourceMap = {
+  const sourceMap = {
 
-    acquisition: ['Widoczność', 'Social Media', 'Oferta', 'Konwersja'],
+    acquisition: ['Widoczność', 'Social Media', 'Oferta', 'Konwersja'],
 
-    conversion: ['Oferta', 'Strona', 'Zaufanie', 'Konwersja'],
+    conversion: ['Oferta', 'Strona', 'Zaufanie', 'Konwersja'],
 
-    ads: ['Reklamy', 'Strona', 'Oferta', 'Konwersja'],
+    ads: ['Reklamy', 'Strona', 'Oferta', 'Konwersja'],
 
-    website: ['Oferta', 'UX', 'Zaufanie', 'Kontakt'],
+    website: ['Oferta', 'UX', 'Zaufanie', 'Kontakt'],
 
-    competition: ['Widoczność', 'Oferta', 'Zaufanie', 'Treści'],
+    competition: ['Widoczność', 'Oferta', 'Zaufanie', 'Treści'],
 
-    unclear: ['Widoczność', 'Reklamy', 'Oferta', 'Konwersja'],
+    unclear: ['Widoczność', 'Reklamy', 'Oferta', 'Konwersja'],
 
-  }
+  }
 
-  const sources = sourceMap[active.id] || ['Widoczność', 'Oferta', 'Zaufanie', 'Konwersja']
+  const sources = sourceMap[active.id] || ['Widoczność', 'Oferta', 'Zaufanie', 'Konwersja']
 
 
 
-  return (
+  return (
 
-    <section className="problems-section problems-section--diagnostic" id="z-jakim-problemem-przychodzisz">
+    <section className="problems-section problems-section--diagnostic" id="z-jakim-problemem-przychodzisz">
 
-      <div className="section-shell problems-diagnostic-shell">
+      <div className="section-shell problems-diagnostic-shell">
 
-        <div className="problems-diagnostic-intro">
+        <div className="problems-diagnostic-intro">
 
-          <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
+          <div className="eyebrow">Z JAKIM PROBLEMEM PRZYCHODZISZ?</div>
 
-          <h2>Co dziś najbardziej <span className="accent-text">ogranicza Twój marketing?</span></h2>
+          <h2>Co dziś najbardziej <span className="accent-text">ogranicza Twój marketing?</span></h2>
 
-          <p>Nie musisz wiedzieć, czy problemem jest SEO, reklama, oferta czy strona.</p>
+          <p>Nie musisz wiedzieć, czy problemem jest SEO, reklama, oferta czy strona.</p>
 
-        </div>
+        </div>
 
 
 
-        <div className="problem-diagnostic-console">
+        <div className="problems-mobile">
+          <div className="problems-mobile-picker" role="tablist" aria-label="Wybierz sytuację">
+            {visibleProblems.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={index === activeProblem}
+                className={index === activeProblem ? 'is-active' : ''}
+                onClick={() => setActiveProblem(index)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
 
-          <div className="problem-signal-list" role="tablist" aria-label="Najczęstsze problemy marketingowe">
+          <article className="problems-mobile-result" key={active.id}>
+            <span className="problems-mobile-result__eyebrow">WYBRANA SYTUACJA</span>
+            <h3>{active.label}</h3>
+            <p>{active.description}</p>
 
-            <div className="problem-signal-caption">
+            <div className="problems-mobile-sources">
+              <span>Najczęściej sprawdzamy</span>
+              <div>
+                {sources.map((source) => <b key={source}>{source}</b>)}
+              </div>
+            </div>
 
-              <span>Wybierz sytuację</span>
+            <a href="#sprawdz-swoja-firme">Sprawdź ten problem w swojej firmie <Arrow /></a>
+          </article>
+        </div>
 
-              <span>{String(visibleProblems.length).padStart(2, '0')} możliwości</span>
+        <div className="problem-diagnostic-console">
 
-            </div>
+          <div className="problem-signal-list" role="tablist" aria-label="Najczęstsze problemy marketingowe">
 
+            <div className="problem-signal-caption">
 
+              <span>Wybierz sytuację</span>
 
-            {visibleProblems.map((item, index) => (
+              <span>{String(visibleProblems.length).padStart(2, '0')} możliwości</span>
 
-              <button
+            </div>
 
-                type="button"
 
-                role="tab"
 
-                aria-selected={index === activeProblem}
+            {visibleProblems.map((item, index) => (
 
-                key={item.id}
+              <button
 
-                className={`problem-signal ${index === activeProblem ? 'is-active' : ''}`}
+                type="button"
 
-                onMouseEnter={() => setActiveProblem(index)}
+                role="tab"
 
-                onFocus={() => setActiveProblem(index)}
+                aria-selected={index === activeProblem}
 
-                onClick={() => setActiveProblem(index)}
+                key={item.id}
 
-              >
+                className={`problem-signal ${index === activeProblem ? 'is-active' : ''}`}
 
-                <span className="problem-signal-no">{String(index + 1).padStart(2, '0')}</span>
+                onMouseEnter={() => setActiveProblem(index)}
 
-                <span className="problem-signal-label">{item.label}</span>
+                onFocus={() => setActiveProblem(index)}
 
-                <span className="problem-signal-arrow" aria-hidden="true">↗</span>
+                onClick={() => setActiveProblem(index)}
 
-              </button>
+              >
 
-            ))}
+                <span className="problem-signal-no">{String(index + 1).padStart(2, '0')}</span>
 
-          </div>
+                <span className="problem-signal-label">{item.label}</span>
 
+                <span className="problem-signal-arrow" aria-hidden="true">↗</span>
 
+              </button>
 
-          <div className="problem-diagnostic-result" role="tabpanel" aria-live="polite">
+            ))}
 
-            <div className="problem-result-topline">
+          </div>
 
-              <span>ANALIZA SYGNAŁU</span>
 
-              <span>{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</span>
 
-            </div>
+          <div className="problem-diagnostic-result" role="tabpanel" aria-live="polite">
 
+            <div className="problem-result-topline">
 
+              <span>ANALIZA SYGNAŁU</span>
 
-            <div className="problem-result-body" key={active.id}>
+              <span>{String(activeProblem + 1).padStart(2, '0')} / {String(visibleProblems.length).padStart(2, '0')}</span>
 
-              <div className="problem-result-status"><i aria-hidden="true" /> WYBRANA SYTUACJA</div>
+            </div>
 
-              <h3>{active.label}</h3>
 
-              <p>{active.description}</p>
 
+            <div className="problem-result-body" key={active.id}>
 
+              <div className="problem-result-status"><i aria-hidden="true" /> WYBRANA SYTUACJA</div>
 
-              <div className="problem-source-block">
+              <h3>{active.label}</h3>
 
-                <span className="problem-source-label">Najczęstsze źródła tego problemu</span>
+              <p>{active.description}</p>
 
-                <div className="problem-source-map" aria-label="Obszary, które sprawdzamy w pierwszej kolejności">
 
-                  {sources.map((source, index) => (
 
-                    <span className="problem-source-node" key={source} style={{ '--source-i': index }}>
+              <div className="problem-source-block">
 
-                      <i aria-hidden="true" />
+                <span className="problem-source-label">Najczęstsze źródła tego problemu</span>
 
-                      {source}
+                <div className="problem-source-map" aria-label="Obszary, które sprawdzamy w pierwszej kolejności">
 
-                    </span>
+                  {sources.map((source, index) => (
 
-                  ))}
+                    <span className="problem-source-node" key={source} style={{ '--source-i': index }}>
 
-                </div>
+                      <i aria-hidden="true" />
 
-              </div>
+                      {source}
 
+                    </span>
 
+                  ))}
 
-              <a className="problem-result-cta" href="#sprawdz-swoja-firme">Sprawdź ten problem w swojej firmie <Arrow /></a>
+                </div>
 
-            </div>
+              </div>
 
 
 
-            <div className="problem-diagnostic-scan" aria-hidden="true" />
+              <a className="problem-result-cta" href="#sprawdz-swoja-firme">Sprawdź ten problem w swojej firmie <Arrow /></a>
 
-          </div>
+            </div>
 
-        </div>
 
-      </div>
 
-    </section>
+            <div className="problem-diagnostic-scan" aria-hidden="true" />
 
-  )
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  )
 
 }
 
@@ -666,259 +780,306 @@ function Problems() {
 
 function SampleMap() {
 
-  const areas = [
+  const areas = [
 
-    {
+    {
 
-      id: 'google',
+      id: 'google',
 
-      no: '01',
+      no: '01',
 
-      name: 'Google i Mapy',
+      name: 'Google i Mapy',
 
-      status: 'Dobra baza',
+      status: 'Dobra baza',
 
-      level: 'good',
+      level: 'good',
 
-      x: 14,
+      x: 14,
 
-      y: 22,
+      y: 22,
 
-      finding: 'Firma jest widoczna na kluczowe zapytania lokalne.',
+      finding: 'Firma jest widoczna na kluczowe zapytania lokalne.',
 
-      impact: 'Ten kanał już dostarcza wartościowy ruch.',
+      impact: 'Ten kanał już dostarcza wartościowy ruch.',
 
-      action: 'Utrzymać pozycje i rozwijać najlepiej działające zapytania.',
+      action: 'Utrzymać pozycje i rozwijać najlepiej działające zapytania.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'seo',
+      id: 'seo',
 
-      no: '02',
+      no: '02',
 
-      name: 'SEO',
+      name: 'SEO',
 
-      status: 'Szansa',
+      status: 'Szansa',
 
-      level: 'opportunity',
+      level: 'opportunity',
 
-      x: 36,
+      x: 36,
 
-      y: 14,
+      y: 14,
 
-      finding: 'Część usług nie ma jeszcze własnych stron i widoczności.',
+      finding: 'Część usług nie ma jeszcze własnych stron i widoczności.',
 
-      impact: 'Firma oddaje konkurencji ruch z zapytań o wysokiej intencji.',
+      impact: 'Firma oddaje konkurencji ruch z zapytań o wysokiej intencji.',
 
-      action: 'Rozbudować treści wokół usług, które najczęściej prowadzą do zapytania.',
+      action: 'Rozbudować treści wokół usług, które najczęściej prowadzą do zapytania.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'ads',
+      id: 'ads',
 
-      no: '03',
+      no: '03',
 
-      name: 'Reklamy',
+      name: 'Reklamy',
 
-      status: 'Wstrzymać skalowanie',
+      status: 'Wstrzymać skalowanie',
 
-      level: 'warning',
+      level: 'warning',
 
-      x: 62,
+      x: 62,
 
-      y: 20,
+      y: 20,
 
-      finding: 'Kampanie generują ruch, ale dalsza ścieżka traci zbyt wielu klientów.',
+      finding: 'Kampanie generują ruch, ale dalsza ścieżka traci zbyt wielu klientów.',
 
-      impact: 'Większy budżet zwiększyłby koszt bez naprawy głównego problemu.',
+      impact: 'Większy budżet zwiększyłby koszt bez naprawy głównego problemu.',
 
-      action: 'Nie zwiększać budżetu, dopóki nie poprawi się konwersja.',
+      action: 'Nie zwiększać budżetu, dopóki nie poprawi się konwersja.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'ai',
+      id: 'ai',
 
-      no: '04',
+      no: '04',
 
-      name: 'Wyszukiwanie AI',
+      name: 'Wyszukiwanie AI',
 
-      status: 'Do rozwinięcia',
+      status: 'Do rozwinięcia',
 
-      level: 'opportunity',
+      level: 'opportunity',
 
-      x: 83,
+      x: 83,
 
-      y: 13,
+      y: 13,
 
-      finding: 'Marka pojawia się rzadko w odpowiedziach narzędzi AI.',
+      finding: 'Marka pojawia się rzadko w odpowiedziach narzędzi AI.',
 
-      impact: 'Firma może tracić część nowych sposobów odkrywania usług.',
+      impact: 'Firma może tracić część nowych sposobów odkrywania usług.',
 
-      action: 'Wzmocnić eksperckość, dane o firmie i treści odpowiadające na pytania klientów.',
+      action: 'Wzmocnić eksperckość, dane o firmie i treści odpowiadające na pytania klientów.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'social',
+      id: 'social',
 
-      no: '05',
+      no: '05',
 
-      name: 'Social Media i Treści',
+      name: 'Social Media i Treści',
 
-      status: 'Niewykorzystany zasięg',
+      status: 'Niewykorzystany zasięg',
 
-      level: 'opportunity',
+      level: 'opportunity',
 
-      x: 17,
+      x: 17,
 
-      y: 67,
+      y: 67,
 
-      finding: 'Treści pokazują realizacje, ale rzadko prowadzą odbiorcę dalej.',
+      finding: 'Treści pokazują realizacje, ale rzadko prowadzą odbiorcę dalej.',
 
-      impact: 'Zasięg buduje uwagę, lecz zbyt słabo zasila zapytania.',
+      impact: 'Zasięg buduje uwagę, lecz zbyt słabo zasila zapytania.',
 
-      action: 'Połączyć treści z konkretnymi usługami, dowodami i następnym krokiem.',
+      action: 'Połączyć treści z konkretnymi usługami, dowodami i następnym krokiem.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'offer',
+      id: 'offer',
 
-      no: '06',
+      no: '06',
 
-      name: 'Strona i Oferta',
+      name: 'Strona i Oferta',
 
-      status: 'Główne wąskie gardło',
+      status: 'Główne wąskie gardło',
 
-      level: 'critical',
+      level: 'critical',
 
-      x: 45,
+      x: 45,
 
-      y: 52,
+      y: 52,
 
-      finding: 'Klient zbyt długo szuka powodu, żeby wybrać właśnie tę firmę.',
+      finding: 'Klient zbyt długo szuka powodu, żeby wybrać właśnie tę firmę.',
 
-      impact: 'Ruch trafia na stronę, ale zbyt mało osób przechodzi do kontaktu.',
+      impact: 'Ruch trafia na stronę, ale zbyt mało osób przechodzi do kontaktu.',
 
-      action: 'Wyostrzyć ofertę, hierarchię informacji i jeden główny następny krok.',
+      action: 'Wyostrzyć ofertę, hierarchię informacji i jeden główny następny krok.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'trust',
+      id: 'trust',
 
-      no: '07',
+      no: '07',
 
-      name: 'Opinie i Zaufanie',
+      name: 'Opinie i Zaufanie',
 
-      status: 'Dobra baza',
+      status: 'Dobra baza',
 
-      level: 'good',
+      level: 'good',
 
-      x: 70,
+      x: 70,
 
-      y: 63,
+      y: 63,
 
-      finding: 'Opinie są mocne, ale najważniejsze dowody są słabo widoczne na stronie.',
+      finding: 'Opinie są mocne, ale najważniejsze dowody są słabo widoczne na stronie.',
 
-      impact: 'Firma ma wiarygodność, której nie wykorzystuje w momencie decyzji.',
+      impact: 'Firma ma wiarygodność, której nie wykorzystuje w momencie decyzji.',
 
-      action: 'Przenieść najlepsze dowody bliżej oferty i formularza kontaktowego.',
+      action: 'Przenieść najlepsze dowody bliżej oferty i formularza kontaktowego.',
 
-    },
+    },
 
-    {
+    {
 
-      id: 'conversion',
+      id: 'conversion',
 
-      no: '08',
+      no: '08',
 
-      name: 'Kontakt i Sprzedaż',
+      name: 'Kontakt i Sprzedaż',
 
-      status: 'Największa strata',
+      status: 'Największa strata',
 
-      level: 'critical',
+      level: 'critical',
 
-      x: 84,
+      x: 84,
 
-      y: 82,
+      y: 82,
 
-      finding: 'Za dużo osób odpada między zainteresowaniem a wysłaniem zapytania.',
+      finding: 'Za dużo osób odpada między zainteresowaniem a wysłaniem zapytania.',
 
-      impact: 'Firma traci część klientów, których już pozyskała marketingiem.',
+      impact: 'Firma traci część klientów, których już pozyskała marketingiem.',
 
-      action: 'Uprościć formularz i skrócić drogę od decyzji do kontaktu.',
+      action: 'Uprościć formularz i skrócić drogę od decyzji do kontaktu.',
 
-    },
+    },
 
-  ]
+  ]
 
 
 
-  const [activeArea, setActiveArea] = useState('offer')
+  const [activeArea, setActiveArea] = useState('offer')
 
-  const selected = areas.find((area) => area.id === activeArea) ?? areas[0]
+  const selected = areas.find((area) => area.id === activeArea) ?? areas[0]
 
 
 
-  return (
+  return (
 
-    <section className="sample-section sample-section--atlas" id="przykladowa-mapa">
+    <section className="sample-section sample-section--atlas" id="przykladowa-mapa">
 
-      <div className="section-shell">
+      <div className="section-shell">
 
-        <div className="section-heading section-heading--split sample-heading sample-heading--atlas">
+        <div className="section-heading section-heading--split sample-heading sample-heading--atlas">
 
-          <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
+          <div className="eyebrow">PRZYKŁADOWA MAPA FIRMY</div>
 
-          <div>
+          <div>
 
-            <h2>Wejdź w obszar i zobacz, <span className="accent-text">co znaleźliśmy.</span></h2>
+            <h2>Wejdź w obszar i zobacz, <span className="accent-text">co znaleźliśmy.</span></h2>
 
-            <p>Jedna firma, osiem miejsc, które sprawdzamy. Kliknij wybrany obszar, żeby zobaczyć problem, wpływ na biznes i następny ruch.</p>
+            <p>Jedna firma, osiem miejsc, które sprawdzamy. Kliknij wybrany obszar, żeby zobaczyć problem, wpływ na biznes i następny ruch.</p>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
 
 
-        <div className="sample-atlas-shell">
+        <div className="sample-mobile">
+          <div className="sample-mobile-company">
+            <span>PRZYKŁADOWA FIRMA</span>
+            <strong>Klinika usług premium</strong>
+            <p>Główny wniosek: <b>najpierw konwersja, potem większy ruch.</b></p>
+          </div>
 
-          <div className="sample-atlas-topline">
+          <div className="sample-mobile-path" role="tablist" aria-label="Obszary przykładowej mapy">
+            {areas.map((area) => (
+              <button
+                key={area.id}
+                type="button"
+                role="tab"
+                aria-selected={area.id === selected.id}
+                className={`is-${area.level}${area.id === selected.id ? ' is-active' : ''}`}
+                onClick={() => setActiveArea(area.id)}
+              >
+                <i />
+                <span>{area.name}</span>
+              </button>
+            ))}
+          </div>
 
-            <div>
+          <article className={`sample-mobile-detail is-${selected.level}`} key={selected.id}>
+            <div className="sample-mobile-detail__top">
+              <span>{selected.status}</span>
+              <small>{areas.findIndex((area) => area.id === selected.id) + 1} / {areas.length}</small>
+            </div>
+            <h3>{selected.name}</h3>
 
-              <span>PRZYKŁADOWA FIRMA</span>
+            <div className="sample-mobile-detail__row">
+              <span>Co znaleźliśmy</span>
+              <p>{selected.finding}</p>
+            </div>
+            <div className="sample-mobile-detail__row">
+              <span>Wpływ na biznes</span>
+              <p>{selected.impact}</p>
+            </div>
+            <div className="sample-mobile-detail__row sample-mobile-detail__row--action">
+              <span>Następny ruch</span>
+              <p>{selected.action}</p>
+            </div>
+          </article>
 
-              <strong>Klinika usług premium</strong>
+          <a className="sample-mobile-cta" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
+        </div>
 
-            </div>
+        <div className="sample-atlas-shell">
 
-            <div className="sample-atlas-summary">
+          <div className="sample-atlas-topline">
 
-              <span>GŁÓWNY WNIOSEK</span>
+            <div>
 
-              <strong>Najpierw konwersja. Potem większy ruch.</strong>
+              <span>PRZYKŁADOWA FIRMA</span>
 
-            </div>
+              <strong>Klinika usług premium</strong>
 
-          </div>
+            </div>
 
+            <div className="sample-atlas-summary">
 
+              <span>GŁÓWNY WNIOSEK</span>
 
-          <div className="sample-atlas-layout">
+              <strong>Najpierw konwersja. Potem większy ruch.</strong>
 
-            <div className="sample-atlas-map" aria-label="Interaktywna mapa obszarów marketingu">
+            </div>
+
+          </div>
+
+
+
+          <div className="sample-atlas-layout">
+
+            <div className="sample-atlas-map" aria-label="Interaktywna mapa obszarów marketingu">
               <svg
                 className="sample-atlas-route"
                 viewBox="0 0 100 100"
@@ -960,145 +1121,145 @@ function SampleMap() {
 
 
 
-              <div className="sample-atlas-contours" aria-hidden="true" />
+              <div className="sample-atlas-contours" aria-hidden="true" />
 
-              <div className="sample-atlas-compass" aria-hidden="true"><span>N</span><i /></div>
+              <div className="sample-atlas-compass" aria-hidden="true"><span>N</span><i /></div>
 
 
 
-              {areas.map((area) => {
+              {areas.map((area) => {
 
-                const isActive = area.id === selected.id
+                const isActive = area.id === selected.id
 
-                return (
+                return (
 
-                  <button
+                  <button
 
-                    type="button"
+                    type="button"
 
-                    className={`sample-map-node sample-map-node--${area.level}${isActive ? ' is-active' : ''}`}
+                    className={`sample-map-node sample-map-node--${area.level}${isActive ? ' is-active' : ''}`}
 
-                    style={{ '--node-x': `${area.x}%`, '--node-y': `${area.y}%` }}
+                    style={{ '--node-x': `${area.x}%`, '--node-y': `${area.y}%` }}
 
-                    key={area.id}
+                    key={area.id}
 
-                    onClick={() => setActiveArea(area.id)}
+                    onClick={() => setActiveArea(area.id)}
 
-                    onMouseEnter={() => setActiveArea(area.id)}
+                    onMouseEnter={() => setActiveArea(area.id)}
 
-                    onFocus={() => setActiveArea(area.id)}
+                    onFocus={() => setActiveArea(area.id)}
 
-                    aria-pressed={isActive}
+                    aria-pressed={isActive}
 
-                  >
+                  >
 
-                    <span className="sample-map-node-dot"><i /></span>
+                    <span className="sample-map-node-dot"><i /></span>
 
-                    <span className="sample-map-node-copy">
+                    <span className="sample-map-node-copy">
 
-                      <b>{area.name}</b>
+                      <b>{area.name}</b>
 
-                      <small>{area.status}</small>
+                      <small>{area.status}</small>
 
-                    </span>
+                    </span>
 
-                  </button>
+                  </button>
 
-                )
+                )
 
-              })}
+              })}
 
 
 
-              <div className="sample-atlas-legend" aria-hidden="true">
+              <div className="sample-atlas-legend" aria-hidden="true">
 
-                <span><i className="is-good" />Działa</span>
+                <span><i className="is-good" />Działa</span>
 
-                <span><i className="is-opportunity" />Szansa</span>
+                <span><i className="is-opportunity" />Szansa</span>
 
-                <span><i className="is-warning" />Uwaga</span>
+                <span><i className="is-warning" />Uwaga</span>
 
-                <span><i className="is-critical" />Priorytet</span>
+                <span><i className="is-critical" />Priorytet</span>
 
-              </div>
+              </div>
 
-            </div>
+            </div>
 
 
 
-            <aside className={`sample-atlas-detail sample-atlas-detail--${selected.level}`} key={selected.id}>
+            <aside className={`sample-atlas-detail sample-atlas-detail--${selected.level}`} key={selected.id}>
 
-              <div className="sample-atlas-detail-head">
+              <div className="sample-atlas-detail-head">
 
-                <span>{selected.no} / 08</span>
+                <span>{selected.no} / 08</span>
 
-                <em>{selected.status}</em>
+                <em>{selected.status}</em>
 
-              </div>
+              </div>
 
-              <h3>{selected.name}</h3>
+              <h3>{selected.name}</h3>
 
 
 
-              <div className="sample-atlas-detail-grid">
+              <div className="sample-atlas-detail-grid">
 
-                <div>
+                <div>
 
-                  <span>CO ZNALEŹLIŚMY</span>
+                  <span>CO ZNALEŹLIŚMY</span>
 
-                  <p>{selected.finding}</p>
+                  <p>{selected.finding}</p>
 
-                </div>
+                </div>
 
-                <div>
+                <div>
 
-                  <span>WPŁYW NA BIZNES</span>
+                  <span>WPŁYW NA BIZNES</span>
 
-                  <p>{selected.impact}</p>
+                  <p>{selected.impact}</p>
 
-                </div>
+                </div>
 
-                <div className="sample-atlas-next">
+                <div className="sample-atlas-next">
 
-                  <span>NASTĘPNY RUCH</span>
+                  <span>NASTĘPNY RUCH</span>
 
-                  <p>{selected.action}</p>
+                  <p>{selected.action}</p>
 
-                </div>
+                </div>
 
-              </div>
+              </div>
 
 
 
-              <div className="sample-atlas-detail-foot">
+              <div className="sample-atlas-detail-foot">
 
-                <span>Wybierz kolejny punkt na mapie</span>
+                <span>Wybierz kolejny punkt na mapie</span>
 
-                <b>{areas.findIndex((area) => area.id === selected.id) + 1} / {areas.length}</b>
+                <b>{areas.findIndex((area) => area.id === selected.id) + 1} / {areas.length}</b>
 
-              </div>
+              </div>
 
-            </aside>
+            </aside>
 
-          </div>
+          </div>
 
 
 
-          <div className="sample-atlas-footer">
+          <div className="sample-atlas-footer">
 
-            <p><strong>Nie dostajesz ośmiu osobnych raportów.</strong> Dostajesz jedną Mapę, która pokazuje, gdzie jest największa strata i co powinno wydarzyć się najpierw.</p>
+            <p><strong>Nie dostajesz ośmiu osobnych raportów.</strong> Dostajesz jedną Mapę, która pokazuje, gdzie jest największa strata i co powinno wydarzyć się najpierw.</p>
 
-            <a href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
+            <a href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -1106,65 +1267,65 @@ function SampleMap() {
 
 function Principle() {
 
-  const points = [
+  const points = [
 
-    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, reklam, mediów społecznościowych albo nowej strony. Najpierw ustalamy, co naprawdę ogranicza wynik.'],
+    ['01', 'Bez gotowego rozwiązania na wejściu', 'Nie zaczynamy od założenia, że potrzebujesz SEO, reklam, mediów społecznościowych albo nowej strony. Najpierw ustalamy, co naprawdę ogranicza wynik.'],
 
-    ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem i priorytet. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
+    ['02', 'Decyzja przed wydatkiem', 'Najpierw ustalamy problem i priorytet. Dopiero później wiadomo, na co warto przeznaczyć czas i budżet.'],
 
-    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem albo dowolnym wykonawcą.'],
+    ['03', 'Bez zobowiązań', 'Rekomendację możesz wdrożyć z nami, własnym zespołem albo dowolnym wykonawcą.'],
 
-  ]
+  ]
 
 
 
-  return (
+  return (
 
-    <section className="principle principle--v7" id="dlaczego-digitalmap">
+    <section className="principle principle--v7" id="dlaczego-digitalmap">
 
-      <div className="principle-inner">
+      <div className="principle-inner">
 
-        <div className="principle-kicker-row">
+        <div className="principle-kicker-row">
 
-          <div className="eyebrow">DLACZEGO DIGITALMAP</div>
+          <div className="eyebrow">DLACZEGO DIGITALMAP</div>
 
-          <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
+          <span>DIAGNOZA → DECYZJA → DOPIERO POTEM WDROŻENIE</span>
 
-        </div>
+        </div>
 
-        <h2>Najpierw diagnoza.<br/><span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
+        <h2>Najpierw diagnoza.<br/><span className="accent-text">Dopiero potem rozwiązanie.</span></h2>
 
-        <div className="principle-editorial">
+        <div className="principle-editorial">
 
-          {points.map(([no, title, copy]) => (
+          {points.map(([no, title, copy]) => (
 
-            <article key={no}>
+            <article key={no}>
 
-              <span className="principle-editorial-no">{no}</span>
+              <span className="principle-editorial-no">{no}</span>
 
-              <div className="principle-editorial-copy">
+              <div className="principle-editorial-copy">
 
-                <h3>{title}</h3>
+                <h3>{title}</h3>
 
-                <p>{copy}</p>
+                <p>{copy}</p>
 
-              </div>
+              </div>
 
-              <i aria-hidden="true">↗</i>
+              <i aria-hidden="true">↗</i>
 
-            </article>
+            </article>
 
-          ))}
+          ))}
 
-        </div>
+        </div>
 
-        <div className="principle-signature">Najpierw właściwy problem. Potem właściwa inwestycja.</div>
+        <div className="principle-signature">Najpierw właściwy problem. Potem właściwa inwestycja.</div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -1172,41 +1333,41 @@ function Principle() {
 
 function Method() {
 
-  const tools = ['GA4', 'Google Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'wyszukiwanie AI']
+  const tools = ['GA4', 'Google Search Console', 'Google Ads', 'Meta', 'Ahrefs', 'Screaming Frog', 'wyszukiwanie AI']
 
 
 
-  return (
+  return (
 
-    <section className="method-v6 method-v6--simple" id="metoda">
+    <section className="method-v6 method-v6--simple" id="metoda">
 
-      <div className="section-shell method-simple-shell">
+      <div className="section-shell method-simple-shell">
 
-        <div className="method-simple-copy">
+        <div className="method-simple-copy">
 
-          <div className="eyebrow">METODA</div>
+          <div className="eyebrow">METODA</div>
 
-          <h2>Dane nie podejmują decyzji. <span className="accent-text">Pomagają ją podjąć.</span></h2>
+          <h2>Dane nie podejmują decyzji. <span className="accent-text">Pomagają ją podjąć.</span></h2>
 
-          <p>Korzystamy z różnych źródeł danych, ale żadne z nich nie daje gotowej odpowiedzi. Łączymy informacje i interpretujemy je w kontekście Twojej firmy, żeby ustalić, co naprawdę ogranicza wynik i co powinno wydarzyć się dalej.</p>
+          <p>Korzystamy z różnych źródeł danych, ale żadne z nich nie daje gotowej odpowiedzi. Łączymy informacje i interpretujemy je w kontekście Twojej firmy, żeby ustalić, co naprawdę ogranicza wynik i co powinno wydarzyć się dalej.</p>
 
-          <strong>Nie dostajesz raportu z narzędzia. Dostajesz interpretację, priorytet i następny krok.</strong>
+          <strong>Nie dostajesz raportu z narzędzia. Dostajesz interpretację, priorytet i następny krok.</strong>
 
-        </div>
+        </div>
 
-        <div className="method-simple-tools" aria-label="Przykładowe źródła danych">
+        <div className="method-simple-tools" aria-label="Przykładowe źródła danych">
 
-          <span>PRZYKŁADOWE ŹRÓDŁA DANYCH</span>
+          <span>PRZYKŁADOWE ŹRÓDŁA DANYCH</span>
 
-          <div>{tools.map((tool) => <b key={tool}>{tool}</b>)}</div>
+          <div>{tools.map((tool) => <b key={tool}>{tool}</b>)}</div>
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -1344,193 +1505,193 @@ function Evidence() {
 
 function Industries() {
 
-  const [activeIndustry, setActiveIndustry] = useState(0)
+  const [activeIndustry, setActiveIndustry] = useState(0)
 
-  const active = industries[activeIndustry] || industries[0]
+  const active = industries[activeIndustry] || industries[0]
 
-  const focusAreas = [
+  const focusAreas = [
 
-    ['Widoczność', 'Zaufanie', 'Kontakt'],
+    ['Widoczność', 'Zaufanie', 'Kontakt'],
 
-    ['Google', 'Opinie', 'Rezerwacja'],
+    ['Google', 'Opinie', 'Rezerwacja'],
 
-    ['Social Media', 'Zaufanie', 'Rezerwacja'],
+    ['Social Media', 'Zaufanie', 'Rezerwacja'],
 
-    ['Oferta', 'Prezentacja', 'Zapytanie'],
+    ['Oferta', 'Prezentacja', 'Zapytanie'],
 
-    ['Eksperckość', 'Zaufanie', 'Kontakt'],
+    ['Eksperckość', 'Zaufanie', 'Kontakt'],
 
-    ['Lokalność', 'Oferta', 'Kontakt'],
+    ['Lokalność', 'Oferta', 'Kontakt'],
 
-    ['Ruch', 'Produkt', 'Zakup'],
+    ['Ruch', 'Produkt', 'Zakup'],
 
-    ['Komunikacja', 'Wartość', 'Demo'],
+    ['Komunikacja', 'Wartość', 'Demo'],
 
-    ['Pozycjonowanie', 'Zaufanie', 'Zapytanie'],
+    ['Pozycjonowanie', 'Zaufanie', 'Zapytanie'],
 
-    ['Widoczność', 'Opinie', 'Rezerwacja'],
+    ['Widoczność', 'Opinie', 'Rezerwacja'],
 
-    ['Lokalność', 'Oferta', 'Kontakt'],
+    ['Lokalność', 'Oferta', 'Kontakt'],
 
-    ['Komunikacja', 'Dowody', 'Rozmowa'],
+    ['Komunikacja', 'Dowody', 'Rozmowa'],
 
-  ]
+  ]
 
-  const activeFocus = focusAreas[activeIndustry] || focusAreas[0]
+  const activeFocus = focusAreas[activeIndustry] || focusAreas[0]
 
 
 
-  return (
+  return (
 
-    <section className="industries industries--atlas" id="dla-kogo">
+    <section className="industries industries--atlas" id="dla-kogo">
 
-      <div className="section-shell industries-atlas-shell">
+      <div className="section-shell industries-atlas-shell">
 
-        <div className="industries-atlas-head">
+        <div className="industries-atlas-head">
 
-          <div className="eyebrow">DLA KOGO</div>
+          <div className="eyebrow">DLA KOGO</div>
 
-          <div className="industries-atlas-head__copy">
+          <div className="industries-atlas-head__copy">
 
-            <h2>Dla firm, które chcą wiedzieć, <span className="accent-text">gdzie tracą klientów.</span></h2>
+            <h2>Dla firm, które chcą wiedzieć, <span className="accent-text">gdzie tracą klientów.</span></h2>
 
-            <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
+            <p>Wybierz branżę i zobacz, który moment decyzji klienta najczęściej warto sprawdzić jako pierwszy.</p>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
 
 
-        <div className="industries-atlas-grid">
+        <div className="industries-atlas-grid">
 
-          <div className="industry-index" role="list" aria-label="Branże, dla których sprawdza się DigitalMap">
+          <div className="industry-index" role="list" aria-label="Branże, dla których sprawdza się DigitalMap">
 
-            {industries.map((industry, index) => {
+            {industries.map((industry, index) => {
 
-              const isActive = activeIndustry === index
+              const isActive = activeIndustry === index
 
-              const no = String(index + 1).padStart(2, '0')
+              const no = String(index + 1).padStart(2, '0')
 
-              return (
+              return (
 
-                <button
+                <button
 
-                  type="button"
+                  type="button"
 
-                  className={`industry-index__item ${isActive ? 'is-active' : ''}`}
+                  className={`industry-index__item ${isActive ? 'is-active' : ''}`}
 
-                  key={industry.name}
+                  key={industry.name}
 
-                  role="listitem"
+                  role="listitem"
 
-                  aria-pressed={isActive}
+                  aria-pressed={isActive}
 
-                  onMouseEnter={() => setActiveIndustry(index)}
+                  onMouseEnter={() => setActiveIndustry(index)}
 
-                  onFocus={() => setActiveIndustry(index)}
+                  onFocus={() => setActiveIndustry(index)}
 
-                  onClick={() => setActiveIndustry(index)}
+                  onClick={() => setActiveIndustry(index)}
 
-                >
+                >
 
-                  <span className="industry-index__no">{no}</span>
+                  <span className="industry-index__no">{no}</span>
 
-                  <span className="industry-index__name">{industry.name}</span>
+                  <span className="industry-index__name">{industry.name}</span>
 
-                  <span className="industry-index__arrow" aria-hidden="true">↗</span>
+                  <span className="industry-index__arrow" aria-hidden="true">↗</span>
 
-                </button>
+                </button>
 
-              )
+              )
 
-            })}
+            })}
 
-          </div>
+          </div>
 
 
 
-          <aside className="industry-lens" aria-live="polite">
+          <aside className="industry-lens" aria-live="polite">
 
-            <div className="industry-lens__visual" aria-hidden="true">
+            <div className="industry-lens__visual" aria-hidden="true">
 
-              <span className="industry-lens__orbit industry-lens__orbit--one" />
+              <span className="industry-lens__orbit industry-lens__orbit--one" />
 
-              <span className="industry-lens__orbit industry-lens__orbit--two" />
+              <span className="industry-lens__orbit industry-lens__orbit--two" />
 
-              <span className="industry-lens__orbit industry-lens__orbit--three" />
+              <span className="industry-lens__orbit industry-lens__orbit--three" />
 
-              <span className="industry-lens__pulse" />
+              <span className="industry-lens__pulse" />
 
-              <span className="industry-lens__axis industry-lens__axis--x" />
+              <span className="industry-lens__axis industry-lens__axis--x" />
 
-              <span className="industry-lens__axis industry-lens__axis--y" />
+              <span className="industry-lens__axis industry-lens__axis--y" />
 
-            </div>
+            </div>
 
 
 
-            <div className="industry-lens__topline">
+            <div className="industry-lens__topline">
 
-              <span>WYBRANY BIZNES</span>
+              <span>WYBRANY BIZNES</span>
 
-              <b>{String(activeIndustry + 1).padStart(2, '0')} / {String(industries.length).padStart(2, '0')}</b>
+              <b>{String(activeIndustry + 1).padStart(2, '0')} / {String(industries.length).padStart(2, '0')}</b>
 
-            </div>
+            </div>
 
 
 
-            <div className="industry-lens__content" key={activeIndustry}>
+            <div className="industry-lens__content" key={activeIndustry}>
 
-              <h3>{active.name}</h3>
+              <h3>{active.name}</h3>
 
-              <div className="industry-lens__label">KLUCZOWY MOMENT DECYZJI</div>
+              <div className="industry-lens__label">KLUCZOWY MOMENT DECYZJI</div>
 
-              <p>{active.decision}</p>
+              <p>{active.decision}</p>
 
 
 
-              <div className="industry-lens__route" aria-label="Obszary, które warto sprawdzić">
+              <div className="industry-lens__route" aria-label="Obszary, które warto sprawdzić">
 
-                {activeFocus.map((item, index) => (
+                {activeFocus.map((item, index) => (
 
-                  <span key={item}>
+                  <span key={item}>
 
-                    <i>{String(index + 1).padStart(2, '0')}</i>
+                    <i>{String(index + 1).padStart(2, '0')}</i>
 
-                    <b>{item}</b>
+                    <b>{item}</b>
 
-                  </span>
+                  </span>
 
-                ))}
+                ))}
 
-              </div>
+              </div>
 
 
 
-              <a href="#sprawdz-swoja-firme" className="industry-lens__cta">Sprawdź swoją firmę <Arrow /></a>
+              <a href="#sprawdz-swoja-firme" className="industry-lens__cta">Sprawdź swoją firmę <Arrow /></a>
 
-            </div>
+            </div>
 
-          </aside>
+          </aside>
 
-        </div>
+        </div>
 
 
 
-        <div className="industries-atlas-foot">
+        <div className="industries-atlas-foot">
 
-          <span>Nie widzisz swojej branży?</span>
+          <span>Nie widzisz swojej branży?</span>
 
-          <a href="#sprawdz-swoja-firme">Sprawdź firmę <Arrow /></a>
+          <a href="#sprawdz-swoja-firme">Sprawdź firmę <Arrow /></a>
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -1538,46 +1699,46 @@ function Industries() {
 
 function Work() {
 
-  return (
+  return (
 
-    <section className="work" id="realizacje">
+    <section className="work" id="realizacje">
 
-      <div className="section-shell">
+      <div className="section-shell">
 
-        <div className="section-heading section-heading--split work-heading">
+        <div className="section-heading section-heading--split work-heading">
 
-          <div className="eyebrow">OSTATNIE REALIZACJE</div>
+          <div className="eyebrow">OSTATNIE REALIZACJE</div>
 
-          <div>
+          <div>
 
-            <h2>Decyzja ma wartość dopiero wtedy, <span className="accent-text">gdy można przełożyć ją na działanie.</span></h2>
+            <h2>Decyzja ma wartość dopiero wtedy, <span className="accent-text">gdy można przełożyć ją na działanie.</span></h2>
 
-            <p>Wybrane produkty i strony, przy których pracowaliśmy nad strategią, komunikacją, doświadczeniem użytkownika lub wdrożeniem. Zakres i status każdego projektu pokazujemy wprost.</p>
+            <p>Wybrane produkty i strony, przy których pracowaliśmy nad strategią, komunikacją, doświadczeniem użytkownika lub wdrożeniem. Zakres i status każdego projektu pokazujemy wprost.</p>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
 
 
-        <div className="work-grid">
+        <div className="work-grid">
 
-          {projects.map((project, index) => (
+          {projects.map((project, index) => (
 
-            <article className={`work-card ${index === 0 ? 'work-card--featured' : ''}`} key={project.name}>
+            <article className={`work-card ${index === 0 ? 'work-card--featured' : ''}`} key={project.name}>
 
-              <div className="work-preview">
+              <div className="work-preview">
 
-                {project.name === 'CostWarden' ? (
-                  <div className="browser-mock browser-mock--costwarden">
-                    <div className="browser-bar browser-bar--costwarden">
-                      <i /><i /><i /><span>CostWarden</span>
-                    </div>
-                    <div className="browser-page browser-page--costwarden">
-                      <img src={costWardenPreview} alt="Podgląd strony CostWarden" />
-                    </div>
-                  </div>
-                              ) : project.name === 'GymWrld' ? (
+                {project.name === 'CostWarden' ? (
+                  <div className="browser-mock browser-mock--costwarden">
+                    <div className="browser-bar browser-bar--costwarden">
+                      <i /><i /><i /><span>CostWarden</span>
+                    </div>
+                    <div className="browser-page browser-page--costwarden">
+                      <img src={costWardenPreview} alt="Podgląd strony CostWarden" />
+                    </div>
+                  </div>
+                              ) : project.name === 'GymWrld' ? (
                 <div className="browser-mock browser-mock--gymwrld">
                   <div className="browser-bar browser-bar--gymwrld">
                     <i /><i /><i /><span>GymWrld</span>
@@ -1598,35 +1759,35 @@ function Work() {
               ) : project.image ? (
                 <img src={project.image} alt={`Podgląd realizacji ${project.name}`} />
               ) : (
-                  <div className="browser-mock" aria-hidden="true">
-                    <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
-                    <div className="browser-page"><div className="browser-kicker">{project.type}</div><strong>{project.name}</strong><div className="browser-lines"><i /><i /><i /></div><div className="browser-cta" /></div>
-                  </div>
-                )}
+                  <div className="browser-mock" aria-hidden="true">
+                    <div className="browser-bar"><i /><i /><i /><span>{project.name.toLowerCase().replaceAll(' ', '')}</span></div>
+                    <div className="browser-page"><div className="browser-kicker">{project.type}</div><strong>{project.name}</strong><div className="browser-lines"><i /><i /><i /></div><div className="browser-cta" /></div>
+                  </div>
+                )}
 
-              </div>
+              </div>
 
-              <div className="work-meta">
+              <div className="work-meta">
 
-                <div className="work-index">{project.index}</div>
+                <div className="work-index">{project.index}</div>
 
-                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / WYNIK</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
+                <div className="work-copy"><div className="work-type">{project.type}</div><h3>{project.name}</h3><p>{project.description}</p><div className="work-case-copy"><div><span>PROBLEM</span><p>{project.problem}</p></div><div><span>NASZA ROLA</span><p>{project.role}</p></div><div><span>STATUS / WYNIK</span><p>{project.result}</p></div></div><div className="work-scope">{project.scope}</div></div>
 
-                {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Zakres projektu</span>}
+                {project.url ? <a className="work-link" href={project.url} target="_blank" rel="noreferrer">Zobacz projekt <Arrow /></a> : <span className="work-link work-link--muted">Zakres projektu</span>}
 
-              </div>
+              </div>
 
-            </article>
+            </article>
 
-          ))}
+          ))}
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -1750,239 +1911,239 @@ function Team() {
 
 function Offer({ onChoose }) {
 
-  const [activeOffer, setActiveOffer] = useState('strategic')
+  const [activeOffer, setActiveOffer] = useState('strategic')
 
-  const offer = useMemo(() => offers.find((item) => item.id === activeOffer) || offers[0], [activeOffer])
+  const offer = useMemo(() => offers.find((item) => item.id === activeOffer) || offers[0], [activeOffer])
 
 
 
-  return (
+  return (
 
-    <section className="offer-v70" id="oferta">
+    <section className="offer-v70" id="oferta">
 
-      <div className="section-shell">
+      <div className="section-shell">
 
-        <div className="offer-v70-head">
+        <div className="offer-v70-head">
 
-          <div className="eyebrow">OFERTA</div>
+          <div className="eyebrow">OFERTA</div>
 
-          <div>
+          <div>
 
-            <h2>Najpierw ustal, <span className="accent-text">czego naprawdę potrzebujesz.</span></h2>
+            <h2>Najpierw ustal, <span className="accent-text">czego naprawdę potrzebujesz.</span></h2>
 
-            <p>Nie zaczynamy od wyboru usługi. Zaczynamy od pytania, na które potrzebujesz odpowiedzi.</p>
+            <p>Nie zaczynamy od wyboru usługi. Zaczynamy od pytania, na które potrzebujesz odpowiedzi.</p>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
 
 
-        <div className="offer-v70-question-label">
+        <div className="offer-v70-question-label">
 
-          <span>WYBIERZ PYTANIE, NA KTÓRE CHCESZ ODPOWIEDZI</span>
+          <span>WYBIERZ PYTANIE, NA KTÓRE CHCESZ ODPOWIEDZI</span>
 
-          <small>{String(offers.findIndex((item) => item.id === activeOffer) + 1).padStart(2, '0')} / {String(offers.length).padStart(2, '0')}</small>
+          <small>{String(offers.findIndex((item) => item.id === activeOffer) + 1).padStart(2, '0')} / {String(offers.length).padStart(2, '0')}</small>
 
-        </div>
+        </div>
 
 
 
-        <div className="offer-v70-nav" role="tablist" aria-label="Wybierz zakres Mapy">
+        <div className="offer-v70-nav" role="tablist" aria-label="Wybierz zakres Mapy">
 
-          {offers.map((item, index) => {
+          {offers.map((item, index) => {
 
-            const active = item.id === activeOffer
+            const active = item.id === activeOffer
 
-            return (
+            return (
 
-              <button
+              <button
 
-                key={item.id}
+                key={item.id}
 
-                type="button"
+                type="button"
 
-                role="tab"
+                role="tab"
 
-                aria-selected={active}
+                aria-selected={active}
 
-                className={`offer-v70-nav__item ${active ? 'is-active' : ''}`}
+                className={`offer-v70-nav__item ${active ? 'is-active' : ''}`}
 
-                onClick={() => setActiveOffer(item.id)}
+                onClick={() => setActiveOffer(item.id)}
 
-                onMouseEnter={() => setActiveOffer(item.id)}
+                onMouseEnter={() => setActiveOffer(item.id)}
 
-                onFocus={() => setActiveOffer(item.id)}
+                onFocus={() => setActiveOffer(item.id)}
 
-              >
+              >
 
-                <span className="offer-v70-nav__no">{String(index + 1).padStart(2, '0')}</span>
+                <span className="offer-v70-nav__no">{String(index + 1).padStart(2, '0')}</span>
 
-                <span className="offer-v70-nav__copy">
+                <span className="offer-v70-nav__copy">
 
-                  <b>{item.name}</b>
+                  <b>{item.name}</b>
 
-                  <strong>{item.question}</strong>
+                  <strong>{item.question}</strong>
 
-                </span>
+                </span>
 
-                <span className="offer-v70-nav__price">{item.price}</span>
+                <span className="offer-v70-nav__price">{item.price}</span>
 
-                <i aria-hidden="true">↗</i>
+                <i aria-hidden="true">↗</i>
 
-              </button>
+              </button>
 
-            )
+            )
 
-          })}
+          })}
 
-        </div>
+        </div>
 
 
 
-        <article className="offer-v70-panel" key={offer.id}>
+        <article className="offer-v70-panel" key={offer.id}>
 
-          <div className="offer-v70-panel__glow" aria-hidden="true" />
+          <div className="offer-v70-panel__glow" aria-hidden="true" />
 
-          <div className="offer-v70-panel__topline">
+          <div className="offer-v70-panel__topline">
 
-            <span>{offer.name.toUpperCase()}</span>
+            <span>{offer.name.toUpperCase()}</span>
 
-            {offer.featured && <b>NAJCZĘŚCIEJ WYBIERANA</b>}
+            {offer.featured && <b>NAJCZĘŚCIEJ WYBIERANA</b>}
 
-          </div>
+          </div>
 
 
 
-          <div className="offer-v70-panel__hero">
+          <div className="offer-v70-panel__hero">
 
-            <div className="offer-v70-panel__intro">
+            <div className="offer-v70-panel__intro">
 
-              <h3>{offer.question}</h3>
+              <h3>{offer.question}</h3>
 
-              <p>{offer.copy}</p>
+              <p>{offer.copy}</p>
 
-            </div>
+            </div>
 
-            <strong className="offer-v70-panel__price">{offer.price}</strong>
+            <strong className="offer-v70-panel__price">{offer.price}</strong>
 
-          </div>
+          </div>
 
 
 
-          <div className="offer-v70-choose-if">
+          <div className="offer-v70-choose-if">
 
-            <span>WYBIERZ, JEŚLI</span>
+            <span>WYBIERZ, JEŚLI</span>
 
-            <p>{offer.chooseIf}</p>
+            <p>{offer.chooseIf}</p>
 
-          </div>
+          </div>
 
 
 
-          <div className="offer-v70-details">
+          <div className="offer-v70-details">
 
-            <div className="offer-v70-audience">
+            <div className="offer-v70-audience">
 
-              <span>DLA KOGO</span>
+              <span>DLA KOGO</span>
 
-              <p>{offer.audience}</p>
+              <p>{offer.audience}</p>
 
-            </div>
+            </div>
 
 
 
-            <div className="offer-v70-includes">
+            <div className="offer-v70-includes">
 
-              <span>CO DOSTAJESZ</span>
+              <span>CO DOSTAJESZ</span>
 
-              <div className="offer-v70-includes__grid">
+              <div className="offer-v70-includes__grid">
 
-                {offer.includes.map((item, index) => (
+                {offer.includes.map((item, index) => (
 
-                  <div className="offer-v70-includes__item" key={item}>
+                  <div className="offer-v70-includes__item" key={item}>
 
-                    <i>{String(index + 1).padStart(2, '0')}</i>
+                    <i>{String(index + 1).padStart(2, '0')}</i>
 
-                    <strong>{item}</strong>
+                    <strong>{item}</strong>
 
-                  </div>
+                  </div>
 
-                ))}
+                ))}
 
-              </div>
+              </div>
 
-            </div>
+            </div>
 
-          </div>
+          </div>
 
 
 
-          <div className="offer-v70-result">
+          <div className="offer-v70-result">
 
-            <div>
+            <div>
 
-              <span>PO TEJ MAPIE</span>
+              <span>PO TEJ MAPIE</span>
 
-              <strong>{offer.result}</strong>
+              <strong>{offer.result}</strong>
 
-            </div>
+            </div>
 
-            <a
+            <a
 
-              className="offer-v70-cta"
+              className="offer-v70-cta"
 
-              href="#sprawdz-swoja-firme"
+              href="#sprawdz-swoja-firme"
 
-              onClick={() => onChoose(offer)}
+              onClick={() => onChoose(offer)}
 
-            >
+            >
 
-              {offer.cta} <Arrow />
+              {offer.cta} <Arrow />
 
-            </a>
+            </a>
 
-          </div>
+          </div>
 
-        </article>
+        </article>
 
 
 
-        <div className="offer-v70-after">
+        <div className="offer-v70-after">
 
-          <div className="offer-v70-after__copy">
+          <div className="offer-v70-after__copy">
 
-            <div className="eyebrow">PO DIAGNOZIE</div>
+            <div className="eyebrow">PO DIAGNOZIE</div>
 
-            <h3>Wiesz już, co robić. <span>Teraz możesz to wdrożyć.</span></h3>
+            <h3>Wiesz już, co robić. <span>Teraz możesz to wdrożyć.</span></h3>
 
-            <p>Rekomendacje możesz wdrożyć samodzielnie, z własnym zespołem, z innym wykonawcą albo z DigitalMap.</p>
+            <p>Rekomendacje możesz wdrożyć samodzielnie, z własnym zespołem, z innym wykonawcą albo z DigitalMap.</p>
 
-            <strong>Zakres wdrożenia wynika z diagnozy — nie jest ustalany z góry.</strong>
+            <strong>Zakres wdrożenia wynika z diagnozy — nie jest ustalany z góry.</strong>
 
-          </div>
+          </div>
 
 
 
-          <div className="offer-v70-after__route" aria-label="Możliwe drogi wdrożenia po diagnozie">
+          <div className="offer-v70-after__route" aria-label="Możliwe drogi wdrożenia po diagnozie">
 
-            <div><i>01</i><span>Samodzielnie</span></div>
+            <div><i>01</i><span>Samodzielnie</span></div>
 
-            <div><i>02</i><span>Własny zespół</span></div>
+            <div><i>02</i><span>Własny zespół</span></div>
 
-            <div><i>03</i><span>Inny wykonawca</span></div>
+            <div><i>03</i><span>Inny wykonawca</span></div>
 
-            <div className="is-accent"><i>04</i><span>DigitalMap</span></div>
+            <div className="is-accent"><i>04</i><span>DigitalMap</span></div>
 
-          </div>
+          </div>
 
-        </div>
+        </div>
 
-      </div>
+      </div>
 
-    </section>
+    </section>
 
-  )
+  )
 
 }
 
@@ -2395,31 +2556,31 @@ function FAQ({ onChoose }) {
 
 function Footer() {
 
-  return (
+  return (
 
-    <footer className="site-footer" id="stopka">
+    <footer className="site-footer" id="stopka">
 
-      <div className="footer-grid">
+      <div className="footer-grid">
 
-        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
+        <div className="footer-brand"><TopographicLogo inverted /><p>DigitalMap pomaga ustalić, co naprawdę blokuje pozyskiwanie klientów, zanim firma wyda więcej na marketing.</p></div>
 
-        <div className="footer-column"><h3>Oferta</h3><a href="#oferta">Mini Mapa</a><a href="#oferta">Mapa Start</a><a href="#oferta">Mapa Strategiczna</a><a href="#oferta">Mapa AI</a><a href="#oferta">Po diagnozie</a></div>
+        <div className="footer-column"><h3>Oferta</h3><a href="#oferta">Mini Mapa</a><a href="#oferta">Mapa Start</a><a href="#oferta">Mapa Strategiczna</a><a href="#oferta">Mapa AI</a><a href="#oferta">Po diagnozie</a></div>
 
-        <div className="footer-column"><h3>Firma</h3><a href="#jak-powstaje-mapa">Jak działamy</a><a href="#dla-kogo">Dla kogo</a><a href="#realizacje">Realizacje</a><a href="#zespol">Zespół</a><a href="#metoda">Metoda</a><a href="#najczestsze-pytania">Najczęstsze Pytania</a></div>
+        <div className="footer-column"><h3>Firma</h3><a href="#jak-powstaje-mapa">Jak działamy</a><a href="#dla-kogo">Dla kogo</a><a href="#realizacje">Realizacje</a><a href="#zespol">Zespół</a><a href="#metoda">Metoda</a><a href="#najczestsze-pytania">Najczęstsze Pytania</a></div>
 
-        <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#sprawdz-swoja-firme">Formularz</a></div>
+        <div className="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a><a href="#sprawdz-swoja-firme">Formularz</a></div>
 
-        <div className="footer-column footer-formal"><h3>Formalności</h3><a href={`${import.meta.env.BASE_URL}polityka-prywatnosci/`}>Polityka prywatności</a><a href={`${import.meta.env.BASE_URL}regulamin/`}>Regulamin</a><a href={`${import.meta.env.BASE_URL}cookies/`}>Cookies</a></div>
+        <div className="footer-column footer-formal"><h3>Formalności</h3><a href={`${import.meta.env.BASE_URL}polityka-prywatnosci/`}>Polityka prywatności</a><a href={`${import.meta.env.BASE_URL}regulamin/`}>Regulamin</a><a href={`${import.meta.env.BASE_URL}cookies/`}>Cookies</a></div>
 
-      </div>
+      </div>
 
-      <div className="footer-slogan"><span className="footer-slogan-line">Najpierw diagnoza. Potem decyzja.</span><span className="footer-slogan-line footer-slogan-line--accent">Dopiero później wydatek.</span></div>
+      <div className="footer-slogan"><span className="footer-slogan-line">Najpierw diagnoza. Potem decyzja.</span><span className="footer-slogan-line footer-slogan-line--accent">Dopiero później wydatek.</span></div>
 
-      <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#start">Wróć na górę ↑</a></div>
+      <div className="footer-bottom"><span>© 2026 DigitalMap&nbsp;&nbsp;·&nbsp;&nbsp;Diagnoza → decyzja → działanie → pomiar.</span><a href="#start">Wróć na górę ↑</a></div>
 
-    </footer>
+    </footer>
 
-  )
+  )
 
 }
 
@@ -2427,66 +2588,83 @@ function Footer() {
 
 export default function App() {
 
-  const progressRef = useRef(0)
+  useEffect(() => {
+    const syncMobileClass = () => {
+      document.documentElement.classList.toggle('dm-mobile', isDigitalMapMobile())
+    }
 
-  const selectedFocusRef = useRef(0.62)
+    syncMobileClass()
+    window.addEventListener('resize', syncMobileClass)
+    window.addEventListener('orientationchange', syncMobileClass)
 
-  const [selectedSymptomValue, setSelectedSymptomValue] = useState(symptoms[1])
-
-  const [selectedOffer, setSelectedOffer] = useState(null)
-
-
-
-  function selectSymptom(item) {
-
-    setSelectedSymptomValue(item)
-
-    selectedFocusRef.current = item.focus
-
-  }
+    return () => {
+      window.removeEventListener('resize', syncMobileClass)
+      window.removeEventListener('orientationchange', syncMobileClass)
+      document.documentElement.classList.remove('dm-mobile')
+    }
+  }, [])
 
 
+  const progressRef = useRef(0)
 
-  return (
+  const selectedFocusRef = useRef(0.62)
 
-    <>
+  const [selectedSymptomValue, setSelectedSymptomValue] = useState(symptoms[1])
 
-      <Header />
+  const [selectedOffer, setSelectedOffer] = useState(null)
 
-      <main>
 
-        <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
 
-        <Problems />
+  function selectSymptom(item) {
 
-        <Process />
+    setSelectedSymptomValue(item)
 
-        <SampleMap />
+    selectedFocusRef.current = item.focus
 
-        <Principle />
+  }
 
-        <Method />
 
-        <Evidence />
 
-        <Industries />
+  return (
 
-        <Offer onChoose={setSelectedOffer} />
+    <>
 
-        <Work />
+      <Header />
 
-        <Team />
+      <main>
 
-        <FAQ onChoose={setSelectedOffer} />
+        <Story progressRef={progressRef} selectedFocusRef={selectedFocusRef} onSelectSymptom={selectSymptom} />
 
-        <ScanForm selectedOffer={selectedOffer} selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
+        <Problems />
 
-      </main>
+        <Process />
 
-      <Footer />
+        <SampleMap />
 
-    </>
+        <Principle />
 
-  )
+        <Method />
+
+        <Evidence />
+
+        <Industries />
+
+        <Offer onChoose={setSelectedOffer} />
+
+        <Work />
+
+        <Team />
+
+        <FAQ onChoose={setSelectedOffer} />
+
+        <ScanForm selectedOffer={selectedOffer} selectedSymptom={{ id: selectedSymptomValue.id, value: selectedSymptomValue, set: selectSymptom }} />
+
+      </main>
+
+      <Footer />
+
+    </>
+
+  )
 
 }

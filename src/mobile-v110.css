@@ -1,0 +1,578 @@
+
+/* =========================================================
+   DIGITALMAP V110 — HARD MOBILE SPLIT
+   This file loads AFTER all previous CSS.
+   Mobile gets dedicated compositions; desktop UI is not merely squeezed.
+   ========================================================= */
+
+html.dm-mobile,
+html.dm-mobile body,
+html.dm-mobile #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html.dm-mobile {
+  scroll-padding-top: 92px;
+}
+
+html.dm-mobile section[id] {
+  scroll-margin-top: 92px;
+}
+
+/* ---------- HEADER ---------- */
+html.dm-mobile .header {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top) + 8px) !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  height: 60px !important;
+  margin: 0 !important;
+  padding: 0 10px 0 14px !important;
+  border: 1px solid rgba(35,28,24,.10) !important;
+  border-radius: 17px !important;
+  background: rgba(250,248,244,.96) !important;
+  box-shadow: 0 14px 38px rgba(45,33,27,.10) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  z-index: 1000 !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+}
+
+html.dm-mobile .header .header-desktop-nav,
+html.dm-mobile .header > .header-cta {
+  display: none !important;
+}
+
+html.dm-mobile .header-mobile-toggle {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+  display: grid !important;
+}
+
+html.dm-mobile .header-mobile-panel {
+  top: 68px !important;
+  border-radius: 16px !important;
+}
+
+/* ---------- STORY: DESKTOP COMPLETELY GONE ---------- */
+html.dm-mobile .story--fixed-narrative {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  background: #f7f2ea !important;
+}
+
+html.dm-mobile .story--fixed-narrative > .story-canvas-wrap,
+html.dm-mobile .story--fixed-narrative > .story-scroll-spacers {
+  display: none !important;
+}
+
+html.dm-mobile .story-mobile {
+  display: block !important;
+  width: 100% !important;
+  overflow: clip !important;
+}
+
+html.dm-mobile .story-mobile-hero {
+  position: relative !important;
+  min-height: 0 !important;
+  padding:
+    calc(env(safe-area-inset-top) + 100px)
+    18px
+    34px !important;
+  background:
+    radial-gradient(circle at 94% 84%, rgba(217,48,92,.13), transparent 28%),
+    radial-gradient(circle at -8% 68%, rgba(240,126,96,.10), transparent 34%),
+    #f7f2ea !important;
+  overflow: hidden !important;
+}
+
+html.dm-mobile .story-mobile-hero > .eyebrow {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 13px !important;
+  color: #8e8177 !important;
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+  letter-spacing: .145em !important;
+}
+
+html.dm-mobile .story-mobile-hero > h1 {
+  position: relative;
+  z-index: 2;
+  max-width: 10.7ch !important;
+  margin: 0 !important;
+  color: #161310 !important;
+  font: 560 clamp(43px, 12.2vw, 57px)/.90 var(--display) !important;
+  letter-spacing: -.066em !important;
+  text-wrap: balance !important;
+}
+
+html.dm-mobile .story-mobile-hero > h1 .accent-text {
+  display: block !important;
+  margin-top: .08em !important;
+}
+
+html.dm-mobile .story-mobile-hero > p {
+  position: relative;
+  z-index: 2;
+  max-width: 35ch !important;
+  margin: 22px 0 0 !important;
+  color: #6b625b !important;
+  font-size: 14px !important;
+  line-height: 1.58 !important;
+}
+
+html.dm-mobile .story-mobile-actions {
+  position: relative;
+  z-index: 2;
+  margin-top: 24px !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 9px !important;
+}
+
+html.dm-mobile .story-mobile-actions a {
+  min-height: 52px !important;
+  padding: 0 16px !important;
+  border-radius: 13px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-decoration: none !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+}
+
+html.dm-mobile .story-mobile-actions a:first-child {
+  background: #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .story-mobile-actions a:last-child {
+  background: linear-gradient(100deg,#ef806b,#d92f64) !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .story-mobile-trust {
+  position: relative;
+  z-index: 2;
+  margin-top: 17px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px 14px !important;
+}
+
+html.dm-mobile .story-mobile-trust span {
+  color: #6c635d !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 10px !important;
+}
+
+html.dm-mobile .story-mobile-trust svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: #bf345d !important;
+}
+
+html.dm-mobile .story-mobile-orbit {
+  position: absolute !important;
+  right: -74px !important;
+  bottom: -94px !important;
+  width: 255px !important;
+  height: 255px !important;
+  opacity: .46 !important;
+  pointer-events: none !important;
+}
+
+html.dm-mobile .story-mobile-orbit__ring {
+  position: absolute !important;
+  inset: 0 !important;
+  border: 1px solid rgba(190,45,84,.18) !important;
+  border-radius: 50% !important;
+}
+
+html.dm-mobile .story-mobile-orbit__ring--2 {
+  inset: 46px !important;
+}
+
+html.dm-mobile .story-mobile-orbit__core {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50% !important;
+  background: #ca315e !important;
+  transform: translate(-50%,-50%) !important;
+  box-shadow: 0 0 0 10px rgba(202,49,94,.08) !important;
+}
+
+html.dm-mobile .story-mobile-orbit__node {
+  position: absolute !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: #dc5474 !important;
+}
+
+html.dm-mobile .story-mobile-orbit__node.n1 { left: 20% !important; top: 32% !important; }
+html.dm-mobile .story-mobile-orbit__node.n2 { right: 13% !important; top: 45% !important; }
+html.dm-mobile .story-mobile-orbit__node.n3 { left: 44% !important; bottom: 10% !important; }
+
+html.dm-mobile .story-mobile-journey {
+  padding: 27px 0 68px !important;
+  background: #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .story-mobile-journey__head {
+  padding: 0 16px 13px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  color: rgba(255,255,255,.42) !important;
+  font-size: 8px !important;
+  font-weight: 800 !important;
+  letter-spacing: .13em !important;
+}
+
+html.dm-mobile .story-mobile-tabs {
+  padding: 0 16px 13px !important;
+  display: flex !important;
+  gap: 7px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  scroll-snap-type: x mandatory !important;
+}
+
+html.dm-mobile .story-mobile-tabs::-webkit-scrollbar { display: none !important; }
+
+html.dm-mobile .story-mobile-tabs button {
+  flex: 0 0 auto !important;
+  min-height: 40px !important;
+  padding: 0 13px !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.04) !important;
+  color: rgba(255,255,255,.55) !important;
+  font-size: 9px !important;
+  font-weight: 720 !important;
+  white-space: nowrap !important;
+}
+
+html.dm-mobile .story-mobile-tabs button.is-active {
+  border-color: #fffaf6 !important;
+  background: #fffaf6 !important;
+  color: #1b1715 !important;
+}
+
+html.dm-mobile .story-mobile-stage {
+  margin: 0 13px !important;
+  padding: 23px 18px 20px !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 19px !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(199,46,88,.16), transparent 35%),
+    rgba(255,255,255,.035) !important;
+}
+
+html.dm-mobile .story-mobile-stage__label {
+  color: #ef9bb3 !important;
+  font-size: 8px !important;
+  font-weight: 820 !important;
+  letter-spacing: .12em !important;
+}
+
+html.dm-mobile .story-mobile-stage h2 {
+  max-width: 13ch !important;
+  margin: 14px 0 12px !important;
+  color: #fff !important;
+  font: 560 33px/.95 var(--display) !important;
+  letter-spacing: -.052em !important;
+}
+
+html.dm-mobile .story-mobile-stage p {
+  margin: 0 !important;
+  color: rgba(255,255,255,.59) !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+}
+
+html.dm-mobile .story-mobile-stage__proof {
+  margin-top: 18px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+html.dm-mobile .story-mobile-stage__proof span {
+  padding: 6px 8px !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 8px !important;
+  color: rgba(255,255,255,.68) !important;
+  font-size: 9px !important;
+}
+
+/* ---------- PROBLEMS: DESKTOP CONSOLE NEVER EXISTS VISUALLY ---------- */
+html.dm-mobile .problem-diagnostic-console {
+  display: none !important;
+}
+
+html.dm-mobile .problems-section {
+  padding: 74px 0 !important;
+}
+
+html.dm-mobile .problems-section .section-shell {
+  width: calc(100% - 28px) !important;
+}
+
+html.dm-mobile .problems-diagnostic-intro h2 {
+  max-width: 9.6ch !important;
+  font-size: clamp(40px, 11vw, 50px) !important;
+  line-height: .94 !important;
+}
+
+html.dm-mobile .problems-mobile {
+  display: block !important;
+  margin-top: 27px !important;
+}
+
+html.dm-mobile .problems-mobile-picker {
+  width: calc(100% + 14px) !important;
+  margin-right: -14px !important;
+  padding: 0 14px 13px 0 !important;
+  display: flex !important;
+  gap: 7px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+
+html.dm-mobile .problems-mobile-picker::-webkit-scrollbar { display: none !important; }
+
+html.dm-mobile .problems-mobile-picker button {
+  flex: 0 0 auto !important;
+  max-width: 78vw !important;
+  min-height: 42px !important;
+  padding: 0 13px !important;
+  border: 1px solid rgba(31,24,21,.12) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.40) !important;
+  color: #665d57 !important;
+  font-size: 10px !important;
+  font-weight: 680 !important;
+  white-space: nowrap !important;
+}
+
+html.dm-mobile .problems-mobile-picker button.is-active {
+  background: #1b1715 !important;
+  border-color: #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .problems-mobile-result {
+  min-height: 0 !important;
+  padding: 24px 18px 20px !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(189,45,85,.17), transparent 34%),
+    #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .problems-mobile-result h3 {
+  max-width: 10ch !important;
+  margin: 21px 0 13px !important;
+  color: #fff !important;
+  font: 560 clamp(38px, 10vw, 45px)/.92 var(--display) !important;
+}
+
+html.dm-mobile .problems-mobile-result > p {
+  color: rgba(255,255,255,.60) !important;
+  font-size: 13px !important;
+  line-height: 1.58 !important;
+}
+
+html.dm-mobile .problems-mobile-sources {
+  margin-top: 24px !important;
+}
+
+html.dm-mobile .problems-mobile-sources > div {
+  margin-top: 10px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+}
+
+html.dm-mobile .problems-mobile-sources b {
+  min-height: 43px !important;
+  border-bottom: 1px solid rgba(255,255,255,.10) !important;
+  color: rgba(255,255,255,.75) !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 10px !important;
+  font-weight: 620 !important;
+}
+
+/* ---------- SAMPLE MAP: ABSOLUTE DESKTOP MAP REMOVED ON MOBILE ---------- */
+html.dm-mobile .sample-atlas-shell {
+  display: none !important;
+}
+
+html.dm-mobile .sample-section {
+  padding: 74px 0 !important;
+}
+
+html.dm-mobile .sample-section .section-shell {
+  width: calc(100% - 28px) !important;
+}
+
+html.dm-mobile .sample-mobile {
+  display: block !important;
+  margin-top: 26px !important;
+}
+
+html.dm-mobile .sample-mobile-company {
+  padding: 17px 16px !important;
+  border: 1px solid rgba(29,24,21,.10) !important;
+  border-radius: 17px 17px 0 0 !important;
+  background: rgba(255,255,255,.44) !important;
+}
+
+html.dm-mobile .sample-mobile-company > strong {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #1d1815 !important;
+  font-size: 18px !important;
+}
+
+html.dm-mobile .sample-mobile-company > p {
+  margin: 10px 0 0 !important;
+  color: #746b64 !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+html.dm-mobile .sample-mobile-path {
+  width: 100% !important;
+  padding: 10px 9px 12px !important;
+  border-left: 1px solid rgba(29,24,21,.10) !important;
+  border-right: 1px solid rgba(29,24,21,.10) !important;
+  background: rgba(255,255,255,.25) !important;
+  display: flex !important;
+  gap: 7px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+
+html.dm-mobile .sample-mobile-path::-webkit-scrollbar { display: none !important; }
+
+html.dm-mobile .sample-mobile-path button {
+  flex: 0 0 auto !important;
+  min-height: 40px !important;
+  padding: 0 11px 0 9px !important;
+  border: 1px solid rgba(29,24,21,.10) !important;
+  border-radius: 999px !important;
+  background: #fbf8f3 !important;
+  color: #69615b !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 9.5px !important;
+  font-weight: 650 !important;
+  white-space: nowrap !important;
+}
+
+html.dm-mobile .sample-mobile-path button.is-active {
+  background: #1b1715 !important;
+  border-color: #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .sample-mobile-detail {
+  min-height: 0 !important;
+  padding: 22px 17px 18px !important;
+  border-radius: 0 0 19px 19px !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(196,48,89,.17), transparent 34%),
+    #1b1715 !important;
+  color: #fff !important;
+}
+
+html.dm-mobile .sample-mobile-detail h3 {
+  margin: 24px 0 21px !important;
+  color: #fff !important;
+  font: 560 clamp(38px, 10vw, 44px)/.92 var(--display) !important;
+}
+
+html.dm-mobile .sample-mobile-detail__row {
+  padding: 14px 0 !important;
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+}
+
+html.dm-mobile .sample-mobile-detail__row > p {
+  color: rgba(255,255,255,.66) !important;
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+}
+
+html.dm-mobile .sample-mobile-cta {
+  min-height: 52px !important;
+  margin-top: 10px !important;
+  padding: 0 14px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(100deg,#ef806b,#d92f64) !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-decoration: none !important;
+  font-size: 12px !important;
+  font-weight: 740 !important;
+}
+
+/* ---------- GENERAL MOBILE WIDTH SAFETY ---------- */
+html.dm-mobile .section-shell,
+html.dm-mobile .principle-inner,
+html.dm-mobile .scan-shell {
+  width: calc(100% - 28px) !important;
+  max-width: none !important;
+}
+
+html.dm-mobile img,
+html.dm-mobile svg,
+html.dm-mobile canvas {
+  max-width: 100%;
+}
+
+html.dm-mobile .work-grid,
+html.dm-mobile .team-members,
+html.dm-mobile .faq-layout-premium,
+html.dm-mobile .scan-shell,
+html.dm-mobile .offer-v70-panel__hero,
+html.dm-mobile .offer-v70-details,
+html.dm-mobile .offer-v70-after {
+  grid-template-columns: 1fr !important;
+}
+
+@media (max-width: 420px) {
+  html.dm-mobile .story-mobile-hero {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  html.dm-mobile .story-mobile-hero > h1 {
+    font-size: clamp(41px, 11.8vw, 49px) !important;
+  }
+
+  html.dm-mobile .problems-mobile-sources > div {
+    grid-template-columns: 1fr !important;
+  }
+}
