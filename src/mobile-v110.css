@@ -591,3 +591,202 @@ html.dm-mobile .offer-v70-after {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* V112 — FIX MOBILE HEADER POSITIONING
+   Base desktop header uses left:50% + translateX(-50%).
+   On mobile we must explicitly reset that transform. */
+
+html.dm-mobile .header {
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  max-width: none !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  gap: 10px !important;
+}
+
+html.dm-mobile .header > :first-child {
+  min-width: 0 !important;
+  justify-self: start !important;
+}
+
+html.dm-mobile .header .topographic-logo,
+html.dm-mobile .header [class*="logo"] {
+  max-width: 190px !important;
+}
+
+html.dm-mobile .header-mobile-toggle {
+  justify-self: end !important;
+  flex: 0 0 auto !important;
+}
+
+@media (max-width: 420px) {
+  html.dm-mobile .header {
+    left: 10px !important;
+    right: 10px !important;
+    padding-left: 12px !important;
+    padding-right: 8px !important;
+  }
+
+  html.dm-mobile .header .topographic-logo,
+  html.dm-mobile .header [class*="logo"] {
+    max-width: 165px !important;
+  }
+}
+
+/* V113 — dedicated mobile header */
+.mobile-header-v113 {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 8px);
+  left: 12px;
+  right: 12px;
+  width: auto;
+  height: 60px;
+  margin: 0;
+  padding: 0 9px 0 13px;
+  box-sizing: border-box;
+  border: 1px solid rgba(35,28,24,.10);
+  border-radius: 17px;
+  background: rgba(250,248,244,.97);
+  box-shadow: 0 14px 38px rgba(45,33,27,.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 42px;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.mobile-header-v113__brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.mobile-header-v113__brand .brand {
+  max-width: 190px;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.mobile-header-v113__brand .brand-mark {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+}
+
+.mobile-header-v113__brand .brand-word {
+  min-width: 0;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+.mobile-header-v113__toggle {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #1b1715;
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.mobile-header-v113__toggle > span {
+  width: 17px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: #fff;
+  transition: transform .22s ease;
+}
+
+.mobile-header-v113.is-open .mobile-header-v113__toggle > span:first-child {
+  transform: translateY(3.25px) rotate(45deg);
+}
+
+.mobile-header-v113.is-open .mobile-header-v113__toggle > span:last-child {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+.mobile-header-v113__panel {
+  position: absolute;
+  top: 68px;
+  left: 0;
+  right: 0;
+  display: none;
+  padding: 10px;
+  border: 1px solid rgba(37,30,26,.10);
+  border-radius: 16px;
+  background: rgba(250,248,244,.99);
+  box-shadow: 0 22px 54px rgba(40,29,23,.14);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.mobile-header-v113.is-open .mobile-header-v113__panel {
+  display: block;
+}
+
+.mobile-header-v113__panel nav {
+  display: grid;
+}
+
+.mobile-header-v113__panel nav a {
+  min-height: 48px;
+  padding: 0 9px;
+  border-bottom: 1px solid rgba(37,30,26,.08);
+  color: #27211d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.mobile-header-v113__panel nav a:last-child {
+  border-bottom: 0;
+}
+
+.mobile-header-v113__panel nav a span {
+  color: #b62e59;
+}
+
+.mobile-header-v113__cta {
+  min-height: 52px;
+  margin-top: 10px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: #1b1715;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+@media (max-width: 420px) {
+  .mobile-header-v113 {
+    left: 10px;
+    right: 10px;
+    padding-left: 11px;
+    padding-right: 8px;
+  }
+
+  .mobile-header-v113__brand .brand {
+    max-width: 165px;
+  }
+}

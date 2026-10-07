@@ -152,11 +152,64 @@ function JourneyRail({ items, label = 'ŚCIEŻKA KLIENTA', emphasizeLast = false
 
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileHeader, setMobileHeader] = useState(() => isDigitalMapMobile())
+
+  useEffect(() => {
+    const sync = () => {
+      const next = isDigitalMapMobile()
+      setMobileHeader(next)
+      if (!next) setMobileOpen(false)
+    }
+
+    sync()
+    window.addEventListener('resize', sync)
+    window.addEventListener('orientationchange', sync)
+
+    return () => {
+      window.removeEventListener('resize', sync)
+      window.removeEventListener('orientationchange', sync)
+    }
+  }, [])
 
   const closeMobileMenu = () => setMobileOpen(false)
 
+  if (mobileHeader) {
+    return (
+      <header className={`mobile-header-v113 ${mobileOpen ? 'is-open' : ''}`}>
+        <div className="mobile-header-v113__brand">
+          <TopographicLogo />
+        </div>
+
+        <button
+          className="mobile-header-v113__toggle"
+          type="button"
+          aria-label={mobileOpen ? 'Zamknij menu' : 'Otwórz menu'}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((value) => !value)}
+        >
+          <span />
+          <span />
+        </button>
+
+        <div className="mobile-header-v113__panel" aria-hidden={!mobileOpen}>
+          <nav aria-label="Nawigacja mobilna">
+            <a href="#z-jakim-problemem-przychodzisz" onClick={closeMobileMenu}>Problem <span>↗</span></a>
+            <a href="#przykladowa-mapa" onClick={closeMobileMenu}>Mapa <span>↗</span></a>
+            <a href="#dla-kogo" onClick={closeMobileMenu}>Dla kogo <span>↗</span></a>
+            <a href="#oferta" onClick={closeMobileMenu}>Oferta <span>↗</span></a>
+            <a href="#realizacje" onClick={closeMobileMenu}>Realizacje <span>↗</span></a>
+          </nav>
+
+          <a className="mobile-header-v113__cta" href="#sprawdz-swoja-firme" onClick={closeMobileMenu}>
+            Sprawdź swoją firmę <Arrow />
+          </a>
+        </div>
+      </header>
+    )
+  }
+
   return (
-    <header className={`header ${mobileOpen ? 'is-menu-open' : ''}`}>
+    <header className="header">
       <TopographicLogo />
 
       <nav className="header-desktop-nav" aria-label="Główna nawigacja">
@@ -168,30 +221,6 @@ function Header() {
       </nav>
 
       <a className="header-cta" href="#sprawdz-swoja-firme">Sprawdź swoją firmę <Arrow /></a>
-
-      <button
-        className="header-mobile-toggle"
-        type="button"
-        aria-label={mobileOpen ? 'Zamknij menu' : 'Otwórz menu'}
-        aria-expanded={mobileOpen}
-        onClick={() => setMobileOpen((value) => !value)}
-      >
-        <span />
-        <span />
-      </button>
-
-      <div className="header-mobile-panel" aria-hidden={!mobileOpen}>
-        <nav aria-label="Nawigacja mobilna">
-          <a href="#z-jakim-problemem-przychodzisz" onClick={closeMobileMenu}>Problem <span>↗</span></a>
-          <a href="#przykladowa-mapa" onClick={closeMobileMenu}>Mapa <span>↗</span></a>
-          <a href="#dla-kogo" onClick={closeMobileMenu}>Dla kogo <span>↗</span></a>
-          <a href="#oferta" onClick={closeMobileMenu}>Oferta <span>↗</span></a>
-          <a href="#realizacje" onClick={closeMobileMenu}>Realizacje <span>↗</span></a>
-        </nav>
-        <a className="header-mobile-cta" href="#sprawdz-swoja-firme" onClick={closeMobileMenu}>
-          Sprawdź swoją firmę <Arrow />
-        </a>
-      </div>
     </header>
   )
 }
