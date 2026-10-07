@@ -10,6 +10,7 @@ import { TopographicLogo } from './components/TopographicLogo.jsx'
 
 import costWardenPreview from './assets/costwarden-preview.png'
 import annaBagrowskaPreview from './assets/anna-bagrowska-preview.webp'
+import gymWrldPreview from './assets/gymwrld-preview.webp'
 import './v90-overrides.css'
 
 import { faqs, industries, offers, processSteps, projects, symptoms, team } from './content.js'
@@ -1559,7 +1560,16 @@ function Work() {
                       <img src={costWardenPreview} alt="Podgląd strony CostWarden" />
                     </div>
                   </div>
-                              ) : project.name === 'Anna Bagrowska / Psycholog' ? (
+                              ) : project.name === 'GymWrld' ? (
+                <div className="browser-mock browser-mock--gymwrld">
+                  <div className="browser-bar browser-bar--gymwrld">
+                    <i /><i /><i /><span>GymWrld</span>
+                  </div>
+                  <div className="browser-page browser-page--gymwrld">
+                    <img src={gymWrldPreview} alt="Podgląd projektu GymWrld" />
+                  </div>
+                </div>
+              ) : project.name === 'Anna Bagrowska / Psycholog' ? (
                 <div className="browser-mock browser-mock--anna">
                   <div className="browser-bar browser-bar--anna">
                     <i /><i /><i /><span>Psycholożka Poznania</span>
