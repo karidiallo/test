@@ -1197,47 +1197,60 @@ function Method() {
 function Evidence() {
   const items = [
     {
-      no: '01',
       title: 'Strona i oferta',
       question: 'Czy klient od razu rozumie, co oferujesz, dla kogo jest oferta i dlaczego warto wybrać właśnie Ciebie?',
-      detail: 'Hierarchia informacji, komunikat wartości, oferta, CTA i momenty, w których użytkownik może zgubić intencję.',
+      detail: 'Patrzymy na hierarchię informacji, komunikat wartości, ofertę, CTA i miejsca, w których użytkownik może stracić intencję.',
+      cue: 'Pierwsze wrażenie → decyzja',
+      x: 71,
+      y: 19,
     },
     {
-      no: '02',
       title: 'Google i lokalność',
       question: 'Czy klient znajdzie Cię, kiedy szuka właśnie takiej usługi — i co zobaczy, gdy już Cię znajdzie?',
-      detail: 'Widoczność w Google, profil firmy, wyniki lokalne, spójność informacji i pierwsze sygnały zaufania.',
+      detail: 'Sprawdzamy widoczność w Google, wyniki lokalne, profil firmy, spójność informacji i pierwsze sygnały zaufania.',
+      cue: 'Wyszukiwanie → znalezienie',
+      x: 86,
+      y: 39,
     },
     {
-      no: '03',
       title: 'Social Media i Treści',
       question: 'Czy Twoje treści zwiększają zainteresowanie ofertą, budują zaufanie i prowadzą do kolejnego kroku?',
-      detail: 'Profil, sposób komunikacji, tematy treści, powtarzalność przekazu i przejście od zainteresowania do działania.',
+      detail: 'Analizujemy profil, sposób komunikacji, tematy treści, powtarzalność przekazu i przejście od zainteresowania do działania.',
+      cue: 'Uwaga → zainteresowanie',
+      x: 74,
+      y: 65,
     },
     {
-      no: '04',
       title: 'Widoczność i ruch',
       question: 'Skąd przychodzą potencjalni klienci i czy docierają osoby rzeczywiście zainteresowane ofertą?',
-      detail: 'Źródła ruchu, intencja użytkowników, SEO i jakość wejść — nie tylko sama liczba odwiedzin.',
+      detail: 'Patrzymy na źródła ruchu, intencję użytkowników, SEO i jakość wejść — nie tylko samą liczbę odwiedzin.',
+      cue: 'Ruch → właściwi ludzie',
+      x: 52,
+      y: 80,
     },
     {
-      no: '05',
       title: 'Reklamy',
       question: 'Czy budżet reklamowy prowadzi do wartościowych zapytań i gdzie można poprawić wynik?',
-      detail: 'Kampanie, koszt pozyskania uwagi, jakość ruchu, landing page i przejście od kliknięcia do zapytania.',
+      detail: 'Sprawdzamy kampanie, jakość ruchu, landing page i przejście od kliknięcia do zapytania.',
+      cue: 'Budżet → zapytanie',
+      x: 33,
+      y: 64,
     },
     {
-      no: '06',
       title: 'Zaufanie i reputacja',
       question: 'Co klient widzi przed kontaktem z firmą — i czy to wystarcza, żeby wybrał właśnie Ciebie?',
-      detail: 'Opinie, case study, dowody społeczne, spójność marki i wszystko, co wpływa na poczucie bezpieczeństwa przed kontaktem.',
+      detail: 'Oceniamy opinie, case study, dowody społeczne, spójność marki i sygnały bezpieczeństwa przed kontaktem.',
+      cue: 'Zaufanie → kontakt',
+      x: 43,
+      y: 31,
     },
   ]
 
-  const [selectedIndex, setSelectedIndex] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const active = items[activeIndex]
 
   return (
-    <section className="section evidence-section evidence-section--editorial" id="zakres-diagnozy">
+    <section className="section evidence-section evidence-section--map" id="zakres-diagnozy">
       <div className="section-shell">
         <div className="section-heading section-heading--split">
           <div className="eyebrow">ZAKRES DIAGNOZY</div>
@@ -1247,35 +1260,62 @@ function Evidence() {
           </div>
         </div>
 
-        <div className="evidence-editorial-grid">
-          {items.map((item, index) => {
-            const isOpen = selectedIndex === index
+        <div className="diagnostic-map">
+          <div className="diagnostic-map__copy" key={active.title}>
+            <span className="diagnostic-map__eyebrow">{active.cue}</span>
+            <h3>{active.title}</h3>
+            <p>{active.question}</p>
+            <div className="diagnostic-map__detail">
+              <span>Co sprawdzamy</span>
+              <p>{active.detail}</p>
+            </div>
+          </div>
 
-            return (
+          <div className="diagnostic-map__field" aria-label="Obszary diagnozy">
+            <svg className="diagnostic-map__route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path
+                d="M43 31 C56 14 74 13 84 32 C92 47 86 64 73 72 C61 82 48 84 37 71 C28 60 30 43 43 31"
+                pathLength="1"
+              />
+              <path
+                className="diagnostic-map__route-active"
+                d="M43 31 C56 14 74 13 84 32 C92 47 86 64 73 72 C61 82 48 84 37 71 C28 60 30 43 43 31"
+                pathLength="1"
+              />
+            </svg>
+
+            <div className="diagnostic-map__pulse" style={{ '--pulse-x': `${active.x}%`, '--pulse-y': `${active.y}%` }} />
+
+            {items.map((item, index) => (
               <button
-                key={item.no}
+                key={item.title}
                 type="button"
-                className={`evidence-editorial-card ${isOpen ? 'is-open' : ''}`}
-                onClick={() => setSelectedIndex(isOpen ? null : index)}
-                aria-pressed={isOpen}
+                className={`diagnostic-map__node ${activeIndex === index ? 'is-active' : ''}`}
+                style={{ '--node-x': `${item.x}%`, '--node-y': `${item.y}%` }}
+                onMouseEnter={() => setActiveIndex(index)}
+                onFocus={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                aria-pressed={activeIndex === index}
               >
-                <span className="evidence-editorial-card__top">
-                  <i>{item.no}</i>
-                  <span>{isOpen ? 'Zamknij' : 'Zobacz zakres'} <b>↗</b></span>
-                </span>
-
-                <span className="evidence-editorial-card__body">
-                  <strong>{item.title}</strong>
-                  <p>{item.question}</p>
-                </span>
-
-                <span className="evidence-editorial-card__detail">
-                  <em>Sprawdzamy</em>
-                  <p>{item.detail}</p>
-                </span>
+                <span />
+                <strong>{item.title}</strong>
               </button>
-            )
-          })}
+            ))}
+          </div>
+
+          <div className="diagnostic-map__mobile-list">
+            {items.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                className={activeIndex === index ? 'is-active' : ''}
+                onClick={() => setActiveIndex(index)}
+              >
+                <span>{item.title}</span>
+                <i>↗</i>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
